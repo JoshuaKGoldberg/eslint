@@ -687,6 +687,72 @@ ruleTester.run("no-restricted-imports", rule, {
         }]
     },
     {
+        code: "import { DisallowedObjectOne, DisallowedObjectTwo, DisallowedObjectThree, DisallowedObjectFour, AllowedObject } from \"foo\";",
+        options: [{
+            paths: [{
+                name: "foo",
+                importNames: ["DisallowedObjectOne", "DisallowedObjectTwo"],
+                message: "Please import this module from /bar/ instead."
+            }, {
+                name: "foo",
+                importNames: ["DisallowedObjectThree", "DisallowedObjectFour"],
+                message: "Please import this module from /baz/ instead."
+            }]
+        }],
+        errors: [{
+            message: "'DisallowedObjectOne' import from 'foo' is restricted. Please import this module from /bar/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 10,
+            endColumn: 29
+        }, {
+            message: "'DisallowedObjectTwo' import from 'foo' is restricted. Please import this module from /bar/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 31,
+            endColumn: 50
+        }, {
+            message: "'DisallowedObjectThree' import from 'foo' is restricted. Please import this module from /baz/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 52,
+            endColumn: 73
+        }, {
+            message: "'DisallowedObjectFour' import from 'foo' is restricted. Please import this module from /baz/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 75,
+            endColumn: 95
+        }]
+    },
+    {
+        code: "import { DisallowedObjectOne, DisallowedObjectTwo, AllowedObject } from \"foo\";",
+        options: [{
+            paths: [{
+                name: "foo",
+                importNames: ["DisallowedObjectOne"],
+                message: "Please import this module from /bar/ instead."
+            }, {
+                name: "foo",
+                importNames: ["DisallowedObjectTwo"],
+                message: "Please import this module from /baz/ instead."
+            }]
+        }],
+        errors: [{
+            message: "'DisallowedObjectOne' import from 'foo' is restricted. Please import this module from /bar/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 10,
+            endColumn: 29
+        }, {
+            message: "'DisallowedObjectTwo' import from 'foo' is restricted. Please import this module from /baz/ instead.",
+            type: "ImportDeclaration",
+            line: 1,
+            column: 31,
+            endColumn: 50
+        }]
+    },
+    {
         code: "import { AllowedObject, DisallowedObject as Bar } from \"foo\";",
         options: [{
             paths: [{
