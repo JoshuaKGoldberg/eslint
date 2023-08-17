@@ -34,7 +34,7 @@ describe("LintResultCache", () => {
         fakeErrorResults,
         fakeErrorResultsAutofix;
 
-    before(() => {
+    before(async () => {
         sandbox = sinon.createSandbox();
         hashStub = sandbox.stub();
 
@@ -49,15 +49,15 @@ describe("LintResultCache", () => {
         });
 
         // Get results without autofixing...
-        fakeErrorResults = cliEngine.executeOnFiles([
+        fakeErrorResults = (await cliEngine.executeOnFiles([
             path.join(fixturePath, "test-with-errors.js")
-        ]).results[0];
+        ])).results[0];
 
         // ...and with autofixing
         shouldFix = true;
-        fakeErrorResultsAutofix = cliEngine.executeOnFiles([
+        fakeErrorResultsAutofix = (await cliEngine.executeOnFiles([
             path.join(fixturePath, "test-with-errors.js")
-        ]).results[0];
+        ])).results[0];
 
         // Set up LintResultCache with fake fileEntryCache module
         LintResultCache = proxyquire(

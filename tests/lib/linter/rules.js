@@ -54,11 +54,11 @@ describe("rules", () => {
 
 
     describe("when a rule is not found", () => {
-        it("should report a linting error if the rule is unknown", () => {
+        it("should report a linting error if the rule is unknown", async () => {
 
             const linter = new Linter();
 
-            const problems = linter.verify("foo", { rules: { "test-rule": "error" } });
+            const problems = await linter.verify("foo", { rules: { "test-rule": "error" } });
 
             assert.lengthOf(problems, 1);
             assert.strictEqual(problems[0].message, "Definition for rule 'test-rule' was not found.");
@@ -69,9 +69,9 @@ describe("rules", () => {
         });
 
 
-        it("should report a linting error that lists replacements if a rule is known to have been replaced", () => {
+        it("should report a linting error that lists replacements if a rule is known to have been replaced", async () => {
             const linter = new Linter();
-            const problems = linter.verify("foo", { rules: { "no-arrow-condition": "error" } });
+            const problems = await linter.verify("foo", { rules: { "no-arrow-condition": "error" } });
 
             assert.lengthOf(problems, 1);
             assert.strictEqual(

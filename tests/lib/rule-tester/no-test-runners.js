@@ -13,20 +13,36 @@ const tmpDescribe = describe;
 it = null;
 describe = null;
 
-try {
-    const ruleTester = new RuleTester();
+// eslint-disable-next-line jsdoc/require-jsdoc -- prototype
+async function main() {
+    try {
+        const ruleTester = new RuleTester();
 
-    assert.throws(() => {
-        ruleTester.run("no-var", require("../../fixtures/testers/rule-tester/no-var"), {
-            valid: [
-                "bar = baz;"
-            ],
-            invalid: [
-                { code: "var foo = bar;", output: "invalid output", errors: 1 }
-            ]
-        });
-    }, new assert.AssertionError({ actual: " foo = bar;", expected: "invalid output", operator: "===" }).message);
-} finally {
-    it = tmpIt;
-    describe = tmpDescribe;
+        await assert.rejects(async () => {
+            await ruleTester.run(
+                "no-var",
+                require("../../fixtures/testers/rule-tester/no-var"),
+                {
+                    valid: ["bar = baz;"],
+                    invalid: [
+                        {
+                            code: "var foo = bar;",
+                            output: "invalid output",
+                            errors: 1
+                        }
+                    ]
+                }
+            );
+        }, new assert.AssertionError({ actual: " foo = bar;", expected: "invalid output", operator: "===" }).message);
+    } finally {
+        it = tmpIt;
+        describe = tmpDescribe;
+    }
 }
+
+main()
+    .catch(error => {
+        // eslint-disable-next-line no-console -- prototype
+        console.error(error);
+        process.exitCode = 1;
+    });

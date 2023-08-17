@@ -279,12 +279,12 @@ function publishSite() {
  * and generates the site in an adjacent `website` folder.
  * @returns {void}
  */
-function generateRelease() {
+async function generateRelease() {
     ReleaseOps.generateRelease();
     const releaseInfo = JSON.parse(cat(".eslint-release-info.json"));
 
     echo("Generating site");
-    target.gensite();
+    await target.gensite();
     generateBlogPost(releaseInfo);
     commitSiteToGit(`v${releaseInfo.version}`);
 
@@ -306,7 +306,7 @@ function generateRelease() {
  * @param {string} prereleaseId The prerelease identifier (alpha, beta, etc.)
  * @returns {void}
  */
-function generatePrerelease(prereleaseId) {
+async function generatePrerelease(prereleaseId) {
     ReleaseOps.generateRelease(prereleaseId);
     const releaseInfo = JSON.parse(cat(".eslint-release-info.json"));
     const nextMajor = semver.inc(releaseInfo.version, "major");
@@ -314,7 +314,7 @@ function generatePrerelease(prereleaseId) {
     echo("Generating site");
 
     // always write docs into the next major directory (so 2.0.0-alpha.0 writes to 2.0.0)
-    target.gensite(nextMajor);
+    await target.gensite(nextMajor);
 
     /*
      * Premajor release should have identical "next major version".
@@ -454,7 +454,7 @@ function lintMarkdown(files) {
  * Gets linting results from every formatter, based on a hard-coded snippet and config
  * @returns {Object} Output from each formatter
  */
-function getFormatterResults() {
+async function getFormatterResults() {
     const stripAnsi = require("strip-ansi");
     const formattersMetadata = require("./lib/cli-engine/formatters/formatters-meta.json");
 
@@ -480,7 +480,7 @@ function getFormatterResults() {
             "    }",
             "};"
         ].join("\n"),
-        rawMessages = cli.executeOnText(codeString, "fullOfProblems.js", true),
+        rawMessages = await cli.executeOnText(codeString, "fullOfProblems.js", true),
         rulesMap = cli.getRules(),
         rulesMeta = {};
 
@@ -648,7 +648,7 @@ target.test = function() {
     target.checkLicenses();
 };
 
-target.gensite = function() {
+target.gensite = async function() {
     echo("Generating documentation");
 
     const DOCS_RULES_DIR = path.join(DOCS_SRC_DIR, "rules");
@@ -696,7 +696,7 @@ target.gensite = function() {
 
     // 3. Create Example Formatter Output Page
     echo("> Creating the formatter examples (Step 3)");
-    generateFormatterExamples(getFormatterResults());
+    generateFormatterExamples(await getFormatterResults());
 
     echo("Done generating documentation");
 };
@@ -1097,5 +1097,5 @@ target.perf = function() {
 };
 
 target.generateRelease = generateRelease;
-target.generatePrerelease = ([prereleaseType]) => generatePrerelease(prereleaseType);
+target.generatePrerelease = async ([prereleaseType]) => await generatePrerelease(prereleaseType);
 target.publishRelease = publishRelease;

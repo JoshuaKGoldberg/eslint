@@ -11,6 +11,7 @@
 const fs = require("fs"),
     path = require("path"),
     assert = require("chai").assert,
+    nodeAssert = require("assert"),
     espree = require("espree"),
     sinon = require("sinon"),
     { Linter } = require("../../../lib/linter"),
@@ -245,7 +246,7 @@ describe("SourceCode", () => {
             sinon.verifyAndRestore();
         });
 
-        it("should not take a JSDoc comment from a FunctionDeclaration parent node when the node is a FunctionExpression", () => {
+        it("should not take a JSDoc comment from a FunctionDeclaration parent node when the node is a FunctionExpression", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -274,12 +275,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
-        it("should not take a JSDoc comment from a VariableDeclaration parent node when the node is a FunctionExpression inside a NewExpression", () => {
+        it("should not take a JSDoc comment from a VariableDeclaration parent node when the node is a FunctionExpression inside a NewExpression", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -308,12 +309,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
-        it("should not take a JSDoc comment from a FunctionExpression parent node when the node is a FunctionExpression", () => {
+        it("should not take a JSDoc comment from a FunctionExpression parent node when the node is a FunctionExpression", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -344,12 +345,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledTwice, "Event handler should be called twice.");
 
         });
 
-        it("should get JSDoc comment for FunctionExpression in a CallExpression", () => {
+        it("should get JSDoc comment for FunctionExpression in a CallExpression", async () => {
             const code = [
                 "call(",
                 "  /** Documentation. */",
@@ -382,11 +383,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionDeclaration", () => {
+        it("should get JSDoc comment for node when the node is a FunctionDeclaration", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -416,12 +417,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionDeclaration but its parent is an export", () => {
+        it("should get JSDoc comment for node when the node is a FunctionDeclaration but its parent is an export", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -451,13 +452,13 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6, sourceType: "module" } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6, sourceType: "module" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
 
-        it("should get JSDoc comment for node when the node is a FunctionDeclaration but not the first statement", () => {
+        it("should get JSDoc comment for node when the node is a FunctionDeclaration but not the first statement", async () => {
 
             const code = [
                 "'use strict';",
@@ -488,13 +489,13 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
 
-        it("should not get JSDoc comment for node when the node is a FunctionDeclaration inside of an IIFE without a JSDoc comment", () => {
+        it("should not get JSDoc comment for node when the node is a FunctionDeclaration inside of an IIFE without a JSDoc comment", async () => {
 
             const code = [
                 "/** Desc*/",
@@ -525,12 +526,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionDeclaration and there are multiple comments", () => {
+        it("should get JSDoc comment for node when the node is a FunctionDeclaration and there are multiple comments", async () => {
 
             const code = [
                 "/* Code is good */",
@@ -561,12 +562,12 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
 
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionDeclaration inside of an IIFE", () => {
+        it("should get JSDoc comment for node when the node is a FunctionDeclaration inside of an IIFE", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -599,11 +600,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionExpression inside of an object literal", () => {
+        it("should get JSDoc comment for node when the node is a FunctionExpression inside of an object literal", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -636,11 +637,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a ArrowFunctionExpression inside of an object literal", () => {
+        it("should get JSDoc comment for node when the node is a ArrowFunctionExpression inside of an object literal", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -673,11 +674,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionExpression in an assignment", () => {
+        it("should get JSDoc comment for node when the node is a FunctionExpression in an assignment", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -708,11 +709,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE", () => {
+        it("should get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -747,11 +748,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledTwice, "Event handler should be called.");
         });
 
-        it("should not get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE without a JSDoc comment", () => {
+        it("should not get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE without a JSDoc comment", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -785,11 +786,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledTwice, "Event handler should be called.");
         });
 
-        it("should not get JSDoc comment for node when the node is a FunctionExpression inside of a CallExpression", () => {
+        it("should not get JSDoc comment for node when the node is a FunctionExpression inside of a CallExpression", async () => {
 
             const code = [
                 "/** Code is good */",
@@ -821,11 +822,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should not get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE without a JSDoc comment", () => {
+        it("should not get JSDoc comment for node when the node is a FunctionExpression in an assignment inside an IIFE without a JSDoc comment", async () => {
 
             const code = [
                 "/**",
@@ -865,11 +866,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert.isTrue(spy.calledTwice, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a ClassExpression", () => {
+        it("should get JSDoc comment for node when the node is a ClassExpression", async () => {
 
             const code = [
                 "/** Merges two objects together.*/",
@@ -900,11 +901,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for node when the node is a ClassDeclaration", () => {
+        it("should get JSDoc comment for node when the node is a ClassDeclaration", async () => {
 
             const code = [
                 "/** Merges two objects together.*/",
@@ -935,11 +936,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should not get JSDoc comment for class method even if the class has jsdoc present", () => {
+        it("should not get JSDoc comment for class method even if the class has jsdoc present", async () => {
 
             const code = [
                 "/** Merges two objects together.*/",
@@ -970,11 +971,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should get JSDoc comment for function expression even if function has blank lines on top", () => {
+        it("should get JSDoc comment for function expression even if function has blank lines on top", async () => {
 
             const code = [
                 "/** Merges two objects together.*/",
@@ -1009,11 +1010,11 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
-        it("should not get JSDoc comment for function declaration when the function has blank lines on top", () => {
+        it("should not get JSDoc comment for function declaration when the function has blank lines on top", async () => {
 
             const code = [
                 "/** Merges two objects together.*/",
@@ -1046,13 +1047,13 @@ describe("SourceCode", () => {
                     });
                 }
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
             assert.isTrue(spy.calledOnce, "Event handler should be called.");
         });
 
     });
 
-    describe("getComments()", () => {
+    describe("getComments()", async () => {
         const config = { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6, sourceType: "module" } };
         let unusedAssertionFuncs;
 
@@ -1095,7 +1096,7 @@ describe("SourceCode", () => {
             );
         });
 
-        it("should return comments around nodes", () => {
+        it("should return comments around nodes", async () => {
             const code = [
                 "// Leading comment for VariableDeclaration",
                 "var a = 42;",
@@ -1114,10 +1115,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments inside a block", () => {
+        it("should return trailing comments inside a block", async () => {
             const code = [
                 "{",
                 "    a();",
@@ -1137,10 +1138,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments within a conditional", () => {
+        it("should return comments within a conditional", async () => {
             const code = [
                 "/* Leading comment for IfStatement */",
                 "if (/* Leading comment for Identifier */ a) {}"
@@ -1157,10 +1158,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should not return comments within a previous node", () => {
+        it("should not return comments within a previous node", async () => {
             const code = [
                 "function a() {",
                 "    var b = {",
@@ -1184,10 +1185,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments only for children of parent node", () => {
+        it("should return comments only for children of parent node", async () => {
             const code = [
                 "var foo = {",
                 "    bar: 'bar'",
@@ -1210,10 +1211,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments for an export default anonymous class", () => {
+        it("should return comments for an export default anonymous class", async () => {
             const code = [
                 "/**",
                 " * Leading comment for ExportDefaultDeclaration",
@@ -1242,10 +1243,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return leading comments", () => {
+        it("should return leading comments", async () => {
             const code = [
                 "// Leading comment for first VariableDeclaration",
                 "var a;",
@@ -1274,10 +1275,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return shebang comments", () => {
+        it("should return shebang comments", async () => {
             const code = [
                 "#!/usr/bin/env node", // Leading comment for following VariableDeclaration
                 "var a;",
@@ -1305,10 +1306,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should include shebang comment when program only contains shebang", () => {
+        it("should include shebang comment when program only contains shebang", async () => {
             const code = "#!/usr/bin/env node";
 
             linter.defineRule("checker", {
@@ -1319,10 +1320,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return mixture of line and block comments", () => {
+        it("should return mixture of line and block comments", async () => {
             const code = [
                 "// Leading comment for VariableDeclaration",
                 "var zzz /* Trailing comment for Identifier */ = 777;",
@@ -1341,10 +1342,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments surrounding a call expression", () => {
+        it("should return comments surrounding a call expression", async () => {
             const code = [
                 "function a() {",
                 "    /* Leading comment for ExpressionStatement */",
@@ -1366,10 +1367,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments surrounding a debugger statement", () => {
+        it("should return comments surrounding a debugger statement", async () => {
             const code = [
                 "function a() {",
                 "    /* Leading comment for DebuggerStatement */",
@@ -1390,10 +1391,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments surrounding a return statement", () => {
+        it("should return comments surrounding a return statement", async () => {
             const code = [
                 "function a() {",
                 "    /* Leading comment for ReturnStatement */",
@@ -1414,10 +1415,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments surrounding a throw statement", () => {
+        it("should return comments surrounding a throw statement", async () => {
             const code = [
                 "function a() {",
                 "    /* Leading comment for ThrowStatement */",
@@ -1438,10 +1439,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments surrounding a while loop", () => {
+        it("should return comments surrounding a while loop", async () => {
             const code = [
                 "function f() {",
                 "    /* Leading comment for WhileStatement */",
@@ -1466,10 +1467,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return switch case fallthrough comments in functions", () => {
+        it("should return switch case fallthrough comments in functions", async () => {
             const code = [
                 "function bar(foo) {",
                 "    switch(foo) {",
@@ -1508,10 +1509,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return switch case fallthrough comments", () => {
+        it("should return switch case fallthrough comments", async () => {
             const code = [
                 "switch(foo) {",
                 "    /* Leading comment for SwitchCase */",
@@ -1545,10 +1546,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return switch case no-default comments in functions", () => {
+        it("should return switch case no-default comments in functions", async () => {
             const code = [
                 "function bar(a) {",
                 "    switch (a) {",
@@ -1586,10 +1587,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return switch case no-default comments", () => {
+        it("should return switch case no-default comments", async () => {
             const code = [
                 "switch (a) {",
                 "    case 1:",
@@ -1611,10 +1612,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return switch case no-default comments in nested functions", () => {
+        it("should return switch case no-default comments in nested functions", async () => {
             const code = [
                 "module.exports = function(context) {",
                 "    function isConstant(node) {",
@@ -1649,10 +1650,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return leading comments if the code only contains comments", () => {
+        it("should return leading comments if the code only contains comments", async () => {
             const code = [
                 "//comment",
                 "/*another comment*/"
@@ -1666,10 +1667,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments if a block statement only contains comments", () => {
+        it("should return trailing comments if a block statement only contains comments", async () => {
             const code = [
                 "{",
                 "    //comment",
@@ -1686,10 +1687,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments if a class body only contains comments", () => {
+        it("should return trailing comments if a class body only contains comments", async () => {
             const code = [
                 "class Foo {",
                 "    //comment",
@@ -1707,10 +1708,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments if an object only contains comments", () => {
+        it("should return trailing comments if an object only contains comments", async () => {
             const code = [
                 "({",
                 "    //comment",
@@ -1728,10 +1729,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments if an array only contains comments", () => {
+        it("should return trailing comments if an array only contains comments", async () => {
             const code = [
                 "[",
                 "    //comment",
@@ -1749,10 +1750,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return trailing comments if a switch statement only contains comments", () => {
+        it("should return trailing comments if a switch statement only contains comments", async () => {
             const code = [
                 "switch (foo) {",
                 "    //comment",
@@ -1770,10 +1771,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments for multiple declarations with a single variable", () => {
+        it("should return comments for multiple declarations with a single variable", async () => {
             const code = [
                 "// Leading comment for VariableDeclaration",
                 "var a, // Leading comment for next VariableDeclarator",
@@ -1805,10 +1806,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return comments when comments exist between var keyword and VariableDeclarator", () => {
+        it("should return comments when comments exist between var keyword and VariableDeclarator", async () => {
             const code = [
                 "var // Leading comment for VariableDeclarator",
                 "    // Leading comment for VariableDeclarator",
@@ -1826,10 +1827,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return attached comments between tokens to the correct nodes for empty function declarations", () => {
+        it("should return attached comments between tokens to the correct nodes for empty function declarations", async () => {
             const code = "/* 1 */ function /* 2 */ foo(/* 3 */) /* 4 */ { /* 5 */ } /* 6 */";
 
             linter.defineRule("checker", {
@@ -1843,10 +1844,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return attached comments between tokens to the correct nodes for empty class declarations", () => {
+        it("should return attached comments between tokens to the correct nodes for empty class declarations", async () => {
             const code = "/* 1 */ class /* 2 */ Foo /* 3 */ extends /* 4 */ Bar /* 5 */ { /* 6 */ } /* 7 */";
             let idCount = 0;
 
@@ -1870,10 +1871,10 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
 
-        it("should return attached comments between tokens to the correct nodes for empty switch statements", () => {
+        it("should return attached comments between tokens to the correct nodes for empty switch statements", async () => {
             const code = "/* 1 */ switch /* 2 */ (/* 3 */ foo /* 4 */) /* 5 */ { /* 6 */ } /* 7 */";
 
             linter.defineRule("checker", {
@@ -1886,7 +1887,7 @@ describe("SourceCode", () => {
                 }
             });
 
-            assert.isEmpty(linter.verify(code, config));
+            assert.isEmpty(await linter.verify(code, config));
         });
     });
 
@@ -2875,25 +2876,25 @@ describe("SourceCode", () => {
             parserOptions: { ecmaVersion: 6 }
         };
 
-        it("should work when passed a SourceCode object without a config", () => {
+        it("should work when passed a SourceCode object without a config", async () => {
             const ast = espree.parse(TEST_CODE, DEFAULT_CONFIG);
 
             const sourceCode = new SourceCode(TEST_CODE, ast),
-                messages = linter.verify(sourceCode);
+                messages = await linter.verify(sourceCode);
 
             assert.strictEqual(messages.length, 0);
         });
 
-        it("should work when passed a SourceCode object containing ES6 syntax and config", () => {
+        it("should work when passed a SourceCode object containing ES6 syntax and config", async () => {
             const sourceCode = new SourceCode("let foo = bar;", AST),
-                messages = linter.verify(sourceCode, CONFIG);
+                messages = await linter.verify(sourceCode, CONFIG);
 
             assert.strictEqual(messages.length, 0);
         });
 
-        it("should report an error when using let and ecmaVersion is 6", () => {
+        it("should report an error when using let and ecmaVersion is 6", async () => {
             const sourceCode = new SourceCode("let foo = bar;", AST),
-                messages = linter.verify(sourceCode, {
+                messages = await linter.verify(sourceCode, {
                     parserOptions: { ecmaVersion: 6 },
                     rules: { "no-unused-vars": 2 }
                 });
@@ -3027,7 +3028,7 @@ describe("SourceCode", () => {
 
     describe("getScope()", () => {
 
-        it("should throw an error when argument is missing", () => {
+        it("should throw an error when argument is missing", async () => {
 
             linter.defineRule("get-scope", {
                 create: context => ({
@@ -3037,8 +3038,8 @@ describe("SourceCode", () => {
                 })
             });
 
-            assert.throws(() => {
-                linter.verify(
+            await nodeAssert.rejects(async () => {
+                await linter.verify(
                     "foo",
                     {
                         rules: { "get-scope": 2 }
@@ -3055,7 +3056,7 @@ describe("SourceCode", () => {
          * @param {number} [ecmaVersion=5] The ECMAScript version.
          * @returns {{node: ASTNode, scope: escope.Scope}} Gotten scope.
          */
-        function getScope(code, astSelector, ecmaVersion = 5) {
+        async function getScope(code, astSelector, ecmaVersion = 5) {
             let node, scope;
 
             linter.defineRule("get-scope", {
@@ -3066,7 +3067,7 @@ describe("SourceCode", () => {
                     }
                 })
             });
-            linter.verify(
+            await linter.verify(
                 code,
                 {
                     parserOptions: { ecmaVersion },
@@ -3077,44 +3078,44 @@ describe("SourceCode", () => {
             return { node, scope };
         }
 
-        it("should return 'function' scope on FunctionDeclaration (ES5)", () => {
-            const { node, scope } = getScope("function f() {}", "FunctionDeclaration");
+        it("should return 'function' scope on FunctionDeclaration (ES5)", async () => {
+            const { node, scope } = await getScope("function f() {}", "FunctionDeclaration");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node);
         });
 
-        it("should return 'function' scope on FunctionExpression (ES5)", () => {
-            const { node, scope } = getScope("!function f() {}", "FunctionExpression");
+        it("should return 'function' scope on FunctionExpression (ES5)", async () => {
+            const { node, scope } = await getScope("!function f() {}", "FunctionExpression");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node);
         });
 
-        it("should return 'function' scope on the body of FunctionDeclaration (ES5)", () => {
-            const { node, scope } = getScope("function f() {}", "BlockStatement");
+        it("should return 'function' scope on the body of FunctionDeclaration (ES5)", async () => {
+            const { node, scope } = await getScope("function f() {}", "BlockStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent);
         });
 
-        it("should return 'function' scope on the body of FunctionDeclaration (ES2015)", () => {
-            const { node, scope } = getScope("function f() {}", "BlockStatement", 2015);
+        it("should return 'function' scope on the body of FunctionDeclaration (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() {}", "BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent);
         });
 
-        it("should return 'function' scope on BlockStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { { var b; } }", "BlockStatement > BlockStatement");
+        it("should return 'function' scope on BlockStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { { var b; } }", "BlockStatement > BlockStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "b"]);
         });
 
-        it("should return 'block' scope on BlockStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { { let a; var b; } }", "BlockStatement > BlockStatement", 2015);
+        it("should return 'block' scope on BlockStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { { let a; var b; } }", "BlockStatement > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.upper.type, "function");
@@ -3123,8 +3124,8 @@ describe("SourceCode", () => {
             assert.deepStrictEqual(scope.variableScope.variables.map(v => v.name), ["arguments", "b"]);
         });
 
-        it("should return 'block' scope on nested BlockStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { { let a; { let b; var c; } } }", "BlockStatement > BlockStatement > BlockStatement", 2015);
+        it("should return 'block' scope on nested BlockStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { { let a; { let b; var c; } } }", "BlockStatement > BlockStatement > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.upper.type, "block");
@@ -3135,96 +3136,96 @@ describe("SourceCode", () => {
             assert.deepStrictEqual(scope.variableScope.variables.map(v => v.name), ["arguments", "c"]);
         });
 
-        it("should return 'function' scope on SwitchStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { switch (a) { case 0: var b; } }", "SwitchStatement");
+        it("should return 'function' scope on SwitchStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { switch (a) { case 0: var b; } }", "SwitchStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "b"]);
         });
 
-        it("should return 'switch' scope on SwitchStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { switch (a) { case 0: let b; } }", "SwitchStatement", 2015);
+        it("should return 'switch' scope on SwitchStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { switch (a) { case 0: let b; } }", "SwitchStatement", 2015);
 
             assert.strictEqual(scope.type, "switch");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["b"]);
         });
 
-        it("should return 'function' scope on SwitchCase in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { switch (a) { case 0: var b; } }", "SwitchCase");
+        it("should return 'function' scope on SwitchCase in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { switch (a) { case 0: var b; } }", "SwitchCase");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "b"]);
         });
 
-        it("should return 'switch' scope on SwitchCase in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { switch (a) { case 0: let b; } }", "SwitchCase", 2015);
+        it("should return 'switch' scope on SwitchCase in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { switch (a) { case 0: let b; } }", "SwitchCase", 2015);
 
             assert.strictEqual(scope.type, "switch");
             assert.strictEqual(scope.block, node.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["b"]);
         });
 
-        it("should return 'catch' scope on CatchClause in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { try {} catch (e) { var a; } }", "CatchClause");
+        it("should return 'catch' scope on CatchClause in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { try {} catch (e) { var a; } }", "CatchClause");
 
             assert.strictEqual(scope.type, "catch");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["e"]);
         });
 
-        it("should return 'catch' scope on CatchClause in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { try {} catch (e) { let a; } }", "CatchClause", 2015);
+        it("should return 'catch' scope on CatchClause in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { try {} catch (e) { let a; } }", "CatchClause", 2015);
 
             assert.strictEqual(scope.type, "catch");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["e"]);
         });
 
-        it("should return 'catch' scope on the block of CatchClause in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { try {} catch (e) { var a; } }", "CatchClause > BlockStatement");
+        it("should return 'catch' scope on the block of CatchClause in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { try {} catch (e) { var a; } }", "CatchClause > BlockStatement");
 
             assert.strictEqual(scope.type, "catch");
             assert.strictEqual(scope.block, node.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["e"]);
         });
 
-        it("should return 'block' scope on the block of CatchClause in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { try {} catch (e) { let a; } }", "CatchClause > BlockStatement", 2015);
+        it("should return 'block' scope on the block of CatchClause in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { try {} catch (e) { let a; } }", "CatchClause > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["a"]);
         });
 
-        it("should return 'function' scope on ForStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { for (var i = 0; i < 10; ++i) {} }", "ForStatement");
+        it("should return 'function' scope on ForStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { for (var i = 0; i < 10; ++i) {} }", "ForStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "i"]);
         });
 
-        it("should return 'for' scope on ForStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let i = 0; i < 10; ++i) {} }", "ForStatement", 2015);
+        it("should return 'for' scope on ForStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let i = 0; i < 10; ++i) {} }", "ForStatement", 2015);
 
             assert.strictEqual(scope.type, "for");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["i"]);
         });
 
-        it("should return 'function' scope on the block body of ForStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { for (var i = 0; i < 10; ++i) {} }", "ForStatement > BlockStatement");
+        it("should return 'function' scope on the block body of ForStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { for (var i = 0; i < 10; ++i) {} }", "ForStatement > BlockStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "i"]);
         });
 
-        it("should return 'block' scope on the block body of ForStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let i = 0; i < 10; ++i) {} }", "ForStatement > BlockStatement", 2015);
+        it("should return 'block' scope on the block body of ForStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let i = 0; i < 10; ++i) {} }", "ForStatement > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.upper.type, "for");
@@ -3233,32 +3234,32 @@ describe("SourceCode", () => {
             assert.deepStrictEqual(scope.upper.variables.map(v => v.name), ["i"]);
         });
 
-        it("should return 'function' scope on ForInStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { for (var key in obj) {} }", "ForInStatement");
+        it("should return 'function' scope on ForInStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { for (var key in obj) {} }", "ForInStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "key"]);
         });
 
-        it("should return 'for' scope on ForInStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let key in obj) {} }", "ForInStatement", 2015);
+        it("should return 'for' scope on ForInStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let key in obj) {} }", "ForInStatement", 2015);
 
             assert.strictEqual(scope.type, "for");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["key"]);
         });
 
-        it("should return 'function' scope on the block body of ForInStatement in functions (ES5)", () => {
-            const { node, scope } = getScope("function f() { for (var key in obj) {} }", "ForInStatement > BlockStatement");
+        it("should return 'function' scope on the block body of ForInStatement in functions (ES5)", async () => {
+            const { node, scope } = await getScope("function f() { for (var key in obj) {} }", "ForInStatement > BlockStatement");
 
             assert.strictEqual(scope.type, "function");
             assert.strictEqual(scope.block, node.parent.parent.parent);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["arguments", "key"]);
         });
 
-        it("should return 'block' scope on the block body of ForInStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let key in obj) {} }", "ForInStatement > BlockStatement", 2015);
+        it("should return 'block' scope on the block body of ForInStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let key in obj) {} }", "ForInStatement > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.upper.type, "for");
@@ -3267,16 +3268,16 @@ describe("SourceCode", () => {
             assert.deepStrictEqual(scope.upper.variables.map(v => v.name), ["key"]);
         });
 
-        it("should return 'for' scope on ForOfStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let x of xs) {} }", "ForOfStatement", 2015);
+        it("should return 'for' scope on ForOfStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let x of xs) {} }", "ForOfStatement", 2015);
 
             assert.strictEqual(scope.type, "for");
             assert.strictEqual(scope.block, node);
             assert.deepStrictEqual(scope.variables.map(v => v.name), ["x"]);
         });
 
-        it("should return 'block' scope on the block body of ForOfStatement in functions (ES2015)", () => {
-            const { node, scope } = getScope("function f() { for (let x of xs) {} }", "ForOfStatement > BlockStatement", 2015);
+        it("should return 'block' scope on the block body of ForOfStatement in functions (ES2015)", async () => {
+            const { node, scope } = await getScope("function f() { for (let x of xs) {} }", "ForOfStatement > BlockStatement", 2015);
 
             assert.strictEqual(scope.type, "block");
             assert.strictEqual(scope.upper.type, "for");
@@ -3285,8 +3286,8 @@ describe("SourceCode", () => {
             assert.deepStrictEqual(scope.upper.variables.map(v => v.name), ["x"]);
         });
 
-        it("should shadow the same name variable by the iteration variable.", () => {
-            const { node, scope } = getScope("let x; for (let x of x) {}", "ForOfStatement", 2015);
+        it("should shadow the same name variable by the iteration variable.", async () => {
+            const { node, scope } = await getScope("let x; for (let x of x) {}", "ForOfStatement", 2015);
 
             assert.strictEqual(scope.type, "for");
             assert.strictEqual(scope.upper.type, "global");
@@ -3301,7 +3302,7 @@ describe("SourceCode", () => {
     describe("getAncestors()", () => {
         const code = TEST_CODE;
 
-        it("should retrieve all ancestors when used", () => {
+        it("should retrieve all ancestors when used", async () => {
 
             let spy;
 
@@ -3326,11 +3327,11 @@ describe("SourceCode", () => {
                 rules: { "test/checker": "error" }
             };
 
-            flatLinter.verify(code, config, filename, true);
+            await flatLinter.verify(code, config, filename, true);
             assert(spy && spy.calledOnce, "Spy was not called.");
         });
 
-        it("should retrieve empty ancestors for root node", () => {
+        it("should retrieve empty ancestors for root node", async () => {
             let spy;
 
             const config = {
@@ -3355,11 +3356,11 @@ describe("SourceCode", () => {
                 rules: { "test/checker": "error" }
             };
 
-            flatLinter.verify(code, config);
+            await flatLinter.verify(code, config);
             assert(spy && spy.calledOnce, "Spy was not called.");
         });
 
-        it("should throw an error when the argument is missing", () => {
+        it("should throw an error when the argument is missing", async () => {
             let spy;
 
             const config = {
@@ -3386,7 +3387,7 @@ describe("SourceCode", () => {
                 rules: { "test/checker": "error" }
             };
 
-            flatLinter.verify(code, config);
+            await flatLinter.verify(code, config);
             assert(spy && spy.calledOnce, "Spy was not called.");
         });
     });
@@ -3401,7 +3402,7 @@ describe("SourceCode", () => {
          * @param {Array<Array<string>>} expectedNamesList An array of expected variable names. The expected variable names is an array of string.
          * @returns {void}
          */
-        function verify(code, type, expectedNamesList) {
+        async function verify(code, type, expectedNamesList) {
             linter.defineRules({
                 test: {
                     create(context) {
@@ -3481,7 +3482,7 @@ describe("SourceCode", () => {
                     }
                 }
             });
-            linter.verify(code, {
+            await linter.verify(code, {
                 rules: { test: 2 },
                 parserOptions: {
                     ecmaVersion: 6,
@@ -3493,7 +3494,7 @@ describe("SourceCode", () => {
             assert.strictEqual(0, expectedNamesList.length);
         }
 
-        it("VariableDeclaration", () => {
+        it("VariableDeclaration", async () => {
             const code = "\n var {a, x: [b], y: {c = 0}} = foo;\n let {d, x: [e], y: {f = 0}} = foo;\n const {g, x: [h], y: {i = 0}} = foo, {j, k = function(z) { let l; }} = bar;\n ";
             const namesList = [
                 ["a", "b", "c"],
@@ -3502,10 +3503,10 @@ describe("SourceCode", () => {
                 ["l"]
             ];
 
-            verify(code, "VariableDeclaration", namesList);
+            await verify(code, "VariableDeclaration", namesList);
         });
 
-        it("VariableDeclaration (on for-in/of loop)", () => {
+        it("VariableDeclaration (on for-in/of loop)", async () => {
 
             // TDZ scope is created here, so tests to exclude those.
             const code = "\n for (var {a, x: [b], y: {c = 0}} in foo) {\n let g;\n }\n for (let {d, x: [e], y: {f = 0}} of foo) {\n let h;\n }\n ";
@@ -3516,10 +3517,10 @@ describe("SourceCode", () => {
                 ["h"]
             ];
 
-            verify(code, "VariableDeclaration", namesList);
+            await verify(code, "VariableDeclaration", namesList);
         });
 
-        it("VariableDeclarator", () => {
+        it("VariableDeclarator", async () => {
 
             // TDZ scope is created here, so tests to exclude those.
             const code = "\n var {a, x: [b], y: {c = 0}} = foo;\n let {d, x: [e], y: {f = 0}} = foo;\n const {g, x: [h], y: {i = 0}} = foo, {j, k = function(z) { let l; }} = bar;\n ";
@@ -3531,20 +3532,20 @@ describe("SourceCode", () => {
                 ["l"]
             ];
 
-            verify(code, "VariableDeclarator", namesList);
+            await verify(code, "VariableDeclarator", namesList);
         });
 
-        it("FunctionDeclaration", () => {
+        it("FunctionDeclaration", async () => {
             const code = "\n function foo({a, x: [b], y: {c = 0}}, [d, e]) {\n let z;\n }\n function bar({f, x: [g], y: {h = 0}}, [i, j = function(q) { let w; }]) {\n let z;\n }\n ";
             const namesList = [
                 ["foo", "a", "b", "c", "d", "e"],
                 ["bar", "f", "g", "h", "i", "j"]
             ];
 
-            verify(code, "FunctionDeclaration", namesList);
+            await verify(code, "FunctionDeclaration", namesList);
         });
 
-        it("FunctionExpression", () => {
+        it("FunctionExpression", async () => {
             const code = "\n (function foo({a, x: [b], y: {c = 0}}, [d, e]) {\n let z;\n });\n (function bar({f, x: [g], y: {h = 0}}, [i, j = function(q) { let w; }]) {\n let z;\n });\n ";
             const namesList = [
                 ["foo", "a", "b", "c", "d", "e"],
@@ -3552,50 +3553,50 @@ describe("SourceCode", () => {
                 ["q"]
             ];
 
-            verify(code, "FunctionExpression", namesList);
+            await verify(code, "FunctionExpression", namesList);
         });
 
-        it("ArrowFunctionExpression", () => {
+        it("ArrowFunctionExpression", async () => {
             const code = "\n (({a, x: [b], y: {c = 0}}, [d, e]) => {\n let z;\n });\n (({f, x: [g], y: {h = 0}}, [i, j]) => {\n let z;\n });\n ";
             const namesList = [
                 ["a", "b", "c", "d", "e"],
                 ["f", "g", "h", "i", "j"]
             ];
 
-            verify(code, "ArrowFunctionExpression", namesList);
+            await verify(code, "ArrowFunctionExpression", namesList);
         });
 
-        it("ClassDeclaration", () => {
+        it("ClassDeclaration", async () => {
             const code = "\n class A { foo(x) { let y; } }\n class B { foo(x) { let y; } }\n ";
             const namesList = [
                 ["A", "A"], // outer scope's and inner scope's.
                 ["B", "B"]
             ];
 
-            verify(code, "ClassDeclaration", namesList);
+            await verify(code, "ClassDeclaration", namesList);
         });
 
-        it("ClassExpression", () => {
+        it("ClassExpression", async () => {
             const code = "\n (class A { foo(x) { let y; } });\n (class B { foo(x) { let y; } });\n ";
             const namesList = [
                 ["A"],
                 ["B"]
             ];
 
-            verify(code, "ClassExpression", namesList);
+            await verify(code, "ClassExpression", namesList);
         });
 
-        it("CatchClause", () => {
+        it("CatchClause", async () => {
             const code = "\n try {} catch ({a, b}) {\n let x;\n try {} catch ({c, d}) {\n let y;\n }\n }\n ";
             const namesList = [
                 ["a", "b"],
                 ["c", "d"]
             ];
 
-            verify(code, "CatchClause", namesList);
+            await verify(code, "CatchClause", namesList);
         });
 
-        it("ImportDeclaration", () => {
+        it("ImportDeclaration", async () => {
             const code = "\n import \"aaa\";\n import * as a from \"bbb\";\n import b, {c, x as d} from \"ccc\";\n ";
             const namesList = [
                 [],
@@ -3603,41 +3604,41 @@ describe("SourceCode", () => {
                 ["b", "c", "d"]
             ];
 
-            verify(code, "ImportDeclaration", namesList);
+            await verify(code, "ImportDeclaration", namesList);
         });
 
-        it("ImportSpecifier", () => {
+        it("ImportSpecifier", async () => {
             const code = "\n import \"aaa\";\n import * as a from \"bbb\";\n import b, {c, x as d} from \"ccc\";\n ";
             const namesList = [
                 ["c"],
                 ["d"]
             ];
 
-            verify(code, "ImportSpecifier", namesList);
+            await verify(code, "ImportSpecifier", namesList);
         });
 
-        it("ImportDefaultSpecifier", () => {
+        it("ImportDefaultSpecifier", async () => {
             const code = "\n import \"aaa\";\n import * as a from \"bbb\";\n import b, {c, x as d} from \"ccc\";\n ";
             const namesList = [
                 ["b"]
             ];
 
-            verify(code, "ImportDefaultSpecifier", namesList);
+            await verify(code, "ImportDefaultSpecifier", namesList);
         });
 
-        it("ImportNamespaceSpecifier", () => {
+        it("ImportNamespaceSpecifier", async () => {
             const code = "\n import \"aaa\";\n import * as a from \"bbb\";\n import b, {c, x as d} from \"ccc\";\n ";
             const namesList = [
                 ["a"]
             ];
 
-            verify(code, "ImportNamespaceSpecifier", namesList);
+            await verify(code, "ImportNamespaceSpecifier", namesList);
         });
     });
 
-    describe("markVariableAsUsed()", () => {
+    describe("markVariableAsUsed()", async () => {
 
-        it("should mark variables in current scope as used", () => {
+        it("should mark variables in current scope as used", async () => {
             const code = "var a = 1, b = 2;";
             let spy;
 
@@ -3658,11 +3659,11 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert(spy && spy.calledOnce);
         });
 
-        it("should mark variables in function args as used", () => {
+        it("should mark variables in function args as used", async () => {
             const code = "function abc(a, b) { return 1; }";
             let spy;
 
@@ -3683,11 +3684,11 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert(spy && spy.calledOnce);
         });
 
-        it("should mark variables in higher scopes as used", () => {
+        it("should mark variables in higher scopes as used", async () => {
             const code = "var a, b; function abc() { return 1; }";
             let returnSpy, exitSpy;
 
@@ -3709,12 +3710,12 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert(returnSpy && returnSpy.calledOnce);
             assert(exitSpy && exitSpy.calledOnce);
         });
 
-        it("should mark variables in Node.js environment as used", () => {
+        it("should mark variables in Node.js environment as used", async () => {
             const code = "var a = 1, b = 2;";
             let spy;
 
@@ -3736,11 +3737,11 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" }, env: { node: true } });
+            await linter.verify(code, { rules: { checker: "error" }, env: { node: true } });
             assert(spy && spy.calledOnce);
         });
 
-        it("should mark variables in modules as used", () => {
+        it("should mark variables in modules as used", async () => {
             const code = "var a = 1, b = 2;";
             let spy;
 
@@ -3762,11 +3763,11 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6, sourceType: "module" } }, filename, true);
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6, sourceType: "module" } }, filename, true);
             assert(spy && spy.calledOnce);
         });
 
-        it("should return false if the given variable is not found", () => {
+        it("should return false if the given variable is not found", async () => {
             const code = "var a = 1, b = 2;";
             let spy;
 
@@ -3782,7 +3783,7 @@ describe("SourceCode", () => {
                 }
             });
 
-            linter.verify(code, { rules: { checker: "error" } });
+            await linter.verify(code, { rules: { checker: "error" } });
             assert(spy && spy.calledOnce);
         });
 

@@ -12,7 +12,7 @@ const reduceBadExampleSize = require("../../tools/code-sample-minimizer");
 //------------------------------------------------------------------------------
 
 describe("reduceBadExampleSize()", () => {
-    it("extracts relevant part of deeply nested code", () => {
+    it("extracts relevant part of deeply nested code", async () => {
         const initialCode = `
             if (true) {
                 while (false) {
@@ -28,7 +28,7 @@ describe("reduceBadExampleSize()", () => {
         const expectedFinalCode = "THIS_EXPRESSION_CAUSES_A_BUG";
 
         assert.strictEqual(
-            reduceBadExampleSize({
+            await reduceBadExampleSize({
                 sourceText: initialCode,
                 predicate: code => code.includes("THIS_EXPRESSION_CAUSES_A_BUG")
             }),
@@ -36,7 +36,7 @@ describe("reduceBadExampleSize()", () => {
         );
     });
 
-    it("removes irrelevant parts of AST nodes with many children", () => {
+    it("removes irrelevant parts of AST nodes with many children", async () => {
         const initialCode = `
             foo;
             bar;
@@ -55,7 +55,7 @@ describe("reduceBadExampleSize()", () => {
         const expectedFinalCode = "THIS_EXPRESSION_CAUSES_A_BUG";
 
         assert.strictEqual(
-            reduceBadExampleSize({
+            await reduceBadExampleSize({
                 sourceText: initialCode,
                 predicate: code => code.includes("THIS_EXPRESSION_CAUSES_A_BUG")
             }),
@@ -63,7 +63,7 @@ describe("reduceBadExampleSize()", () => {
         );
     });
 
-    it("removes irrelevant comments from the source code", () => {
+    it("removes irrelevant comments from the source code", async () => {
         const initialCode = `
         var /* aaa */foo = bar;
     `;
@@ -71,7 +71,7 @@ describe("reduceBadExampleSize()", () => {
         const expectedFinalCode = "var foo = bar;";
 
         assert.strictEqual(
-            reduceBadExampleSize({
+            await reduceBadExampleSize({
                 sourceText: initialCode,
                 predicate: code => code.includes("var") && code.includes("foo = bar")
             }),

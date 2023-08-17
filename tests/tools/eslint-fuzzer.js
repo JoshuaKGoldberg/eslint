@@ -48,7 +48,7 @@ describe("eslint-fuzzer", function() {
 
     describe("when running in crash-only mode", () => {
         describe("when a rule crashes on the given input", () => {
-            it("should report the crash with a minimal config", () => {
+            it("should report the crash with a minimal config", async () => {
                 linter.defineRule("test-fuzzer-rule", {
                     create: context => ({
                         Program() {
@@ -59,7 +59,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter });
+                const results = await fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter });
 
                 assert.strictEqual(results.length, 1);
                 assert.strictEqual(results[0].type, "crash");
@@ -70,10 +70,10 @@ describe("eslint-fuzzer", function() {
         });
 
         describe("when no rules crash", () => {
-            it("should return an empty array", () => {
+            it("should return an empty array", async () => {
                 linter.defineRule("test-fuzzer-rule", { create: () => ({}) });
 
-                assert.deepStrictEqual(fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter }), []);
+                assert.deepStrictEqual(await fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter }), []);
             });
         });
     });
@@ -89,7 +89,7 @@ describe("eslint-fuzzer", function() {
         }
 
         describe("when a rule crashes on the given input", () => {
-            it("should report the crash with a minimal config", () => {
+            it("should report the crash with a minimal config", async () => {
                 linter.defineRule("test-fuzzer-rule", {
                     create: context => ({
                         Program() {
@@ -100,7 +100,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter });
+                const results = await fuzz({ count: 1, codeGenerator: () => "foo", checkAutofixes: false, linter });
 
                 assert.strictEqual(results.length, 1);
                 assert.strictEqual(results[0].type, "crash");
@@ -110,8 +110,8 @@ describe("eslint-fuzzer", function() {
             });
         });
 
-        describe("when a rule's autofix produces valid syntax", () => {
-            it("does not report any errors", () => {
+        describe("when a rule's autofix produces valid syntax", async () => {
+            it("does not report any errors", async () => {
 
                 // Replaces programs that start with "foo" with "bar"
                 linter.defineRule("test-fuzzer-rule", {
@@ -129,7 +129,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({
+                const results = await fuzz({
                     count: 1,
 
                     /*
@@ -146,7 +146,7 @@ describe("eslint-fuzzer", function() {
         });
 
         describe("when a rule's autofix produces invalid syntax on the first pass", () => {
-            it("reports an autofix error with a minimal config", () => {
+            it("reports an autofix error with a minimal config", async () => {
 
                 // Replaces programs that start with "foo" with invalid syntax
                 linter.defineRule("test-fuzzer-rule", {
@@ -166,7 +166,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({
+                const results = await fuzz({
                     count: 1,
                     codeGenerator: () => `foo ${disableFixableRulesComment}`,
                     checkAutofixes: true,
@@ -190,7 +190,7 @@ describe("eslint-fuzzer", function() {
         });
 
         describe("when a rule's autofix produces invalid syntax on the second pass", () => {
-            it("reports an autofix error with a minimal config and the text from the second pass", () => {
+            it("reports an autofix error with a minimal config and the text from the second pass", async () => {
                 const intermediateCode = `bar ${disableFixableRulesComment}`;
 
                 // Replaces programs that start with "foo" with invalid syntax
@@ -216,7 +216,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({
+                const results = await fuzz({
                     count: 1,
                     codeGenerator: () => `foo ${disableFixableRulesComment}`,
                     checkAutofixes: true,
@@ -240,7 +240,7 @@ describe("eslint-fuzzer", function() {
         });
 
         describe("when a rule crashes on the second autofix pass", () => {
-            it("reports a crash error with a minimal config", () => {
+            it("reports a crash error with a minimal config", async () => {
 
                 // Replaces programs that start with "foo" with invalid syntax
                 linter.defineRule("test-fuzzer-rule", {
@@ -262,7 +262,7 @@ describe("eslint-fuzzer", function() {
                     })
                 });
 
-                const results = fuzz({
+                const results = await fuzz({
                     count: 1,
                     codeGenerator: () => `foo ${disableFixableRulesComment}`,
                     checkAutofixes: true,

@@ -52,7 +52,7 @@ function sample(array) {
  * error (*) The problem that occurred. For crashes, this will be the error stack. For autofix bugs, this will be
  *     the parsing error object that was thrown when parsing the autofixed code.
  */
-function fuzz(options) {
+async function fuzz(options) {
     assert.strictEqual(typeof options, "object", "An options object must be provided");
     assert.strictEqual(typeof options.count, "number", "The number of iterations (options.count) must be provided");
     assert.strictEqual(typeof options.linter, "object", "An linter object (options.linter) must be provided");
@@ -70,13 +70,13 @@ function fuzz(options) {
      * @returns {Object} A config object with only one rule enabled that produces the same crash or autofix error, if possible.
      * Otherwise, the same as `config`
      */
-    function isolateBadConfig(text, config, problemType) {
+    async function isolateBadConfig(text, config, problemType) {
         for (const ruleId of Object.keys(config.rules)) {
             const reducedConfig = Object.assign({}, config, { rules: { [ruleId]: config.rules[ruleId] } });
             let fixResult;
 
             try {
-                fixResult = linter.verifyAndFix(text, reducedConfig, {});
+                fixResult = await linter.verifyAndFix(text, reducedConfig, {});
             } catch {
                 return reducedConfig;
             }
@@ -94,7 +94,7 @@ function fuzz(options) {
      * @param {Object} config The config to lint with
      * @returns {string} A possibly-modified version of originalText that results in the same syntax error or crash after only one pass
      */
-    function isolateBadAutofixPass(originalText, config) {
+    async function isolateBadAutofixPass(originalText, config) {
         let previousText = originalText;
         let currentText = originalText;
 
@@ -102,7 +102,7 @@ function fuzz(options) {
             let messages;
 
             try {
-                messages = linter.verify(currentText, config);
+                messages = await linter.verify(currentText, config);
             } catch {
                 return currentText;
             }
@@ -157,19 +157,19 @@ function fuzz(options) {
 
         try {
             if (checkAutofixes) {
-                autofixResult = linter.verifyAndFix(text, config, {});
+                autofixResult = await linter.verifyAndFix(text, config, {});
             } else {
-                linter.verify(text, config);
+                await linter.verify(text, config);
             }
         } catch (err) {
-            const lastGoodText = checkAutofixes ? isolateBadAutofixPass(text, config) : text;
-            const smallConfig = isolateBadConfig(lastGoodText, config, "crash");
-            const smallText = sampleMinimizer({
+            const lastGoodText = checkAutofixes ? await isolateBadAutofixPass(text, config) : text;
+            const smallConfig = await isolateBadConfig(lastGoodText, config, "crash");
+            const smallText = await sampleMinimizer({
                 sourceText: lastGoodText,
                 parser: { parse: getParser(smallConfig) },
-                predicate(reducedText) {
+                async predicate(reducedText) {
                     try {
-                        linter.verify(reducedText, smallConfig);
+                        await linter.verify(reducedText, smallConfig);
                         return false;
                     } catch {
                         return true;
@@ -183,14 +183,14 @@ function fuzz(options) {
         }
 
         if (checkAutofixes && autofixResult.fixed && autofixResult.messages.length === 1 && autofixResult.messages[0].fatal) {
-            const lastGoodText = isolateBadAutofixPass(text, config);
-            const smallConfig = isolateBadConfig(lastGoodText, config, "autofix");
-            const smallText = sampleMinimizer({
+            const lastGoodText = await isolateBadAutofixPass(text, config);
+            const smallConfig = await isolateBadConfig(lastGoodText, config, "autofix");
+            const smallText = await sampleMinimizer({
                 sourceText: lastGoodText,
                 parser: { parse: getParser(smallConfig) },
-                predicate(reducedText) {
+                async predicate(reducedText) {
                     try {
-                        const smallFixResult = linter.verifyAndFix(reducedText, smallConfig);
+                        const smallFixResult = await linter.verifyAndFix(reducedText, smallConfig);
 
                         return smallFixResult.fixed && smallFixResult.messages.length === 1 && smallFixResult.messages[0].fatal;
                     } catch {

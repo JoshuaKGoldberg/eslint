@@ -60,7 +60,7 @@ describe("ast-utils", () => {
     });
 
     describe("isTokenOnSameLine", () => {
-        it("should return false if the tokens are not on the same line", () => {
+        it("should return false if the tokens are not on the same line", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     BlockStatement: mustCall(node => {
@@ -69,10 +69,10 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("if(a)\n{}", { rules: { checker: "error" } });
+            await linter.verify("if(a)\n{}", { rules: { checker: "error" } });
         });
 
-        it("should return true if the tokens are on the same line", () => {
+        it("should return true if the tokens are on the same line", async () => {
 
             linter.defineRule("checker", {
                 create: mustCall(context => ({
@@ -82,7 +82,7 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("if(a){}", { rules: { checker: "error" } });
+            await linter.verify("if(a){}", { rules: { checker: "error" } });
         });
     });
 
@@ -119,7 +119,7 @@ describe("ast-utils", () => {
     describe("checkReference", () => {
 
         // catch
-        it("should return true if reference is assigned for catch", () => {
+        it("should return true if reference is assigned for catch", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     CatchClause: mustCall(node => {
@@ -130,11 +130,11 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("try { } catch (e) { e = 10; }", { rules: { checker: "error" } });
+            await linter.verify("try { } catch (e) { e = 10; }", { rules: { checker: "error" } });
         });
 
         // const
-        it("should return true if reference is assigned for const", () => {
+        it("should return true if reference is assigned for const", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     VariableDeclaration: mustCall(node => {
@@ -145,10 +145,10 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("const a = 1; a = 2;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify("const a = 1; a = 2;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
         });
 
-        it("should return false if reference is not assigned for const", () => {
+        it("should return false if reference is not assigned for const", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     VariableDeclaration: mustCall(node => {
@@ -159,11 +159,11 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("const a = 1; c = 2;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify("const a = 1; c = 2;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
         });
 
         // class
-        it("should return true if reference is assigned for class", () => {
+        it("should return true if reference is assigned for class", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     ClassDeclaration: mustCall(node => {
@@ -175,10 +175,10 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("class A { }\n A = 1;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify("class A { }\n A = 1;", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
         });
 
-        it("should return false if reference is not assigned for class", () => {
+        it("should return false if reference is not assigned for class", async () => {
             linter.defineRule("checker", {
                 create: mustCall(context => ({
                     ClassDeclaration: mustCall(node => {
@@ -189,7 +189,7 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("class A { } foo(A);", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify("class A { } foo(A);", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
         });
     });
 
@@ -383,7 +383,7 @@ describe("ast-utils", () => {
          *      node is in a loop.
          * @returns {void}
          */
-        function assertNodeTypeInLoop(code, nodeType, expectedInLoop) {
+        async function assertNodeTypeInLoop(code, nodeType, expectedInLoop) {
             const results = [];
 
             linter.defineRule("checker", {
@@ -393,34 +393,34 @@ describe("ast-utils", () => {
                     })
                 }))
             });
-            linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
+            await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 6 } });
 
             assert.lengthOf(results, 1);
             assert.strictEqual(results[0], expectedInLoop);
         }
 
-        it("should return true for a loop itself", () => {
-            assertNodeTypeInLoop("while (a) {}", "WhileStatement", true);
+        it("should return true for a loop itself", async () => {
+            await assertNodeTypeInLoop("while (a) {}", "WhileStatement", true);
         });
 
-        it("should return true for a loop condition", () => {
-            assertNodeTypeInLoop("while (a) {}", "Identifier", true);
+        it("should return true for a loop condition", async () => {
+            await assertNodeTypeInLoop("while (a) {}", "Identifier", true);
         });
 
-        it("should return true for a loop assignee", () => {
-            assertNodeTypeInLoop("for (var a in b) {}", "VariableDeclaration", true);
+        it("should return true for a loop assignee", async () => {
+            await assertNodeTypeInLoop("for (var a in b) {}", "VariableDeclaration", true);
         });
 
-        it("should return true for a node within a loop body", () => {
-            assertNodeTypeInLoop("for (var a of b) { console.log('Hello'); }", "Literal", true);
+        it("should return true for a node within a loop body", async () => {
+            await assertNodeTypeInLoop("for (var a of b) { console.log('Hello'); }", "Literal", true);
         });
 
-        it("should return false for a node outside a loop body", () => {
-            assertNodeTypeInLoop("while (true) {} a(b);", "CallExpression", false);
+        it("should return false for a node outside a loop body", async () => {
+            await assertNodeTypeInLoop("while (true) {} a(b);", "CallExpression", false);
         });
 
-        it("should return false when the loop is not in the current function", () => {
-            assertNodeTypeInLoop("while (true) { funcs.push(() => { var a; }); }", "VariableDeclaration", false);
+        it("should return false when the loop is not in the current function", async () => {
+            await assertNodeTypeInLoop("while (true) { funcs.push(() => { var a; }); }", "VariableDeclaration", false);
         });
     });
 
@@ -912,7 +912,7 @@ describe("ast-utils", () => {
         };
 
         Object.keys(expectedResults).forEach(key => {
-            it(`should return "${expectedResults[key]}" for "${key}".`, () => {
+            it(`should return "${expectedResults[key]}" for "${key}".`, async () => {
                 linter.defineRule("checker", {
                     create: mustCall(() => ({
                         ":function": mustCall(node => {
@@ -924,7 +924,7 @@ describe("ast-utils", () => {
                     }))
                 });
 
-                linter.verify(key, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 13 } });
+                await linter.verify(key, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 13 } });
             });
         });
     });
@@ -992,7 +992,7 @@ describe("ast-utils", () => {
                 }
             };
 
-            it(`should return "${JSON.stringify(expectedLoc)}" for "${key}".`, () => {
+            it(`should return "${JSON.stringify(expectedLoc)}" for "${key}".`, async () => {
                 linter.defineRule("checker", {
                     create: mustCall(() => ({
                         ":function": mustCall(node => {
@@ -1004,7 +1004,7 @@ describe("ast-utils", () => {
                     }))
                 });
 
-                linter.verify(key, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 13 } }, "test.js", true);
+                await linter.verify(key, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 13 } }, "test.js", true);
             });
         });
     });
@@ -1810,7 +1810,7 @@ describe("ast-utils", () => {
             assert.strictEqual(astUtils.isTopLevelExpressionStatement(node), false);
         });
 
-        it("should return false if the node is not an ExpressionStatement", () => {
+        it("should return false if the node is not an ExpressionStatement", async () => {
             linter.defineRule("checker", {
                 create: mustCall(() => ({
                     ":expression": mustCall(node => {
@@ -1819,7 +1819,7 @@ describe("ast-utils", () => {
                 }))
             });
 
-            linter.verify("var foo = () => \"use strict\";", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
+            await linter.verify("var foo = () => \"use strict\";", { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
         });
 
         const expectedResults = [
@@ -1836,7 +1836,7 @@ describe("ast-utils", () => {
         ];
 
         expectedResults.forEach(([code, nodeText, expectedRetVal]) => {
-            it(`should return ${expectedRetVal} for \`${nodeText}\` in \`${code}\``, () => {
+            it(`should return ${expectedRetVal} for \`${nodeText}\` in \`${code}\``, async () => {
                 linter.defineRule("checker", {
                     create: mustCall(context => {
                         const assertForNode = mustCall(
@@ -1853,7 +1853,7 @@ describe("ast-utils", () => {
                     })
                 });
 
-                linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
+                await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
             });
         });
     });
@@ -1892,7 +1892,7 @@ describe("ast-utils", () => {
         ];
 
         expectedResults.forEach(({ code, nodeText = code, expectedRetVal }) => {
-            it(`should return ${expectedRetVal} for \`${nodeText}\` in \`${code}\``, () => {
+            it(`should return ${expectedRetVal} for \`${nodeText}\` in \`${code}\``, async () => {
                 linter.defineRule("checker", {
                     create: mustCall(({ sourceCode }) => {
                         const assertForNode = mustCall(
@@ -1916,7 +1916,7 @@ describe("ast-utils", () => {
                     })
                 });
 
-                linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
+                await linter.verify(code, { rules: { checker: "error" }, parserOptions: { ecmaVersion: 2022 } });
             });
         });
     });
