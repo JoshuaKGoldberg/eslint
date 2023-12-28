@@ -40,7 +40,7 @@ const filename = "foo.js";
  * Get variables in the current scope
  * @param {Object} scope current scope
  * @param {string} name name of the variable to look for
- * @returns {ASTNode|null} The variable object
+ * @returns {import("eslint").AST.Node | null} The variable object
  * @private
  */
 function getVariable(scope, name) {
@@ -255,7 +255,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -289,7 +289,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -323,7 +323,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -362,7 +362,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -396,7 +396,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -431,7 +431,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -468,7 +468,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -506,7 +506,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -541,7 +541,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -579,7 +579,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -616,7 +616,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -653,7 +653,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -688,7 +688,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -725,7 +725,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -764,7 +764,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -800,7 +800,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -844,7 +844,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -880,7 +880,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -915,7 +915,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -951,7 +951,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -989,7 +989,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -1027,7 +1027,7 @@ describe("SourceCode", () => {
 
             /**
              * Check jsdoc presence
-             * @param {ASTNode} node not to check
+             * @param {import("eslint").AST.Node} node not to check
              * @returns {void}
              * @private
              */
@@ -2216,7 +2216,7 @@ describe("SourceCode", () => {
          * @param {string} code The source code to verify.
          * @param {string} astSelector The AST selector to get scope.
          * @param {number} [ecmaVersion=5] The ECMAScript version.
-         * @returns {{node: ASTNode, scope: escope.Scope}} Gotten scope.
+         * @returns {{node: import("eslint").AST.Node, scope: escope.Scope}} Gotten scope.
          */
         function getScope(code, astSelector, ecmaVersion = 5) {
             let node, scope;
@@ -2560,7 +2560,7 @@ describe("SourceCode", () => {
         /**
          * Assert `sourceCode.getDeclaredVariables(node)` is valid.
          * @param {string} code A code to check.
-         * @param {string} type A type string of ASTNode. This method checks variables on the node of the type.
+         * @param {string} type A type string of import("eslint").AST.Node. This method checks variables on the node of the type.
          * @param {Array<Array<string>>} expectedNamesList An array of expected variable names. The expected variable names is an array of string.
          * @returns {void}
          */
@@ -2573,7 +2573,7 @@ describe("SourceCode", () => {
 
                         /**
                          * Assert `sourceCode.getDeclaredVariables(node)` is empty.
-                         * @param {ASTNode} node A node to check.
+                         * @param {import("eslint").AST.Node} node A node to check.
                          * @returns {void}
                          */
                         function checkEmpty(node) {

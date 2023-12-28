@@ -17,6 +17,7 @@ const assert = require("assert"),
     createEmitter = require("../../../lib/linter/safe-emitter"),
     NodeEventGenerator = require("../../../lib/linter/node-event-generator");
 
+/** @typedef {import("eslint-visitor-keys").VisitorKeys} VisitorKeys */
 
 //------------------------------------------------------------------------------
 // Constants
@@ -83,7 +84,7 @@ describe("NodeEventGenerator", () => {
 
         /**
          * Gets a list of emitted types/selectors from the generator, in emission order
-         * @param {ASTNode} ast The AST to traverse
+         * @param {import("eslint").AST.Node} ast The AST to traverse
          * @param {Array<string>|Set<string>} possibleQueries Selectors to detect
          * @returns {Array[]} A list of emissions, in the order that they were emitted. Each emission is a two-element
          * array where the first element is a string, and the second element is the emitted AST node.
@@ -343,8 +344,8 @@ describe("NodeEventGenerator", () => {
 
         /**
          * Gets a list of emitted types/selectors from the generator, in emission order
-         * @param {ASTNode} ast The AST to traverse
-         * @param {Record<string, string[]>} visitorKeys The custom visitor keys.
+         * @param {import("eslint").AST.Node} ast The AST to traverse
+         * @param {VisitorKeys} visitorKeys The custom visitor keys.
          * @param {Array<string>|Set<string>} possibleQueries Selectors to detect
          * @returns {Array[]} A list of emissions, in the order that they were emitted. Each emission is a two-element
          * array where the first element is a string, and the second element is the emitted AST node.
@@ -376,8 +377,8 @@ describe("NodeEventGenerator", () => {
 
         /**
          * Creates a test case that asserts a particular sequence of generator emissions
-         * @param {ASTNode} ast The AST to traverse
-         * @param {Record<string, string[]>} visitorKeys The custom visitor keys.
+         * @param {import("eslint").AST.Node} ast The AST to traverse
+         * @param {VisitorKeys} visitorKeys The custom visitor keys.
          * @param {string[]} possibleQueries A collection of selectors that rules are listening for
          * @param {Array[]} expectedEmissions A function that accepts the AST and returns a list of the emissions that the
          * generator is expected to produce, in order.

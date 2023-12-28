@@ -12,8 +12,8 @@
 /**
  * Gets the property of the Object node passed in that has the name specified.
  * @param {string} property Name of the property to return.
- * @param {ASTNode} node The ObjectExpression node.
- * @returns {ASTNode} The Property node or null if not found.
+ * @param {import("eslint").AST.Node} node The ObjectExpression node.
+ * @returns {import("eslint").AST.Node} The Property node or null if not found.
  */
 function getPropertyFromObject(property, node) {
     const properties = node.properties;
@@ -34,8 +34,8 @@ function getPropertyFromObject(property, node) {
 
 /**
  * Extracts the `meta` property from the ObjectExpression that all rules export.
- * @param {ASTNode} exportsNode ObjectExpression node that the rule exports.
- * @returns {ASTNode} The `meta` Property node or null if not found.
+ * @param {import("eslint").AST.Node} exportsNode ObjectExpression node that the rule exports.
+ * @returns {import("eslint").AST.Node} The `meta` Property node or null if not found.
  */
 function getMetaPropertyFromExportsNode(exportsNode) {
     return getPropertyFromObject("meta", exportsNode);
@@ -43,7 +43,7 @@ function getMetaPropertyFromExportsNode(exportsNode) {
 
 /**
  * Whether this `meta` ObjectExpression has a `docs` property defined or not.
- * @param {ASTNode} metaPropertyNode The `meta` ObjectExpression for this rule.
+ * @param {import("eslint").AST.Node} metaPropertyNode The `meta` ObjectExpression for this rule.
  * @returns {boolean} `true` if a `docs` property exists.
  */
 function hasMetaDocs(metaPropertyNode) {
@@ -52,7 +52,7 @@ function hasMetaDocs(metaPropertyNode) {
 
 /**
  * Whether this `meta` ObjectExpression has a `docs.recommended` property defined or not.
- * @param {ASTNode} metaPropertyNode The `meta` ObjectExpression for this rule.
+ * @param {import("eslint").AST.Node} metaPropertyNode The `meta` ObjectExpression for this rule.
  * @returns {boolean} `true` if a `docs.recommended` property exists.
  */
 function hasMetaDocsRecommended(metaPropertyNode) {
@@ -64,7 +64,7 @@ function hasMetaDocsRecommended(metaPropertyNode) {
 /**
  * Checks the validity of the meta definition of this rule and reports any errors found.
  * @param {RuleContext} context The ESLint rule context.
- * @param {ASTNode} exportsNode ObjectExpression node that the rule exports.
+ * @param {import("eslint").AST.Node} exportsNode ObjectExpression node that the rule exports.
  * @returns {void}
  */
 function checkMetaValidity(context, exportsNode) {

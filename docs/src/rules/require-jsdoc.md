@@ -14,8 +14,8 @@ This rule was removed in ESLint v9.0.0 and replaced by the [`eslint-plugin-jsdoc
 ```js
 /**
  * Adds two numbers together.
- * @param {int} num1 The first number.
- * @param {int} num2 The second number.
+ * @param {number} num1 The first number.
+ * @param {number} num2 The second number.
  * @returns {int} The sum of the two numbers.
  */
 function sum(num1, num2) {

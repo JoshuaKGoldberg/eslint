@@ -19,9 +19,9 @@ const rules = require("../lib/rules");
 // Typedefs
 //------------------------------------------------------------------------------
 
-/** @typedef {import("../lib/shared/types").LintMessage} LintMessage */
-/** @typedef {import("../lib/shared/types").LintResult} LintResult */
-/** @typedef {import("../lib/shared/types").ParserOptions} ParserOptions */
+/** @typedef {import("eslint").Linter.LintMessage} LintMessage */
+/** @typedef {import("eslint").ESLint.LintResult} LintResult */
+/** @typedef {import("eslint").Linter.ParserOptions} ParserOptions */
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -35,7 +35,7 @@ const commentParser = new ConfigCommentParser();
  * Tries to parse a specified JavaScript code with Playground presets.
  * @param {string} code The JavaScript code to parse.
  * @param {ParserOptions} parserOptions Explicitly specified parser options.
- * @returns {{ ast: ASTNode } | { error: SyntaxError }} An AST with comments, or a `SyntaxError` object if the code cannot be parsed.
+ * @returns {{ ast: import("eslint").AST.Node } | { error: SyntaxError }} An AST with comments, or a `SyntaxError` object if the code cannot be parsed.
  */
 function tryParseForPlayground(code, parserOptions) {
     try {

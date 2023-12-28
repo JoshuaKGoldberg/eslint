@@ -8,7 +8,7 @@ const Traverser = require("../../lib/shared/traverser");
 
 /**
  * Define `start`/`end` properties as throwing error.
- * @param {ASTNode} node The node to define.
+ * @param {import("eslint").AST.Node} node The node to define.
  * @returns {void}
  */
 function defineStartEndAsError(node) {
@@ -30,7 +30,7 @@ function defineStartEndAsError(node) {
 
 /**
  * Define `start`/`end` properties of all nodes of the given AST as throwing error.
- * @param {ASTNode} ast The root node to errorize `start`/`end` properties.
+ * @param {import("eslint").AST.Node} ast The root node to errorize `start`/`end` properties.
  * @returns {void}
  */
 function defineStartEndAsErrorInTree(ast) {

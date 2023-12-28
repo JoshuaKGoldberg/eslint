@@ -197,7 +197,7 @@ describe("ast-utils", () => {
 
         /**
          * Asserts the node is NOT a directive comment
-         * @param {ASTNode} node node to assert
+         * @param {import("eslint").AST.Node} node node to assert
          * @returns {void}
          */
         function assertFalse(node) {
@@ -206,7 +206,7 @@ describe("ast-utils", () => {
 
         /**
          * Asserts the node is a directive comment
-         * @param {ASTNode} node node to assert
+         * @param {import("eslint").AST.Node} node node to assert
          * @returns {void}
          */
         function assertTrue(node) {

@@ -33,7 +33,7 @@ const TEST_CODE = "var answer = 6 * 7;",
  * Get variables in the current scope
  * @param {Object} scope current scope
  * @param {string} name name of the variable to look for
- * @returns {ASTNode|null} The variable object
+ * @returns {import("eslint").AST.Node | null} The variable object
  * @private
  */
 function getVariable(scope, name) {

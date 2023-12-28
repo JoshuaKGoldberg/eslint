@@ -7,7 +7,7 @@ const assert = require("assert");
 
 /**
  * Determines whether an AST node could be an expression, based on the type
- * @param {ASTNode} node The node
+ * @param {import("eslint").AST.Node} node The node
  * @returns {boolean} `true` if the node could be an expression
  */
 function isMaybeExpression(node) {
@@ -19,7 +19,7 @@ function isMaybeExpression(node) {
 
 /**
  * Determines whether an AST node is a statement
- * @param {ASTNode} node The node
+ * @param {import("eslint").AST.Node} node The node
  * @returns {boolean} `true` if the node is a statement
  */
 function isStatement(node) {
@@ -89,7 +89,7 @@ function reduceBadExampleSize({
     /**
      * Recursively removes descendant subtrees of the given AST node and replaces
      * them with simplified variants to produce a simplified AST which is still considered "bad".
-     * @param {ASTNode} node An AST node to prune. May be mutated by this call, but the
+     * @param {import("eslint").AST.Node} node An AST node to prune. May be mutated by this call, but the
      * resulting AST will still produce "bad" source code.
      * @returns {void}
      */
@@ -129,8 +129,8 @@ function reduceBadExampleSize({
 
     /**
      * Recursively tries to extract a descendant node from the AST that is "bad" on its own
-     * @param {ASTNode} node A node which produces "bad" source code
-     * @returns {ASTNode} A descendent of `node` which is also bad
+     * @param {import("eslint").AST.Node} node A node which produces "bad" source code
+     * @returns {import("eslint").AST.Node} A descendent of `node` which is also bad
      */
     function extractRelevantChild(node) {
         const childNodes = visitorKeys[node.type]

@@ -31,7 +31,8 @@
     "test": "node Makefile.js test",
     "test:cli": "mocha",
     "test:fuzz": "node Makefile.js fuzz",
-    "test:performance": "node Makefile.js perf"
+    "test:performance": "node Makefile.js perf",
+    "tsc": "tsc"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -103,6 +104,10 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/debug": "^4.1.12",
+    "@types/esutils": "^2.0.2",
+    "@types/lodash.merge": "^4.6.9",
     "@wdio/browser-runner": "^8.14.6",
     "@wdio/cli": "^8.14.6",
     "@wdio/concise-reporter": "^8.14.0",
@@ -158,6 +163,7 @@
     "semver": "^7.5.3",
     "shelljs": "^0.8.2",
     "sinon": "^11.0.0",
+    "typescript": "^5.3.3",
     "vite-plugin-commonjs": "^0.10.0",
     "webdriverio": "^8.14.6",
     "webpack": "^5.23.0",

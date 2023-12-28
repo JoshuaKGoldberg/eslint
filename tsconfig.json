@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "esModuleInterop": true,
+        "lib": ["ES2019"],
+        "module": "CommonJS",
+        "moduleResolution": "Node10",
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+
+        // TODO: Definitely enable this...
+        // ...eventually!
+        "noImplicitAny": false,
+        // ...once I figure out non-null assertions!
+        "strictNullChecks": false,
+
+        "target": "ES2019"
+    },
+    "include": ["conf", "lib", "types"]
+}

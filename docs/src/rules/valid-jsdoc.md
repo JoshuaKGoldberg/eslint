@@ -400,8 +400,8 @@ Example of additional **correct** code for this rule with the `"requireParamDesc
 
 /**
  * Add two numbers.
- * @param {int} num1
- * @param {int} num2
+ * @param {number} num1
+ * @param {number} num2
  * @returns {int} The sum of the two numbers.
  */
 function add(num1, num2) {

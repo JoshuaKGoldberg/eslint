@@ -1,6 +1,6 @@
 "use strict";
 
-/** @typedef {import("../../lib/shared/types").ParserOptions} ParserOptions */
+/** @typedef {import("eslint").Linter.ParserOptions} ParserOptions */
 
 /**
  * A callback function to handle the opening of container blocks.

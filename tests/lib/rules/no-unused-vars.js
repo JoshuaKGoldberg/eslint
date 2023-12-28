@@ -31,7 +31,7 @@ const ruleTester = new RuleTester({
 
                         /**
                          * Mark a variable as used
-                         * @param {ASTNode} node The node representing the scope to search
+                         * @param {import("eslint").AST.Node} node The node representing the scope to search
                          * @returns {void}
                          * @private
                          */
