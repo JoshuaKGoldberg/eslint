@@ -6739,6 +6739,47 @@ var a = "test2";
         });
     });
 
+    describe("options", () => {
+        it("rules should ignore schema defaults", () => {
+            linter.defineRule("my-rule", {
+                meta: {
+                    schema: [{
+                        default: { inSchema: "from-schema-root" },
+                        type: "object",
+                        properties: {
+                            inSchema: { default: "from-schema", type: "string" }
+                        },
+                        additionalProperties: false
+                    }]
+                },
+                create(context) {
+                    return {
+                        Program(node) {
+                            context.report({
+                                message: JSON.stringify(context.options[0] ?? {}),
+                                node
+                            });
+                        }
+                    };
+                }
+            });
+
+            const config = {
+                rules: {
+                    "my-rule": "error"
+                }
+            };
+
+            const code = "";
+            const messages = linter.verify(code, config);
+
+            assert.deepStrictEqual(
+                JSON.parse(messages[0].message),
+                {}
+            );
+        });
+    });
+
     describe("processors", () => {
         let receivedFilenames = [];
         let receivedPhysicalFilenames = [];
@@ -15382,6 +15423,51 @@ var a = "test2";
             assert.throws(() => {
                 linter.verify("0", config);
             }, /Fixable rules must set the `meta\.fixable` property/u);
+        });
+    });
+
+    describe("options", () => {
+        it("rules should ignore schema defaults", () => {
+            const config = {
+                plugins: {
+                    test: {
+                        rules: {
+                            checker: {
+                                meta: {
+                                    schema: [{
+                                        default: { inSchema: "from-schema-root" },
+                                        type: "object",
+                                        properties: {
+                                            inSchema: { default: "from-schema", type: "string" }
+                                        },
+                                        additionalProperties: false
+                                    }]
+                                },
+                                create(context) {
+                                    return {
+                                        Program(node) {
+                                            context.report({
+                                                message: JSON.stringify(context.options[0] ?? {}),
+                                                node
+                                            });
+                                        }
+                                    };
+                                }
+                            }
+                        }
+                    }
+                },
+                rules: {
+                    "test/checker": "error"
+                }
+            };
+
+            const messages = linter.verify("foo", config, filename);
+
+            assert.deepStrictEqual(
+                JSON.parse(messages[0].message),
+                {}
+            );
         });
     });
 
