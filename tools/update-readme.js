@@ -56,7 +56,6 @@ async function fetchTeamData() {
  * @returns {string} The HTML for the members list.
  */
 function formatTeamMembers(members) {
-    /* eslint-disable indent -- Allow deeper template substitution indent */
     return stripIndents`
         <table><tbody><tr>${members
             .map(
@@ -67,10 +66,9 @@ function formatTeamMembers(members) {
                 }.png?s=75" width="75" height="75" alt="${member.name.trim()}'s Avatar"><br />
                 ${member.name.trim()}
             </a>
-            </td>${(index + 1) % 9 === 0 ? "</tr><tr>" : ""}`
+            </td>${(index + 1) % 9 === 0 ? "</tr><tr>" : ""}`,
             )
             .join("")}</tr></tbody></table>`;
-    /* eslint-enable indent -- Allow deeper template substitution indent */
 }
 
 //-----------------------------------------------------------------------------
@@ -119,7 +117,7 @@ const HTML_TEMPLATE = stripIndents`
 (async () => {
     const [allSponsors, team] = await Promise.all([
         fetchSponsorsMarkdown(),
-        fetchTeamData()
+        fetchTeamData(),
     ]);
 
     // replace all of the section
@@ -127,13 +125,13 @@ const HTML_TEMPLATE = stripIndents`
         /<!--teamstart-->[\w\W]*?<!--teamend-->/u,
         ejs.render(HTML_TEMPLATE, {
             team,
-            formatTeamMembers
-        })
+            formatTeamMembers,
+        }),
     );
 
     newReadme = newReadme.replace(
         /<!--sponsorsstart-->[\w\W]*?<!--sponsorsend-->/u,
-        `<!--sponsorsstart-->\n${allSponsors}\n<!--sponsorsend-->`
+        `<!--sponsorsstart-->\n${allSponsors}\n<!--sponsorsend-->`,
     );
 
     // replace multiple consecutive blank lines with just one blank line
