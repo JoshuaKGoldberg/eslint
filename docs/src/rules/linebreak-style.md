@@ -21,8 +21,8 @@ This rule enforces consistent line endings independent of operating system, VCS,
 
 This rule has a string option:
 
-* `"unix"` (default) enforces the usage of Unix line endings: `\n` for LF.
-* `"windows"` enforces the usage of Windows line endings: `\r\n` for CRLF.
+- `"unix"` (default) enforces the usage of Unix line endings: `\n` for LF.
+- `"windows"` enforces the usage of Windows line endings: `\r\n` for CRLF.
 
 ### unix
 
@@ -33,8 +33,7 @@ Examples of **incorrect** code for this rule with the default `"unix"` option:
 ```js
 /*eslint linebreak-style: ["error", "unix"]*/
 
-var a = 'a'; // \r\n
-
+var a = "a"; // \r\n
 ```
 
 :::
@@ -46,13 +45,13 @@ Examples of **correct** code for this rule with the default `"unix"` option:
 ```js
 /*eslint linebreak-style: ["error", "unix"]*/
 
-var a = 'a', // \n
-    b = 'b'; // \n
+var a = "a", // \n
+    b = "b"; // \n
 // \n
-function foo(params) { // \n
+function foo(params) {
+    // \n
     // do stuff \n
-}// \n
-
+} // \n
 ```
 
 :::
@@ -66,8 +65,7 @@ Examples of **incorrect** code for this rule with the `"windows"` option:
 ```js
 /*eslint linebreak-style: ["error", "windows"]*/
 
-var a = 'a'; // \n
-
+var a = "a"; // \n
 ```
 
 :::
@@ -79,13 +77,13 @@ Examples of **correct** code for this rule with the `"windows"` option:
 ```js
 /*eslint linebreak-style: ["error", "windows"]*/ // \r\n
 // \r\n
-var a = 'a', // \r\n
-    b = 'b'; // \r\n
+var a = "a", // \r\n
+    b = "b"; // \r\n
 // \r\n
-function foo(params) { // \r\n
+function foo(params) {
+    // \r\n
     // do stuff \r\n
 } // \r\n
-
 ```
 
 :::
@@ -106,4 +104,4 @@ If you aren't concerned about having different line endings within your code, th
 
 ## Compatibility
 
-* **JSCS**: [validateLineBreaks](https://jscs-dev.github.io/rule/validateLineBreaks)
+- **JSCS**: [validateLineBreaks](https://jscs-dev.github.io/rule/validateLineBreaks)

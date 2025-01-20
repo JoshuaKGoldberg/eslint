@@ -2,11 +2,10 @@
 title: prefer-reflect
 rule_type: suggestion
 related_rules:
-- no-useless-call
-- prefer-spread
-- no-delete-var
+    - no-useless-call
+    - prefer-spread
+    - no-delete-var
 ---
-
 
 This rule was **deprecated** in ESLint v3.9.0 and will not be replaced. The original intent of this rule now seems misguided as we have come to understand that `Reflect` methods are not actually intended to replace the `Object` counterparts the rule suggests, but rather exist as low-level primitives to be used with proxies in order to replicate the default behavior of various previously existing functionality.
 
@@ -14,12 +13,12 @@ This rule was **deprecated** in ESLint v3.9.0 and will not be replaced. The orig
 
 The ES6 Reflect API comes with a handful of methods which somewhat deprecate methods on old constructors:
 
-* [`Reflect.apply`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.apply) effectively deprecates [`Function.prototype.apply`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-function.prototype.apply) and [`Function.prototype.call`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-function.prototype.call)
-* [`Reflect.deleteProperty`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.deleteproperty) effectively deprecates the [`delete` keyword](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-delete-operator-runtime-semantics-evaluation)
-* [`Reflect.getOwnPropertyDescriptor`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.getownpropertydescriptor) effectively deprecates [`Object.getOwnPropertyDescriptor`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.getownpropertydescriptor)
-* [`Reflect.getPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.getprototypeof) effectively deprecates [`Object.getPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.getprototypeof)
-* [`Reflect.setPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.setprototypeof) effectively deprecates [`Object.setPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.setprototypeof)
-* [`Reflect.preventExtensions`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.preventextensions)  effectively deprecates [`Object.preventExtensions`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.preventextensions)
+- [`Reflect.apply`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.apply) effectively deprecates [`Function.prototype.apply`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-function.prototype.apply) and [`Function.prototype.call`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-function.prototype.call)
+- [`Reflect.deleteProperty`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.deleteproperty) effectively deprecates the [`delete` keyword](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-delete-operator-runtime-semantics-evaluation)
+- [`Reflect.getOwnPropertyDescriptor`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.getownpropertydescriptor) effectively deprecates [`Object.getOwnPropertyDescriptor`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.getownpropertydescriptor)
+- [`Reflect.getPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.getprototypeof) effectively deprecates [`Object.getPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.getprototypeof)
+- [`Reflect.setPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.setprototypeof) effectively deprecates [`Object.setPrototypeOf`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.setprototypeof)
+- [`Reflect.preventExtensions`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect.preventextensions) effectively deprecates [`Object.preventExtensions`](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.preventextensions)
 
 The prefer-reflect rule will flag usage of any older method, suggesting to instead use the newer Reflect version.
 
@@ -127,7 +126,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.defineProperty({}, 'foo', {value: 1})
+Object.defineProperty({}, "foo", { value: 1 });
 ```
 
 :::
@@ -139,7 +138,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.defineProperty({}, 'foo', {value: 1})
+Reflect.defineProperty({}, "foo", { value: 1 });
 ```
 
 :::
@@ -151,8 +150,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["definePro
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["defineProperty"] }]*/
 
-Object.defineProperty({}, 'foo', {value: 1})
-Reflect.defineProperty({}, 'foo', {value: 1})
+Object.defineProperty({}, "foo", { value: 1 });
+Reflect.defineProperty({}, "foo", { value: 1 });
 ```
 
 :::
@@ -168,7 +167,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.getOwnPropertyDescriptor({}, 'foo')
+Object.getOwnPropertyDescriptor({}, "foo");
 ```
 
 :::
@@ -180,7 +179,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.getOwnPropertyDescriptor({}, 'foo')
+Reflect.getOwnPropertyDescriptor({}, "foo");
 ```
 
 :::
@@ -192,8 +191,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["getOwnPro
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["getOwnPropertyDescriptor"] }]*/
 
-Object.getOwnPropertyDescriptor({}, 'foo')
-Reflect.getOwnPropertyDescriptor({}, 'foo')
+Object.getOwnPropertyDescriptor({}, "foo");
+Reflect.getOwnPropertyDescriptor({}, "foo");
 ```
 
 :::
@@ -209,7 +208,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.getPrototypeOf({}, 'foo')
+Object.getPrototypeOf({}, "foo");
 ```
 
 :::
@@ -221,7 +220,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.getPrototypeOf({}, 'foo')
+Reflect.getPrototypeOf({}, "foo");
 ```
 
 :::
@@ -233,8 +232,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["getProtot
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["getPrototypeOf"] }]*/
 
-Object.getPrototypeOf({}, 'foo')
-Reflect.getPrototypeOf({}, 'foo')
+Object.getPrototypeOf({}, "foo");
+Reflect.getPrototypeOf({}, "foo");
 ```
 
 :::
@@ -250,7 +249,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.setPrototypeOf({}, Object.prototype)
+Object.setPrototypeOf({}, Object.prototype);
 ```
 
 :::
@@ -262,7 +261,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.setPrototypeOf({}, Object.prototype)
+Reflect.setPrototypeOf({}, Object.prototype);
 ```
 
 :::
@@ -274,8 +273,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["setProtot
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["setPrototypeOf"] }]*/
 
-Object.setPrototypeOf({}, Object.prototype)
-Reflect.setPrototypeOf({}, Object.prototype)
+Object.setPrototypeOf({}, Object.prototype);
+Reflect.setPrototypeOf({}, Object.prototype);
 ```
 
 :::
@@ -291,7 +290,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.isExtensible({})
+Object.isExtensible({});
 ```
 
 :::
@@ -303,7 +302,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.isExtensible({})
+Reflect.isExtensible({});
 ```
 
 :::
@@ -315,8 +314,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["isExtensi
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["isExtensible"] }]*/
 
-Object.isExtensible({})
-Reflect.isExtensible({})
+Object.isExtensible({});
+Reflect.isExtensible({});
 ```
 
 :::
@@ -332,7 +331,7 @@ Examples of **incorrect** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Object.preventExtensions({})
+Object.preventExtensions({});
 ```
 
 :::
@@ -344,7 +343,7 @@ Examples of **correct** code for this rule when used without exceptions:
 ```js
 /*eslint prefer-reflect: "error"*/
 
-Reflect.preventExtensions({})
+Reflect.preventExtensions({});
 ```
 
 :::
@@ -356,8 +355,8 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["preventEx
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["preventExtensions"] }]*/
 
-Object.preventExtensions({})
-Reflect.preventExtensions({})
+Object.preventExtensions({});
+Reflect.preventExtensions({});
 ```
 
 :::
@@ -386,7 +385,7 @@ Examples of **correct** code for this rule when used without exceptions:
 /*eslint prefer-reflect: "error"*/
 
 delete bar; // deleting variable
-Reflect.deleteProperty(foo, 'bar');
+Reflect.deleteProperty(foo, "bar");
 ```
 
 :::
@@ -400,9 +399,9 @@ Examples of **correct** code for this rule with the `{ "exceptions": ["delete"] 
 ```js
 /*eslint prefer-reflect: ["error", { "exceptions": ["delete"] }]*/
 
-delete bar
-delete foo.bar
-Reflect.deleteProperty(foo, 'bar');
+delete bar;
+delete foo.bar;
+Reflect.deleteProperty(foo, "bar");
 ```
 
 :::

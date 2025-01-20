@@ -2,18 +2,17 @@
 title: no-multi-assign
 rule_type: suggestion
 related_rules:
-- max-statements-per-line
+    - max-statements-per-line
 ---
-
 
 Chaining the assignment of variables can lead to unexpected results and be difficult to read.
 
 ```js
-(function() {
-    const foo = bar = 0; // Did you mean `foo = bar == 0`?
-    bar = 1;             // This will not fail since `bar` is not constant.
+(function () {
+    const foo = (bar = 0); // Did you mean `foo = bar == 0`?
+    bar = 1; // This will not fail since `bar` is not constant.
 })();
-console.log(bar);        // This will output 1 since `bar` is not scoped.
+console.log(bar); // This will output 1 since `bar` is not scoped.
 ```
 
 ## Rule Details
@@ -27,16 +26,14 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-multi-assign: "error"*/
 
-let a = b = c = 5;
+let a = (b = c = 5);
 
-const foo = bar = "baz";
+const foo = (bar = "baz");
 
-let d =
-    e =
-    f;
+let d = (e = f);
 
 class Foo {
-    a = b = 10;
+    a = (b = 10);
 }
 
 a = b = "quux";
@@ -76,7 +73,7 @@ b = "quux";
 
 This rule has an object option:
 
-* `"ignoreNonDeclaration"`: When set to `true`, the rule allows chains that don't include initializing a variable in a declaration or initializing a class field. Default is `false`.
+- `"ignoreNonDeclaration"`: When set to `true`, the rule allows chains that don't include initializing a variable in a declaration or initializing a class field. Default is `false`.
 
 ### ignoreNonDeclaration
 
@@ -105,12 +102,12 @@ Examples of **incorrect** code for the `{ "ignoreNonDeclaration": true }` option
 ```js
 /*eslint no-multi-assign: ["error", { "ignoreNonDeclaration": true }]*/
 
-let a = b = "baz";
+let a = (b = "baz");
 
-const foo = bar = 1;
+const foo = (bar = 1);
 
 class Foo {
-    a = b = 10;
+    a = (b = 10);
 }
 ```
 

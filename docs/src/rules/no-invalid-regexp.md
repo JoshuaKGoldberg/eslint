@@ -2,10 +2,8 @@
 title: no-invalid-regexp
 rule_type: problem
 further_reading:
-- https://es5.github.io/#x7.8.5
+    - https://es5.github.io/#x7.8.5
 ---
-
-
 
 An invalid pattern in a regular expression literal is a `SyntaxError` when the code is parsed, but an invalid string in `RegExp` constructors throws a `SyntaxError` only when the code is executed.
 
@@ -20,11 +18,11 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-invalid-regexp: "error"*/
 
-RegExp('[')
+RegExp("[");
 
-RegExp('.', 'z')
+RegExp(".", "z");
 
-new RegExp('\\')
+new RegExp("\\");
 ```
 
 :::
@@ -36,11 +34,11 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-invalid-regexp: "error"*/
 
-RegExp('.')
+RegExp(".");
 
-new RegExp
+new RegExp();
 
-this.RegExp('[')
+this.RegExp("[");
 ```
 
 :::
@@ -53,7 +51,7 @@ If you want to allow additional constructor flags for any reason, you can specif
 
 This rule has an object option for exceptions:
 
-* `"allowConstructorFlags"` is a case-sensitive array of flags
+- `"allowConstructorFlags"` is a case-sensitive array of flags
 
 ### allowConstructorFlags
 
@@ -64,9 +62,9 @@ Examples of **correct** code for this rule with the `{ "allowConstructorFlags": 
 ```js
 /*eslint no-invalid-regexp: ["error", { "allowConstructorFlags": ["a", "z"] }]*/
 
-new RegExp('.', 'a')
+new RegExp(".", "a");
 
-new RegExp('.', 'az')
+new RegExp(".", "az");
 ```
 
 :::

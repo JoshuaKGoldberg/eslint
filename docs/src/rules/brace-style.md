@@ -2,23 +2,23 @@
 title: brace-style
 rule_type: layout
 related_rules:
-- block-spacing
-- space-before-blocks
+    - block-spacing
+    - space-before-blocks
 further_reading:
-- https://en.wikipedia.org/wiki/Indent_style
+    - https://en.wikipedia.org/wiki/Indent_style
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/brace-style) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
 
 Brace style is closely related to [indent style](https://en.wikipedia.org/wiki/Indent_style) in programming and describes the placement of braces relative to their control statement and body. There are probably a dozen, if not more, brace styles in the world.
 
-The *one true brace style* is one of the most common brace styles in JavaScript, in which the opening brace of a block is placed on the same line as its corresponding statement or declaration. For example:
+The _one true brace style_ is one of the most common brace styles in JavaScript, in which the opening brace of a block is placed on the same line as its corresponding statement or declaration. For example:
 
 ```js
 if (foo) {
-  bar();
+    bar();
 } else {
-  baz();
+    baz();
 }
 ```
 
@@ -26,23 +26,19 @@ One common variant of one true brace style is called Stroustrup, in which the `e
 
 ```js
 if (foo) {
-  bar();
-}
-else {
-  baz();
+    bar();
+} else {
+    baz();
 }
 ```
 
 Another style is called [Allman](https://en.wikipedia.org/wiki/Indent_style#Allman_style), in which all the braces are expected to be on their own lines without any extra indentation. For example:
 
 ```js
-if (foo)
-{
-  bar();
-}
-else
-{
-  baz();
+if (foo) {
+    bar();
+} else {
+    baz();
 }
 ```
 
@@ -56,13 +52,13 @@ This rule enforces consistent brace style for blocks.
 
 This rule has a string option:
 
-* `"1tbs"` (default) enforces one true brace style.
-* `"stroustrup"` enforces Stroustrup style.
-* `"allman"` enforces Allman style.
+- `"1tbs"` (default) enforces one true brace style.
+- `"stroustrup"` enforces Stroustrup style.
+- `"allman"` enforces Allman style.
 
 This rule has an object option for an exception:
 
-* `"allowSingleLine": true` (default `false`) allows the opening and closing braces for a block to be on the *same* line.
+- `"allowSingleLine": true` (default `false`) allows the opening and closing braces for a block to be on the _same_ line.
 
 ### 1tbs
 
@@ -73,35 +69,28 @@ Examples of **incorrect** code for this rule with the default `"1tbs"` option:
 ```js
 /*eslint brace-style: "error"*/
 
-function foo()
-{
-  return true;
-}
-
-if (foo)
-{
-  bar();
-}
-
-try
-{
-  somethingRisky();
-} catch(e)
-{
-  handleError();
+function foo() {
+    return true;
 }
 
 if (foo) {
-  bar();
-}
-else {
-  baz();
+    bar();
 }
 
-class C
-{
-    static
-    {
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
+}
+
+if (foo) {
+    bar();
+} else {
+    baz();
+}
+
+class C {
+    static {
         foo();
     }
 }
@@ -117,23 +106,23 @@ Examples of **correct** code for this rule with the default `"1tbs"` option:
 /*eslint brace-style: "error"*/
 
 function foo() {
-  return true;
+    return true;
 }
 
 if (foo) {
-  bar();
+    bar();
 }
 
 if (foo) {
-  bar();
+    bar();
 } else {
-  baz();
+    baz();
 }
 
 try {
-  somethingRisky();
-} catch(e) {
-  handleError();
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
 class C {
@@ -156,40 +145,67 @@ Examples of **correct** code for this rule with the `"1tbs", { "allowSingleLine"
 ```js
 /*eslint brace-style: ["error", "1tbs", { "allowSingleLine": true }]*/
 
-function nop() { return; }
-
-if (foo) { bar(); }
-
-if (foo) { bar(); } else { baz(); }
-
-try { somethingRisky(); } catch(e) { handleError(); }
-
-if (foo) { baz(); } else {
-  boom();
+function nop() {
+    return;
 }
 
-if (foo) { baz(); } else if (bar) {
-  boom();
+if (foo) {
+    bar();
 }
 
-if (foo) { baz(); } else
-if (bar) {
-  boom();
+if (foo) {
+    bar();
+} else {
+    baz();
 }
 
-if (foo) { baz(); } else if (bar) {
-  boom();
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
-try { somethingRisky(); } catch(e) {
-  handleError();
+if (foo) {
+    baz();
+} else {
+    boom();
+}
+
+if (foo) {
+    baz();
+} else if (bar) {
+    boom();
+}
+
+if (foo) {
+    baz();
+} else if (bar) {
+    boom();
+}
+
+if (foo) {
+    baz();
+} else if (bar) {
+    boom();
+}
+
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
 class C {
-    static { foo(); }
+    static {
+        foo();
+    }
 }
 
-class D { static { foo(); } }
+class D {
+    static {
+        foo();
+    }
+}
 ```
 
 :::
@@ -203,36 +219,30 @@ Examples of **incorrect** code for this rule with the `"stroustrup"` option:
 ```js
 /*eslint brace-style: ["error", "stroustrup"]*/
 
-function foo()
-{
-  return true;
+function foo() {
+    return true;
 }
 
-if (foo)
-{
-  bar();
+if (foo) {
+    bar();
 }
 
-try
-{
-  somethingRisky();
-} catch(e)
-{
-  handleError();
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
-class C
-{
-    static
-    {
+class C {
+    static {
         foo();
     }
 }
 
 if (foo) {
-  bar();
+    bar();
 } else {
-  baz();
+    baz();
 }
 ```
 
@@ -246,25 +256,23 @@ Examples of **correct** code for this rule with the `"stroustrup"` option:
 /*eslint brace-style: ["error", "stroustrup"]*/
 
 function foo() {
-  return true;
+    return true;
 }
 
 if (foo) {
-  bar();
+    bar();
 }
 
 if (foo) {
-  bar();
-}
-else {
-  baz();
+    bar();
+} else {
+    baz();
 }
 
 try {
-  somethingRisky();
-}
-catch(e) {
-  handleError();
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
 class C {
@@ -287,21 +295,37 @@ Examples of **correct** code for this rule with the `"stroustrup", { "allowSingl
 ```js
 /*eslint brace-style: ["error", "stroustrup", { "allowSingleLine": true }]*/
 
-function nop() { return; }
-
-if (foo) { bar(); }
-
-if (foo) { bar(); }
-else { baz(); }
-
-try { somethingRisky(); }
-catch(e) { handleError(); }
-
-class C {
-    static { foo(); }
+function nop() {
+    return;
 }
 
-class D { static { foo(); } }
+if (foo) {
+    bar();
+}
+
+if (foo) {
+    bar();
+} else {
+    baz();
+}
+
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
+}
+
+class C {
+    static {
+        foo();
+    }
+}
+
+class D {
+    static {
+        foo();
+    }
+}
 ```
 
 :::
@@ -316,19 +340,17 @@ Examples of **incorrect** code for this rule with the `"allman"` option:
 /*eslint brace-style: ["error", "allman"]*/
 
 function foo() {
-  return true;
+    return true;
 }
 
-if (foo)
-{
-  bar(); }
+if (foo) {
+    bar();
+}
 
-try
-{
-  somethingRisky();
-} catch(e)
-{
-  handleError();
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
 class C {
@@ -338,9 +360,9 @@ class C {
 }
 
 if (foo) {
-  bar();
+    bar();
 } else {
-  baz();
+    baz();
 }
 ```
 
@@ -353,38 +375,28 @@ Examples of **correct** code for this rule with the `"allman"` option:
 ```js
 /*eslint brace-style: ["error", "allman"]*/
 
-function foo()
-{
-  return true;
+function foo() {
+    return true;
 }
 
-if (foo)
-{
-  bar();
+if (foo) {
+    bar();
 }
 
-if (foo)
-{
-  bar();
-}
-else
-{
-  baz();
+if (foo) {
+    bar();
+} else {
+    baz();
 }
 
-try
-{
-  somethingRisky();
-}
-catch(e)
-{
-  handleError();
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
 }
 
-class C
-{
-    static
-    {
+class C {
+    static {
         foo();
     }
 }
@@ -403,25 +415,41 @@ Examples of **correct** code for this rule with the `"allman", { "allowSingleLin
 ```js
 /*eslint brace-style: ["error", "allman", { "allowSingleLine": true }]*/
 
-function nop() { return; }
-
-if (foo) { bar(); }
-
-if (foo) { bar(); }
-else { baz(); }
-
-try { somethingRisky(); }
-catch(e) { handleError(); }
-
-class C
-{
-    static { foo(); }
-
-    static
-    { foo(); }
+function nop() {
+    return;
 }
 
-class D { static { foo(); } }
+if (foo) {
+    bar();
+}
+
+if (foo) {
+    bar();
+} else {
+    baz();
+}
+
+try {
+    somethingRisky();
+} catch (e) {
+    handleError();
+}
+
+class C {
+    static {
+        foo();
+    }
+
+    static {
+        foo();
+    }
+}
+
+class D {
+    static {
+        foo();
+    }
+}
 ```
 
 :::

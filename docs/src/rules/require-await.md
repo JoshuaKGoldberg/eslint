@@ -2,9 +2,8 @@
 title: require-await
 rule_type: suggestion
 related_rules:
-- require-yield
+    - require-yield
 ---
-
 
 Asynchronous functions in JavaScript behave differently than other functions in two important ways:
 
@@ -86,7 +85,7 @@ async function fail() {
     throw new Error("Failure!");
 }
 
-fail().catch(error => {
+fail().catch((error) => {
     console.log(error.message);
 });
 ```

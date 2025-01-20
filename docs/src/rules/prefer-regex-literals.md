@@ -2,16 +2,14 @@
 title: prefer-regex-literals
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 ---
-
-
 
 There are two ways to create a regular expression:
 
-* Regular expression literals, e.g., `/abc/u`.
-* The `RegExp` constructor function, e.g., `new RegExp("abc", "u")` or `RegExp("abc", "u")`.
+- Regular expression literals, e.g., `/abc/u`.
+- The `RegExp` constructor function, e.g., `new RegExp("abc", "u")` or `RegExp("abc", "u")`.
 
 The constructor function is particularly useful when you want to dynamically generate the pattern,
 because it takes string arguments.
@@ -108,7 +106,7 @@ new RegExp(String.raw`^\d\. ${suffix}`);
 
 This rule has an object option:
 
-* `disallowRedundantWrapping` set to `true` additionally checks for unnecessarily wrapped regex literals (Default `false`).
+- `disallowRedundantWrapping` set to `true` additionally checks for unnecessarily wrapped regex literals (Default `false`).
 
 ### disallowRedundantWrapping
 
@@ -123,7 +121,7 @@ Examples of `incorrect` code for `{ "disallowRedundantWrapping": true }`
 
 new RegExp(/abc/);
 
-new RegExp(/abc/, 'u');
+new RegExp(/abc/, "u");
 ```
 
 :::

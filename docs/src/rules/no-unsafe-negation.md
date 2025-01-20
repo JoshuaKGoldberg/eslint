@@ -4,18 +4,14 @@ rule_type: problem
 handled_by_typescript: true
 ---
 
-
-
-
-
 Just as developers might type `-a + b` when they mean `-(a + b)` for the negative of a sum, they might type `!key in object` by mistake when they almost certainly mean `!(key in object)` to test that a key is not in an object. `!obj instanceof Ctor` is similar.
 
 ## Rule Details
 
 This rule disallows negating the left operand of the following relational operators:
 
-* [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in).
-* [`instanceof` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof).
+- [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in).
+- [`instanceof` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof).
 
 Examples of **incorrect** code for this rule:
 
@@ -24,12 +20,12 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-unsafe-negation: "error"*/
 
-if (!key in object) {
+if ((!key) in object) {
     // operator precedence makes it equivalent to (!key) in object
     // and type conversion makes it equivalent to (key ? "false" : "true") in object
 }
 
-if (!obj instanceof Ctor) {
+if ((!obj) instanceof Ctor) {
     // operator precedence makes it equivalent to (!obj) instanceof Ctor
     // and it equivalent to always false since boolean values are not objects.
 }
@@ -73,7 +69,7 @@ if ((!foo) in object) {
     // this is allowed as an exception for rare situations when that is the intended meaning
 }
 
-if(("" + !foo) in object) {
+if ("" + !foo in object) {
     // you can also make the intention more explicit, with type conversion
 }
 ```
@@ -87,7 +83,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-unsafe-negation: "error"*/
 
-if (!(foo) in object) {
+if ((!foo) in object) {
     // this is not an allowed exception
 }
 ```
@@ -98,17 +94,17 @@ if (!(foo) in object) {
 
 This rule has an object option:
 
-* `"enforceForOrderingRelations": false` (default) allows negation of the left-hand side of ordering relational operators (`<`, `>`, `<=`, `>=`)
-* `"enforceForOrderingRelations": true` disallows negation of the left-hand side of ordering relational operators
+- `"enforceForOrderingRelations": false` (default) allows negation of the left-hand side of ordering relational operators (`<`, `>`, `<=`, `>=`)
+- `"enforceForOrderingRelations": true` disallows negation of the left-hand side of ordering relational operators
 
 ### enforceForOrderingRelations
 
 With this option set to `true` the rule is additionally enforced for:
 
-* `<` operator.
-* `>` operator.
-* `<=` operator.
-* `>=` operator.
+- `<` operator.
+- `>` operator.
+- `<=` operator.
+- `>=` operator.
 
 The purpose is to avoid expressions such as `! a < b` (which is equivalent to `(a ? 0 : 1) < b`) when what is really intended is `!(a < b)`.
 
@@ -119,13 +115,14 @@ Examples of additional **incorrect** code for this rule with the `{ "enforceForO
 ```js
 /*eslint no-unsafe-negation: ["error", { "enforceForOrderingRelations": true }]*/
 
-if (! a < b) {}
+if (!a < b) {
+}
 
-while (! a > b) {}
+while (!a > b) {}
 
-foo = ! a <= b;
+foo = !a <= b;
 
-foo = ! a >= b;
+foo = !a >= b;
 ```
 
 :::

@@ -4,12 +4,10 @@ rule_type: problem
 handled_by_typescript: true
 ---
 
-
-
 `ClassDeclaration` creates a variable, and we can modify the variable.
 
 ```js
-class A { }
+class A {}
 A = 0;
 ```
 
@@ -26,7 +24,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-class-assign: "error"*/
 
-class A { }
+class A {}
 A = 0;
 ```
 
@@ -38,7 +36,7 @@ A = 0;
 /*eslint no-class-assign: "error"*/
 
 A = 0;
-class A { }
+class A {}
 ```
 
 :::
@@ -67,7 +65,7 @@ let A = class A {
         A = 0;
         // `let A` is shadowed by the class name.
     }
-}
+};
 ```
 
 :::
@@ -79,7 +77,7 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-class-assign: "error"*/
 
-let A = class A { }
+let A = class A {};
 A = 0; // A is a variable.
 ```
 
@@ -94,7 +92,7 @@ let A = class {
     b() {
         A = 0; // A is a variable.
     }
-}
+};
 ```
 
 :::

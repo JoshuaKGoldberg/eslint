@@ -2,14 +2,12 @@
 title: no-useless-backreference
 rule_type: problem
 related_rules:
-- no-control-regex
-- no-empty-character-class
-- no-invalid-regexp
+    - no-control-regex
+    - no-empty-character-class
+    - no-invalid-regexp
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 ---
-
-
 
 In JavaScript regular expressions, it's syntactically valid to define a backreference to a group that belongs to another alternative part of the pattern, a backreference to a group that appears after the backreference, a backreference to a group that contains that backreference, or a backreference to a group that is inside a negative lookaround. However, by the specification, in any of these cases the backreference always ends up matching only zero-length (the empty string), regardless of the context in which the backreference and the group appear.
 
@@ -35,10 +33,10 @@ Useless backreference is a possible error in the code. It usually indicates that
 
 This rule aims to detect and disallow the following backreferences in regular expression:
 
-* Backreference to a group that is in another alternative, e.g., `/(a)|\1b/`. In such constructed regular expression, the backreference is expected to match what's been captured in, at that point, a non-participating group.
-* Backreference to a group that appears later in the pattern, e.g., `/\1(a)/`. The group hasn't captured anything yet, and ECMAScript doesn't support forward references. Inside lookbehinds, which match backward, the opposite applies and this rule disallows backreference to a group that appears before in the same lookbehind, e.g., `/(?<=(a)\1)b/`.
-* Backreference to a group from within the same group, e.g., `/(\1)/`. Similar to the previous, the group hasn't captured anything yet, and ECMAScript doesn't support nested references.
-* Backreference to a group that is in a negative lookaround, if the backreference isn't in the same negative lookaround, e.g., `/a(?!(b)).\1/`. A negative lookaround (lookahead or lookbehind) succeeds only if its pattern cannot match, meaning that the group has failed.
+- Backreference to a group that is in another alternative, e.g., `/(a)|\1b/`. In such constructed regular expression, the backreference is expected to match what's been captured in, at that point, a non-participating group.
+- Backreference to a group that appears later in the pattern, e.g., `/\1(a)/`. The group hasn't captured anything yet, and ECMAScript doesn't support forward references. Inside lookbehinds, which match backward, the opposite applies and this rule disallows backreference to a group that appears before in the same lookbehind, e.g., `/(?<=(a)\1)b/`.
+- Backreference to a group from within the same group, e.g., `/(\1)/`. Similar to the previous, the group hasn't captured anything yet, and ECMAScript doesn't support nested references.
+- Backreference to a group that is in a negative lookaround, if the backreference isn't in the same negative lookaround, e.g., `/a(?!(b)).\1/`. A negative lookaround (lookahead or lookbehind) succeeds only if its pattern cannot match, meaning that the group has failed.
 
 By the ECMAScript specification, all backreferences listed above are valid, always succeed to match zero-length, and cannot match anything else. Consequently, they don't produce parsing or runtime errors, but also don't affect the behavior of their regular expressions. They are syntactically valid but useless.
 
@@ -65,7 +63,7 @@ Examples of **incorrect** code for this rule:
 
 /\1(a)/; // forward reference to (a)
 
-RegExp('(a)\\2(b)'); // forward reference to (b)
+RegExp("(a)\\2(b)"); // forward reference to (b)
 
 /(?:a)(b)\2(c)/; // forward reference to (c)
 
@@ -75,7 +73,7 @@ RegExp('(a)\\2(b)'); // forward reference to (b)
 
 /(?<!(a)\1)b/; // backward reference to (a) from within the same lookbehind
 
-new RegExp('(\\1)'); // nested reference to (\1)
+new RegExp("(\\1)"); // nested reference to (\1)
 
 /^((a)\1)$/; // nested reference to ((a)\1)
 
@@ -99,7 +97,7 @@ Examples of **correct** code for this rule:
 
 /(a)\1/; // reference to (a)
 
-RegExp('(a)\\1(b)'); // reference to (a)
+RegExp("(a)\\1(b)"); // reference to (a)
 
 /(a)(b)\2(c)/; // reference to (b)
 
@@ -109,7 +107,7 @@ RegExp('(a)\\1(b)'); // reference to (a)
 
 /(?<=(a))b\1/; // reference to (a), correctly after the group as the backreference isn't in the lookbehind
 
-new RegExp('(.)\\1'); // reference to (.)
+new RegExp("(.)\\1"); // reference to (.)
 
 /^(?:(a)\1)$/; // reference to (a)
 

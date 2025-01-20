@@ -3,8 +3,6 @@ title: one-var
 rule_type: suggestion
 ---
 
-
-
 Variables can be declared at any point in JavaScript code using `var`, `let`, or `const`. There are many styles and preferences related to the declaration of variables, and one of those is deciding on how many variable declarations should be allowed in a single function.
 
 There are two schools of thought in this regard:
@@ -39,31 +37,31 @@ This rule has one option, which can be a string option or an object option.
 
 String option:
 
-* `"always"` (default) requires one variable declaration per scope
-* `"never"` requires multiple variable declarations per scope
-* `"consecutive"` allows multiple variable declarations per scope but requires consecutive variable declarations to be combined into a single declaration
+- `"always"` (default) requires one variable declaration per scope
+- `"never"` requires multiple variable declarations per scope
+- `"consecutive"` allows multiple variable declarations per scope but requires consecutive variable declarations to be combined into a single declaration
 
 Object option:
 
-* `"var": "always"` requires one `var` declaration per function
-* `"var": "never"` requires multiple `var` declarations per function
-* `"var": "consecutive"` requires consecutive `var` declarations to be a single declaration
-* `"let": "always"` requires one `let` declaration per block
-* `"let": "never"` requires multiple `let` declarations per block
-* `"let": "consecutive"` requires consecutive `let` declarations to be a single declaration
-* `"const": "always"` requires one `const` declaration per block
-* `"const": "never"` requires multiple `const` declarations per block
-* `"const": "consecutive"` requires consecutive `const` declarations to be a single declaration
-* `"separateRequires": true` enforces `requires` to be separate from declarations
+- `"var": "always"` requires one `var` declaration per function
+- `"var": "never"` requires multiple `var` declarations per function
+- `"var": "consecutive"` requires consecutive `var` declarations to be a single declaration
+- `"let": "always"` requires one `let` declaration per block
+- `"let": "never"` requires multiple `let` declarations per block
+- `"let": "consecutive"` requires consecutive `let` declarations to be a single declaration
+- `"const": "always"` requires one `const` declaration per block
+- `"const": "never"` requires multiple `const` declarations per block
+- `"const": "consecutive"` requires consecutive `const` declarations to be a single declaration
+- `"separateRequires": true` enforces `requires` to be separate from declarations
 
 Alternate object option:
 
-* `"initialized": "always"` requires one variable declaration for initialized variables per scope
-* `"initialized": "never"` requires multiple variable declarations for initialized variables per scope
-* `"initialized": "consecutive"` requires consecutive variable declarations for initialized variables to be a single declaration
-* `"uninitialized": "always"` requires one variable declaration for uninitialized variables per scope
-* `"uninitialized": "never"` requires multiple variable declarations for uninitialized variables per scope
-* `"uninitialized": "consecutive"` requires consecutive variable declarations for uninitialized variables to be a single declaration
+- `"initialized": "always"` requires one variable declaration for initialized variables per scope
+- `"initialized": "never"` requires multiple variable declarations for initialized variables per scope
+- `"initialized": "consecutive"` requires consecutive variable declarations for initialized variables to be a single declaration
+- `"uninitialized": "always"` requires one variable declaration for uninitialized variables per scope
+- `"uninitialized": "never"` requires multiple variable declarations for uninitialized variables per scope
+- `"uninitialized": "consecutive"` requires consecutive variable declarations for uninitialized variables to be a single declaration
 
 ### always
 
@@ -81,7 +79,7 @@ function foo1() {
     let norf;
 }
 
-function foo2(){
+function foo2() {
     const bar = false;
     const baz = true;
     let qux;
@@ -126,29 +124,25 @@ Examples of **correct** code for this rule with the default `"always"` option:
 /*eslint one-var: ["error", "always"]*/
 
 function foo1() {
-    var bar,
-        baz;
-    let qux,
-        norf;
+    var bar, baz;
+    let qux, norf;
 }
 
-function foo2(){
+function foo2() {
     const bar = true,
         baz = false;
-    let qux,
-        norf;
+    let qux, norf;
 }
 
 function foo3() {
-    var bar,
-        qux;
+    var bar, qux;
 
     if (baz) {
         qux = true;
     }
 }
 
-function foo4(){
+function foo4() {
     let bar;
 
     if (baz) {
@@ -193,22 +187,20 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 /*eslint one-var: ["error", "never"]*/
 
 function foo1() {
-    var bar,
-        baz;
+    var bar, baz;
     const qux = true,
         foobar = false;
 }
 
 function foo2() {
-    var bar,
-        qux;
+    var bar, qux;
 
     if (baz) {
         qux = true;
     }
 }
 
-function foo3(){
+function foo3() {
     let bar = true,
         baz = false;
 }
@@ -282,7 +274,7 @@ function foo1() {
     var baz;
 }
 
-function foo2(){
+function foo2() {
     var bar = 1;
     var baz = 2;
 
@@ -312,11 +304,10 @@ Examples of **correct** code for this rule with the `"consecutive"` option:
 /*eslint one-var: ["error", "consecutive"]*/
 
 function foo1() {
-    var bar,
-        baz;
+    var bar, baz;
 }
 
-function foo2(){
+function foo2() {
     var bar = 1,
         baz = 2;
 
@@ -351,15 +342,13 @@ Examples of **incorrect** code for this rule with the `{ var: "always", let: "ne
 function foo1() {
     var bar;
     var baz;
-    let qux,
-        norf;
+    let qux, norf;
 }
 
 function foo2() {
     const bar = 1,
-          baz = 2;
-    let qux,
-        norf;
+        baz = 2;
+    let qux, norf;
 }
 ```
 
@@ -373,8 +362,7 @@ Examples of **correct** code for this rule with the `{ var: "always", let: "neve
 /*eslint one-var: ["error", { var: "always", let: "never", const: "never" }]*/
 
 function foo1() {
-    var bar,
-        baz;
+    var bar, baz;
     let qux;
     let norf;
 }
@@ -397,8 +385,7 @@ Examples of **incorrect** code for this rule with the `{ var: "never" }` option:
 /*eslint one-var: ["error", { var: "never" }]*/
 
 function foo() {
-    var bar,
-        baz;
+    var bar, baz;
 }
 ```
 
@@ -418,7 +405,8 @@ function foo() {
     // `const` and `let` declarations are ignored if they are not specified
     const foobar = 1;
     const foobaz = 2;
-    const barfoo = 1, bazfoo = 2;
+    const barfoo = 1,
+        bazfoo = 2;
     let qux;
     let norf;
     let fooqux, foonorf;
@@ -472,12 +460,10 @@ Examples of **incorrect** code for this rule with the `{ var: "never", let: "con
 /*eslint one-var: ["error", { var: "never", let: "consecutive", const: "consecutive" }]*/
 
 function foo1() {
-    let a,
-        b;
+    let a, b;
     let c;
 
-    var d,
-        e;
+    var d, e;
 }
 
 function foo2() {
@@ -485,8 +471,7 @@ function foo2() {
         b = 2;
     const c = 3;
 
-    var d,
-        e;
+    var d, e;
 }
 ```
 
@@ -500,8 +485,7 @@ Examples of **correct** code for this rule with the `{ var: "never", let: "conse
 /*eslint one-var: ["error", { var: "never", let: "consecutive", const: "consecutive" }]*/
 
 function foo1() {
-    let a,
-        b;
+    let a, b;
 
     var d;
     var e;
@@ -511,7 +495,7 @@ function foo1() {
 
 function foo2() {
     const a = 1,
-          b = 2;
+        b = 2;
 
     var c;
     var d;
@@ -545,8 +529,7 @@ Examples of **correct** code for this rule with the `{ var: "consecutive" }` opt
 /*eslint one-var: ["error", { var: "consecutive" }]*/
 
 function foo() {
-    var a,
-        b;
+    var a, b;
     const c = 1; // `const` and `let` declarations are ignored if they are not specified
     const d = 2;
     let e;
@@ -642,8 +625,7 @@ Examples of **incorrect** code for this rule with the `{ "initialized": "consecu
 function foo() {
     var a = 1;
     var b = 2;
-    var c,
-        d;
+    var c, d;
     var e = 3;
     var f = 4;
 }
@@ -712,6 +694,6 @@ function foo() {
 
 ## Compatibility
 
-* **JSHint**: This rule maps to the `onevar` JSHint rule, but allows `let` and `const` to be configured separately.
-* **JSCS**: This rule roughly maps to [disallowMultipleVarDecl](https://jscs-dev.github.io/rule/disallowMultipleVarDecl).
-* **JSCS**: This rule option `separateRequires` roughly maps to [requireMultipleVarDecl](https://jscs-dev.github.io/rule/requireMultipleVarDecl).
+- **JSHint**: This rule maps to the `onevar` JSHint rule, but allows `let` and `const` to be configured separately.
+- **JSCS**: This rule roughly maps to [disallowMultipleVarDecl](https://jscs-dev.github.io/rule/disallowMultipleVarDecl).
+- **JSCS**: This rule option `separateRequires` roughly maps to [requireMultipleVarDecl](https://jscs-dev.github.io/rule/requireMultipleVarDecl).

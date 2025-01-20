@@ -2,10 +2,9 @@
 title: no-nested-ternary
 rule_type: suggestion
 related_rules:
-- no-ternary
-- no-unneeded-ternary
+    - no-ternary
+    - no-unneeded-ternary
 ---
-
 
 Nesting ternary expressions can make code more difficult to understand.
 
@@ -26,7 +25,7 @@ Examples of **incorrect** code for this rule:
 
 var thing = foo ? bar : baz === qux ? quxx : foobar;
 
-foo ? baz === qux ? quxx() : foobar() : bar();
+foo ? (baz === qux ? quxx() : foobar()) : bar();
 ```
 
 :::
@@ -43,11 +42,11 @@ var thing = foo ? bar : foobar;
 var thing;
 
 if (foo) {
-  thing = bar;
+    thing = bar;
 } else if (baz === qux) {
-  thing = quxx;
+    thing = quxx;
 } else {
-  thing = foobar;
+    thing = foobar;
 }
 ```
 

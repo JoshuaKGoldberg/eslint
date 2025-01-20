@@ -13,7 +13,7 @@ const assert = require("chai").assert;
 
 const {
     upperCaseFirst,
-    getGraphemeCount,
+    getGraphemeCount
 } = require("../../../lib/shared/string-utils");
 
 //------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ function escapeControlCharacters(text) {
     return text.replace(
         // eslint-disable-next-line no-control-regex -- intentionally including control characters
         /[\u0000-\u001F\u007F-\u009F]/gu,
-        (c) => `\\x${c.codePointAt(0).toString(16).padStart(2, "0")}`,
+        (c) => `\\x${c.codePointAt(0).toString(16).padStart(2, "0")}`
     );
 }
 
@@ -69,7 +69,7 @@ describe("getGraphemeCount", () => {
         123: 3,
         cccc: 4,
         [Array.from({ length: 128 }, (_, i) => String.fromCharCode(i)).join(
-            "",
+            ""
         )]: 128, // all ASCII characters
         "👍": 1, // 1 grapheme, 1 code point, 2 code units
         "👍👍": 2,
@@ -82,7 +82,7 @@ describe("getGraphemeCount", () => {
         "a👨‍👩‍👦b👨‍👩‍👦c": 5,
         "👨‍👩‍👦👍": 2,
         "👶🏽👨‍👩‍👦": 2,
-        "👩‍🦰👩‍👩‍👦‍👦🏳️‍🌈": 3, // 3 grapheme, 14 code points, 22 code units
+        "👩‍🦰👩‍👩‍👦‍👦🏳️‍🌈": 3 // 3 grapheme, 14 code points, 22 code units
     };
 
     Object.entries(expectedResults).forEach(([key, value]) => {

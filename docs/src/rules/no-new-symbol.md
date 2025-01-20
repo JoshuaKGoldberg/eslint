@@ -3,7 +3,7 @@ title: no-new-symbol
 rule_type: problem
 handled_by_typescript: true
 further_reading:
-- https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-objects
+    - https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-objects
 ---
 
 This rule was **deprecated** in ESLint v9.0.0 and replaced by the [no-new-native-nonconstructor](no-new-native-nonconstructor) rule.
@@ -29,7 +29,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-new-symbol: "error"*/
 
-var foo = new Symbol('foo');
+var foo = new Symbol("foo");
 ```
 
 :::
@@ -41,13 +41,12 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-new-symbol: "error"*/
 
-var foo = Symbol('foo');
+var foo = Symbol("foo");
 
 // Ignores shadowed Symbol.
 function bar(Symbol) {
     const baz = new Symbol("baz");
 }
-
 ```
 
 :::

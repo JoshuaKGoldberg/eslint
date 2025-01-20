@@ -4,8 +4,6 @@ rule_type: problem
 handled_by_typescript: true
 ---
 
-
-
 We cannot modify variables that are declared using `const` keyword.
 It will raise a runtime error.
 
@@ -68,7 +66,8 @@ console.log(a);
 ```js
 /*eslint no-const-assign: "error"*/
 
-for (const a in [1, 2, 3]) { // `a` is re-defined (not modified) on each loop step.
+for (const a in [1, 2, 3]) {
+    // `a` is re-defined (not modified) on each loop step.
     console.log(a);
 }
 ```
@@ -80,7 +79,8 @@ for (const a in [1, 2, 3]) { // `a` is re-defined (not modified) on each loop st
 ```js
 /*eslint no-const-assign: "error"*/
 
-for (const a of [1, 2, 3]) { // `a` is re-defined (not modified) on each loop step.
+for (const a of [1, 2, 3]) {
+    // `a` is re-defined (not modified) on each loop step.
     console.log(a);
 }
 ```

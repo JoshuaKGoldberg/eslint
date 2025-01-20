@@ -2,11 +2,9 @@
 title: no-dupe-else-if
 rule_type: problem
 related_rules:
-- no-duplicate-case
-- no-lonely-if
+    - no-duplicate-case
+    - no-lonely-if
 ---
-
-
 
 `if-else-if` chains are commonly used when there is a need to execute only one branch (or at most one branch) out of several possible branches, based on certain conditions.
 
@@ -163,7 +161,7 @@ if (a) {
     foo();
 } else if (b && c) {
     bar();
-} else if (d && (c && e && b || a)) {
+} else if (d && ((c && e && b) || a)) {
     baz();
 }
 ```

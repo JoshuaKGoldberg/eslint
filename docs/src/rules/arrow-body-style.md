@@ -3,7 +3,7 @@ title: arrow-body-style
 rule_type: suggestion
 ---
 
-Arrow functions have two syntactic forms for their function bodies.  They may be defined with a *block* body (denoted by curly braces) `() => { ... }` or with a single expression `() => ...`, whose value is implicitly returned.
+Arrow functions have two syntactic forms for their function bodies. They may be defined with a _block_ body (denoted by curly braces) `() => { ... }` or with a single expression `() => ...`, whose value is implicitly returned.
 
 ## Rule Details
 
@@ -13,9 +13,9 @@ This rule can enforce or disallow the use of braces around arrow function body.
 
 The rule takes one or two options. The first is a string, which can be:
 
-* `"always"` enforces braces around the function body
-* `"as-needed"` enforces no braces where they can be omitted (default)
-* `"never"` enforces no braces around the function body (constrains arrow functions to the role of returning an expression)
+- `"always"` enforces braces around the function body
+- `"as-needed"` enforces no braces where they can be omitted (default)
+- `"never"` enforces no braces around the function body (constrains arrow functions to the role of returning an expression)
 
 The second one is an object for more fine-grained configuration when the first option is `"as-needed"`. Currently, the only available option is `requireReturnForObjectLiteral`, a boolean property. It's `false` by default. If set to `true`, it requires braces and an explicit return for object literals.
 
@@ -69,9 +69,9 @@ let foo = () => {
 };
 let bar = () => {
     return {
-       bar: {
+        bar: {
             foo: 1,
-            bar: 2,
+            bar: 2
         }
     };
 };
@@ -94,12 +94,16 @@ let foo2 = (retv, name) => {
 let foo3 = () => ({
     bar: {
         foo: 1,
-        bar: 2,
+        bar: 2
     }
 });
-let foo4 = () => { bar(); };
+let foo4 = () => {
+    bar();
+};
 let foo5 = () => {};
-let foo6 = () => { /* do nothing */ };
+let foo6 = () => {
+    /* do nothing */
+};
 let foo7 = () => {
     // do nothing.
 };
@@ -133,7 +137,9 @@ Examples of **correct** code for this rule with the `{ "requireReturnForObjectLi
 /*eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }]*/
 
 let foo = () => {};
-let bar = () => { return { bar: 0 }; };
+let bar = () => {
+    return { bar: 0 };
+};
 ```
 
 :::

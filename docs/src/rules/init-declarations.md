@@ -3,7 +3,6 @@ title: init-declarations
 rule_type: suggestion
 ---
 
-
 In JavaScript, variables can be assigned during declaration, or at any point afterwards using an assignment statement. For example, in the following code, `foo` is initialized during declaration, while `bar` is initialized later.
 
 ```js
@@ -43,7 +42,7 @@ Variables must be initialized at declaration (default)
 
 ```json
 {
-    "init-declarations": ["error", "always"],
+    "init-declarations": ["error", "always"]
 }
 ```
 

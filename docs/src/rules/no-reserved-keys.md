@@ -2,7 +2,7 @@
 title: no-reserved-keys
 
 further_reading:
-- https://kangax.github.io/compat-table/es5/#Reserved_words_as_property_names
+    - https://kangax.github.io/compat-table/es5/#Reserved_words_as_property_names
 ---
 
 Disallows unquoted reserved words as property names in object literals.
@@ -15,8 +15,8 @@ ECMAScript 3 described as series of keywords and reserved words, such as `if` an
 
 ```js
 var values = {
-    enum: ["red", "blue", "green"]  // throws an error in ECMAScript 3
-}
+    enum: ["red", "blue", "green"] // throws an error in ECMAScript 3
+};
 ```
 
 In this code, `enum` is used as an object key and will throw an error in an ECMAScript 3 environment (such as Internet Explorer 8).
@@ -50,12 +50,12 @@ Examples of **correct** code for this rule:
 
 ```js
 var superman = {
-    "class": "Superhero",
-    "private": "Clark Kent"
+    class: "Superhero",
+    private: "Clark Kent"
 };
 
 var values = {
-    "enum": ["red", "blue", "green"]
+    enum: ["red", "blue", "green"]
 };
 ```
 

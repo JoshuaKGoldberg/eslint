@@ -84,7 +84,7 @@ var foo = bar ? !!baz : !!bat;
 
 This rule has an object option:
 
-*   `"enforceForInnerExpressions"` when set to `true`, in addition to checking default contexts, checks whether extra boolean casts are present in expressions whose result is used in a boolean context. See examples below. Default is `false`, meaning that this rule by default does not warn about extra booleans cast inside inner expressions.
+- `"enforceForInnerExpressions"` when set to `true`, in addition to checking default contexts, checks whether extra boolean casts are present in expressions whose result is used in a boolean context. See examples below. Default is `false`, meaning that this rule by default does not warn about extra booleans cast inside inner expressions.
 
 **Deprecated:** The object property `enforceForLogicalOperands` is deprecated ([eslint#18222](https://github.com/eslint/eslint/pull/18222)). Please use `enforceForInnerExpressions` instead.
 
@@ -134,7 +134,7 @@ Examples of **correct** code for this rule with `"enforceForInnerExpressions"` o
 ```js
 /*eslint no-extra-boolean-cast: ["error", {"enforceForInnerExpressions": true}]*/
 
-// Note that `||` and `&&` alone aren't a boolean context for either operand 
+// Note that `||` and `&&` alone aren't a boolean context for either operand
 // since the resultant value need not be a boolean without casting.
 var foo = !!bar || baz;
 

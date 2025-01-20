@@ -2,11 +2,9 @@
 title: prefer-const
 rule_type: suggestion
 related_rules:
-- no-var
-- no-use-before-define
+    - no-var
+    - no-use-before-define
 ---
-
-
 
 If a variable is never reassigned, using the `const` declaration is better.
 
@@ -84,7 +82,7 @@ let e;
 class C {
     #x;
     static {
-        e = obj => obj.#x;
+        e = (obj) => obj.#x;
     }
 }
 
@@ -95,12 +93,12 @@ console.log(f);
 
 // `i` gets a new binding each iteration
 for (const i in [1, 2, 3]) {
-  console.log(i);
+    console.log(i);
 }
 
 // `a` gets a new binding each iteration
 for (const a of [1, 2, 3]) {
-  console.log(a);
+    console.log(a);
 }
 
 // `end` is never reassigned, but we cannot separate the declarations without modifying the scope.
@@ -128,10 +126,13 @@ console.log(i);
 
 ```json
 {
-    "prefer-const": ["error", {
-        "destructuring": "any",
-        "ignoreReadBeforeAssign": false
-    }]
+    "prefer-const": [
+        "error",
+        {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+        }
+    ]
 }
 ```
 
@@ -140,8 +141,8 @@ console.log(i);
 The kind of the way to address variables in destructuring.
 There are 2 values:
 
-* `"any"` (default) - If any variables in destructuring should be `const`, this rule warns for those variables.
-* `"all"` - If all variables in destructuring should be `const`, this rule warns the variables. Otherwise, ignores them.
+- `"any"` (default) - If any variables in destructuring should be `const`, this rule warns for those variables.
+- `"all"` - If all variables in destructuring should be `const`, this rule warns the variables. Otherwise, ignores them.
 
 Examples of **incorrect** code for the default `{"destructuring": "any"}` option:
 
@@ -150,7 +151,7 @@ Examples of **incorrect** code for the default `{"destructuring": "any"}` option
 ```js
 /*eslint prefer-const: "error"*/
 
-let {a, b} = obj;    /*error 'b' is never reassigned, use 'const' instead.*/
+let { a, b } = obj; /*error 'b' is never reassigned, use 'const' instead.*/
 a = a + 1;
 ```
 
@@ -164,11 +165,11 @@ Examples of **correct** code for the default `{"destructuring": "any"}` option:
 /*eslint prefer-const: "error"*/
 
 // using const.
-const {a: a0, b} = obj;
+const { a: a0, b } = obj;
 const a = a0 + 1;
 
 // all variables are reassigned.
-let {c, d} = obj;
+let { c, d } = obj;
 c = c + 1;
 d = d + 1;
 ```
@@ -183,7 +184,7 @@ Examples of **incorrect** code for the `{"destructuring": "all"}` option:
 /*eslint prefer-const: ["error", {"destructuring": "all"}]*/
 
 // all of `a` and `b` should be const, so those are warned.
-let {a, b} = obj;    /*error 'a' is never reassigned, use 'const' instead.
+let { a, b } = obj; /*error 'a' is never reassigned, use 'const' instead.
                              'b' is never reassigned, use 'const' instead.*/
 ```
 
@@ -197,7 +198,7 @@ Examples of **correct** code for the `{"destructuring": "all"}` option:
 /*eslint prefer-const: ["error", {"destructuring": "all"}]*/
 
 // 'b' is never reassigned, but all of `a` and `b` should not be const, so those are ignored.
-let {a, b} = obj;
+let { a, b } = obj;
 a = a + 1;
 ```
 

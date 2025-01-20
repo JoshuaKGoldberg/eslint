@@ -210,6 +210,6 @@ module.exports = Object.freeze({
         "use-isnan": "error",
         "valid-typeof": "error",
         "vars-on-top": "error",
-        yoda: "error",
-    },
+        yoda: "error"
+    }
 });

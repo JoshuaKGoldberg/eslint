@@ -2,11 +2,10 @@
 title: no-buffer-constructor
 rule_type: problem
 further_reading:
-- https://nodejs.org/api/buffer.html
-- https://github.com/ChALkeR/notes/blob/master/Lets-fix-Buffer-API.md
-- https://github.com/nodejs/node/issues/4660
+    - https://nodejs.org/api/buffer.html
+    - https://github.com/ChALkeR/notes/blob/master/Lets-fix-Buffer-API.md
+    - https://github.com/nodejs/node/issues/4660
 ---
-
 
 This rule was **deprecated** in ESLint v7.0.0. Please use the corresponding rule in [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n).
 

@@ -126,9 +126,9 @@ jobs:
                         { name: eslint, directory: . },
                         {
                             name: eslint-config-eslint,
-                            directory: packages/eslint-config-eslint,
+                            directory: packages/eslint-config-eslint
                         },
-                        { name: "@eslint/js", directory: packages/js },
+                        { name: "@eslint/js", directory: packages/js }
                     ]
 
         steps:

@@ -2,8 +2,8 @@
 title: no-object-constructor
 rule_type: suggestion
 related_rules:
-- no-array-constructor
-- no-new-wrappers
+    - no-array-constructor
+    - no-new-wrappers
 ---
 
 Use of the `Object` constructor to construct a new empty object is generally discouraged in favor of object literal notation because of conciseness and because the `Object` global may be redefined.
@@ -38,9 +38,9 @@ Object("foo");
 
 const obj = { a: 1, b: 2 };
 
-const isObject = value => value === Object(value);
+const isObject = (value) => value === Object(value);
 
-const createObject = Object => new Object();
+const createObject = (Object) => new Object();
 ```
 
 :::

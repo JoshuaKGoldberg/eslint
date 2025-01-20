@@ -3,8 +3,6 @@ title: strict
 rule_type: suggestion
 ---
 
-
-
 A strict mode directive is a `"use strict"` literal at the beginning of a script or function body. It enables strict mode semantics.
 
 When a directive occurs in global scope, strict mode applies to the entire script:
@@ -29,14 +27,14 @@ function foo() {
 
 function foo2() {
     // not strict mode
-};
+}
 
-(function() {
+(function () {
     "use strict";
     function bar() {
         // strict mode
     }
-}());
+})();
 ```
 
 In the **CommonJS** module system, a hidden function wraps each module and limits the scope of a "global" strict mode directive.
@@ -49,8 +47,8 @@ This rule requires or disallows strict mode directives.
 
 This rule disallows strict mode directives, no matter which option is specified, if ESLint configuration specifies either of the following as [parser options](../use/configure/language-options#specifying-javascript-options):
 
-* `"sourceType": "module"` that is, files are **ECMAScript** modules.
-* `"impliedStrict": true` property in the `ecmaFeatures` object.
+- `"sourceType": "module"` that is, files are **ECMAScript** modules.
+- `"impliedStrict": true` property in the `ecmaFeatures` object.
 
 This rule disallows strict mode directives, no matter which option is specified, in functions with non-simple parameter lists (for example, parameter lists with default parameter values) because that is a syntax error in **ECMAScript 2016** and later. See the examples of the [function](#function) option.
 
@@ -62,19 +60,19 @@ The `--fix` option on the command line does not insert new `"use strict"` statem
 
 This rule has a string option:
 
-* `"safe"` (default) corresponds either of the following options:
-    * `"global"` if ESLint considers a file to be a **CommonJS** module
-    * `"function"` otherwise
-* `"global"` requires one strict mode directive in the global scope (and disallows any other strict mode directives)
-* `"function"` requires one strict mode directive in each top-level function declaration or expression (and disallows any other strict mode directives)
-* `"never"` disallows strict mode directives
+- `"safe"` (default) corresponds either of the following options:
+    - `"global"` if ESLint considers a file to be a **CommonJS** module
+    - `"function"` otherwise
+- `"global"` requires one strict mode directive in the global scope (and disallows any other strict mode directives)
+- `"function"` requires one strict mode directive in each top-level function declaration or expression (and disallows any other strict mode directives)
+- `"never"` disallows strict mode directives
 
 ### safe
 
 The `"safe"` option corresponds to the `"global"` option if ESLint considers a file to be a **Node.js** or **CommonJS** module because the configuration specifies either of the following:
 
-* `"sourceType": "commonjs"` in [language options](../use/configure/language-options#specifying-javascript-options)
-* `"globalReturn": true` property in the `ecmaFeatures` object of [parser options](../use/configure/language-options#specifying-parser-options)
+- `"sourceType": "commonjs"` in [language options](../use/configure/language-options#specifying-javascript-options)
+- `"globalReturn": true` property in the `ecmaFeatures` object of [parser options](../use/configure/language-options#specifying-parser-options)
 
 Otherwise the `"safe"` option corresponds to the `"function"` option.
 
@@ -87,8 +85,7 @@ Examples of **incorrect** code for this rule with the `"global"` option:
 ```js
 /*eslint strict: ["error", "global"]*/
 
-function foo() {
-}
+function foo() {}
 ```
 
 :::
@@ -128,8 +125,7 @@ Examples of **correct** code for this rule with the `"global"` option:
 
 "use strict";
 
-function foo() {
-}
+function foo() {}
 ```
 
 :::
@@ -147,8 +143,7 @@ Examples of **incorrect** code for this rule with the `"function"` option:
 
 "use strict";
 
-function foo() {
-}
+function foo() {}
 ```
 
 :::
@@ -158,14 +153,13 @@ function foo() {
 ```js
 /*eslint strict: ["error", "function"]*/
 
-function foo() {
-}
+function foo() {}
 
-(function() {
+(function () {
     function bar() {
         "use strict";
     }
-}());
+})();
 ```
 
 :::
@@ -200,22 +194,19 @@ function foo() {
     "use strict";
 }
 
-(function() {
+(function () {
     "use strict";
 
-    function bar() {
-    }
+    function bar() {}
 
-    function baz(a = 1) {
-    }
-}());
+    function baz(a = 1) {}
+})();
 
-var foo = (function() {
+var foo = (function () {
     "use strict";
 
-    return function foo(a = 1) {
-    };
-}());
+    return function foo(a = 1) {};
+})();
 ```
 
 :::
@@ -231,8 +222,7 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 
 "use strict";
 
-function foo() {
-}
+function foo() {}
 ```
 
 :::
@@ -256,8 +246,7 @@ Examples of **correct** code for this rule with the `"never"` option:
 ```js
 /*eslint strict: ["error", "never"]*/
 
-function foo() {
-}
+function foo() {}
 ```
 
 :::
@@ -273,18 +262,17 @@ Examples of **incorrect** code for this rule with the earlier default option whi
 ```js
 // "strict": "error"
 
-function foo() {
-}
+function foo() {}
 ```
 
 ```js
 // "strict": "error"
 
-(function() {
+(function () {
     function bar() {
         "use strict";
     }
-}());
+})();
 ```
 
 Examples of **correct** code for this rule with the earlier default option which has been removed:
@@ -294,8 +282,7 @@ Examples of **correct** code for this rule with the earlier default option which
 
 "use strict";
 
-function foo() {
-}
+function foo() {}
 ```
 
 ```js
@@ -309,12 +296,12 @@ function foo() {
 ```js
 // "strict": "error"
 
-(function() {
+(function () {
     "use strict";
     function bar() {
         "use strict";
     }
-}());
+})();
 ```
 
 ## When Not To Use It

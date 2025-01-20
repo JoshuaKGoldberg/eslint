@@ -2,9 +2,8 @@
 title: symbol-description
 rule_type: suggestion
 further_reading:
-- https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-description
+    - https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-description
 ---
-
 
 The `Symbol` function may have an optional description:
 

@@ -3,11 +3,9 @@ title: no-undef
 rule_type: problem
 handled_by_typescript: true
 related_rules:
-- no-global-assign
-- no-redeclare
+    - no-global-assign
+    - no-redeclare
 ---
-
-
 
 This rule can help you locate potential ReferenceErrors resulting from misspellings of variable and parameter names, or accidental implicit globals (for example, from forgetting the `var` keyword in a `for` loop initializer).
 
@@ -50,7 +48,7 @@ See [no-redeclare](no-redeclare) if you also want to disallow those redeclaratio
 
 ## Options
 
-* `typeof` set to true will warn for variables used inside typeof check (Default false).
+- `typeof` set to true will warn for variables used inside typeof check (Default false).
 
 ### typeof
 
@@ -77,7 +75,8 @@ Examples of **incorrect** code for the `{ "typeof": true }` option:
 ```js
 /*eslint no-undef: ["error", { "typeof": true }] */
 
-if(typeof a === "string"){}
+if (typeof a === "string") {
+}
 ```
 
 :::
@@ -90,7 +89,8 @@ Examples of **correct** code for the `{ "typeof": true }` option with `global` d
 /*global a*/
 /*eslint no-undef: ["error", { "typeof": true }] */
 
-if(typeof a === "string"){}
+if (typeof a === "string") {
+}
 ```
 
 :::

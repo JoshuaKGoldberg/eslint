@@ -2,8 +2,8 @@
 title: no-confusing-arrow
 rule_type: suggestion
 related_rules:
-- no-constant-condition
-- arrow-parens
+    - no-constant-condition
+    - arrow-parens
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/no-confusing-arrow) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -14,7 +14,7 @@ Here's an example where the usage of `=>` could be confusing:
 
 ```js
 // The intent is not clear
-var x = a => 1 ? 2 : 3;
+var x = (a) => (1 ? 2 : 3);
 // Did the author mean this
 var x = function (a) {
     return 1 ? 2 : 3;
@@ -32,8 +32,8 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-confusing-arrow: "error"*/
 
-var x = a => 1 ? 2 : 3;
-var x = (a) => 1 ? 2 : 3;
+var x = (a) => (1 ? 2 : 3);
+var x = (a) => (1 ? 2 : 3);
 ```
 
 :::
@@ -45,12 +45,14 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-confusing-arrow: "error"*/
 
-var x = a => (1 ? 2 : 3);
+var x = (a) => (1 ? 2 : 3);
 var x = (a) => (1 ? 2 : 3);
 var x = (a) => {
     return 1 ? 2 : 3;
 };
-var x = a => { return 1 ? 2 : 3; };
+var x = (a) => {
+    return 1 ? 2 : 3;
+};
 ```
 
 :::
@@ -82,7 +84,7 @@ Examples of **incorrect** code for this rule with the `{"allowParens": false}` o
 ```js
 /*eslint no-confusing-arrow: ["error", {"allowParens": false}]*/
 
-var x = a => (1 ? 2 : 3);
+var x = (a) => (1 ? 2 : 3);
 var x = (a) => (1 ? 2 : 3);
 ```
 
@@ -100,12 +102,12 @@ Examples of **correct** code for this rule with the `{"onlyOneSimpleParam": true
 ```js
 /*eslint no-confusing-arrow: ["error", {"onlyOneSimpleParam": true}]*/
 
-() => 1 ? 2 : 3;
-(a, b) => 1 ? 2 : 3;
-(a = b) => 1 ? 2 : 3;
-({ a }) => 1 ? 2 : 3;
-([a]) => 1 ? 2 : 3;
-(...a) => 1 ? 2 : 3;
+() => (1 ? 2 : 3);
+(a, b) => (1 ? 2 : 3);
+(a = b) => (1 ? 2 : 3);
+({ a }) => (1 ? 2 : 3);
+([a]) => (1 ? 2 : 3);
+(...a) => (1 ? 2 : 3);
 ```
 
 :::

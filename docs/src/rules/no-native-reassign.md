@@ -2,11 +2,10 @@
 title: no-native-reassign
 rule_type: suggestion
 related_rules:
-- no-extend-native
-- no-redeclare
-- no-shadow
+    - no-extend-native
+    - no-redeclare
+    - no-shadow
 ---
-
 
 This rule was **deprecated** in ESLint v3.3.0 and replaced by the [no-global-assign](no-global-assign) rule.
 
@@ -33,8 +32,8 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-native-reassign: "error"*/
 
-Object = null
-undefined = 1
+Object = null;
+undefined = 1;
 ```
 
 :::
@@ -45,7 +44,7 @@ undefined = 1
 /*eslint no-native-reassign: "error"*/
 /*global window:readonly*/
 
-window = {}
+window = {};
 ```
 
 :::
@@ -57,9 +56,9 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-native-reassign: "error"*/
 
-a = 1
-var b = 1
-b = 2
+a = 1;
+var b = 1;
+b = 2;
 ```
 
 :::
@@ -70,7 +69,7 @@ b = 2
 /*eslint no-native-reassign: "error"*/
 /*global onload:writable*/
 
-onload = function() {}
+onload = function () {};
 ```
 
 :::
@@ -82,7 +81,7 @@ This rule accepts an `exceptions` option, which can be used to specify a list of
 ```json
 {
     "rules": {
-        "no-native-reassign": ["error", {"exceptions": ["Object"]}]
+        "no-native-reassign": ["error", { "exceptions": ["Object"] }]
     }
 }
 ```

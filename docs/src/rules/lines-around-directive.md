@@ -2,11 +2,9 @@
 title: lines-around-directive
 rule_type: layout
 related_rules:
-- lines-around-comment
-- padded-blocks
+    - lines-around-comment
+    - padded-blocks
 ---
-
-
 
 This rule was **deprecated** in ESLint v4.0.0 and replaced by the [padding-line-between-statements](padding-line-between-statements) rule.
 
@@ -19,7 +17,7 @@ Directives are used in JavaScript to indicate to the execution environment that 
 var foo;
 
 function bar() {
-  var baz;
+    var baz;
 }
 ```
 
@@ -27,10 +25,10 @@ function bar() {
 var foo;
 
 function bar() {
-  // Strict mode is only invoked within this function
-  "use strict";
+    // Strict mode is only invoked within this function
+    "use strict";
 
-  var baz;
+    var baz;
 }
 ```
 
@@ -42,8 +40,8 @@ This rule requires or disallows blank newlines around directive prologues. This 
 
 This rule has one option. It can either be a string or an object:
 
-* `"always"` (default) enforces blank newlines around directives.
-* `"never"` disallows blank newlines around directives.
+- `"always"` (default) enforces blank newlines around directives.
+- `"never"` disallows blank newlines around directives.
 
 or
 
@@ -70,15 +68,15 @@ Examples of **incorrect** code for this rule with the `"always"` option:
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
-  var bar;
+    "use strict";
+    "use asm";
+    var bar;
 }
 
 function foo() {
-  // comment
-  "use strict";
-  var bar;
+    // comment
+    "use strict";
+    var bar;
 }
 ```
 
@@ -111,18 +109,18 @@ Examples of **correct** code for this rule with the `"always"` option:
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
+    "use strict";
+    "use asm";
 
-  var bar;
+    var bar;
 }
 
 function foo() {
-  // comment
+    // comment
 
-  "use strict";
+    "use strict";
 
-  var bar;
+    var bar;
 }
 ```
 
@@ -159,18 +157,18 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
+    "use strict";
+    "use asm";
 
-  var bar;
+    var bar;
 }
 
 function foo() {
-  // comment
+    // comment
 
-  "use strict";
+    "use strict";
 
-  var bar;
+    var bar;
 }
 ```
 
@@ -203,15 +201,15 @@ Examples of **correct** code for this rule with the `"never"` option:
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
-  var bar;
+    "use strict";
+    "use asm";
+    var bar;
 }
 
 function foo() {
-  // comment
-  "use strict";
-  var bar;
+    // comment
+    "use strict";
+    var bar;
 }
 ```
 
@@ -245,16 +243,16 @@ Examples of **incorrect** code for this rule with the `{ "before": "never", "aft
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
-  var bar;
+    "use strict";
+    "use asm";
+    var bar;
 }
 
 function foo() {
-  // comment
+    // comment
 
-  "use strict";
-  var bar;
+    "use strict";
+    var bar;
 }
 ```
 
@@ -274,7 +272,7 @@ var foo;
 
 :::
 
-Examples of **correct** code for this rule with the `{ "before": "never", "after": "always" }`  option:
+Examples of **correct** code for this rule with the `{ "before": "never", "after": "always" }` option:
 
 ::: correct { "sourceType": "script" }
 
@@ -287,17 +285,17 @@ Examples of **correct** code for this rule with the `{ "before": "never", "after
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
+    "use strict";
+    "use asm";
 
-  var bar;
+    var bar;
 }
 
 function foo() {
-  // comment
-  "use strict";
+    // comment
+    "use strict";
 
-  var bar;
+    var bar;
 }
 ```
 
@@ -330,17 +328,17 @@ Examples of **incorrect** code for this rule with the `{ "before": "always", "af
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
+    "use strict";
+    "use asm";
 
-  var bar;
+    var bar;
 }
 
 function foo() {
-  // comment
-  "use strict";
+    // comment
+    "use strict";
 
-  var bar;
+    var bar;
 }
 ```
 
@@ -373,16 +371,16 @@ Examples of **correct** code for this rule with the `{ "before": "always", "afte
 var foo;
 
 function foo() {
-  "use strict";
-  "use asm";
-  var bar;
+    "use strict";
+    "use asm";
+    var bar;
 }
 
 function foo() {
-  // comment
+    // comment
 
-  "use strict";
-  var bar;
+    "use strict";
+    var bar;
 }
 ```
 
@@ -408,5 +406,5 @@ You can safely disable this rule if you do not have any strict conventions about
 
 ## Compatibility
 
-* **JSCS**: [requirePaddingNewLinesAfterUseStrict](https://jscs-dev.github.io/rule/requirePaddingNewLinesAfterUseStrict)
-* **JSCS**: [disallowPaddingNewLinesAfterUseStrict](https://jscs-dev.github.io/rule/disallowPaddingNewLinesAfterUseStrict)
+- **JSCS**: [requirePaddingNewLinesAfterUseStrict](https://jscs-dev.github.io/rule/requirePaddingNewLinesAfterUseStrict)
+- **JSCS**: [disallowPaddingNewLinesAfterUseStrict](https://jscs-dev.github.io/rule/disallowPaddingNewLinesAfterUseStrict)

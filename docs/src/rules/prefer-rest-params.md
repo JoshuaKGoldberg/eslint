@@ -2,9 +2,8 @@
 title: prefer-rest-params
 rule_type: suggestion
 related_rules:
-- prefer-spread
+    - prefer-spread
 ---
-
 
 There are rest parameters in ES2015.
 We can use that feature for variadic functions instead of the `arguments` variable.

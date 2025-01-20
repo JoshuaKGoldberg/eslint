@@ -2,9 +2,8 @@
 title: default-case
 rule_type: suggestion
 related_rules:
-- no-fallthrough
+    - no-fallthrough
 ---
-
 
 Some code conventions require that all `switch` statements have a `default` case, even if the default case is empty, such as:
 
@@ -59,7 +58,6 @@ switch (a) {
         /* code */
         break;
 }
-
 ```
 
 :::
@@ -104,7 +102,7 @@ switch (a) {
 
 This rule accepts a single options argument:
 
-* Set the `commentPattern` option to a regular expression string to change the default `/^no default$/i` comment test pattern
+- Set the `commentPattern` option to a regular expression string to change the default `/^no default$/i` comment test pattern
 
 ### commentPattern
 
@@ -115,7 +113,7 @@ Examples of **correct** code for the `{ "commentPattern": "^skip\\sdefault" }` o
 ```js
 /*eslint default-case: ["error", { "commentPattern": "^skip\\sdefault" }]*/
 
-switch(a) {
+switch (a) {
     case 1:
         /* code */
         break;
@@ -123,7 +121,7 @@ switch(a) {
     // skip default
 }
 
-switch(a) {
+switch (a) {
     case 1:
         /* code */
         break;

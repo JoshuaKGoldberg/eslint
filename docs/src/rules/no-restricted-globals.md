@@ -2,10 +2,9 @@
 title: no-restricted-globals
 rule_type: suggestion
 related_rules:
-- no-restricted-properties
-- no-restricted-syntax
+    - no-restricted-properties
+    - no-restricted-syntax
 ---
-
 
 Disallowing usage of specific global variables can be useful if you want to allow a set of global
 variables, but still want to disallow some of those.
@@ -62,8 +61,7 @@ function onClick() {
     console.log(event);
 }
 
-fdescribe("foo", function() {
-});
+fdescribe("foo", function () {});
 ```
 
 :::
@@ -101,7 +99,7 @@ Examples of **incorrect** code for a sample `"event"` global variable name, alon
 /* eslint no-restricted-globals: ["error", { name: "event", message: "Use local parameter instead." }] */
 
 function onClick() {
-    console.log(event);    // Unexpected global variable 'event'. Use local parameter instead.
+    console.log(event); // Unexpected global variable 'event'. Use local parameter instead.
 }
 ```
 

@@ -2,8 +2,8 @@
 title: lines-around-comment
 rule_type: layout
 related_rules:
-- space-before-blocks
-- spaced-comment
+    - space-before-blocks
+    - spaced-comment
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/lines-around-comment) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -19,21 +19,21 @@ This rule requires empty lines before and/or after comments. It can be enabled s
 
 This rule has an object option:
 
-* `"beforeBlockComment": true` (default) requires an empty line before block comments
-* `"afterBlockComment": true` requires an empty line after block comments
-* `"beforeLineComment": true` requires an empty line before line comments
-* `"afterLineComment": true` requires an empty line after line comments
-* `"allowBlockStart": true` allows comments to appear at the start of block statements, function bodies, classes, switch statements, and class static blocks
-* `"allowBlockEnd": true` allows comments to appear at the end of block statements, function bodies, classes, switch statements, and class static blocks
-* `"allowObjectStart": true` allows comments to appear at the start of object literals
-* `"allowObjectEnd": true` allows comments to appear at the end of object literals
-* `"allowArrayStart": true` allows comments to appear at the start of array literals
-* `"allowArrayEnd": true` allows comments to appear at the end of array literals
-* `"allowClassStart": true` allows comments to appear at the start of classes
-* `"allowClassEnd": true` allows comments to appear at the end of classes
-* `"applyDefaultIgnorePatterns"` enables or disables the default comment patterns to be ignored by the rule
-* `"ignorePattern"` custom patterns to be ignored by the rule
-* `"afterHashbangComment": true` requires an empty line after hashbang comments
+- `"beforeBlockComment": true` (default) requires an empty line before block comments
+- `"afterBlockComment": true` requires an empty line after block comments
+- `"beforeLineComment": true` requires an empty line before line comments
+- `"afterLineComment": true` requires an empty line after line comments
+- `"allowBlockStart": true` allows comments to appear at the start of block statements, function bodies, classes, switch statements, and class static blocks
+- `"allowBlockEnd": true` allows comments to appear at the end of block statements, function bodies, classes, switch statements, and class static blocks
+- `"allowObjectStart": true` allows comments to appear at the start of object literals
+- `"allowObjectEnd": true` allows comments to appear at the end of object literals
+- `"allowArrayStart": true` allows comments to appear at the start of array literals
+- `"allowArrayEnd": true` allows comments to appear at the end of array literals
+- `"allowClassStart": true` allows comments to appear at the start of classes
+- `"allowClassEnd": true` allows comments to appear at the end of classes
+- `"applyDefaultIgnorePatterns"` enables or disables the default comment patterns to be ignored by the rule
+- `"ignorePattern"` custom patterns to be ignored by the rule
+- `"afterHashbangComment": true` requires an empty line after hashbang comments
 
 ### beforeBlockComment
 
@@ -46,7 +46,7 @@ Examples of **incorrect** code for this rule with the default `{ "beforeBlockCom
 
 var night = "long";
 /* what a great and wonderful day */
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -61,7 +61,7 @@ Examples of **correct** code for this rule with the default `{ "beforeBlockComme
 var night = "long";
 
 /* what a great and wonderful day */
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -78,7 +78,7 @@ Examples of **incorrect** code for this rule with the `{ "afterBlockComment": tr
 var night = "long";
 
 /* what a great and wonderful day */
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -94,7 +94,7 @@ var night = "long";
 
 /* what a great and wonderful day */
 
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -110,7 +110,7 @@ Examples of **incorrect** code for this rule with the `{ "beforeLineComment": tr
 
 var night = "long";
 // what a great and wonderful day
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -125,7 +125,7 @@ Examples of **correct** code for this rule with the `{ "beforeLineComment": true
 var night = "long";
 
 // what a great and wonderful day
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -141,7 +141,7 @@ Examples of **incorrect** code for this rule with the `{ "afterLineComment": tru
 
 var night = "long";
 // what a great and wonderful day
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -156,7 +156,7 @@ Examples of **correct** code for this rule with the `{ "afterLineComment": true 
 var night = "long";
 // what a great and wonderful day
 
-var day = "great"
+var day = "great";
 ```
 
 :::
@@ -170,9 +170,9 @@ Examples of **correct** code for this rule with the `{ "beforeLineComment": true
 ```js
 /*eslint lines-around-comment: ["error", { "beforeLineComment": true, "allowBlockStart": true }]*/
 
-function foo(){
+function foo() {
     // what a great and wonderful day
-    var day = "great"
+    var day = "great";
     return day;
 }
 
@@ -205,9 +205,9 @@ Examples of **correct** code for this rule with the `{ "beforeBlockComment": tru
 ```js
 /*eslint lines-around-comment: ["error", { "beforeBlockComment": true, "allowBlockStart": true }]*/
 
-function foo(){
+function foo() {
     /* what a great and wonderful day */
-    var day = "great"
+    var day = "great";
     return day;
 }
 
@@ -231,11 +231,11 @@ class C {
 }
 
 switch (foo) {
-  /* what a great and wonderful day */
+    /* what a great and wonderful day */
 
-  case 1:
-    bar();
-    break;
+    case 1:
+        bar();
+        break;
 }
 ```
 
@@ -250,8 +250,8 @@ Examples of **correct** code for this rule with the `{ "afterLineComment": true,
 ```js
 /*eslint lines-around-comment: ["error", { "afterLineComment": true, "allowBlockEnd": true }]*/
 
-function foo(){
-    var day = "great"
+function foo() {
+    var day = "great";
     return day;
     // what a great and wonderful day
 }
@@ -262,7 +262,6 @@ if (bar) {
 }
 
 class C {
-
     method() {
         foo();
         // what a great and wonderful day
@@ -286,8 +285,8 @@ Examples of **correct** code for this rule with the `{ "afterBlockComment": true
 ```js
 /*eslint lines-around-comment: ["error", { "afterBlockComment": true, "allowBlockEnd": true }]*/
 
-function foo(){
-    var day = "great"
+function foo() {
+    var day = "great";
     return day;
 
     /* what a great and wonderful day */
@@ -300,7 +299,6 @@ if (bar) {
 }
 
 class C {
-
     method() {
         foo();
 
@@ -317,11 +315,11 @@ class C {
 }
 
 switch (foo) {
-  case 1:
-    bar();
-    break;
+    case 1:
+        bar();
+        break;
 
-  /* what a great and wonderful day */
+    /* what a great and wonderful day */
 }
 ```
 
@@ -339,7 +337,7 @@ Examples of **incorrect** code for this rule with the `{ "beforeLineComment": tr
 class foo {
     // what a great and wonderful day
     day() {}
-};
+}
 ```
 
 :::
@@ -352,10 +350,9 @@ Examples of **correct** code for this rule with the `{ "beforeLineComment": true
 /*eslint lines-around-comment: ["error", { "beforeLineComment": true, "allowClassStart": false }]*/
 
 class foo {
-
     // what a great and wonderful day
     day() {}
-};
+}
 ```
 
 :::
@@ -370,7 +367,7 @@ Examples of **correct** code for this rule with the `{ "beforeLineComment": true
 class foo {
     // what a great and wonderful day
     day() {}
-};
+}
 ```
 
 :::
@@ -385,7 +382,7 @@ Examples of **incorrect** code for this rule with the `{ "beforeBlockComment": t
 class foo {
     /* what a great and wonderful day */
     day() {}
-};
+}
 ```
 
 :::
@@ -398,10 +395,9 @@ Examples of **correct** code for this rule with the `{ "beforeBlockComment": tru
 /*eslint lines-around-comment: ["error", { "beforeBlockComment": true, "allowClassStart": false }]*/
 
 class foo {
-
     /* what a great and wonderful day */
     day() {}
-};
+}
 ```
 
 :::
@@ -416,7 +412,7 @@ Examples of **correct** code for this rule with the `{ "beforeBlockComment": tru
 class foo {
     /* what a great and wonderful day */
     day() {}
-};
+}
 ```
 
 :::
@@ -433,7 +429,7 @@ Examples of **correct** code for this rule with the `{ "afterLineComment": true,
 class foo {
     day() {}
     // what a great and wonderful day
-};
+}
 ```
 
 :::
@@ -449,7 +445,7 @@ class foo {
     day() {}
 
     /* what a great and wonderful day */
-};
+}
 ```
 
 :::
@@ -471,12 +467,12 @@ var foo = {
 const {
     // what a great and wonderful day
     foo: someDay
-} = {foo: "great"};
+} = { foo: "great" };
 
 const {
     // what a great and wonderful day
     day
-} = {day: "great"};
+} = { day: "great" };
 ```
 
 :::
@@ -496,12 +492,12 @@ var foo = {
 const {
     /* what a great and wonderful day */
     foo: someDay
-} = {foo: "great"};
+} = { foo: "great" };
 
 const {
     /* what a great and wonderful day */
     day
-} = {day: "great"};
+} = { day: "great" };
 ```
 
 :::
@@ -523,12 +519,12 @@ var foo = {
 const {
     foo: someDay
     // what a great and wonderful day
-} = {foo: "great"};
+} = { foo: "great" };
 
 const {
     day
     // what a great and wonderful day
-} = {day: "great"};
+} = { day: "great" };
 ```
 
 :::
@@ -550,13 +546,13 @@ const {
     foo: someDay
 
     /* what a great and wonderful day */
-} = {foo: "great"};
+} = { foo: "great" };
 
 const {
     day
 
     /* what a great and wonderful day */
-} = {day: "great"};
+} = { day: "great" };
 ```
 
 :::
@@ -727,7 +723,6 @@ Examples of **incorrect** code for the `{ "applyDefaultIgnorePatterns": false }`
 
 foo();
 /* jshint mentioned in comment */
-
 ```
 
 :::
@@ -740,7 +735,7 @@ Examples of **incorrect** code for this rule with the `{ "afterHashbangComment":
 
 ```js
 #!foo
-var day = "great"
+var day = "great";
 
 /*eslint lines-around-comment: ["error", { "afterHashbangComment": true }] */
 ```
@@ -754,7 +749,7 @@ Examples of **correct** code for this rule with the `{ "afterHashbangComment": t
 ```js
 #!foo
 
-var day = "great"
+var day = "great";
 
 /*eslint lines-around-comment: ["error", { "afterHashbangComment": true }] */
 ```

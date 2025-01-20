@@ -2,14 +2,14 @@
 title: array-element-newline
 rule_type: layout
 related_rules:
-- array-bracket-spacing
-- array-bracket-newline
-- object-property-newline
-- object-curly-spacing
-- object-curly-newline
-- max-statements-per-line
-- block-spacing
-- brace-style
+    - array-bracket-spacing
+    - array-bracket-newline
+    - object-property-newline
+    - object-curly-spacing
+    - object-curly-newline
+    - max-statements-per-line
+    - block-spacing
+    - brace-style
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/array-element-newline) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -24,28 +24,31 @@ This rule enforces line breaks between array elements.
 
 This rule has either a string option:
 
-* `"always"` (default) requires line breaks between array elements
-* `"never"` disallows line breaks between array elements
-* `"consistent"` requires consistent usage of linebreaks between array elements
+- `"always"` (default) requires line breaks between array elements
+- `"never"` disallows line breaks between array elements
+- `"consistent"` requires consistent usage of linebreaks between array elements
 
 Or an object option (Requires line breaks if any of properties is satisfied. Otherwise, disallows line breaks):
 
-* `"multiline": <boolean>` requires line breaks if there are line breaks inside elements. If this is false, this condition is disabled.
-* `"minItems": <number>` requires line breaks if the number of elements is at least the given integer. If this is 0, this condition will act the same as the option `"always"`. If this is `null` (the default), this condition is disabled.
+- `"multiline": <boolean>` requires line breaks if there are line breaks inside elements. If this is false, this condition is disabled.
+- `"minItems": <number>` requires line breaks if the number of elements is at least the given integer. If this is 0, this condition will act the same as the option `"always"`. If this is `null` (the default), this condition is disabled.
 
 Alternatively, different configurations can be specified for array expressions and array patterns:
 
 ```json
 {
-    "array-element-newline": ["error", {
-        "ArrayExpression": "consistent",
-        "ArrayPattern": { "minItems": 3 },
-    }]
+    "array-element-newline": [
+        "error",
+        {
+            "ArrayExpression": "consistent",
+            "ArrayPattern": { "minItems": 3 }
+        }
+    ]
 }
 ```
 
-* `"ArrayExpression"` configuration for array expressions (if unspecified, this rule will not apply to array expressions)
-* `"ArrayPattern"` configuration for array patterns of destructuring assignments (if unspecified, this rule will not apply to array patterns)
+- `"ArrayExpression"` configuration for array expressions (if unspecified, this rule will not apply to array expressions)
+- `"ArrayPattern"` configuration for array patterns of destructuring assignments (if unspecified, this rule will not apply to array patterns)
 
 ### always
 
@@ -58,15 +61,13 @@ Examples of **incorrect** code for this rule with the default `"always"` option:
 
 var c = [1, 2];
 var d = [1, 2, 3];
-var e = [1, 2, 3
-];
-var f = [
-  1, 2, 3
-];
+var e = [1, 2, 3];
+var f = [1, 2, 3];
 var g = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
@@ -83,16 +84,9 @@ Examples of **correct** code for this rule with the default `"always"` option:
 
 var a = [];
 var b = [1];
-var c = [1,
-    2];
-var d = [1,
-    2,
-    3];
-var d = [
-  1, 
-  2, 
-  3
-];
+var c = [1, 2];
+var d = [1, 2, 3];
+var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
@@ -114,15 +108,8 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 ```js
 /*eslint array-element-newline: ["error", "never"]*/
 
-var c = [
-    1,
-    2
-];
-var d = [
-    1,
-    2,
-    3
-];
+var c = [1, 2];
+var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
@@ -146,15 +133,13 @@ var a = [];
 var b = [1];
 var c = [1, 2];
 var d = [1, 2, 3];
-var e = [
-    1, 2, 3];
-var f = [
-  1, 2, 3
-];
+var e = [1, 2, 3];
+var f = [1, 2, 3];
 var g = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
@@ -171,14 +156,12 @@ Examples of **incorrect** code for this rule with the `"consistent"` option:
 ```js
 /*eslint array-element-newline: ["error", "consistent"]*/
 
-var a = [
-    1, 2,
-    3
-];
+var a = [1, 2, 3];
 var b = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     },
     function baz() {
@@ -200,21 +183,16 @@ var a = [];
 var b = [1];
 var c = [1, 2];
 var d = [1, 2, 3];
-var e = [
-    1,
-    2
-];
-var f = [
-    1,
-    2,
-    3
-];
+var e = [1, 2];
+var f = [1, 2, 3];
 var g = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
-    }, function baz() {
+    },
+    function baz() {
         dosomething();
     }
 ];
@@ -242,12 +220,12 @@ Examples of **incorrect** code for this rule with the `{ "multiline": true }` op
 ```js
 /*eslint array-element-newline: ["error", { "multiline": true }]*/
 
-var d = [1,
-    2, 3];
+var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
@@ -287,8 +265,7 @@ Examples of **incorrect** code for this rule with the `{ "minItems": 3 }` option
 ```js
 /*eslint array-element-newline: ["error", { "minItems": 3 }]*/
 
-var c = [1,
-    2];
+var c = [1, 2];
 var d = [1, 2, 3];
 var e = [
     function foo() {
@@ -312,13 +289,12 @@ Examples of **correct** code for this rule with the `{ "minItems": 3 }` option:
 var a = [];
 var b = [1];
 var c = [1, 2];
-var d = [1,
-    2,
-    3];
+var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
@@ -335,13 +311,13 @@ Examples of **incorrect** code for this rule with the `{ "multiline": true, "min
 ```js
 /*eslint array-element-newline: ["error", { "multiline": true, "minItems": 3 }]*/
 
-var c = [1,
-2];
+var c = [1, 2];
 var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
@@ -359,9 +335,7 @@ Examples of **correct** code for this rule with the `{ "multiline": true, "minIt
 var a = [];
 var b = [1];
 var c = [1, 2];
-var d = [1,
-    2,
-    3];
+var d = [1, 2, 3];
 var e = [
     function foo() {
         dosomething();
@@ -388,22 +362,22 @@ var b = [1, 2, 3];
 var c = [
     function foo() {
         dosomething();
-    }, function bar() {
+    },
+    function bar() {
         dosomething();
     }
 ];
 
-var [d,
-    e] = arr;
-var [f,
-    g,
-    h] = arr;
-var [i = function foo() {
-  dosomething()
-},
-j = function bar() {
-  dosomething()
-}] = arr
+var [d, e] = arr;
+var [f, g, h] = arr;
+var [
+    i = function foo() {
+        dosomething();
+    },
+    j = function bar() {
+        dosomething();
+    }
+] = arr;
 ```
 
 :::
@@ -415,11 +389,8 @@ Examples of **correct** code for this rule with the `{ "ArrayExpression": "alway
 ```js
 /*eslint array-element-newline: ["error", { "ArrayExpression": "always", "ArrayPattern": "never" }]*/
 
-var a = [1,
-    2];
-var b = [1,
-    2,
-    3];
+var a = [1, 2];
+var b = [1, 2, 3];
 var c = [
     function foo() {
         dosomething();
@@ -429,13 +400,16 @@ var c = [
     }
 ];
 
-var [d, e] = arr
-var [f, g, h] = arr
-var [i = function foo() {
-    dosomething()
-}, j = function bar() {
-    dosomething()
-}] = arr
+var [d, e] = arr;
+var [f, g, h] = arr;
+var [
+    i = function foo() {
+        dosomething();
+    },
+    j = function bar() {
+        dosomething();
+    }
+] = arr;
 ```
 
 :::
@@ -446,4 +420,4 @@ If you don't want to enforce linebreaks between array elements, don't enable thi
 
 ## Compatibility
 
-* **JSCS:** [validateNewlineAfterArrayElements](https://jscs-dev.github.io/rule/validateNewlineAfterArrayElements)
+- **JSCS:** [validateNewlineAfterArrayElements](https://jscs-dev.github.io/rule/validateNewlineAfterArrayElements)

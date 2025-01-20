@@ -25,7 +25,7 @@ const ESPREE_CONFIG = {
     comment: true,
     tokens: true,
     range: true,
-    loc: true,
+    loc: true
 };
 const linter = new Linter({ configType: "eslintrc" });
 
@@ -54,7 +54,7 @@ describe("ast-utils", () => {
         callCounts.forEach((callCount, func) => {
             assert(
                 callCount > 0,
-                `Expected ${func.toString()} to be called at least once but it was not called`,
+                `Expected ${func.toString()} to be called at least once but it was not called`
             );
         });
     });
@@ -74,7 +74,7 @@ describe("ast-utils", () => {
 
         it("should contain es2017 globals", () => {
             assert.ownInclude(astUtils.ECMASCRIPT_GLOBALS, {
-                SharedArrayBuffer: false,
+                SharedArrayBuffer: false
             });
         });
 
@@ -95,11 +95,11 @@ describe("ast-utils", () => {
                         assert.isFalse(
                             astUtils.isTokenOnSameLine(
                                 context.sourceCode.getTokenBefore(node),
-                                node,
-                            ),
+                                node
+                            )
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("if(a)\n{}", { rules: { checker: "error" } });
@@ -112,11 +112,11 @@ describe("ast-utils", () => {
                         assert.isTrue(
                             astUtils.isTokenOnSameLine(
                                 context.sourceCode.getTokenBefore(node),
-                                node,
-                            ),
+                                node
+                            )
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("if(a){}", { rules: { checker: "error" } });
@@ -127,48 +127,46 @@ describe("ast-utils", () => {
         it("should return true if the argument is null", () => {
             assert.isTrue(
                 astUtils.isNullOrUndefined(
-                    espree.parse("null").body[0].expression,
-                ),
+                    espree.parse("null").body[0].expression
+                )
             );
         });
 
         it("should return true if the argument is undefined", () => {
             assert.isTrue(
                 astUtils.isNullOrUndefined(
-                    espree.parse("undefined").body[0].expression,
-                ),
+                    espree.parse("undefined").body[0].expression
+                )
             );
         });
 
         it("should return false if the argument is a number", () => {
             assert.isFalse(
-                astUtils.isNullOrUndefined(
-                    espree.parse("1").body[0].expression,
-                ),
+                astUtils.isNullOrUndefined(espree.parse("1").body[0].expression)
             );
         });
 
         it("should return false if the argument is a string", () => {
             assert.isFalse(
                 astUtils.isNullOrUndefined(
-                    espree.parse("'test'").body[0].expression,
-                ),
+                    espree.parse("'test'").body[0].expression
+                )
             );
         });
 
         it("should return false if the argument is a boolean", () => {
             assert.isFalse(
                 astUtils.isNullOrUndefined(
-                    espree.parse("true").body[0].expression,
-                ),
+                    espree.parse("true").body[0].expression
+                )
             );
         });
 
         it("should return false if the argument is an object", () => {
             assert.isFalse(
                 astUtils.isNullOrUndefined(
-                    espree.parse("({})").body[0].expression,
-                ),
+                    espree.parse("({})").body[0].expression
+                )
             );
         });
 
@@ -176,8 +174,8 @@ describe("ast-utils", () => {
             assert.isFalse(
                 astUtils.isNullOrUndefined(
                     espree.parse("/abc/u", { ecmaVersion: 6 }).body[0]
-                        .expression,
-                ),
+                        .expression
+                )
             );
         });
     });
@@ -193,16 +191,16 @@ describe("ast-utils", () => {
 
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[0].references,
+                                variables[0].references
                             ),
-                            1,
+                            1
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("try { } catch (e) { e = 10; }", {
-                rules: { checker: "error" },
+                rules: { checker: "error" }
             });
         });
 
@@ -216,17 +214,17 @@ describe("ast-utils", () => {
 
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[0].references,
+                                variables[0].references
                             ),
-                            1,
+                            1
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("const a = 1; a = 2;", {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 6 },
+                parserOptions: { ecmaVersion: 6 }
             });
         });
 
@@ -239,17 +237,17 @@ describe("ast-utils", () => {
 
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[0].references,
+                                variables[0].references
                             ),
-                            0,
+                            0
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("const a = 1; c = 2;", {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 6 },
+                parserOptions: { ecmaVersion: 6 }
             });
         });
 
@@ -263,23 +261,23 @@ describe("ast-utils", () => {
 
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[0].references,
+                                variables[0].references
                             ),
-                            1,
+                            1
                         );
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[1].references,
+                                variables[1].references
                             ),
-                            0,
+                            0
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("class A { }\n A = 1;", {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 6 },
+                parserOptions: { ecmaVersion: 6 }
             });
         });
 
@@ -292,17 +290,17 @@ describe("ast-utils", () => {
 
                         assert.lengthOf(
                             astUtils.getModifyingReferences(
-                                variables[0].references,
+                                variables[0].references
                             ),
-                            0,
+                            0
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify("class A { } foo(A);", {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 6 },
+                parserOptions: { ecmaVersion: 6 }
             });
         });
     });
@@ -334,7 +332,7 @@ describe("ast-utils", () => {
                 "//eslint is awesome",
                 "//global line comment is not a directive",
                 "//globals line comment is not a directive",
-                "//exported line comment is not a directive",
+                "//exported line comment is not a directive"
             ].join("\n");
             const ast = espree.parse(code, ESPREE_CONFIG);
             const sourceCode = new SourceCode(code, ast);
@@ -348,7 +346,7 @@ describe("ast-utils", () => {
                 "/* lalala I'm a normal comment */",
                 "/* trying to confuse eslint */",
                 "/* trying to confuse eslint-directive-detection */",
-                "/*eSlInT is awesome*/",
+                "/*eSlInT is awesome*/"
             ].join("\n");
             const ast = espree.parse(code, ESPREE_CONFIG);
             const sourceCode = new SourceCode(code, ast);
@@ -362,7 +360,7 @@ describe("ast-utils", () => {
                 "// eslint-disable-line no-undef",
                 "// eslint-secret-directive 4 8 15 16 23 42   ",
                 "// eslint-directive-without-argument",
-                "//eslint-directive-without-padding",
+                "//eslint-directive-without-padding"
             ].join("\n");
             const ast = espree.parse(code, ESPREE_CONFIG);
             const sourceCode = new SourceCode(code, ast);
@@ -380,7 +378,7 @@ describe("ast-utils", () => {
                 "/*eslint bar*/",
                 "/*global foo*/",
                 "/*globals foo*/",
-                "/*exported foo*/",
+                "/*exported foo*/"
             ].join("\n");
             const ast = espree.parse(code, ESPREE_CONFIG);
             const sourceCode = new SourceCode(code, ast);
@@ -397,7 +395,7 @@ describe("ast-utils", () => {
             const sourceCode = new SourceCode(code, ast);
 
             assert.isFalse(
-                astUtils.isParenthesised(sourceCode, ast.body[0].expression),
+                astUtils.isParenthesised(sourceCode, ast.body[0].expression)
             );
         });
 
@@ -407,7 +405,7 @@ describe("ast-utils", () => {
             const sourceCode = new SourceCode(code, ast);
 
             assert.isTrue(
-                astUtils.isParenthesised(sourceCode, ast.body[0].expression),
+                astUtils.isParenthesised(sourceCode, ast.body[0].expression)
             );
         });
     });
@@ -460,7 +458,7 @@ describe("ast-utils", () => {
 
         it("should return true for ForOfStatement", () => {
             const ast = espree.parse("for (var x of list) {}", {
-                ecmaVersion: 6,
+                ecmaVersion: 6
             });
             const node = ast.body[0];
 
@@ -508,12 +506,12 @@ describe("ast-utils", () => {
                 create: mustCall(() => ({
                     [nodeType]: mustCall((node) => {
                         results.push(astUtils.isInLoop(node));
-                    }),
-                })),
+                    })
+                }))
             });
             linter.verify(code, {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 6 },
+                parserOptions: { ecmaVersion: 6 }
             });
 
             assert.lengthOf(results, 1);
@@ -532,7 +530,7 @@ describe("ast-utils", () => {
             assertNodeTypeInLoop(
                 "for (var a in b) {}",
                 "VariableDeclaration",
-                true,
+                true
             );
         });
 
@@ -540,7 +538,7 @@ describe("ast-utils", () => {
             assertNodeTypeInLoop(
                 "for (var a of b) { console.log('Hello'); }",
                 "Literal",
-                true,
+                true
             );
         });
 
@@ -548,7 +546,7 @@ describe("ast-utils", () => {
             assertNodeTypeInLoop(
                 "while (true) {} a(b);",
                 "CallExpression",
-                false,
+                false
             );
         });
 
@@ -556,7 +554,7 @@ describe("ast-utils", () => {
             assertNodeTypeInLoop(
                 "while (true) { funcs.push(() => { var a; }); }",
                 "VariableDeclaration",
-                false,
+                false
             );
         });
     });
@@ -622,7 +620,7 @@ describe("ast-utils", () => {
             foo: null,
             undefined: null,
             this: null,
-            "(function () {})": null,
+            "(function () {})": null
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -631,7 +629,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.getStaticStringValue(ast.body[0].expression),
-                    expectedResults[key],
+                    expectedResults[key]
                 );
             });
         });
@@ -640,13 +638,13 @@ describe("ast-utils", () => {
             const node = {
                 type: "Literal",
                 value: null,
-                regex: { pattern: "(?:)", flags: "u" },
+                regex: { pattern: "(?:)", flags: "u" }
             };
             const expectedText = "/(?:)/u";
 
             assert.strictEqual(
                 astUtils.getStaticStringValue(node),
-                expectedText,
+                expectedText
             );
         });
 
@@ -654,13 +652,13 @@ describe("ast-utils", () => {
             const node = {
                 type: "Literal",
                 value: null,
-                bigint: "100n",
+                bigint: "100n"
             };
             const expectedText = "100n";
 
             assert.strictEqual(
                 astUtils.getStaticStringValue(node),
-                expectedText,
+                expectedText
             );
         });
     });
@@ -773,13 +771,13 @@ describe("ast-utils", () => {
 
         it("should return '/(?<zero>0)/' for `[/(?<zero>0)/]: 1`", () => {
             const ast = espree.parse("({[/(?<zero>0)/]: 1})", {
-                ecmaVersion: 2018,
+                ecmaVersion: 2018
             });
             const node = ast.body[0].expression.properties[0];
 
             assert.strictEqual(
                 astUtils.getStaticPropertyName(node),
-                "/(?<zero>0)/",
+                "/(?<zero>0)/"
             );
         });
 
@@ -816,11 +814,11 @@ describe("ast-utils", () => {
 
             assert.strictEqual(
                 astUtils.getStaticPropertyName(ast.body[0].expression),
-                null,
+                null
             );
             assert.strictEqual(
                 astUtils.getStaticPropertyName(ast.body[0]),
-                null,
+                null
             );
             assert.strictEqual(astUtils.getStaticPropertyName(ast.body), null);
             assert.strictEqual(astUtils.getStaticPropertyName(ast), null);
@@ -838,7 +836,7 @@ describe("ast-utils", () => {
 
         it("should return empty array if node is a braceless ArrowFunctionExpression node", () => {
             const ast = espree.parse("var foo = () => 'use strict';", {
-                ecmaVersion: 6,
+                ecmaVersion: 6
             });
             const node = ast.body[0].declarations[0].init;
 
@@ -868,7 +866,7 @@ describe("ast-utils", () => {
 
         it("should return empty array if there are no directives in ArrowFunctionExpression body", () => {
             const ast = espree.parse("var foo = () => { return bar; };", {
-                ecmaVersion: 6,
+                ecmaVersion: 6
             });
             const node = ast.body[0].declarations[0].init;
 
@@ -886,7 +884,7 @@ describe("ast-utils", () => {
 
         it("should return directives in FunctionDeclaration body", () => {
             const ast = espree.parse(
-                "function foo() { 'use strict'; 'use asm'; return bar; }",
+                "function foo() { 'use strict'; 'use asm'; return bar; }"
             );
             const result = astUtils.getDirectivePrologue(ast.body[0]);
 
@@ -897,10 +895,10 @@ describe("ast-utils", () => {
 
         it("should return directives in FunctionExpression body", () => {
             const ast = espree.parse(
-                "var foo = function() { 'use strict'; 'use asm'; return bar; }",
+                "var foo = function() { 'use strict'; 'use asm'; return bar; }"
             );
             const result = astUtils.getDirectivePrologue(
-                ast.body[0].declarations[0].init,
+                ast.body[0].declarations[0].init
             );
 
             assert.strictEqual(result.length, 2);
@@ -911,10 +909,10 @@ describe("ast-utils", () => {
         it("should return directives in ArrowFunctionExpression body", () => {
             const ast = espree.parse(
                 "var foo = () => { 'use strict'; 'use asm'; return bar; };",
-                { ecmaVersion: 6 },
+                { ecmaVersion: 6 }
             );
             const result = astUtils.getDirectivePrologue(
-                ast.body[0].declarations[0].init,
+                ast.body[0].declarations[0].init
             );
 
             assert.strictEqual(result.length, 2);
@@ -989,7 +987,7 @@ describe("ast-utils", () => {
             "1n": false,
             "1_2n": false,
             "1_000n": false,
-            "'5'": false,
+            "'5'": false
         };
 
         const ecmaVersion = espree.latestEcmaVersion;
@@ -1000,9 +998,9 @@ describe("ast-utils", () => {
                     assert.strictEqual(
                         astUtils.isDecimalInteger(
                             espree.parse(key, { ecmaVersion }).body[0]
-                                .expression,
+                                .expression
                         ),
-                        expectedResults[key],
+                        expectedResults[key]
                     );
                 });
             });
@@ -1013,9 +1011,9 @@ describe("ast-utils", () => {
                 it(`should return ${expectedResults[key]} for ${key}`, () => {
                     assert.strictEqual(
                         astUtils.isDecimalIntegerNumericToken(
-                            espree.tokenize(key, { ecmaVersion })[0],
+                            espree.tokenize(key, { ecmaVersion })[0]
                         ),
-                        expectedResults[key],
+                        expectedResults[key]
                     );
                 });
             });
@@ -1077,7 +1075,7 @@ describe("ast-utils", () => {
             "class A { static #foo = () => {}; }": "static private method #foo",
             "class A { '#foo'() {} }": "method '#foo'",
             "class A { #foo() {} }": "private method #foo",
-            "class A { static #foo() {} }": "static private method #foo",
+            "class A { static #foo() {} }": "static private method #foo"
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -1087,15 +1085,15 @@ describe("ast-utils", () => {
                         ":function": mustCall((node) => {
                             assert.strictEqual(
                                 astUtils.getFunctionNameWithKind(node),
-                                expectedResults[key],
+                                expectedResults[key]
                             );
-                        }),
-                    })),
+                        })
+                    }))
                 });
 
                 linter.verify(key, {
                     rules: { checker: "error" },
-                    parserOptions: { ecmaVersion: 13 },
+                    parserOptions: { ecmaVersion: 13 }
                 });
             });
         });
@@ -1149,19 +1147,19 @@ describe("ast-utils", () => {
             "class A { foo = function bar() {}; }": [10, 28],
             "class A { static foo = function() {}; }": [10, 31],
             "class A { foo = () => {}; }": [10, 16],
-            "class A { foo = arg => {}; }": [10, 16],
+            "class A { foo = arg => {}; }": [10, 16]
         };
 
         Object.keys(expectedResults).forEach((key) => {
             const expectedLoc = {
                 start: {
                     line: 1,
-                    column: expectedResults[key][0],
+                    column: expectedResults[key][0]
                 },
                 end: {
                     line: 1,
-                    column: expectedResults[key][1],
-                },
+                    column: expectedResults[key][1]
+                }
             };
 
             it(`should return "${JSON.stringify(expectedLoc)}" for "${key}".`, () => {
@@ -1171,21 +1169,21 @@ describe("ast-utils", () => {
                             assert.deepStrictEqual(
                                 astUtils.getFunctionHeadLoc(
                                     node,
-                                    linter.getSourceCode(),
+                                    linter.getSourceCode()
                                 ),
-                                expectedLoc,
+                                expectedLoc
                             );
-                        }),
-                    })),
+                        })
+                    }))
                 });
 
                 linter.verify(
                     key,
                     {
                         rules: { checker: "error" },
-                        parserOptions: { ecmaVersion: 13 },
+                        parserOptions: { ecmaVersion: 13 }
                     },
-                    "test.js",
+                    "test.js"
                 );
             });
         });
@@ -1195,7 +1193,7 @@ describe("ast-utils", () => {
         const expectedResults = {
             "{}": true,
             "{ a }": false,
-            a: false,
+            a: false
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -1204,7 +1202,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.isEmptyBlock(ast.body[0]),
-                    expectedResults[key],
+                    expectedResults[key]
                 );
             });
         });
@@ -1216,7 +1214,7 @@ describe("ast-utils", () => {
             "(function foo() { a })": false,
             "(a) => {}": true,
             "(a) => { a }": false,
-            "(a) => a": false,
+            "(a) => a": false
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -1225,7 +1223,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.isEmptyFunction(ast.body[0].expression),
-                    expectedResults[key],
+                    expectedResults[key]
                 );
             });
         });
@@ -1257,11 +1255,11 @@ describe("ast-utils", () => {
                 [2, 2],
                 [2, 3],
                 [3, 0],
-                null,
+                null
             ],
             "a ": [[1, 0], [1, 1], [1, 2], null],
             "a\t": [[1, 0], [1, 1], [1, 2], null],
-            "a \n": [[1, 0], [1, 1], [1, 2], [2, 0], null],
+            "a \n": [[1, 0], [1, 1], [1, 2], [2, 0], null]
         };
 
         Object.keys(expectedResults).forEach((code) => {
@@ -1273,18 +1271,18 @@ describe("ast-utils", () => {
                 for (let i = 0; i < locations.length - 1; i++) {
                     const location = {
                         line: locations[i][0],
-                        column: locations[i][1],
+                        column: locations[i][1]
                     };
                     const expectedNextLocation = locations[i + 1]
                         ? {
                               line: locations[i + 1][0],
-                              column: locations[i + 1][1],
+                              column: locations[i + 1][1]
                           }
                         : null;
 
                     assert.deepStrictEqual(
                         astUtils.getNextLocation(sourceCode, location),
-                        expectedNextLocation,
+                        expectedNextLocation
                     );
                 }
             });
@@ -1296,7 +1294,7 @@ describe("ast-utils", () => {
             "(((foo))); bar;": "(((foo)))",
             "(/* comment */(((foo.bar())))); baz();":
                 "(/* comment */(((foo.bar()))))",
-            "(foo, bar)": "(foo, bar)",
+            "(foo, bar)": "(foo, bar)"
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -1305,16 +1303,16 @@ describe("ast-utils", () => {
                     tokens: true,
                     comment: true,
                     range: true,
-                    loc: true,
+                    loc: true
                 });
                 const sourceCode = new SourceCode(key, ast);
 
                 assert.strictEqual(
                     astUtils.getParenthesisedText(
                         sourceCode,
-                        ast.body[0].expression,
+                        ast.body[0].expression
                     ),
-                    expectedResults[key],
+                    expectedResults[key]
                 );
             });
         });
@@ -1362,7 +1360,7 @@ describe("ast-utils", () => {
             "foo ? bar : 2": true,
             "foo ? 1 : bar": true,
             "[1, 2, 3]": false,
-            "({ foo: 1 })": false,
+            "({ foo: 1 })": false
         };
 
         Object.keys(EXPECTED_RESULTS).forEach((key) => {
@@ -1371,7 +1369,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.couldBeError(ast.body[0].expression),
-                    EXPECTED_RESULTS[key],
+                    EXPECTED_RESULTS[key]
                 );
             });
         });
@@ -1381,7 +1379,7 @@ describe("ast-utils", () => {
         const code = "() => 5";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [false, false, true, false];
 
@@ -1389,7 +1387,7 @@ describe("ast-utils", () => {
             it(`should return ${expected[index]} for '${token.value}'.`, () => {
                 assert.strictEqual(
                     astUtils.isArrowToken(token),
-                    expected[index],
+                    expected[index]
                 );
             });
         });
@@ -1399,7 +1397,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1416,7 +1414,7 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            true,
+            true
         ];
 
         describe("isClosingBraceToken", () => {
@@ -1424,7 +1422,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isClosingBraceToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1435,7 +1433,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotClosingBraceToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1446,7 +1444,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1463,7 +1461,7 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isClosingBracketToken", () => {
@@ -1471,7 +1469,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isClosingBracketToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1482,7 +1480,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotClosingBracketToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1493,7 +1491,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1510,7 +1508,7 @@ describe("ast-utils", () => {
             false,
             true,
             false,
-            false,
+            false
         ];
 
         describe("isClosingParenToken", () => {
@@ -1518,7 +1516,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isClosingParenToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1529,7 +1527,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotClosingParenToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1540,7 +1538,7 @@ describe("ast-utils", () => {
         const code = "const obj = {foo: 1, bar: 2};";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1555,7 +1553,7 @@ describe("ast-utils", () => {
             true,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isColonToken", () => {
@@ -1563,7 +1561,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isColonToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1574,7 +1572,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotColonToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1585,7 +1583,7 @@ describe("ast-utils", () => {
         const code = "const obj = {foo: 1, bar: 2};";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1600,7 +1598,7 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isCommaToken", () => {
@@ -1608,7 +1606,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isCommaToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1619,7 +1617,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotCommaToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1630,7 +1628,7 @@ describe("ast-utils", () => {
         const code = "const obj = {foo: 1.5, bar: a.b};";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1647,7 +1645,7 @@ describe("ast-utils", () => {
             true,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isDotToken", () => {
@@ -1655,7 +1653,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isDotToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1666,7 +1664,7 @@ describe("ast-utils", () => {
                 it(`should return ${!expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotDotToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1678,7 +1676,7 @@ describe("ast-utils", () => {
         const ast = espree.parse(code, {
             ecmaVersion: 6,
             tokens: true,
-            comment: true,
+            comment: true
         });
 
         ast.tokens.forEach((token) => {
@@ -1697,7 +1695,7 @@ describe("ast-utils", () => {
         const code = "const obj = {foo: 1, bar: 2};";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             true,
@@ -1712,14 +1710,14 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            false,
+            false
         ];
 
         tokens.forEach((token, index) => {
             it(`should return ${expected[index]} for '${token.value}'.`, () => {
                 assert.strictEqual(
                     astUtils.isKeywordToken(token),
-                    expected[index],
+                    expected[index]
                 );
             });
         });
@@ -1729,7 +1727,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1746,7 +1744,7 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isOpeningBraceToken", () => {
@@ -1754,7 +1752,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isOpeningBraceToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1765,7 +1763,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotOpeningBraceToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1776,7 +1774,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1793,7 +1791,7 @@ describe("ast-utils", () => {
             false,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isOpeningBracketToken", () => {
@@ -1801,7 +1799,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isOpeningBracketToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1812,7 +1810,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotOpeningBracketToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1823,7 +1821,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1840,7 +1838,7 @@ describe("ast-utils", () => {
             true,
             false,
             false,
-            false,
+            false
         ];
 
         describe("isOpeningParenToken", () => {
@@ -1848,7 +1846,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isOpeningParenToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1859,7 +1857,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotOpeningParenToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1870,7 +1868,7 @@ describe("ast-utils", () => {
         const code = "if (obj && foo) { obj[foo](); }";
         const tokens = espree.parse(code, {
             ecmaVersion: 6,
-            tokens: true,
+            tokens: true
         }).tokens;
         const expected = [
             false,
@@ -1887,7 +1885,7 @@ describe("ast-utils", () => {
             false,
             false,
             true,
-            false,
+            false
         ];
 
         describe("isSemicolonToken", () => {
@@ -1895,7 +1893,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isSemicolonToken(token),
-                        expected[index],
+                        expected[index]
                     );
                 });
             });
@@ -1906,7 +1904,7 @@ describe("ast-utils", () => {
                 it(`should return ${expected[index]} for '${token.value}'.`, () => {
                     assert.strictEqual(
                         astUtils.isNotSemicolonToken(token),
-                        !expected[index],
+                        !expected[index]
                     );
                 });
             });
@@ -1920,7 +1918,7 @@ describe("ast-utils", () => {
             5: false,
             true: false,
             "'null'": false,
-            foo: false,
+            foo: false
         };
 
         Object.keys(EXPECTED_RESULTS).forEach((key) => {
@@ -1929,7 +1927,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.isNullLiteral(ast.body[0].expression),
-                    EXPECTED_RESULTS[key],
+                    EXPECTED_RESULTS[key]
                 );
             });
         });
@@ -1942,7 +1940,7 @@ describe("ast-utils", () => {
                 astUtils
                     .createGlobalLinebreakMatcher()
                     .toString()
-                    .endsWith("/gu"),
+                    .endsWith("/gu")
             );
         });
         it("returns unique objects on each call", () => {
@@ -1959,7 +1957,7 @@ describe("ast-utils", () => {
                 "foo\nbar": 2,
                 "foo\r\nbar": 2,
                 "foo\r\u2028bar": 3,
-                "foo\u2029bar": 2,
+                "foo\u2029bar": 2
             };
 
             Object.keys(LINE_COUNTS).forEach((text) => {
@@ -1967,7 +1965,7 @@ describe("ast-utils", () => {
                     assert.strictEqual(
                         text.split(astUtils.createGlobalLinebreakMatcher())
                             .length,
-                        LINE_COUNTS[text],
+                        LINE_COUNTS[text]
                     );
                 });
             });
@@ -2032,7 +2030,7 @@ describe("ast-utils", () => {
             [["1n", "in"], false],
             [["return", "#x"], true],
             [["yield", "#x"], true],
-            [["get", "#x"], true],
+            [["get", "#x"], true]
         ]);
 
         CASES.forEach((expectedResult, tokenStrings) => {
@@ -2040,9 +2038,9 @@ describe("ast-utils", () => {
                 assert.strictEqual(
                     astUtils.canTokensBeAdjacent(
                         tokenStrings[0],
-                        tokenStrings[1],
+                        tokenStrings[1]
                     ),
-                    expectedResult,
+                    expectedResult
                 );
             });
         });
@@ -2051,9 +2049,9 @@ describe("ast-utils", () => {
             assert.strictEqual(
                 astUtils.canTokensBeAdjacent(
                     { type: "Shebang", value: "#!/usr/bin/env node" },
-                    { type: "Punctuator", value: "(" },
+                    { type: "Punctuator", value: "(" }
                 ),
-                false,
+                false
             );
         });
     });
@@ -2066,7 +2064,7 @@ describe("ast-utils", () => {
 
             assert.strictEqual(
                 astUtils.equalTokens(ast.body[0], ast.body[1], sourceCode),
-                true,
+                true
             );
         });
 
@@ -2077,7 +2075,7 @@ describe("ast-utils", () => {
 
             assert.strictEqual(
                 astUtils.equalTokens(ast.body[0], ast.body[1], sourceCode),
-                false,
+                false
             );
         });
     });
@@ -2089,61 +2087,61 @@ describe("ast-utils", () => {
                     nodeA: {
                         type: "Literal",
                         value: /(?:)/u,
-                        regex: { pattern: "(?:)", flags: "u" },
+                        regex: { pattern: "(?:)", flags: "u" }
                     },
                     nodeB: {
                         type: "Literal",
                         value: /(?:)/u,
-                        regex: { pattern: "(?:)", flags: "u" },
+                        regex: { pattern: "(?:)", flags: "u" }
                     },
-                    expected: true,
+                    expected: true
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: null,
-                        regex: { pattern: "(?:)", flags: "u" },
+                        regex: { pattern: "(?:)", flags: "u" }
                     },
                     nodeB: {
                         type: "Literal",
                         value: null,
-                        regex: { pattern: "(?:)", flags: "u" },
+                        regex: { pattern: "(?:)", flags: "u" }
                     },
-                    expected: true,
+                    expected: true
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: null,
-                        regex: { pattern: "(?:)", flags: "u" },
+                        regex: { pattern: "(?:)", flags: "u" }
                     },
                     nodeB: {
                         type: "Literal",
                         value: /(?:)/, // eslint-disable-line require-unicode-regexp -- Checking non-Unicode regex
-                        regex: { pattern: "(?:)", flags: "" },
+                        regex: { pattern: "(?:)", flags: "" }
                     },
-                    expected: false,
+                    expected: false
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: null,
-                        regex: { pattern: "(?:a)", flags: "u" },
+                        regex: { pattern: "(?:a)", flags: "u" }
                     },
                     nodeB: {
                         type: "Literal",
                         value: null,
-                        regex: { pattern: "(?:b)", flags: "u" },
+                        regex: { pattern: "(?:b)", flags: "u" }
                     },
-                    expected: false,
-                },
+                    expected: false
+                }
             ];
 
             for (const { nodeA, nodeB, expected } of patterns) {
                 it(`should return ${expected} if it compared ${util.format("%o", nodeA)} and ${util.format("%o", nodeB)}`, () => {
                     assert.strictEqual(
                         astUtils.equalLiteralValue(nodeA, nodeB),
-                        expected,
+                        expected
                     );
                 });
             }
@@ -2155,61 +2153,61 @@ describe("ast-utils", () => {
                     nodeA: {
                         type: "Literal",
                         value: null,
-                        bigint: "1",
+                        bigint: "1"
                     },
                     nodeB: {
                         type: "Literal",
                         value: null,
-                        bigint: "1",
+                        bigint: "1"
                     },
-                    expected: true,
+                    expected: true
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: null,
-                        bigint: "1",
+                        bigint: "1"
                     },
                     nodeB: {
                         type: "Literal",
                         value: null,
-                        bigint: "2",
+                        bigint: "2"
                     },
-                    expected: false,
+                    expected: false
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: 1n,
-                        bigint: "1",
+                        bigint: "1"
                     },
                     nodeB: {
                         type: "Literal",
                         value: 1n,
-                        bigint: "1",
+                        bigint: "1"
                     },
-                    expected: true,
+                    expected: true
                 },
                 {
                     nodeA: {
                         type: "Literal",
                         value: 1n,
-                        bigint: "1",
+                        bigint: "1"
                     },
                     nodeB: {
                         type: "Literal",
                         value: 2n,
-                        bigint: "2",
+                        bigint: "2"
                     },
-                    expected: false,
-                },
+                    expected: false
+                }
             ];
 
             for (const { nodeA, nodeB, expected } of patterns) {
                 it(`should return ${expected} if it compared ${util.format("%o", nodeA)} and ${util.format("%o", nodeB)}`, () => {
                     assert.strictEqual(
                         astUtils.equalLiteralValue(nodeA, nodeB),
-                        expected,
+                        expected
                     );
                 });
             }
@@ -2286,7 +2284,7 @@ describe("ast-utils", () => {
             "\\n": false,
             "\\\n": false,
             "foo\\\nbar": false,
-            "128\\\n349": false,
+            "128\\\n349": false
         };
 
         Object.keys(expectedResults).forEach((key) => {
@@ -2295,9 +2293,9 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.hasOctalOrNonOctalDecimalEscapeSequence(
-                        ast.body[0].expression.raw,
+                        ast.body[0].expression.raw
                     ),
-                    expectedResults[key],
+                    expectedResults[key]
                 );
             });
         });
@@ -2317,14 +2315,14 @@ describe("ast-utils", () => {
             "+=": false,
             "**=": false,
             "==": false,
-            "===": false,
+            "===": false
         };
 
         Object.entries(expectedResults).forEach(([key, value]) => {
             it(`should return ${value} for ${key}`, () => {
                 assert.strictEqual(
                     astUtils.isLogicalAssignmentOperator(key),
-                    value,
+                    value
                 );
             });
         });
@@ -2336,7 +2334,7 @@ describe("ast-utils", () => {
 
             assert.strictEqual(
                 astUtils.isTopLevelExpressionStatement(node),
-                false,
+                false
             );
         });
 
@@ -2346,15 +2344,15 @@ describe("ast-utils", () => {
                     ":expression": mustCall((node) => {
                         assert.strictEqual(
                             astUtils.isTopLevelExpressionStatement(node),
-                            false,
+                            false
                         );
-                    }),
-                })),
+                    })
+                }))
             });
 
             linter.verify('var foo = () => "use strict";', {
                 rules: { checker: "error" },
-                parserOptions: { ecmaVersion: 2022 },
+                parserOptions: { ecmaVersion: 2022 }
             });
         });
 
@@ -2364,7 +2362,7 @@ describe("ast-utils", () => {
             [
                 'switch (foo) { case bar: "use strict"; }',
                 '"use strict";',
-                false,
+                false
             ],
             ["foo; bar;", "foo;", true],
             ["foo; bar;", "bar;", true],
@@ -2372,7 +2370,7 @@ describe("ast-utils", () => {
             ["var foo = function () { foo(); };", "foo();", true],
             ["var foo = () => { 'bar'; }", "'bar';", true],
             ['"use strict"', '"use strict"', true],
-            ["(`use strict`)", "(`use strict`)", true],
+            ["(`use strict`)", "(`use strict`)", true]
         ];
 
         expectedResults.forEach(([code, nodeText, expectedRetVal]) => {
@@ -2382,8 +2380,8 @@ describe("ast-utils", () => {
                         const assertForNode = mustCall((node) =>
                             assert.strictEqual(
                                 astUtils.isTopLevelExpressionStatement(node),
-                                expectedRetVal,
-                            ),
+                                expectedRetVal
+                            )
                         );
 
                         return {
@@ -2394,14 +2392,14 @@ describe("ast-utils", () => {
                                 ) {
                                     assertForNode(node);
                                 }
-                            },
+                            }
                         };
-                    }),
+                    })
                 });
 
                 linter.verify(code, {
                     rules: { checker: "error" },
-                    parserOptions: { ecmaVersion: 2022 },
+                    parserOptions: { ecmaVersion: 2022 }
                 });
             });
         });
@@ -2413,7 +2411,7 @@ describe("ast-utils", () => {
             "`foo`": true,
             "`foo${bar}`": false,
             '"foo"': false,
-            "foo`bar`": false,
+            "foo`bar`": false
         };
 
         Object.entries(expectedResults).forEach(([code, expectedResult]) => {
@@ -2422,7 +2420,7 @@ describe("ast-utils", () => {
 
                 assert.strictEqual(
                     astUtils.isStaticTemplateLiteral(ast.body[0].expression),
-                    expectedResult,
+                    expectedResult
                 );
             });
         });
@@ -2434,12 +2432,12 @@ describe("ast-utils", () => {
             {
                 code: '"use strict"; "use asm";',
                 nodeText: '"use asm";',
-                expectedRetVal: true,
+                expectedRetVal: true
             },
             {
                 code: 'const a = () => { "foo"; }',
                 nodeText: '"foo";',
-                expectedRetVal: true,
+                expectedRetVal: true
             },
             { code: '"";', expectedRetVal: true },
             { code: '{ "foo"; }', nodeText: '"foo";', expectedRetVal: false },
@@ -2451,8 +2449,8 @@ describe("ast-utils", () => {
             {
                 code: 'foo(); "use strict";',
                 nodeText: '"use strict";',
-                expectedRetVal: false,
-            },
+                expectedRetVal: false
+            }
         ];
 
         expectedResults.forEach(({ code, nodeText = code, expectedRetVal }) => {
@@ -2462,8 +2460,8 @@ describe("ast-utils", () => {
                         const assertForNode = mustCall((node) =>
                             assert.strictEqual(
                                 astUtils.isDirective(node),
-                                expectedRetVal,
-                            ),
+                                expectedRetVal
+                            )
                         );
 
                         return {
@@ -2477,14 +2475,14 @@ describe("ast-utils", () => {
                                         assertForNode(node);
                                     }
                                 }
-                            },
+                            }
                         };
-                    }),
+                    })
                 });
 
                 linter.verify(code, {
                     rules: { checker: "error" },
-                    parserOptions: { ecmaVersion: 2022 },
+                    parserOptions: { ecmaVersion: 2022 }
                 });
             });
         });

@@ -3,15 +3,14 @@ title: no-sequences
 rule_type: suggestion
 ---
 
-
 The comma operator includes multiple expressions where only one is expected. It evaluates each operand from left to right and returns the value of the last operand. However, this frequently obscures side effects, and its use is often an accident. Here are some examples of sequences:
 
 ```js
 var a = (3, 5); // a = 5
 
-a = b += 5, a + b;
+(a = b += 5), a + b;
 
-while (a = next(), a && a.length);
+while (((a = next()), a && a.length));
 
 (0, eval)("doSomething();");
 ```
@@ -20,8 +19,8 @@ while (a = next(), a && a.length);
 
 This rule forbids the use of the comma operator, with the following exceptions:
 
-* In the initialization or update portions of a `for` statement.
-* By default, if the expression sequence is explicitly wrapped in parentheses. This exception can be removed with the `allowInParentheses` option.
+- In the initialization or update portions of a `for` statement.
+- By default, if the expression sequence is explicitly wrapped in parentheses. This exception can be removed with the `allowInParentheses` option.
 
 Examples of **incorrect** code for this rule:
 
@@ -30,21 +29,23 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-sequences: "error"*/
 
-foo = doSomething(), val;
+(foo = doSomething()), val;
 
 0, eval("doSomething();");
 
-do {} while (doSomething(), !!test);
+do {} while ((doSomething(), !!test));
 
 for (; doSomething(), !!test; );
 
-if (doSomething(), !!test);
+if ((doSomething(), !!test));
 
-switch (val = foo(), val) {}
+switch (((val = foo()), val)) {
+}
 
-while (val = foo(), val < 42);
+while (((val = foo()), val < 42));
 
-with (doSomething(), val) {}
+with ((doSomething(), val)) {
+}
 ```
 
 :::
@@ -66,11 +67,13 @@ for (i = 0, j = 10; i < j; i++, j--);
 
 if ((doSomething(), !!test));
 
-switch ((val = foo(), val)) {}
+switch (((val = foo()), val)) {
+}
 
-while ((val = foo(), val < 42));
+while (((val = foo()), val < 42));
 
-with ((doSomething(), val)) {}
+with ((doSomething(), val)) {
+}
 ```
 
 :::
@@ -85,11 +88,13 @@ Examples of **incorrect** code for arrow functions:
 
 ```js
 /*eslint no-sequences: "error"*/
-const foo = (val) => (console.log('bar'), val);
+const foo = (val) => (console.log("bar"), val);
 
 const baz = () => ((bar = 123), 10);
 
-const qux = () => { return (bar = 123), 10 }
+const qux = () => {
+    return (bar = 123), 10;
+};
 ```
 
 :::
@@ -100,11 +105,13 @@ Examples of **correct** code for arrow functions:
 
 ```js
 /*eslint no-sequences: "error"*/
-const foo = (val) => ((console.log('bar'), val));
+const foo = (val) => (console.log("bar"), val);
 
-const baz = () => (((bar = 123), 10));
+const baz = () => ((bar = 123), 10);
 
-const qux = () => { return ((bar = 123), 10) }
+const qux = () => {
+    return (bar = 123), 10;
+};
 ```
 
 :::
@@ -113,7 +120,7 @@ const qux = () => { return ((bar = 123), 10) }
 
 This rule takes one option, an object, with the following properties:
 
-* `"allowInParentheses"`: If set to `true` (default), this rule allows expression sequences that are explicitly wrapped in parentheses.
+- `"allowInParentheses"`: If set to `true` (default), this rule allows expression sequences that are explicitly wrapped in parentheses.
 
 ### allowInParentheses
 
@@ -130,17 +137,19 @@ foo = (doSomething(), val);
 
 do {} while ((doSomething(), !!test));
 
-for (; (doSomething(), !!test); );
+for (; doSomething(), !!test; );
 
 if ((doSomething(), !!test));
 
-switch ((val = foo(), val)) {}
+switch (((val = foo()), val)) {
+}
 
-while ((val = foo(), val < 42));
+while (((val = foo()), val < 42));
 
-with ((doSomething(), val)) {}
+with ((doSomething(), val)) {
+}
 
-const foo = (val) => ((console.log('bar'), val));
+const foo = (val) => (console.log("bar"), val);
 ```
 
 :::

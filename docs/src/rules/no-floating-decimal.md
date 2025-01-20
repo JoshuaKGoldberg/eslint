@@ -8,9 +8,9 @@ This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding ru
 Float values in JavaScript contain a decimal point, and there is no requirement that the decimal point be preceded or followed by a number. For example, the following are all valid JavaScript numbers:
 
 ```js
-var num = .5;
-var num = 2.;
-var num = -.7;
+var num = 0.5;
+var num = 2;
+var num = -0.7;
 ```
 
 Although not a syntax error, this format for numbers can make it difficult to distinguish between true decimal numbers and the dot operator. For this reason, some recommend that you should always include a number before and after a decimal point to make it clear the intent is to create a decimal number.
@@ -26,9 +26,9 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-floating-decimal: "error"*/
 
-var num = .5;
-var num = 2.;
-var num = -.7;
+var num = 0.5;
+var num = 2;
+var num = -0.7;
 ```
 
 :::
@@ -53,4 +53,4 @@ If you aren't concerned about misinterpreting floating decimal point values, the
 
 ## Compatibility
 
-* **JSHint**: W008, W047
+- **JSHint**: W008, W047

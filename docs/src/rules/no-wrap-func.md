@@ -1,6 +1,5 @@
 ---
 title: no-wrap-func
-
 ---
 
 Disallows unnecessary parentheses around function expressions.
@@ -12,13 +11,13 @@ This rule was removed in ESLint v1.0.0 and replaced by the [no-extra-parens](no-
 Although it's possible to wrap functions in parentheses, this can be confusing when the code also contains immediately-invoked function expressions (IIFEs) since parentheses are often used to make this distinction. For example:
 
 ```js
-var foo = (function() {
+var foo = (function () {
     // IIFE
-}());
+})();
 
-var bar = (function() {
+var bar = function () {
     // not an IIFE
-});
+};
 ```
 
 ## Rule Details
@@ -30,7 +29,9 @@ Example of **incorrect** code for this rule:
 ::: incorrect
 
 ```js
-var a = (function() {/*...*/});
+var a = function () {
+    /*...*/
+};
 ```
 
 :::
@@ -40,9 +41,13 @@ Examples of **correct** code for this rule:
 ::: correct
 
 ```js
-var a = function() {/*...*/};
+var a = function () {
+    /*...*/
+};
 
-(function() {/*...*/})();
+(function () {
+    /*...*/
+})();
 ```
 
 :::

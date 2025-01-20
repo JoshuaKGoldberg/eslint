@@ -3,8 +3,6 @@ title: no-else-return
 rule_type: suggestion
 ---
 
-
-
 If an `if` block contains a `return` statement, the `else` block becomes unnecessary. Its contents can be placed outside of the block.
 
 ```js
@@ -25,10 +23,10 @@ This rule is aimed at highlighting an unnecessary block of code following an `if
 
 This rule has an object option:
 
-* `allowElseIf: true` (default) allows `else if` blocks after a `return`
-* `allowElseIf: false` disallows `else if` blocks after a `return`
+- `allowElseIf: true` (default) allows `else if` blocks after a `return`
+- `allowElseIf: false` disallows `else if` blocks after a `return`
 
-###  allowElseIf: true
+### allowElseIf: true
 
 Examples of **incorrect** code for this rule:
 
@@ -67,7 +65,7 @@ function foo3() {
 
 function foo4() {
     if (error) {
-        return 'It failed';
+        return "It failed";
     } else {
         if (loading) {
             return "It's still loading";
@@ -128,7 +126,7 @@ function foo3() {
 
 function foo4() {
     if (error) {
-        return 'It failed';
+        return "It failed";
     } else if (loading) {
         return "It's still loading";
     }
@@ -148,7 +146,7 @@ Examples of **incorrect** code for this rule:
 
 function foo() {
     if (error) {
-        return 'It failed';
+        return "It failed";
     } else if (loading) {
         return "It's still loading";
     }
@@ -166,7 +164,7 @@ Examples of **correct** code for this rule:
 
 function foo() {
     if (error) {
-        return 'It failed';
+        return "It failed";
     }
 
     if (loading) {

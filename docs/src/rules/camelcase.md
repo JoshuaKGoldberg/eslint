@@ -3,7 +3,6 @@ title: camelcase
 rule_type: suggestion
 ---
 
-
 When it comes to naming variables, style guides generally fall into one of two camps: camelcase (`variableName`) and underscores (`variable_name`). This rule focuses on using the camelcase approach. If your style guide calls for camelCasing your variable names, then this rule is for you!
 
 ## Rule Details
@@ -14,15 +13,15 @@ This rule looks for any underscores (`_`) located within the source code. It ign
 
 This rule has an object option:
 
-* `"properties": "always"` (default) enforces camelcase style for property names
-* `"properties": "never"` does not check property names
-* `"ignoreDestructuring": false` (default) enforces camelcase style for destructured identifiers
-* `"ignoreDestructuring": true` does not check destructured identifiers (but still checks any use of those identifiers later in the code)
-* `"ignoreImports": false` (default) enforces camelcase style for ES2015 imports
-* `"ignoreImports": true` does not check ES2015 imports (but still checks any use of the imports later in the code except function arguments)
-* `"ignoreGlobals": false` (default) enforces camelcase style for global variables
-* `"ignoreGlobals": true` does not enforce camelcase style for global variables
-* `allow` (`string[]`) list of properties to accept. Accept regex.
+- `"properties": "always"` (default) enforces camelcase style for property names
+- `"properties": "never"` does not check property names
+- `"ignoreDestructuring": false` (default) enforces camelcase style for destructured identifiers
+- `"ignoreDestructuring": true` does not check destructured identifiers (but still checks any use of those identifiers later in the code)
+- `"ignoreImports": false` (default) enforces camelcase style for ES2015 imports
+- `"ignoreImports": true` does not check ES2015 imports (but still checks any use of the imports later in the code except function arguments)
+- `"ignoreGlobals": false` (default) enforces camelcase style for global variables
+- `"ignoreGlobals": true` does not enforce camelcase style for global variables
+- `allow` (`string[]`) list of properties to accept. Accept regex.
 
 ### properties: "always"
 
@@ -33,7 +32,7 @@ Examples of **incorrect** code for this rule with the default `{ "properties": "
 ```js
 /*eslint camelcase: "error"*/
 
-import { no_camelcased } from "external-module"
+import { no_camelcased } from "external-module";
 
 const my_favorite_color = "#112C85";
 
@@ -41,21 +40,21 @@ function do_something() {
     // ...
 }
 
-obj.do_something = function() {
+obj.do_something = function () {
     // ...
 };
 
 function foo({ no_camelcased }) {
     // ...
-};
+}
 
 function bar({ isCamelcased: no_camelcased }) {
     // ...
 }
 
-function baz({ no_camelcased = 'default value' }) {
+function baz({ no_camelcased = "default value" }) {
     // ...
-};
+}
 
 const obj = {
     my_pref: 1
@@ -79,9 +78,9 @@ Examples of **correct** code for this rule with the default `{ "properties": "al
 
 import { no_camelcased as camelCased } from "external-module";
 
-const myFavoriteColor   = "#112C85";
-const _myFavoriteColor  = "#112C85";
-const myFavoriteColor_  = "#112C85";
+const myFavoriteColor = "#112C85";
+const _myFavoriteColor = "#112C85";
+const myFavoriteColor_ = "#112C85";
 const MY_FAVORITE_COLOR = "#112C85";
 const foo1 = bar.baz_boom;
 const foo2 = { qux: bar.baz_boom };
@@ -94,22 +93,21 @@ const { category_id: category } = query;
 
 function foo({ isCamelCased }) {
     // ...
-};
+}
 
 function bar({ isCamelCased: isAlsoCamelCased }) {
     // ...
 }
 
-function baz({ isCamelCased = 'default value' }) {
+function baz({ isCamelCased = "default value" }) {
     // ...
-};
+}
 
 const { categoryId = 1 } = query;
 
 const { foo: isCamelCased } = bar;
 
 const { foo: camelCasedName = 1 } = quz;
-
 ```
 
 :::
@@ -240,7 +238,7 @@ Examples of **incorrect** code for this rule with the default `{ "ignoreImports"
 ```js
 /*eslint camelcase: "error"*/
 
-import { snake_cased } from 'mod';
+import { snake_cased } from "mod";
 ```
 
 :::
@@ -254,9 +252,9 @@ Examples of **incorrect** code for this rule with the `{ "ignoreImports": true }
 ```js
 /*eslint camelcase: ["error", {ignoreImports: true}]*/
 
-import default_import from 'mod';
+import default_import from "mod";
 
-import * as namespaced_import from 'mod';
+import * as namespaced_import from "mod";
 ```
 
 :::
@@ -268,7 +266,7 @@ Examples of **correct** code for this rule with the `{ "ignoreImports": true }` 
 ```js
 /*eslint camelcase: ["error", {ignoreImports: true}]*/
 
-import { snake_cased } from 'mod';
+import { snake_cased } from "mod";
 ```
 
 :::

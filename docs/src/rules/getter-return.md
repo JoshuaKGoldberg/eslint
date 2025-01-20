@@ -3,23 +3,21 @@ title: getter-return
 rule_type: problem
 handled_by_typescript: true
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
-- https://leanpub.com/understandinges6/read/#leanpub-auto-accessor-properties
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+    - https://leanpub.com/understandinges6/read/#leanpub-auto-accessor-properties
 ---
-
-
 
 The get syntax binds an object property to a function that will be called when that property is looked up. It was first introduced in ECMAScript 5:
 
 ```js
 const p = {
-    get name(){
+    get name() {
         return "nicholas";
     }
 };
 
 Object.defineProperty(p, "age", {
-    get: function (){
+    get: function () {
         return 17;
     }
 });
@@ -39,19 +37,19 @@ Examples of **incorrect** code for this rule:
 /*eslint getter-return: "error"*/
 
 const p = {
-    get name(){
+    get name() {
         // no returns.
     }
 };
 
 Object.defineProperty(p, "age", {
-    get: function (){
+    get: function () {
         // no returns.
     }
 });
 
-class P{
-    get name(){
+class P {
+    get name() {
         // no returns.
     }
 }
@@ -67,19 +65,19 @@ Examples of **correct** code for this rule:
 /*eslint getter-return: "error"*/
 
 const p = {
-    get name(){
+    get name() {
         return "nicholas";
     }
 };
 
 Object.defineProperty(p, "age", {
-    get: function (){
+    get: function () {
         return 18;
     }
 });
 
-class P{
-    get name(){
+class P {
+    get name() {
         return "nicholas";
     }
 }
@@ -91,7 +89,7 @@ class P{
 
 This rule has an object option:
 
-* `"allowImplicit": false` (default) disallows implicitly returning `undefined` with a `return` statement.
+- `"allowImplicit": false` (default) disallows implicitly returning `undefined` with a `return` statement.
 
 Examples of **correct** code for the `{ "allowImplicit": true }` option:
 
@@ -100,7 +98,7 @@ Examples of **correct** code for the `{ "allowImplicit": true }` option:
 ```js
 /*eslint getter-return: ["error", { allowImplicit: true }]*/
 const p = {
-    get name(){
+    get name() {
         return; // return undefined implicitly.
     }
 };

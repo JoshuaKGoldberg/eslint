@@ -3,16 +3,12 @@ title: no-useless-escape
 rule_type: suggestion
 ---
 
-
-
-
-
 Escaping non-special characters in strings, template literals, and regular expressions doesn't have any effect, as demonstrated in the following example:
 
 ```js
 let foo = "hol\a"; // > foo = "hola"
 let bar = `${foo}\!`; // > bar = "hola!"
-let baz = /\:/ // same functionality with /:/
+let baz = /\:/; // same functionality with /:/
 ```
 
 ## Rule Details

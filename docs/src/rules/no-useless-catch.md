@@ -3,8 +3,6 @@ title: no-useless-catch
 rule_type: suggestion
 ---
 
-
-
 A `catch` clause that only rethrows the original error is redundant, and has no effect on the runtime behavior of the program. These redundant clauses can be a source of confusion and code bloat, so it's better to disallow these unnecessary `catch` clauses.
 
 ## Rule Details
@@ -19,17 +17,17 @@ Examples of **incorrect** code for this rule:
 /*eslint no-useless-catch: "error"*/
 
 try {
-  doSomethingThatMightThrow();
+    doSomethingThatMightThrow();
 } catch (e) {
-  throw e;
+    throw e;
 }
 
 try {
-  doSomethingThatMightThrow();
+    doSomethingThatMightThrow();
 } catch (e) {
-  throw e;
+    throw e;
 } finally {
-  cleanUp();
+    cleanUp();
 }
 ```
 
@@ -43,22 +41,22 @@ Examples of **correct** code for this rule:
 /*eslint no-useless-catch: "error"*/
 
 try {
-  doSomethingThatMightThrow();
+    doSomethingThatMightThrow();
 } catch (e) {
-  doSomethingBeforeRethrow();
-  throw e;
+    doSomethingBeforeRethrow();
+    throw e;
 }
 
 try {
-  doSomethingThatMightThrow();
+    doSomethingThatMightThrow();
 } catch (e) {
-  handleError(e);
+    handleError(e);
 }
 
 try {
-  doSomethingThatMightThrow();
+    doSomethingThatMightThrow();
 } finally {
-  cleanUp();
+    cleanUp();
 }
 ```
 

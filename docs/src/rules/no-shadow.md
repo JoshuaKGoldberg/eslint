@@ -2,11 +2,10 @@
 title: no-shadow
 rule_type: suggestion
 related_rules:
-- no-shadow-restricted-names
+    - no-shadow-restricted-names
 further_reading:
-- https://en.wikipedia.org/wiki/Variable_shadowing
+    - https://en.wikipedia.org/wiki/Variable_shadowing
 ---
-
 
 Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. For example:
 
@@ -37,7 +36,7 @@ function b() {
 
 var c = function () {
     var a = 10;
-}
+};
 
 function d(a) {
     a = 10;
@@ -57,7 +56,15 @@ This rule takes one option, an object, with properties `"builtinGlobals"`, `"hoi
 
 ```json
 {
-    "no-shadow": ["error", { "builtinGlobals": false, "hoist": "functions", "allow": [], "ignoreOnInitialization": false }]
+    "no-shadow": [
+        "error",
+        {
+            "builtinGlobals": false,
+            "hoist": "functions",
+            "allow": [],
+            "ignoreOnInitialization": false
+        }
+    ]
 }
 ```
 
@@ -84,9 +91,9 @@ function foo() {
 
 The `hoist` option has three settings:
 
-* `functions` (by default) - reports shadowing before the outer functions are defined.
-* `all` - reports all shadowing before the outer variables/functions are defined.
-* `never` - never report shadowing before the outer variables/functions are defined.
+- `functions` (by default) - reports shadowing before the outer functions are defined.
+- `all` - reports all shadowing before the outer variables/functions are defined.
+- `never` - never report shadowing before the outer variables/functions are defined.
 
 #### hoist: functions
 
@@ -106,7 +113,7 @@ function b() {}
 
 :::
 
-Although `let b` in the `if` statement is before the *function* declaration in the outer scope, it is incorrect.
+Although `let b` in the `if` statement is before the _function_ declaration in the outer scope, it is incorrect.
 
 Examples of **correct** code for the default `{ "hoist": "functions" }` option:
 
@@ -124,7 +131,7 @@ let a = 5;
 
 :::
 
-Because `let a` in the `if` statement is before the *variable* declaration in the outer scope, it is correct.
+Because `let a` in the `if` statement is before the _variable_ declaration in the outer scope, it is correct.
 
 #### hoist: all
 
@@ -179,16 +186,20 @@ Examples of **correct** code for the `{ "allow": ["done"] }` option:
 ```js
 /*eslint no-shadow: ["error", { "allow": ["done"] }]*/
 
-import async from 'async';
+import async from "async";
 
 function foo(done) {
-  async.map([1, 2], function (e, done) {
-    done(null, e * 2)
-  }, done);
+    async.map(
+        [1, 2],
+        function (e, done) {
+            done(null, e * 2);
+        },
+        done
+    );
 }
 
 foo(function (err, result) {
-  console.log({ err, result });
+    console.log({ err, result });
 });
 ```
 
@@ -207,7 +218,7 @@ Examples of **incorrect** code for the `{ "ignoreOnInitialization": "true" }` op
 ```js
 /*eslint no-shadow: ["error", { "ignoreOnInitialization": true }]*/
 
-var x = x => x;
+var x = (x) => x;
 ```
 
 :::
@@ -221,9 +232,9 @@ Examples of **correct** code for the `{ "ignoreOnInitialization": true }` option
 ```js
 /*eslint no-shadow: ["error", { "ignoreOnInitialization": true }]*/
 
-var x = foo(x => x)
+var x = foo((x) => x);
 
-var y = (y => y)()
+var y = ((y) => y)();
 ```
 
 :::

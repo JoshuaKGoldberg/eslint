@@ -2,20 +2,15 @@
 title: no-unused-labels
 rule_type: suggestion
 related_rules:
-- no-extra-label
-- no-labels
-- no-label-var
+    - no-extra-label
+    - no-labels
+    - no-label-var
 ---
-
-
-
-
 
 Labels that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.
 
 ```js
-OUTER_LOOP:
-for (const student of students) {
+OUTER_LOOP: for (const student of students) {
     if (checkScores(student.scores)) {
         continue;
     }
@@ -45,8 +40,7 @@ B: {
     foo();
 }
 
-C:
-for (let i = 0; i < 10; ++i) {
+C: for (let i = 0; i < 10; ++i) {
     foo();
 }
 ```
@@ -67,8 +61,7 @@ A: {
     bar();
 }
 
-B:
-for (let i = 0; i < 10; ++i) {
+B: for (let i = 0; i < 10; ++i) {
     if (foo()) {
         break B;
     }

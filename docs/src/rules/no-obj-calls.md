@@ -3,10 +3,8 @@ title: no-obj-calls
 rule_type: problem
 handled_by_typescript: true
 further_reading:
-- https://es5.github.io/#x15.8
+    - https://es5.github.io/#x15.8
 ---
-
-
 
 ECMAScript provides several global objects that are intended to be used as-is. Some of these objects look as if they could be constructors due their capitalization (such as `Math` and `JSON`) but will throw an error if you try to execute them as functions.
 

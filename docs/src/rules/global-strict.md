@@ -1,6 +1,5 @@
 ---
 title: global-strict
-
 ---
 
 Requires or disallows strict mode directives in the global scope.
@@ -42,11 +41,11 @@ function foo() {
     return true;
 }
 
-(function() {
+(function () {
     "use strict";
 
     // other code
-}());
+})();
 ```
 
 ## Options

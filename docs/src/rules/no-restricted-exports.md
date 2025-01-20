@@ -3,7 +3,6 @@ title: no-restricted-exports
 rule_type: suggestion
 ---
 
-
 In a project, certain names may be disallowed from being used as exported names for various reasons.
 
 ## Rule Details
@@ -16,14 +15,14 @@ By default, this rule doesn't disallow any names. Only the names you specify in 
 
 This rule has an object option:
 
-* `"restrictedNamedExports"` is an array of strings, where each string is a name to be restricted.
-* `"restrictedNamedExportsPattern"` is a string representing a regular expression pattern. Named exports matching this pattern will be restricted. This option does not apply to `default` named exports.
-* `"restrictDefaultExports"` is an object option with boolean properties to restrict certain default export declarations. The option works only if the `restrictedNamedExports` option does not contain the `"default"` value. The following properties are allowed:
-    * `direct`: restricts `export default` declarations.
-    * `named`: restricts `export { foo as default };` declarations.
-    * `defaultFrom`: restricts `export { default } from 'foo';` declarations.
-    * `namedFrom`: restricts `export { foo as default } from 'foo';` declarations.
-    * `namespaceFrom`: restricts `export * as default from 'foo';` declarations.
+- `"restrictedNamedExports"` is an array of strings, where each string is a name to be restricted.
+- `"restrictedNamedExportsPattern"` is a string representing a regular expression pattern. Named exports matching this pattern will be restricted. This option does not apply to `default` named exports.
+- `"restrictDefaultExports"` is an object option with boolean properties to restrict certain default export declarations. The option works only if the `restrictedNamedExports` option does not contain the `"default"` value. The following properties are allowed:
+    - `direct`: restricts `export default` declarations.
+    - `named`: restricts `export { foo as default };` declarations.
+    - `defaultFrom`: restricts `export { default } from 'foo';` declarations.
+    - `namedFrom`: restricts `export { foo as default } from 'foo';` declarations.
+    - `namespaceFrom`: restricts `export * as default from 'foo';` declarations.
 
 ### restrictedNamedExports
 
@@ -226,7 +225,7 @@ Examples of **incorrect** code for the `"restrictDefaultExports": { "defaultFrom
 ```js
 /*eslint no-restricted-exports: ["error", { "restrictDefaultExports": { "defaultFrom": true } }]*/
 
-export { default } from 'foo';
+export { default } from "foo";
 ```
 
 :::
@@ -236,7 +235,7 @@ export { default } from 'foo';
 ```js
 /*eslint no-restricted-exports: ["error", { "restrictDefaultExports": { "defaultFrom": true } }]*/
 
-export { default as default } from 'foo';
+export { default as default } from "foo";
 ```
 
 :::
@@ -250,7 +249,7 @@ Examples of **incorrect** code for the `"restrictDefaultExports": { "namedFrom":
 ```js
 /*eslint no-restricted-exports: ["error", { "restrictDefaultExports": { "namedFrom": true } }]*/
 
-export { foo as default } from 'foo';
+export { foo as default } from "foo";
 ```
 
 :::
@@ -264,7 +263,7 @@ Examples of **incorrect** code for the `"restrictDefaultExports": { "namespaceFr
 ```js
 /*eslint no-restricted-exports: ["error", { "restrictDefaultExports": { "namespaceFrom": true } }]*/
 
-export * as default from 'foo';
+export * as default from "foo";
 ```
 
 :::
@@ -274,7 +273,6 @@ export * as default from 'foo';
 This rule doesn't inspect the content of source modules in re-export declarations. In particular, if you are re-exporting everything from another module's export, that export may include a restricted name. This rule cannot detect such cases.
 
 ```js
-
 //----- some_module.js -----
 export function foo() {}
 

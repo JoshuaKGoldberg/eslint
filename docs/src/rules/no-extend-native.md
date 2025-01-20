@@ -2,9 +2,8 @@
 title: no-extend-native
 rule_type: suggestion
 related_rules:
-- no-global-assign
+    - no-global-assign
 ---
-
 
 In JavaScript, you can extend any object, including builtin or "native" objects. Sometimes people change the behavior of these native objects in ways that break the assumptions made about them in other parts of the code.
 
@@ -16,8 +15,8 @@ Object.prototype.extra = 55;
 
 // loop through some userIds
 var users = {
-    "123": "Stan",
-    "456": "David"
+    123: "Stan",
+    456: "David"
 };
 
 // not what you'd expect
@@ -65,7 +64,7 @@ Object.prototype.a = "a";
 
 ## Known Limitations
 
-This rule *does not* report any of the following less obvious approaches to modify the prototype of builtin objects:
+This rule _does not_ report any of the following less obvious approaches to modify the prototype of builtin objects:
 
 ```js
 var x = Object;
@@ -73,11 +72,11 @@ x.prototype.thing = a;
 
 eval("Array.prototype.forEach = 'muhahaha'");
 
-with(Array) {
-    prototype.thing = 'thing';
-};
+with (Array) {
+    prototype.thing = "thing";
+}
 
-window.Function.prototype.bind = 'tight';
+window.Function.prototype.bind = "tight";
 ```
 
 ## When Not To Use It

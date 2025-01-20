@@ -8,11 +8,11 @@ Putting default parameter at last allows function calls to omit optional tail ar
 ```js
 // Correct: optional argument can be omitted
 function createUser(id, isAdmin = false) {}
-createUser("tabby")
+createUser("tabby");
 
 // Incorrect: optional argument can **not** be omitted
 function createUser(isAdmin = false, id) {}
-createUser(undefined, "tabby")
+createUser(undefined, "tabby");
 ```
 
 ## Rule Details

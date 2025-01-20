@@ -3,7 +3,6 @@ title: id-match
 rule_type: suggestion
 ---
 
-
 > "There are only two hard things in Computer Science: cache invalidation and naming things." — Phil Karlton
 
 Naming things consistently in a project is an often underestimated aspect of code creation.
@@ -35,8 +34,8 @@ Examples of **incorrect** code for this rule with the `"^[a-z]+([A-Z][a-z]+)*$"`
 /*eslint id-match: ["error", "^[a-z]+([A-Z][a-z]+)*$"]*/
 
 const my_favorite_color = "#112C85";
-const _myFavoriteColor  = "#112C85";
-const myFavoriteColor_  = "#112C85";
+const _myFavoriteColor = "#112C85";
+const myFavoriteColor_ = "#112C85";
 const MY_FAVORITE_COLOR = "#112C85";
 function do_something() {
     // ...
@@ -62,7 +61,7 @@ Examples of **correct** code for this rule with the `"^[a-z]+([A-Z][a-z]+)*$"` o
 ```js
 /*eslint id-match: ["error", "^[a-z]+([A-Z][a-z]+)*$"]*/
 
-const myFavoriteColor   = "#112C85";
+const myFavoriteColor = "#112C85";
 const foo = bar.baz_boom;
 const buz = { qux: bar.baz_boom };
 do_something();
@@ -85,14 +84,14 @@ class oneMoreClass {
 
 This rule has an object option:
 
-* `"properties": false` (default) does not check object properties
-* `"properties": true` requires object literal properties and member expression assignment properties to match the specified regular expression
-* `"classFields": false` (default) does not check class field names
-* `"classFields": true` requires class field names to match the specified regular expression
-* `"onlyDeclarations": false` (default) requires all variable names to match the specified regular expression
-* `"onlyDeclarations": true` requires only `var`, `const`, `let`, `function`, and `class` declarations to match the specified regular expression
-* `"ignoreDestructuring": false` (default) enforces `id-match` for destructured identifiers
-* `"ignoreDestructuring": true` does not check destructured identifiers
+- `"properties": false` (default) does not check object properties
+- `"properties": true` requires object literal properties and member expression assignment properties to match the specified regular expression
+- `"classFields": false` (default) does not check class field names
+- `"classFields": true` requires class field names to match the specified regular expression
+- `"onlyDeclarations": false` (default) requires all variable names to match the specified regular expression
+- `"onlyDeclarations": true` requires only `var`, `const`, `let`, `function`, and `class` declarations to match the specified regular expression
+- `"ignoreDestructuring": false` (default) enforces `id-match` for destructured identifiers
+- `"ignoreDestructuring": true` does not check destructured identifiers
 
 ### properties
 
@@ -107,7 +106,7 @@ const obj = {
     my_pref: 1
 };
 
-obj.do_something = function() {
+obj.do_something = function () {
     // ...
 };
 ```

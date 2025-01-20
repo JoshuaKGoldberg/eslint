@@ -8,8 +8,6 @@ extra_typescript_info: >-
     for it to consider unreachable code an error.
 ---
 
-
-
 Because the `return`, `throw`, `continue`, and `break` statements unconditionally exit a block of code, any statements after them cannot be executed. Unreachable statements are usually a mistake.
 
 ```js
@@ -53,7 +51,7 @@ function bar() {
     console.log("done");
 }
 
-while(value) {
+while (value) {
     break;
     console.log("done");
 }

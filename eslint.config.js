@@ -29,12 +29,12 @@ const INTERNAL_PATHS = {
     LINTER_PATTERN: "lib/linter/**/*",
     RULE_TESTER_PATTERN: "lib/rule-tester/**/*",
     RULES_PATTERN: "lib/rules/**/*",
-    SOURCE_CODE_PATTERN: "lib/source-code/**/*",
+    SOURCE_CODE_PATTERN: "lib/source-code/**/*"
 };
 
 // same paths but with `.js` at the end
 const INTERNAL_FILES = Object.fromEntries(
-    Object.entries(INTERNAL_PATHS).map(([key, value]) => [key, `${value}.js`]),
+    Object.entries(INTERNAL_PATHS).map(([key, value]) => [key, `${value}.js`])
 );
 
 const ALL_JS_FILES = "**/*.js";
@@ -63,8 +63,8 @@ function createInternalFilesPatterns(pattern = null) {
                 resolveAbsolutePath(p),
 
                 // Allow the main `index.js` module.
-                `!${resolveAbsolutePath(p.replace(/\*\*\/\*$/u, "index.js"))}`,
-            ],
+                `!${resolveAbsolutePath(p.replace(/\*\*\/\*$/u, "index.js"))}`
+            ]
         }));
 }
 
@@ -75,7 +75,7 @@ module.exports = [
     ...eslintConfigESLintCJS.map((config) => ({
         ...config,
         name: `eslint/${config.name}`,
-        files: [ALL_JS_FILES],
+        files: [ALL_JS_FILES]
     })),
     {
         name: "eslint/global-ignores",
@@ -92,29 +92,29 @@ module.exports = [
             "tests/performance/**",
             "tmp/**",
             "**/test.js",
-            ".vscode",
-        ],
+            ".vscode"
+        ]
     },
     {
         name: "eslint/internal-rules",
         files: [ALL_JS_FILES],
         plugins: {
-            "internal-rules": internalPlugin,
+            "internal-rules": internalPlugin
         },
         languageOptions: {
-            ecmaVersion: "latest",
+            ecmaVersion: "latest"
         },
         rules: {
-            "internal-rules/multiline-comment-style": "error",
-        },
+            "internal-rules/multiline-comment-style": "error"
+        }
     },
     {
         name: "eslint/tools",
         files: ["tools/*.js", "docs/tools/*.js"],
         rules: {
             "no-console": "off",
-            "n/no-process-exit": "off",
-        },
+            "n/no-process-exit": "off"
+        }
     },
     {
         name: "eslint/rules",
@@ -128,10 +128,10 @@ module.exports = [
             "eslint-plugin/report-message-format": ["error", "[^a-z].*\\.$"],
             "eslint-plugin/require-meta-docs-description": [
                 "error",
-                { pattern: "^(Enforce|Require|Disallow) .+[^. ]$" },
+                { pattern: "^(Enforce|Require|Disallow) .+[^. ]$" }
             ],
-            "internal-rules/no-invalid-meta": "error",
-        },
+            "internal-rules/no-invalid-meta": "error"
+        }
     },
     {
         name: "eslint/core-rules",
@@ -140,9 +140,9 @@ module.exports = [
         rules: {
             "eslint-plugin/require-meta-docs-url": [
                 "error",
-                { pattern: "https://eslint.org/docs/latest/rules/{{name}}" },
-            ],
-        },
+                { pattern: "https://eslint.org/docs/latest/rules/{{name}}" }
+            ]
+        }
     },
     {
         name: "eslint/rules-tests",
@@ -159,20 +159,20 @@ module.exports = [
                     "output",
                     "options",
                     "languageOptions",
-                    "errors",
-                ],
+                    "errors"
+                ]
             ],
             "eslint-plugin/test-case-shorthand-strings": "error",
-            "no-useless-concat": "off",
-        },
+            "no-useless-concat": "off"
+        }
     },
     {
         name: "eslint/tests",
         files: ["tests/**/*.js"],
         languageOptions: {
             globals: {
-                ...globals.mocha,
-            },
+                ...globals.mocha
+            }
         },
         rules: {
             "no-restricted-syntax": [
@@ -181,10 +181,10 @@ module.exports = [
                     selector:
                         "CallExpression[callee.object.name='assert'][callee.property.name='doesNotThrow']",
                     message:
-                        "`assert.doesNotThrow()` should be replaced with a comment next to the code.",
-                },
-            ],
-        },
+                        "`assert.doesNotThrow()` should be replaced with a comment next to the code."
+                }
+            ]
+        }
     },
 
     // JSON files
@@ -193,7 +193,7 @@ module.exports = [
         files: ["**/*.json", ".c8rc"],
         ignores: ["**/package-lock.json"],
         language: "json/json",
-        ...json.configs.recommended,
+        ...json.configs.recommended
     },
 
     // JSONC files
@@ -201,7 +201,7 @@ module.exports = [
         name: "eslint/jsonc",
         files: ["knip.jsonc"],
         language: "json/jsonc",
-        ...json.configs.recommended,
+        ...json.configs.recommended
     },
 
     // JSON5 files
@@ -209,7 +209,7 @@ module.exports = [
         name: "eslint/json5",
         files: ["**/*.json5"],
         language: "json/json5",
-        ...json.configs.recommended,
+        ...json.configs.recommended
     },
 
     // Restrict relative path imports
@@ -220,9 +220,9 @@ module.exports = [
         rules: {
             "n/no-restricted-require": [
                 "error",
-                [...createInternalFilesPatterns()],
-            ],
-        },
+                [...createInternalFilesPatterns()]
+            ]
+        }
     },
     {
         name: "eslint/cli-engine",
@@ -232,11 +232,11 @@ module.exports = [
                 "error",
                 [
                     ...createInternalFilesPatterns(
-                        INTERNAL_PATHS.CLI_ENGINE_PATTERN,
-                    ),
-                ],
-            ],
-        },
+                        INTERNAL_PATHS.CLI_ENGINE_PATTERN
+                    )
+                ]
+            ]
+        }
     },
     {
         name: "eslint/linter",
@@ -246,14 +246,14 @@ module.exports = [
                 "error",
                 [
                     ...createInternalFilesPatterns(
-                        INTERNAL_PATHS.LINTER_PATTERN,
+                        INTERNAL_PATHS.LINTER_PATTERN
                     ),
                     "fs",
                     resolveAbsolutePath("lib/cli-engine/index.js"),
-                    resolveAbsolutePath("lib/rule-tester/index.js"),
-                ],
-            ],
-        },
+                    resolveAbsolutePath("lib/rule-tester/index.js")
+                ]
+            ]
+        }
     },
     {
         name: "eslint/rules",
@@ -263,16 +263,16 @@ module.exports = [
                 "error",
                 [
                     ...createInternalFilesPatterns(
-                        INTERNAL_PATHS.RULES_PATTERN,
+                        INTERNAL_PATHS.RULES_PATTERN
                     ),
                     "fs",
                     resolveAbsolutePath("lib/cli-engine/index.js"),
                     resolveAbsolutePath("lib/linter/index.js"),
                     resolveAbsolutePath("lib/rule-tester/index.js"),
-                    resolveAbsolutePath("lib/source-code/index.js"),
-                ],
-            ],
-        },
+                    resolveAbsolutePath("lib/source-code/index.js")
+                ]
+            ]
+        }
     },
     {
         name: "eslint/shared",
@@ -285,10 +285,10 @@ module.exports = [
                     resolveAbsolutePath("lib/cli-engine/index.js"),
                     resolveAbsolutePath("lib/linter/index.js"),
                     resolveAbsolutePath("lib/rule-tester/index.js"),
-                    resolveAbsolutePath("lib/source-code/index.js"),
-                ],
-            ],
-        },
+                    resolveAbsolutePath("lib/source-code/index.js")
+                ]
+            ]
+        }
     },
     {
         name: "eslint/source-code",
@@ -298,16 +298,16 @@ module.exports = [
                 "error",
                 [
                     ...createInternalFilesPatterns(
-                        INTERNAL_PATHS.SOURCE_CODE_PATTERN,
+                        INTERNAL_PATHS.SOURCE_CODE_PATTERN
                     ),
                     "fs",
                     resolveAbsolutePath("lib/cli-engine/index.js"),
                     resolveAbsolutePath("lib/linter/index.js"),
                     resolveAbsolutePath("lib/rule-tester/index.js"),
-                    resolveAbsolutePath("lib/rules/index.js"),
-                ],
-            ],
-        },
+                    resolveAbsolutePath("lib/rules/index.js")
+                ]
+            ]
+        }
     },
     {
         name: "eslint/rule-tester",
@@ -315,13 +315,13 @@ module.exports = [
         rules: {
             "n/no-restricted-require": [
                 "error",
-                [resolveAbsolutePath("lib/cli-engine/index.js")],
-            ],
-        },
+                [resolveAbsolutePath("lib/cli-engine/index.js")]
+            ]
+        }
     },
     ...eslintPluginYml.configs["flat/recommended"].map((config) => ({
         ...config,
-        files: [ALL_YAML_FILES],
+        files: [ALL_YAML_FILES]
     })),
     {
         name: "eslint/ts-rules",
@@ -332,16 +332,16 @@ module.exports = [
                 project: [
                     "tests/lib/types/tsconfig.json",
                     "packages/js/tests/types/tsconfig.json",
-                    "packages/eslint-config-eslint/tsconfig.json",
-                ],
-            },
+                    "packages/eslint-config-eslint/tsconfig.json"
+                ]
+            }
         },
         plugins: {
-            "expect-type": expectType,
+            "expect-type": expectType
         },
         rules: {
-            "expect-type/expect": "error",
-        },
+            "expect-type/expect": "error"
+        }
     },
     {
         name: "eslint/bin",
@@ -353,8 +353,8 @@ module.exports = [
              */
             "n/no-unsupported-features/node-builtins": [
                 2,
-                { ignores: ["module.enableCompileCache"] },
-            ],
-        },
-    },
+                { ignores: ["module.enableCompileCache"] }
+            ]
+        }
+    }
 ];

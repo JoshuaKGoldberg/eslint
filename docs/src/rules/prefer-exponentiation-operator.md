@@ -2,11 +2,9 @@
 title: prefer-exponentiation-operator
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Exponentiation
-- https://bugs.chromium.org/p/v8/issues/detail?id=5848
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Exponentiation
+    - https://bugs.chromium.org/p/v8/issues/detail?id=5848
 ---
-
-
 
 Introduced in ES2016, the infix exponentiation operator `**` is an alternative for the standard `Math.pow` function.
 

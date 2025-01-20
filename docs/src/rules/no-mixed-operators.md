@@ -2,7 +2,7 @@
 title: no-mixed-operators
 rule_type: suggestion
 related_rules:
-- no-extra-parens
+    - no-extra-parens
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/no-mixed-operators) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -11,16 +11,16 @@ Enclosing complex expressions by parentheses clarifies the developer's intention
 This rule warns when different operators are used consecutively without parentheses in an expression.
 
 ```js
-var foo = a && b || c || d;    /*BAD: Unexpected mix of '&&' and '||'.*/
-var foo = (a && b) || c || d;  /*GOOD*/
-var foo = a && (b || c || d);  /*GOOD*/
+var foo = (a && b) || c || d; /*BAD: Unexpected mix of '&&' and '||'.*/
+var foo = (a && b) || c || d; /*GOOD*/
+var foo = a && (b || c || d); /*GOOD*/
 ```
 
 **Note:**
 It is expected for this rule to emit one error for each mixed operator in a pair. As a result, for each two consecutive mixed operators used, a distinct error will be displayed, pointing to where the specific operator that breaks the rule is used:
 
 ```js
-var foo = a && b || c || d;
+var foo = (a && b) || c || d;
 ```
 
 will generate
@@ -44,7 +44,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-mixed-operators: "error"*/
 
-var foo = a && b < 0 || c > 0 || d + 1 === 0;
+var foo = (a && b < 0) || c > 0 || d + 1 === 0;
 var foo = a + b * c;
 ```
 
@@ -61,7 +61,7 @@ var foo = a || b || c;
 var foo = a && b && c;
 var foo = (a && b < 0) || c > 0 || d + 1 === 0;
 var foo = a && (b < 0 || c > 0 || d + 1 === 0);
-var foo = a + (b * c);
+var foo = a + b * c;
 var foo = (a + b) * c;
 ```
 
@@ -89,21 +89,21 @@ var foo = (a + b) * c;
 
 This rule has 2 options.
 
-* `groups` (`string[][]`) - specifies operator groups to be checked. The `groups` option is a list of groups, and a group is a list of binary operators. Default operator groups are defined as arithmetic, bitwise, comparison, logical, and relational operators. Note: Ternary operator(?:) can be part of any group and by default is allowed to be mixed with other operators.
+- `groups` (`string[][]`) - specifies operator groups to be checked. The `groups` option is a list of groups, and a group is a list of binary operators. Default operator groups are defined as arithmetic, bitwise, comparison, logical, and relational operators. Note: Ternary operator(?:) can be part of any group and by default is allowed to be mixed with other operators.
 
-* `allowSamePrecedence` (`boolean`) - specifies whether to allow mixed operators if they are of equal precedence. Default is `true`.
+- `allowSamePrecedence` (`boolean`) - specifies whether to allow mixed operators if they are of equal precedence. Default is `true`.
 
 ### groups
 
 The following operators can be used in `groups` option:
 
-* Arithmetic Operators: `"+"`, `"-"`, `"*"`, `"/"`, `"%"`, `"**"`
-* Bitwise Operators: `"&"`, `"|"`, `"^"`, `"~"`, `"<<"`, `">>"`, `">>>"`
-* Comparison Operators: `"=="`, `"!="`, `"==="`, `"!=="`, `">"`, `">="`, `"<"`, `"<="`
-* Logical Operators: `"&&"`, `"||"`
-* Coalesce Operator: `"??"`
-* Relational Operators: `"in"`, `"instanceof"`
-* Ternary Operator: `?:`
+- Arithmetic Operators: `"+"`, `"-"`, `"*"`, `"/"`, `"%"`, `"**"`
+- Bitwise Operators: `"&"`, `"|"`, `"^"`, `"~"`, `"<<"`, `">>"`, `">>>"`
+- Comparison Operators: `"=="`, `"!="`, `"==="`, `"!=="`, `">"`, `">="`, `"<"`, `"<="`
+- Logical Operators: `"&&"`, `"||"`
+- Coalesce Operator: `"??"`
+- Relational Operators: `"in"`, `"instanceof"`
+- Ternary Operator: `?:`
 
 Now, consider the following group configuration: `{"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}`.
 There are 2 groups specified in this configuration: bitwise operators and logical operators.
@@ -117,8 +117,8 @@ Examples of **incorrect** code for this rule with `{"groups": [["&", "|", "^", "
 ```js
 /*eslint no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]*/
 
-var foo = a && b < 0 || c > 0 || d + 1 === 0;
-var foo = a & b | c;
+var foo = (a && b < 0) || c > 0 || d + 1 === 0;
+var foo = (a & b) | c;
 ```
 
 :::
@@ -147,11 +147,11 @@ Examples of **correct** code for this rule with `{"groups": [["&", "|", "^", "~"
 var foo = a || b > 0 || c + 1 === 0;
 var foo = a && b > 0 && c + 1 === 0;
 var foo = (a && b < 0) || c > 0 || d + 1 === 0;
-var foo = a && (b < 0 ||  c > 0 || d + 1 === 0);
+var foo = a && (b < 0 || c > 0 || d + 1 === 0);
 var foo = (a & b) | c;
 var foo = a & (b | c);
 var foo = a + b * c;
-var foo = a + (b * c);
+var foo = a + b * c;
 var foo = (a + b) * c;
 ```
 
@@ -162,12 +162,12 @@ var foo = (a + b) * c;
 ```js
 /*eslint no-mixed-operators: ["error", {"groups": [["&&", "||", "?:"]]}]*/
 
-var foo = (a || b) ? c : d;
+var foo = a || b ? c : d;
 var foo = a || (b ? c : d);
 
-var bar = a ? (b || c) : d;
+var bar = a ? b || c : d;
 
-var baz = a ? b : (c || d);
+var baz = a ? b : c || d;
 var baz = (a ? b : c) || d;
 ```
 
@@ -209,7 +209,7 @@ Examples of **correct** code for this rule with `{"allowSamePrecedence": false}`
 /*eslint no-mixed-operators: ["error", {"allowSamePrecedence": false}]*/
 
 // + and - have the same precedence.
-var foo = (a + b) - c;
+var foo = a + b - c;
 ```
 
 :::

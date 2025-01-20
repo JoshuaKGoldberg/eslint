@@ -4,15 +4,17 @@ rule_type: problem
 handled_by_typescript: true
 ---
 
-
-
 If there are declarations of the same name in class members, the last declaration overwrites other declarations silently.
 It can cause unexpected behaviors.
 
 ```js
 class Foo {
-  bar() { console.log("hello"); }
-  bar() { console.log("goodbye"); }
+    bar() {
+        console.log("hello");
+    }
+    bar() {
+        console.log("goodbye");
+    }
 }
 
 const foo = new Foo();
@@ -33,28 +35,28 @@ Examples of **incorrect** code for this rule:
 /*eslint no-dupe-class-members: "error"*/
 
 class A {
-  bar() { }
-  bar() { }
+    bar() {}
+    bar() {}
 }
 
 class B {
-  bar() { }
-  get bar() { }
+    bar() {}
+    get bar() {}
 }
 
 class C {
-  bar;
-  bar;
+    bar;
+    bar;
 }
 
 class D {
-  bar;
-  bar() { }
+    bar;
+    bar() {}
 }
 
 class E {
-  static bar() { }
-  static bar() { }
+    static bar() {}
+    static bar() {}
 }
 ```
 
@@ -68,28 +70,28 @@ Examples of **correct** code for this rule:
 /*eslint no-dupe-class-members: "error"*/
 
 class A {
-  bar() { }
-  qux() { }
+    bar() {}
+    qux() {}
 }
 
 class B {
-  get bar() { }
-  set bar(value) { }
+    get bar() {}
+    set bar(value) {}
 }
 
 class C {
-  bar;
-  qux;
+    bar;
+    qux;
 }
 
 class D {
-  bar;
-  qux() { }
+    bar;
+    qux() {}
 }
 
 class E {
-  static bar() { }
-  bar() { }
+    static bar() {}
+    bar() {}
 }
 ```
 

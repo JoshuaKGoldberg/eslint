@@ -3,7 +3,6 @@ title: no-use-before-define
 rule_type: problem
 ---
 
-
 In JavaScript, prior to ES6, variable and function declarations are hoisted to the top of a scope, so it's possible to use identifiers before their formal declarations in code. This can be confusing and some believe it is best to always declare variables and functions before using them.
 
 In ES6, block-level bindings (`let` and `const`) introduce a "temporal dead zone" where a `ReferenceError` will be thrown with any attempt to access the variable before its declaration.
@@ -49,7 +48,7 @@ var b = 1;
 {
     const C = class {
         static x = C;
-    }
+    };
 }
 
 {
@@ -57,7 +56,7 @@ var b = 1;
         static {
             C.x = "foo";
         }
-    }
+    };
 }
 
 export { foo };
@@ -99,13 +98,13 @@ function g() {
 {
     const C = class C {
         static x = C;
-    }
+    };
 }
 
 {
     const C = class {
         x = C;
-    }
+    };
 }
 
 {
@@ -113,7 +112,7 @@ function g() {
         static {
             C.x = "foo";
         }
-    }
+    };
 }
 
 const foo = 1;
@@ -126,33 +125,36 @@ export { foo };
 
 ```json
 {
-    "no-use-before-define": ["error", {
-        "functions": true,
-        "classes": true,
-        "variables": true,
-        "allowNamedExports": false
-    }]
+    "no-use-before-define": [
+        "error",
+        {
+            "functions": true,
+            "classes": true,
+            "variables": true,
+            "allowNamedExports": false
+        }
+    ]
 }
 ```
 
-* `functions` (`boolean`) -
+- `functions` (`boolean`) -
   The flag which shows whether or not this rule checks function declarations.
   If this is `true`, this rule warns every reference to a function before the function declaration.
   Otherwise, ignores those references.
   Function declarations are hoisted, so it's safe.
   Default is `true`.
-* `classes` (`boolean`) -
+- `classes` (`boolean`) -
   The flag which shows whether or not this rule checks class declarations of upper scopes.
   If this is `true`, this rule warns every reference to a class before the class declaration.
   Otherwise, ignores those references if the declaration is in upper function scopes.
   Class declarations are not hoisted, so it might be danger.
   Default is `true`.
-* `variables` (`boolean`) -
+- `variables` (`boolean`) -
   This flag determines whether or not the rule checks variable declarations in upper scopes.
   If this is `true`, the rule warns every reference to a variable before the variable declaration.
   Otherwise, the rule ignores a reference if the declaration is in an upper scope, while still reporting the reference if it's in the same scope as the declaration.
   Default is `true`.
-* `allowNamedExports` (`boolean`) -
+- `allowNamedExports` (`boolean`) -
   If this flag is set to `true`, the rule always allows references in `export {};` declarations.
   These references are safe even if the variables are declared later in the code.
   Default is `false`.
@@ -187,8 +189,7 @@ Examples of **incorrect** code for the `{ "classes": false }` option:
 /*eslint no-use-before-define: ["error", { "classes": false }]*/
 
 new A();
-class A {
-}
+class A {}
 
 {
     class C extends C {}
@@ -229,8 +230,7 @@ function foo() {
     return new A();
 }
 
-class A {
-}
+class A {}
 ```
 
 :::
@@ -251,18 +251,18 @@ f();
 const f = () => {};
 
 g();
-const g = function() {};
+const g = function () {};
 
 {
     const C = class {
         static x = C;
-    }
+    };
 }
 
 {
     const C = class {
         static x = foo;
-    }
+    };
     const foo = 1;
 }
 
@@ -291,17 +291,23 @@ function baz() {
 var foo = 1;
 
 const a = () => f();
-function b() { return f(); }
-const c = function() { return f(); }
+function b() {
+    return f();
+}
+const c = function () {
+    return f();
+};
 const f = () => {};
 
-const e = function() { return g(); }
-const g = function() {}
+const e = function () {
+    return g();
+};
+const g = function () {};
 
 {
     const C = class {
         x = foo;
-    }
+    };
     const foo = 1;
 }
 ```
@@ -323,7 +329,7 @@ const a = 1;
 
 let b;
 
-function f () {}
+function f() {}
 
 class C {}
 ```

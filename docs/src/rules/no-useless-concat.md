@@ -3,7 +3,6 @@ title: no-useless-concat
 rule_type: suggestion
 ---
 
-
 It's unnecessary to concatenate two strings together, such as:
 
 ```js
@@ -30,9 +29,9 @@ Examples of **incorrect** code for this rule:
 const a = `some` + `string`;
 
 // these are the same as "10"
-const b = '1' + '0';
-const c = '1' + `0`;
-const d = `1` + '0';
+const b = "1" + "0";
+const c = "1" + `0`;
+const d = `1` + "0";
 const e = `1` + `0`;
 ```
 
@@ -47,12 +46,11 @@ Examples of **correct** code for this rule:
 
 // when a non string is included
 const a = a + b;
-const b = '1' + a;
-const c = 1 + '1';
+const b = "1" + a;
+const c = 1 + "1";
 const d = 1 - 2;
 // when the string concatenation is multiline
-const e = "foo" +
-    "bar";
+const e = "foo" + "bar";
 ```
 
 :::
