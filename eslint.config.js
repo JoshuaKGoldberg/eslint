@@ -97,6 +97,7 @@ module.exports = [
             "tests/bench/**",
             "tests/fixtures/**",
             "tests/performance/**",
+            "tests/remote/**",
             "tmp/**",
             "**/test.js",
             ".vscode"
