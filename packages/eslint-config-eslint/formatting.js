@@ -28,8 +28,8 @@ const rules = {
             beforeBlockComment: true,
             afterBlockComment: false,
             beforeLineComment: true,
-            afterLineComment: false
-        }
+            afterLineComment: false,
+        },
     ],
     "max-len": [
         "error",
@@ -39,8 +39,8 @@ const rules = {
             ignoreUrls: true,
             ignoreStrings: true,
             ignoreTemplateLiterals: true,
-            ignoreRegExpLiterals: true
-        }
+            ignoreRegExpLiterals: true,
+        },
     ],
     "max-statements-per-line": "error",
     "new-parens": "error",
@@ -54,8 +54,8 @@ const rules = {
         {
             max: 2,
             maxBOF: 0,
-            maxEOF: 0
-        }
+            maxEOF: 0,
+        },
     ],
     "no-tabs": "error",
     "no-trailing-spaces": "error",
@@ -64,15 +64,15 @@ const rules = {
         "error",
         {
             consistent: true,
-            multiline: true
-        }
+            multiline: true,
+        },
     ],
     "object-curly-spacing": ["error", "always"],
     "object-property-newline": [
         "error",
         {
-            allowAllPropertiesOnSameLine: true
-        }
+            allowAllPropertiesOnSameLine: true,
+        },
     ],
     "one-var-declaration-per-line": "error",
     "operator-linebreak": "error",
@@ -81,13 +81,13 @@ const rules = {
         {
             blankLine: "always",
             prev: ["const", "let", "var"],
-            next: "*"
+            next: "*",
         },
         {
             blankLine: "any",
             prev: ["const", "let", "var"],
-            next: ["const", "let", "var"]
-        }
+            next: ["const", "let", "var"],
+        },
     ],
     quotes: ["error", "double", { avoidEscape: true }],
     "quote-props": ["error", "as-needed"],
@@ -97,8 +97,8 @@ const rules = {
         "error",
         {
             before: false,
-            after: true
-        }
+            after: true,
+        },
     ],
     "semi-style": "error",
     "space-before-blocks": "error",
@@ -107,8 +107,8 @@ const rules = {
         {
             anonymous: "never",
             named: "never",
-            asyncArrow: "always"
-        }
+            asyncArrow: "always",
+        },
     ],
     "space-in-parens": "error",
     "space-infix-ops": "error",
@@ -116,23 +116,23 @@ const rules = {
         "error",
         {
             words: true,
-            nonwords: false
-        }
+            nonwords: false,
+        },
     ],
     "spaced-comment": [
         "error",
         "always",
         {
-            exceptions: ["-"]
-        }
+            exceptions: ["-"],
+        },
     ],
     "switch-colon-spacing": "error",
     "template-curly-spacing": ["error", "never"],
     "template-tag-spacing": "error",
     "wrap-iife": "error",
-    "yield-star-spacing": "error"
+    "yield-star-spacing": "error",
 };
 
 module.exports = {
-    rules
+    rules,
 };

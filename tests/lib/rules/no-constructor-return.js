@@ -16,7 +16,9 @@ const rule = require("../../../lib/rules/no-constructor-return"),
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2015, sourceType: "script" } });
+const ruleTester = new RuleTester({
+    languageOptions: { ecmaVersion: 2015, sourceType: "script" },
+});
 
 const errors = [{ type: "ReturnStatement", messageId: "unexpected" }];
 
@@ -30,7 +32,9 @@ ruleTester.run("no-constructor-return", rule, {
         "const fn = () => { if (kumiko) { return kumiko } }",
         {
             code: "return 'Kumiko Oumae'",
-            languageOptions: { parserOptions: { ecmaFeatures: { globalReturn: true } } }
+            languageOptions: {
+                parserOptions: { ecmaFeatures: { globalReturn: true } },
+            },
         },
 
         "class C {  }",
@@ -43,16 +47,16 @@ ruleTester.run("no-constructor-return", rule, {
         "class C { constructor() { this.fn = function () { return true } } }",
         "class C { constructor() { this.fn = () => { return true } } }",
         "class C { constructor() { return } }",
-        "class C { constructor() { { return } } }"
+        "class C { constructor() { { return } } }",
     ],
     invalid: [
         {
             code: "class C { constructor() { return '' } }",
-            errors
+            errors,
         },
         {
             code: "class C { constructor(a) { if (!a) { return '' } else { a() } } }",
-            errors
-        }
-    ]
+            errors,
+        },
+    ],
 });

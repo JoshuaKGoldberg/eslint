@@ -28,40 +28,46 @@ ruleTester.run("require-yield", rule, {
         "var obj = { *foo() { yield 0; } };",
         "var obj = { *foo() { } };",
         "class A { *foo() { yield 0; } };",
-        "class A { *foo() { } };"
+        "class A { *foo() { } };",
     ],
     invalid: [
         {
             code: "function* foo() { return 0; }",
-            errors: [{ messageId: "missingYield", type: "FunctionDeclaration" }]
+            errors: [
+                { messageId: "missingYield", type: "FunctionDeclaration" },
+            ],
         },
         {
             code: "(function* foo() { return 0; })();",
-            errors: [{ messageId: "missingYield", type: "FunctionExpression" }]
+            errors: [{ messageId: "missingYield", type: "FunctionExpression" }],
         },
         {
             code: "var obj = { *foo() { return 0; } }",
-            errors: [{ messageId: "missingYield", type: "FunctionExpression" }]
+            errors: [{ messageId: "missingYield", type: "FunctionExpression" }],
         },
         {
             code: "class A { *foo() { return 0; } }",
-            errors: [{ messageId: "missingYield", type: "FunctionExpression" }]
+            errors: [{ messageId: "missingYield", type: "FunctionExpression" }],
         },
         {
             code: "function* foo() { function* bar() { yield 0; } }",
-            errors: [{
-                messageId: "missingYield",
-                type: "FunctionDeclaration",
-                column: 1
-            }]
+            errors: [
+                {
+                    messageId: "missingYield",
+                    type: "FunctionDeclaration",
+                    column: 1,
+                },
+            ],
         },
         {
             code: "function* foo() { function* bar() { return 0; } yield 0; }",
-            errors: [{
-                messageId: "missingYield",
-                type: "FunctionDeclaration",
-                column: 19
-            }]
-        }
-    ]
+            errors: [
+                {
+                    messageId: "missingYield",
+                    type: "FunctionDeclaration",
+                    column: 19,
+                },
+            ],
+        },
+    ],
 });

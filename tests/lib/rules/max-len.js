@@ -24,157 +24,194 @@ ruleTester.run("max-len", rule, {
         "var x = 5;\nvar x = 2;",
         {
             code: "var x = 5;\nvar x = 2;",
-            options: [80, 4]
-        }, {
+            options: [80, 4],
+        },
+        {
             code: "\t\t\tvar i = 1;\n\t\t\tvar j = 1;",
-            options: [15, 1]
-        }, {
+            options: [15, 1],
+        },
+        {
             code: "var one\t\t= 1;\nvar three\t= 3;",
-            options: [16, 4]
-        }, {
+            options: [16, 4],
+        },
+        {
             code: "\tvar one\t\t= 1;\n\tvar three\t= 3;",
-            options: [20, 4]
-        }, {
+            options: [20, 4],
+        },
+        {
             code: "var i = 1;\r\nvar i = 1;\n",
-            options: [10, 4]
-        }, {
+            options: [10, 4],
+        },
+        {
             code: "\n// Blank line on top\nvar foo = module.exports = {};\n",
-            options: [80, 4]
+            options: [80, 4],
         },
         "\n// Blank line on top\nvar foo = module.exports = {};\n",
         {
             code: "var foo = module.exports = {}; // really long trailing comment",
-            options: [40, 4, { ignoreComments: true }]
-        }, {
+            options: [40, 4, { ignoreComments: true }],
+        },
+        {
             code: "foo(); \t// strips entire comment *and* trailing whitespace",
-            options: [6, 4, { ignoreComments: true }]
-        }, {
+            options: [6, 4, { ignoreComments: true }],
+        },
+        {
             code: "// really long comment on its own line sitting here",
-            options: [40, 4, { ignoreComments: true }]
-        }, {
+            options: [40, 4, { ignoreComments: true }],
+        },
+        {
             code: "var foo = module.exports = {}; /* inline some other comments */ //more",
-            options: [40, 4, { ignoreComments: true }]
+            options: [40, 4, { ignoreComments: true }],
         },
         "var /*inline-comment*/ i = 1;",
         {
             code: "var /*inline-comment*/ i = 1; // with really long trailing comment",
-            options: [40, 4, { ignoreComments: true }]
-        }, {
+            options: [40, 4, { ignoreComments: true }],
+        },
+        {
             code: "foo('http://example.com/this/is/?a=longish&url=in#here');",
-            options: [40, 4, { ignoreUrls: true }]
-        }, {
+            options: [40, 4, { ignoreUrls: true }],
+        },
+        {
             code: "foo(bar(bazz('this is a long'), 'line of'), 'stuff');",
-            options: [40, 4, { ignorePattern: "foo.+bazz\\(" }]
-        }, {
+            options: [40, 4, { ignorePattern: "foo.+bazz\\(" }],
+        },
+        {
             code:
                 "/* hey there! this is a multiline\n" +
                 "   comment with longish lines in various places\n" +
                 "   but\n" +
                 "   with a short line-length */",
-            options: [10, 4, { ignoreComments: true }]
-        }, {
+            options: [10, 4, { ignoreComments: true }],
+        },
+        {
             code:
                 "// I like short comments\n" +
                 "function butLongSourceLines() { weird(eh()) }",
-            options: [80, { tabWidth: 4, comments: 30 }]
-        }, {
+            options: [80, { tabWidth: 4, comments: 30 }],
+        },
+        {
             code:
                 "// I like longer comments and shorter code\n" +
                 "function see() { odd(eh()) }",
-            options: [30, { tabWidth: 4, comments: 80 }]
-        }, {
+            options: [30, { tabWidth: 4, comments: 80 }],
+        },
+        {
             code:
                 "// Full line comment\n" +
                 "someCode(); // With a long trailing comment.",
-            options: [{ code: 30, tabWidth: 4, comments: 20, ignoreTrailingComments: true }]
-        }, {
+            options: [
+                {
+                    code: 30,
+                    tabWidth: 4,
+                    comments: 20,
+                    ignoreTrailingComments: true,
+                },
+            ],
+        },
+        {
             code: "var foo = module.exports = {}; // really long trailing comment",
-            options: [40, 4, { ignoreTrailingComments: true }]
-        }, {
+            options: [40, 4, { ignoreTrailingComments: true }],
+        },
+        {
             code: "var foo = module.exports = {}; /* inline some other comments */ //more",
-            options: [40, 4, { ignoreTrailingComments: true }]
-        }, {
+            options: [40, 4, { ignoreTrailingComments: true }],
+        },
+        {
             code: "var foo = module.exports = {}; // really long trailing comment",
-            options: [40, 4, { ignoreComments: true, ignoreTrailingComments: false }]
+            options: [
+                40,
+                4,
+                { ignoreComments: true, ignoreTrailingComments: false },
+            ],
         },
 
         // ignoreStrings, ignoreTemplateLiterals and ignoreRegExpLiterals options
         {
             code: "var foo = veryLongIdentifier;\nvar bar = 'this is a very long string';",
-            options: [29, 4, { ignoreStrings: true }]
-        },
-        {
-            code: "var foo = veryLongIdentifier;\nvar bar = \"this is a very long string\";",
-            options: [29, 4, { ignoreStrings: true }]
-        },
-        {
-            code: "var str = \"this is a very long string\\\nwith continuation\";",
-            options: [29, 4, { ignoreStrings: true }]
-        },
-        {
-            code: "var str = \"this is a very long string\\\nwith continuation\\\nand with another very very long continuation\\\nand ending\";",
-            options: [29, 4, { ignoreStrings: true }]
-        },
-        {
-            code: "var foo = <div className=\"this is a very long string\"></div>;",
             options: [29, 4, { ignoreStrings: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+        },
+        {
+            code: 'var foo = veryLongIdentifier;\nvar bar = "this is a very long string";',
+            options: [29, 4, { ignoreStrings: true }],
+        },
+        {
+            code: 'var str = "this is a very long string\\\nwith continuation";',
+            options: [29, 4, { ignoreStrings: true }],
+        },
+        {
+            code: 'var str = "this is a very long string\\\nwith continuation\\\nand with another very very long continuation\\\nand ending";',
+            options: [29, 4, { ignoreStrings: true }],
+        },
+        {
+            code: 'var foo = <div className="this is a very long string"></div>;',
+            options: [29, 4, { ignoreStrings: true }],
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = `this is a very long string`;",
             options: [29, 4, { ignoreTemplateLiterals: true }],
-            languageOptions
+            languageOptions,
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = `this is a very long string\nand this is another line that is very long`;",
             options: [29, 4, { ignoreTemplateLiterals: true }],
-            languageOptions
+            languageOptions,
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = `this is a very long string\nand this is another line that is very long\nand here is another\n and another!`;",
             options: [29, 4, { ignoreTemplateLiterals: true }],
-            languageOptions
+            languageOptions,
         },
         {
             code: "var foo = /this is a very long pattern/;",
-            options: [29, 4, { ignoreRegExpLiterals: true }]
+            options: [29, 4, { ignoreRegExpLiterals: true }],
         },
 
         // check indented comment lines - https://github.com/eslint/eslint/issues/6322
         {
-            code: "function foo() {\n" +
-                  "//this line has 29 characters\n" +
-                  "}",
-            options: [40, 4, { comments: 29 }]
-        }, {
-            code: "function foo() {\n" +
-                  "    //this line has 33 characters\n" +
-                  "}",
-            options: [40, 4, { comments: 33 }]
-        }, {
-            code: "function foo() {\n" +
-                  "/*this line has 29 characters\n" +
-                  "and this one has 21*/\n" +
-                  "}",
-            options: [40, 4, { comments: 29 }]
-        }, {
-            code: "function foo() {\n" +
-                  "    /*this line has 33 characters\n" +
-                  "    and this one has 25*/\n" +
-                  "}",
-            options: [40, 4, { comments: 33 }]
-        }, {
-            code: "function foo() {\n" +
-                  "    var a; /*this line has 40 characters\n" +
-                  "    and this one has 36 characters*/\n" +
-                  "}",
-            options: [40, 4, { comments: 36 }]
-        }, {
-            code: "function foo() {\n" +
-                  "    /*this line has 33 characters\n" +
-                  "    and this one has 43 characters*/ var a;\n" +
-                  "}",
-            options: [43, 4, { comments: 33 }]
+            code:
+                "function foo() {\n" + "//this line has 29 characters\n" + "}",
+            options: [40, 4, { comments: 29 }],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    //this line has 33 characters\n" +
+                "}",
+            options: [40, 4, { comments: 33 }],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "/*this line has 29 characters\n" +
+                "and this one has 21*/\n" +
+                "}",
+            options: [40, 4, { comments: 29 }],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    /*this line has 33 characters\n" +
+                "    and this one has 25*/\n" +
+                "}",
+            options: [40, 4, { comments: 33 }],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    var a; /*this line has 40 characters\n" +
+                "    and this one has 36 characters*/\n" +
+                "}",
+            options: [40, 4, { comments: 36 }],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    /*this line has 33 characters\n" +
+                "    and this one has 43 characters*/ var a;\n" +
+                "}",
+            options: [43, 4, { comments: 33 }],
         },
 
         // blank line
@@ -183,153 +220,170 @@ ruleTester.run("max-len", rule, {
         // Multi-code-point unicode glyphs
         {
             code: "'🙂😀😆😎😊😜😉👍'",
-            options: [10]
+            options: [10],
         },
 
         // Astral symbols in pattern (only matched by unicode regexes)
         {
             code: "var longNameLongName = '𝌆𝌆'",
-            options: [5, { ignorePattern: "𝌆{2}" }]
+            options: [5, { ignorePattern: "𝌆{2}" }],
         },
 
         {
             code: "\tfoo",
-            options: [4, { tabWidth: 0 }]
+            options: [4, { tabWidth: 0 }],
         },
 
         // https://github.com/eslint/eslint/issues/12213
         {
-            code: "var jsx = (<>\n" +
-                  "  { /* this line has 38 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  { /* this line has 38 characters */}\n" +
+                "</>)",
             options: [15, { comments: 38 }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                  "\t\t{ /* this line has 40 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "\t\t{ /* this line has 40 characters */}\n" +
+                "</>)",
             options: [15, 4, { comments: 44 }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                  "  <> text </>{ /* this line has 49 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  <> text </>{ /* this line has 49 characters */}\n" +
+                "</>)",
             options: [13, { ignoreComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                  "  {/* this line has 37 characters */}\n" +
-                  "  <> </> {/* this line has 44 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line has 44 characters */}\n" +
+                "</>)",
             options: [44, { comments: 37 }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                  "  {/* this line has 37 characters */}\n" +
-                  "  <> </> {/* this line has 44 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line has 44 characters */}\n" +
+                "</>)",
             options: [37, { ignoreTrailingComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = {a && b/* this line has 57 characters */}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = {a && b/* this line has 57 characters */}\n" +
+                "></Foo>;",
             options: [57],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = {/* this line has 57 characters */a && b}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = {/* this line has 57 characters */a && b}\n" +
+                "></Foo>;",
             options: [57],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = \n" +
-                  "          {a & b/* this line has 50 characters */}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = \n" +
+                "          {a & b/* this line has 50 characters */}\n" +
+                "></Foo>;",
             options: [50],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
+                "</>)",
             options: [80],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  {/* this line has 37 characters */}\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
+                "</>)",
             options: [37, { ignoreTrailingComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  {/* this line has 37 characters */}\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
+                "</>)",
             options: [37, { ignoreComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/* this line has 37 characters */}\n" +
                 "  <> </> {/* this line with two separate comments */} {/* have > 80 characters */ /* another comment in same braces */}\n" +
                 "</>)",
             options: [37, { ignoreTrailingComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/* this line has 37 characters */}\n" +
                 "  <> </> {/* this line with two separate comments */} {/* have > 80 characters */ /* another comment in same braces */}\n" +
                 "</>)",
             options: [37, { ignoreComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/*\n" +
                 "       this line has 34 characters\n" +
                 "   */}\n" +
                 "</>)",
             options: [33, { comments: 34 }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/*\n" +
                 "       this line has 34 characters\n" +
                 "   */}\n" +
                 "</>)",
             options: [33, { ignoreComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {a & b /* this line has 34 characters\n" +
                 "   */}\n" +
                 "</>)",
             options: [33, { ignoreTrailingComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {a & b /* this line has 34 characters\n" +
                 "   */}\n" +
                 "</>)",
             options: [33, { ignoreComments: true }],
-            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
-        }
+            languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
+        },
     ],
 
     invalid: [
@@ -343,9 +397,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 30
-                }
-            ]
+                    endColumn: 30,
+                },
+            ],
         },
         {
             code: "var x = 5, y = 2, z = 5;",
@@ -358,9 +412,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 25
-                }
-            ]
+                    endColumn: 25,
+                },
+            ],
         },
         {
             code: "\t\t\tvar i = 1;",
@@ -373,9 +427,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "\t\t\tvar i = 1;\n\t\t\tvar j = 1;",
@@ -388,7 +442,7 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 14
+                    endColumn: 14,
                 },
                 {
                     messageId: "max",
@@ -397,9 +451,9 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "var /*this is a long non-removed inline comment*/ i = 1;",
@@ -412,9 +466,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 57
-                }
-            ]
+                    endColumn: 57,
+                },
+            ],
         },
         {
             code:
@@ -429,9 +483,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 55
-                }
-            ]
+                    endColumn: 55,
+                },
+            ],
         },
         {
             code: "var longLine = 'will trigger'; // even with a comment",
@@ -444,9 +498,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 31
-                }
-            ]
+                    endColumn: 31,
+                },
+            ],
         },
         {
             code: "var foo = module.exports = {}; // really long trailing comment",
@@ -459,9 +513,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 63
-                }
-            ]
+                    endColumn: 63,
+                },
+            ],
         },
         {
             code: "foo('http://example.com/this/is/?a=longish&url=in#here');",
@@ -474,10 +528,11 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 58
-                }
-            ]
-        }, {
+                    endColumn: 58,
+                },
+            ],
+        },
+        {
             code: "foo(bar(bazz('this is a long'), 'line of'), 'stuff');",
             options: [40, 4], // ignorePattern is disabled
             errors: [
@@ -488,10 +543,11 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 54
-                }
-            ]
-        }, {
+                    endColumn: 54,
+                },
+            ],
+        },
+        {
             code: "// A comment that exceeds the max comment length.",
             options: [80, 4, { comments: 20 }],
             errors: [
@@ -502,10 +558,11 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 50
-                }
-            ]
-        }, {
+                    endColumn: 50,
+                },
+            ],
+        },
+        {
             code: "// A comment that exceeds the max comment length and the max code length, but will fail for being too long of a comment",
             options: [40, 4, { comments: 80 }],
             errors: [
@@ -516,10 +573,11 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 120
-                }
-            ]
-        }, {
+                    endColumn: 120,
+                },
+            ],
+        },
+        {
             code: "// A comment that exceeds the max comment length.",
             options: [{ code: 20 }],
             errors: [
@@ -530,10 +588,11 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 50
-                }
-            ]
-        }, {
+                    endColumn: 50,
+                },
+            ],
+        },
+        {
             code: "//This is very long comment with more than 40 characters which is invalid",
             options: [40, 4, { ignoreTrailingComments: true }],
             errors: [
@@ -544,16 +603,15 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 74
-                }
-            ]
+                    endColumn: 74,
+                },
+            ],
         },
 
         // check indented comment lines - https://github.com/eslint/eslint/issues/6322
         {
-            code: "function foo() {\n" +
-                  "//this line has 29 characters\n" +
-                  "}",
+            code:
+                "function foo() {\n" + "//this line has 29 characters\n" + "}",
             options: [40, 4, { comments: 28 }],
             errors: [
                 {
@@ -563,13 +621,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 30
-                }
-            ]
-        }, {
-            code: "function foo() {\n" +
-                  "    //this line has 33 characters\n" +
-                  "}",
+                    endColumn: 30,
+                },
+            ],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    //this line has 33 characters\n" +
+                "}",
             options: [40, 4, { comments: 32 }],
             errors: [
                 {
@@ -579,14 +639,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 34
-                }
-            ]
-        }, {
-            code: "function foo() {\n" +
-                  "/*this line has 29 characters\n" +
-                  "and this one has 32 characters*/\n" +
-                  "}",
+                    endColumn: 34,
+                },
+            ],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "/*this line has 29 characters\n" +
+                "and this one has 32 characters*/\n" +
+                "}",
             options: [40, 4, { comments: 28 }],
             errors: [
                 {
@@ -596,7 +658,7 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 30
+                    endColumn: 30,
                 },
                 {
                     messageId: "maxComment",
@@ -605,14 +667,16 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 33
-                }
-            ]
-        }, {
-            code: "function foo() {\n" +
-                  "    /*this line has 33 characters\n" +
-                  "    and this one has 36 characters*/\n" +
-                  "}",
+                    endColumn: 33,
+                },
+            ],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    /*this line has 33 characters\n" +
+                "    and this one has 36 characters*/\n" +
+                "}",
             options: [40, 4, { comments: 32 }],
             errors: [
                 {
@@ -622,7 +686,7 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 34
+                    endColumn: 34,
                 },
                 {
                     messageId: "maxComment",
@@ -631,14 +695,16 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 37
-                }
-            ]
-        }, {
-            code: "function foo() {\n" +
-                  "    var a; /*this line has 40 characters\n" +
-                  "    and this one has 36 characters*/\n" +
-                  "}",
+                    endColumn: 37,
+                },
+            ],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    var a; /*this line has 40 characters\n" +
+                "    and this one has 36 characters*/\n" +
+                "}",
             options: [39, 4, { comments: 35 }],
             errors: [
                 {
@@ -648,7 +714,7 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 41
+                    endColumn: 41,
                 },
                 {
                     messageId: "maxComment",
@@ -657,14 +723,16 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 37
-                }
-            ]
-        }, {
-            code: "function foo() {\n" +
-                  "    /*this line has 33 characters\n" +
-                  "    and this one has 43 characters*/ var a;\n" +
-                  "}",
+                    endColumn: 37,
+                },
+            ],
+        },
+        {
+            code:
+                "function foo() {\n" +
+                "    /*this line has 33 characters\n" +
+                "    and this one has 43 characters*/ var a;\n" +
+                "}",
             options: [42, 4, { comments: 32 }],
             errors: [
                 {
@@ -674,7 +742,7 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 34
+                    endColumn: 34,
                 },
                 {
                     messageId: "max",
@@ -683,15 +751,16 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 44
-                }
-            ]
+                    endColumn: 44,
+                },
+            ],
         },
 
         // check comments with the same length as non-comments - https://github.com/eslint/eslint/issues/6564
         {
-            code: "// This commented line has precisely 51 characters.\n" +
-                  "var x = 'This line also has exactly 51 characters';",
+            code:
+                "// This commented line has precisely 51 characters.\n" +
+                "var x = 'This line also has exactly 51 characters';",
             options: [20, { ignoreComments: true }],
             errors: [
                 {
@@ -701,15 +770,18 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 52
-                }
-            ]
+                    endColumn: 52,
+                },
+            ],
         },
 
         // ignoreStrings and ignoreTemplateLiterals options
         {
             code: "var foo = veryLongIdentifier;\nvar bar = 'this is a very long string';",
-            options: [29, { ignoreStrings: false, ignoreTemplateLiterals: true }],
+            options: [
+                29,
+                { ignoreStrings: false, ignoreTemplateLiterals: true },
+            ],
             errors: [
                 {
                     messageId: "max",
@@ -718,13 +790,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 40
-                }
-            ]
+                    endColumn: 40,
+                },
+            ],
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = /this is a very very long pattern/;",
-            options: [29, { ignoreStrings: false, ignoreRegExpLiterals: false }],
+            options: [
+                29,
+                { ignoreStrings: false, ignoreRegExpLiterals: false },
+            ],
             errors: [
                 {
                     messageId: "max",
@@ -733,9 +808,9 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 46
-                }
-            ]
+                    endColumn: 46,
+                },
+            ],
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = new RegExp('this is a very very long pattern');",
@@ -748,13 +823,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 58
-                }
-            ]
+                    endColumn: 58,
+                },
+            ],
         },
         {
-            code: "var foo = veryLongIdentifier;\nvar bar = \"this is a very long string\";",
-            options: [29, { ignoreStrings: false, ignoreTemplateLiterals: true }],
+            code: 'var foo = veryLongIdentifier;\nvar bar = "this is a very long string";',
+            options: [
+                29,
+                { ignoreStrings: false, ignoreTemplateLiterals: true },
+            ],
             errors: [
                 {
                     messageId: "max",
@@ -763,13 +841,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 40
-                }
-            ]
+                    endColumn: 40,
+                },
+            ],
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = `this is a very long string`;",
-            options: [29, { ignoreStrings: false, ignoreTemplateLiterals: false }],
+            options: [
+                29,
+                { ignoreStrings: false, ignoreTemplateLiterals: false },
+            ],
             languageOptions,
             errors: [
                 {
@@ -779,13 +860,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 40
-                }
-            ]
+                    endColumn: 40,
+                },
+            ],
         },
         {
             code: "var foo = veryLongIdentifier;\nvar bar = `this is a very long string\nand this is another line that is very long`;",
-            options: [29, { ignoreStrings: false, ignoreTemplateLiterals: false }],
+            options: [
+                29,
+                { ignoreStrings: false, ignoreTemplateLiterals: false },
+            ],
             languageOptions,
             errors: [
                 {
@@ -795,7 +879,7 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 38
+                    endColumn: 38,
                 },
                 {
                     messageId: "max",
@@ -804,9 +888,9 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 45
-                }
-            ]
+                    endColumn: 45,
+                },
+            ],
         },
         {
             code: "var foo = <div>this is a very very very long string</div>;",
@@ -820,9 +904,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 59
-                }
-            ]
+                    endColumn: 59,
+                },
+            ],
         },
 
         // Multi-code-point unicode glyphs
@@ -837,9 +921,9 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 21
-                }
-            ]
+                    endColumn: 21,
+                },
+            ],
         },
 
         {
@@ -853,16 +937,17 @@ ruleTester.run("max-len", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/issues/12213
         {
-            code: "var jsx = (<>\n" +
-                  "  { /* this line has 38 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  { /* this line has 38 characters */}\n" +
+                "</>)",
             options: [15, { comments: 37 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -873,14 +958,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 39
-                }
-            ]
+                    endColumn: 39,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "\t\t{ /* this line has 40 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "\t\t{ /* this line has 40 characters */}\n" +
+                "</>)",
             options: [15, 4, { comments: 40 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -891,14 +977,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 39
-                }
-            ]
+                    endColumn: 39,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "{ 38/* this line has 38 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "{ 38/* this line has 38 characters */}\n" +
+                "</>)",
             options: [15, { comments: 38 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -909,14 +996,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 39
-                }
-            ]
+                    endColumn: 39,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "{ 38/* this line has 38 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "{ 38/* this line has 38 characters */}\n" +
+                "</>)",
             options: [37, { ignoreTrailingComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -927,14 +1015,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 39
-                }
-            ]
+                    endColumn: 39,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "{ 38/* this line has 38 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "{ 38/* this line has 38 characters */}\n" +
+                "</>)",
             options: [37, { ignoreComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -945,14 +1034,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 39
-                }
-            ]
+                    endColumn: 39,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "   <> 50 </>{ 50/* this line has 50 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "   <> 50 </>{ 50/* this line has 50 characters */}\n" +
+                "</>)",
             options: [49, { comments: 100 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -963,15 +1053,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 51
-                }
-            ]
+                    endColumn: 51,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "         {/* this line has 44 characters */}\n" +
-                  "  <> </> {/* this line has 44 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "         {/* this line has 44 characters */}\n" +
+                "  <> </> {/* this line has 44 characters */}\n" +
+                "</>)",
             options: [37, { ignoreTrailingComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -982,14 +1073,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 45
-                }
-            ]
+                    endColumn: 45,
+                },
+            ],
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = {a && b/* this line has 57 characters */}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = {a && b/* this line has 57 characters */}\n" +
+                "></Foo>;",
             options: [56],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1000,14 +1092,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 58
-                }
-            ]
+                    endColumn: 58,
+                },
+            ],
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = {/* this line has 57 characters */a && b}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = {/* this line has 57 characters */a && b}\n" +
+                "></Foo>;",
             options: [56],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1018,14 +1111,15 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 58
-                }
-            ]
+                    endColumn: 58,
+                },
+            ],
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = {a & b/* this line has 56 characters */}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = {a & b/* this line has 56 characters */}\n" +
+                "></Foo>;",
             options: [55, { ignoreTrailingComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1036,15 +1130,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 57
-                }
-            ]
+                    endColumn: 57,
+                },
+            ],
         },
         {
-            code: "var jsx = <Foo\n" +
-                  "         attr = \n" +
-                  "          {a & b /* this line has 51 characters */}\n" +
-                  "></Foo>;",
+            code:
+                "var jsx = <Foo\n" +
+                "         attr = \n" +
+                "          {a & b /* this line has 51 characters */}\n" +
+                "></Foo>;",
             options: [30, { comments: 44 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1055,15 +1150,16 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 52
-                }
-            ]
+                    endColumn: 52,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  {/* this line has 37 characters */}\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 80 characters */}\n" +
+                "</>)",
             options: [79],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1074,14 +1170,15 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 81
-                }
-            ]
+                    endColumn: 81,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 87 characters */} <> </>\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 87 characters */} <> </>\n" +
+                "</>)",
             options: [85, { ignoreTrailingComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1092,15 +1189,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 88
-                }
-            ]
+                    endColumn: 88,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                 "  {/* this line has 37 characters */}\n" +
-                 "  <> </> {/* this line with two separate comments */} {/* have 87 characters */} <> </>\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "  {/* this line has 37 characters */}\n" +
+                "  <> </> {/* this line with two separate comments */} {/* have 87 characters */} <> </>\n" +
+                "</>)",
             options: [37, { ignoreComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1111,12 +1209,13 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 88
-                }
-            ]
+                    endColumn: 88,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/* this line has 37 characters */}\n" +
                 "  <> </> {/* this line with two separate comments */} {/* have > 80 characters */ /* another comment in same braces */}\n" +
                 "</>)",
@@ -1130,12 +1229,13 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 120
-                }
-            ]
+                    endColumn: 120,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/* this line has 37 characters */}\n" +
                 "  <> </> {/* this is not treated as a comment */ a & b} {/* trailing */ /* comments */}\n" +
                 "</>)",
@@ -1149,12 +1249,13 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 56
-                }
-            ]
+                    endColumn: 56,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
+            code:
+                "var jsx = (<>\n" +
                 "  {/* this line has 37 characters */}\n" +
                 "  <> </> {/* this is not treated as a comment */ a & b} {/* trailing */ /* comments */}\n" +
                 "</>)",
@@ -1168,15 +1269,12 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 56
-                }
-            ]
+                    endColumn: 56,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "12345678901234{/*\n" +
-                  "*/}\n" +
-                  "</>)",
+            code: "var jsx = (<>\n" + "12345678901234{/*\n" + "*/}\n" + "</>)",
             options: [14, { ignoreTrailingComments: true }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1187,15 +1285,16 @@ ruleTester.run("max-len", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
-            code: "var jsx = (<>\n" +
-                  "{/*\n" +
-                  "this line has 31 characters */}\n" +
-                  "</>)",
+            code:
+                "var jsx = (<>\n" +
+                "{/*\n" +
+                "this line has 31 characters */}\n" +
+                "</>)",
             options: [30, { comments: 100 }],
             languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
             errors: [
@@ -1206,9 +1305,9 @@ ruleTester.run("max-len", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 32
-                }
-            ]
-        }
-    ]
+                    endColumn: 32,
+                },
+            ],
+        },
+    ],
 });

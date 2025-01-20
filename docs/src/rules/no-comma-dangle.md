@@ -1,6 +1,5 @@
 ---
 title: no-comma-dangle
-
 ---
 
 Disallows trailing commas in object and array literals.
@@ -32,11 +31,11 @@ var foo = {
     qux: "quux",
 };
 
-var arr = [1,2,];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux",
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -49,14 +48,14 @@ Examples of **correct** code for this rule:
 ```js
 var foo = {
     bar: "baz",
-    qux: "quux"
+    qux: "quux",
 };
 
-var arr = [1,2];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux"
+    bar: "baz",
+    qux: "quux",
 });
 ```
 

@@ -36,15 +36,15 @@ ruleTester.run("no-new-object", rule, {
         }
         new Object();
         `,
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
         import { Object } from './'
         new Object();
         `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
-        }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
     ],
     invalid: [
         {
@@ -52,18 +52,18 @@ ruleTester.run("no-new-object", rule, {
             errors: [
                 {
                     messageId: "preferLiteral",
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "new Object();",
-            errors: [{ messageId: "preferLiteral", type: "NewExpression" }]
+            errors: [{ messageId: "preferLiteral", type: "NewExpression" }],
         },
         {
             code: "const a = new Object()",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{ messageId: "preferLiteral", type: "NewExpression" }]
-        }
-    ]
+            errors: [{ messageId: "preferLiteral", type: "NewExpression" }],
+        },
+    ],
 });

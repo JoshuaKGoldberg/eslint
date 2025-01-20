@@ -3,7 +3,6 @@ title: no-inline-comments
 rule_type: suggestion
 ---
 
-
 Some style guides disallow comments on the same line as code. Code can become difficult to read if comments immediately follow the code on the same line.
 On the other hand, it is sometimes faster and more obvious to put comments immediately following code.
 
@@ -20,9 +19,9 @@ Examples of **incorrect** code for this rule:
 
 var a = 1; // declaring a to 1
 
-function getRandomNumber(){
+function getRandomNumber() {
     return 4; // chosen by fair dice roll.
-              // guaranteed to be random.
+    // guaranteed to be random.
 }
 
 /* A block comment before code */ var b = 2;
@@ -59,13 +58,19 @@ Examples of **incorrect** code for this rule:
 ```jsx
 /*eslint no-inline-comments: "error"*/
 
-var foo = <div>{ /* On the same line with other code */ }<h1>Some heading</h1></div>;
+var foo = (
+    <div>
+        {/* On the same line with other code */}
+        <h1>Some heading</h1>
+    </div>
+);
 
 var bar = (
     <div>
-    {   // These braces are not just for the comment, so it can't be on the same line
-        baz
-    }
+        {
+            // These braces are not just for the comment, so it can't be on the same line
+            baz
+        }
     </div>
 );
 ```
@@ -81,29 +86,29 @@ Examples of **correct** code for this rule:
 
 var foo = (
     <div>
-      {/* These braces are just for this comment and there is nothing else on this line */}
-      <h1>Some heading</h1>
+        {/* These braces are just for this comment and there is nothing else on this line */}
+        <h1>Some heading</h1>
     </div>
-)
+);
 
 var bar = (
     <div>
-    {
-        // There is nothing else on this line
-        baz
-    }
+        {
+            // There is nothing else on this line
+            baz
+        }
     </div>
 );
 
 var quux = (
     <div>
-      {/*
+        {/*
         Multiline
         comment
       */}
-      <h1>Some heading</h1>
+        <h1>Some heading</h1>
     </div>
-)
+);
 ```
 
 :::
@@ -121,7 +126,7 @@ Examples of **correct** code for the `ignorePattern` option:
 ```js
 /*eslint no-inline-comments: ["error", { "ignorePattern": "webpackChunkName:\\s.+" }]*/
 
-import(/* webpackChunkName: "my-chunk-name" */ './locale/en');
+import(/* webpackChunkName: "my-chunk-name" */ "./locale/en");
 ```
 
 :::

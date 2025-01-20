@@ -2,12 +2,10 @@
 title: no-extra-label
 rule_type: suggestion
 related_rules:
-- no-labels
-- no-label-var
-- no-unused-labels
+    - no-labels
+    - no-label-var
+    - no-unused-labels
 ---
-
-
 
 If a loop contains no nested loops or switches, labeling the loop is unnecessary.
 

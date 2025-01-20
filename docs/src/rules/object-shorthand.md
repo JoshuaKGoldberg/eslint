@@ -2,12 +2,10 @@
 title: object-shorthand
 rule_type: suggestion
 related_rules:
-- no-useless-rename
+    - no-useless-rename
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
 ---
-
-
 
 ECMAScript 6 provides a concise form for defining object literal methods and properties. This
 syntax can make defining complex object literals much cleaner.
@@ -24,8 +22,8 @@ var foo = {
 
 // methods
 var foo = {
-    a: function() {},
-    b: function() {}
+    a: function () {},
+    b: function () {},
 };
 ```
 
@@ -33,12 +31,12 @@ Now here are ES6 equivalents:
 
 ```js
 // properties
-var foo = {x, y, z};
+var foo = { x, y, z };
 
 // methods
 var foo = {
     a() {},
-    b() {}
+    b() {},
 };
 ```
 
@@ -54,10 +52,10 @@ Each of the following properties would warn:
 /*eslint object-shorthand: "error"*/
 
 var foo = {
-    w: function() {},
-    x: function *() {},
-    [y]: function() {},
-    z: z
+    w: function () {},
+    x: function* () {},
+    [y]: function () {},
+    z: z,
 };
 ```
 
@@ -70,18 +68,18 @@ var foo = {
     w() {},
     *x() {},
     [y]() {},
-    z
+    z,
 };
 ```
 
 This rule does not flag arrow functions inside of object literals.
-The following will *not* warn:
+The following will _not_ warn:
 
 ```js
 /*eslint object-shorthand: "error"*/
 
 var foo = {
-    x: (y) => y
+    x: (y) => y,
 };
 ```
 
@@ -89,12 +87,12 @@ var foo = {
 
 The rule takes an option which specifies when it should be applied. It can be set to one of the following values:
 
-* `"always"` (default) expects that the shorthand will be used whenever possible.
-* `"methods"` ensures the method shorthand is used (also applies to generators).
-* `"properties"` ensures the property shorthand is used (where the key and variable name match).
-* `"never"` ensures that no property or method shorthand is used in any object literal.
-* `"consistent"` ensures that either all shorthand or all long-form will be used in an object literal.
-* `"consistent-as-needed"` ensures that either all shorthand or all long-form will be used in an object literal, but ensures all shorthand whenever possible.
+- `"always"` (default) expects that the shorthand will be used whenever possible.
+- `"methods"` ensures the method shorthand is used (also applies to generators).
+- `"properties"` ensures the property shorthand is used (where the key and variable name match).
+- `"never"` ensures that no property or method shorthand is used in any object literal.
+- `"consistent"` ensures that either all shorthand or all long-form will be used in an object literal.
+- `"consistent-as-needed"` ensures that either all shorthand or all long-form will be used in an object literal, but ensures all shorthand whenever possible.
 
 You can set the option in configuration like this:
 
@@ -106,10 +104,10 @@ You can set the option in configuration like this:
 
 Additionally, the rule takes an optional object configuration:
 
-* `"avoidQuotes": true` indicates that long-form syntax is preferred whenever the object key is a string literal (default: `false`). Note that this option can only be enabled when the string option is set to `"always"`, `"methods"`, or `"properties"`.
-* `"ignoreConstructors": true` can be used to prevent the rule from reporting errors for constructor functions. (By default, the rule treats constructors the same way as other functions.) Note that this option can only be enabled when the string option is set to `"always"` or `"methods"`.
-* `"methodsIgnorePattern"` (`string`) for methods whose names match this regex pattern, the method shorthand will not be enforced. Note that this option can only be used when the string option is set to `"always"` or `"methods"`.
-* `"avoidExplicitReturnArrows": true` indicates that methods are preferred over explicit-return arrow functions for function properties. (By default, the rule allows either of these.) Note that this option can only be enabled when the string option is set to `"always"` or `"methods"`.
+- `"avoidQuotes": true` indicates that long-form syntax is preferred whenever the object key is a string literal (default: `false`). Note that this option can only be enabled when the string option is set to `"always"`, `"methods"`, or `"properties"`.
+- `"ignoreConstructors": true` can be used to prevent the rule from reporting errors for constructor functions. (By default, the rule treats constructors the same way as other functions.) Note that this option can only be enabled when the string option is set to `"always"` or `"methods"`.
+- `"methodsIgnorePattern"` (`string`) for methods whose names match this regex pattern, the method shorthand will not be enforced. Note that this option can only be used when the string option is set to `"always"` or `"methods"`.
+- `"avoidExplicitReturnArrows": true` indicates that methods are preferred over explicit-return arrow functions for function properties. (By default, the rule allows either of these.) Note that this option can only be enabled when the string option is set to `"always"` or `"methods"`.
 
 ### avoidQuotes
 
@@ -127,7 +125,7 @@ Example of **incorrect** code for this rule with the `"always", { "avoidQuotes":
 /*eslint object-shorthand: ["error", "always", { "avoidQuotes": true }]*/
 
 var foo = {
-    "bar-baz"() {}
+    "bar-baz"() {},
 };
 ```
 
@@ -141,8 +139,8 @@ Example of **correct** code for this rule with the `"always", { "avoidQuotes": t
 /*eslint object-shorthand: ["error", "always", { "avoidQuotes": true }]*/
 
 var foo = {
-    "bar-baz": function() {},
-    "qux": qux
+    "bar-baz": function () {},
+    qux: qux,
 };
 ```
 
@@ -164,7 +162,7 @@ Example of **correct** code for this rule with the `"always", { "ignoreConstruct
 /*eslint object-shorthand: ["error", "always", { "ignoreConstructors": true }]*/
 
 var foo = {
-    ConstructorFunction: function() {}
+    ConstructorFunction: function () {},
 };
 ```
 
@@ -180,7 +178,7 @@ Example of **correct** code for this rule with the `"always", { "methodsIgnorePa
 /*eslint object-shorthand: ["error", "always", { "methodsIgnorePattern": "^bar$" }]*/
 
 var foo = {
-    bar: function() {}
+    bar: function () {},
 };
 ```
 
@@ -190,7 +188,11 @@ var foo = {
 
 ```json
 {
-    "object-shorthand": ["error", "always", { "avoidExplicitReturnArrows": true }]
+    "object-shorthand": [
+        "error",
+        "always",
+        { "avoidExplicitReturnArrows": true }
+    ]
 }
 ```
 
@@ -202,13 +204,13 @@ Example of **incorrect** code for this rule with the `"always", { "avoidExplicit
 /*eslint object-shorthand: ["error", "always", { "avoidExplicitReturnArrows": true }]*/
 
 var foo = {
-  foo: (bar, baz) => {
-    return bar + baz;
-  },
+    foo: (bar, baz) => {
+        return bar + baz;
+    },
 
-  qux: (foobar) => {
-    return foobar * 2;
-  }
+    qux: (foobar) => {
+        return foobar * 2;
+    },
 };
 ```
 
@@ -222,11 +224,11 @@ Example of **correct** code for this rule with the `"always", { "avoidExplicitRe
 /*eslint object-shorthand: ["error", "always", { "avoidExplicitReturnArrows": true }]*/
 
 var foo = {
-  foo(bar, baz) {
-    return bar + baz;
-  },
+    foo(bar, baz) {
+        return bar + baz;
+    },
 
-  qux: foobar => foobar * 2
+    qux: (foobar) => foobar * 2,
 };
 ```
 
@@ -256,7 +258,7 @@ Examples of **correct** code for this rule with the `"consistent"` option:
 
 var foo = {
     a: a,
-    b: "foo"
+    b: "foo",
 };
 
 var bar = {

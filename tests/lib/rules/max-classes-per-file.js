@@ -15,7 +15,9 @@ const rule = require("../../../lib/rules/max-classes-per-file"),
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 6, sourceType: "script" } });
+const ruleTester = new RuleTester({
+    languageOptions: { ecmaVersion: 6, sourceType: "script" },
+});
 
 ruleTester.run("max-classes-per-file", rule, {
     valid: [
@@ -24,26 +26,26 @@ ruleTester.run("max-classes-per-file", rule, {
         "var x = 5;",
         {
             code: "class Foo {}",
-            options: [1]
+            options: [1],
         },
         {
             code: "class Foo {}\nclass Bar {}",
-            options: [2]
+            options: [2],
         },
         {
             code: "class Foo {}",
-            options: [{ max: 1 }]
+            options: [{ max: 1 }],
         },
         {
             code: "class Foo {}\nclass Bar {}",
-            options: [{ max: 2 }]
+            options: [{ max: 2 }],
         },
         {
             code: `
                 class Foo {}
                 const myExpression = class {}
             `,
-            options: [{ ignoreExpressions: true, max: 1 }]
+            options: [{ ignoreExpressions: true, max: 1 }],
         },
         {
             code: `
@@ -51,36 +53,36 @@ ruleTester.run("max-classes-per-file", rule, {
                 class Bar {}
                 const myExpression = class {}
             `,
-            options: [{ ignoreExpressions: true, max: 2 }]
-        }
+            options: [{ ignoreExpressions: true, max: 2 }],
+        },
     ],
 
     invalid: [
         {
             code: "class Foo {}\nclass Bar {}",
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: "class Foo {}\nconst myExpression = class {}",
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: "var x = class {};\nvar y = class {};",
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: "class Foo {}\nvar x = class {};",
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: "class Foo {} class Bar {}",
             options: [1],
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: "class Foo {} class Bar {} class Baz {}",
             options: [2],
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: `
@@ -89,7 +91,7 @@ ruleTester.run("max-classes-per-file", rule, {
                 const myExpression = class {}
             `,
             options: [{ ignoreExpressions: true, max: 1 }],
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
         },
         {
             code: `
@@ -99,7 +101,7 @@ ruleTester.run("max-classes-per-file", rule, {
                 const myExpression = class {}
             `,
             options: [{ ignoreExpressions: true, max: 2 }],
-            errors: [{ messageId: "maximumExceeded", type: "Program" }]
-        }
-    ]
+            errors: [{ messageId: "maximumExceeded", type: "Program" }],
+        },
+    ],
 });

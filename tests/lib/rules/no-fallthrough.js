@@ -16,10 +16,12 @@ const rule = require("../../../lib/rules/no-fallthrough"),
 // Tests
 //------------------------------------------------------------------------------
 
-const errorsDefault = [{
-    messageId: "default",
-    type: "SwitchCase"
-}];
+const errorsDefault = [
+    {
+        messageId: "default",
+        type: "SwitchCase",
+    },
+];
 
 const ruleTester = new RuleTester();
 
@@ -87,49 +89,59 @@ ruleTester.run("no-fallthrough", rule, {
         `,
         {
             code: "switch(foo) { case 0: a(); /* no break */ case 1: b(); }",
-            options: [{
-                commentPattern: "no break"
-            }]
+            options: [
+                {
+                    commentPattern: "no break",
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a(); /* no break: need to execute b() */ case 1: b(); }",
-            options: [{
-                commentPattern: "no break:\\s?\\w+"
-            }]
+            options: [
+                {
+                    commentPattern: "no break:\\s?\\w+",
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a();\n// need to execute b(), so\n// falling through\n case 1: b(); }",
-            options: [{
-                commentPattern: "falling through"
-            }]
+            options: [
+                {
+                    commentPattern: "falling through",
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a(); /* break omitted */ default:  b(); /* comment */ }",
-            options: [{
-                commentPattern: "break omitted"
-            }]
+            options: [
+                {
+                    commentPattern: "break omitted",
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a(); /* caution: break is omitted intentionally */ case 1: b(); /* break omitted */ default: c(); }",
-            options: [{
-                commentPattern: "break[\\s\\w]+omitted"
-            }]
+            options: [
+                {
+                    commentPattern: "break[\\s\\w]+omitted",
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: \n\n\n case 1: b(); }",
-            options: [{ allowEmptyCase: true }]
+            options: [{ allowEmptyCase: true }],
         },
         {
             code: "switch(foo) { case 0: \n /* with comments */  \n case 1: b(); }",
-            options: [{ allowEmptyCase: true }]
+            options: [{ allowEmptyCase: true }],
         },
         {
             code: "switch (a) {\n case 1: ; break; \n case 3: }",
-            options: [{ allowEmptyCase: true }]
+            options: [{ allowEmptyCase: true }],
         },
         {
             code: "switch (a) {\n case 1: ; break; \n case 3: }",
-            options: [{ allowEmptyCase: false }]
+            options: [{ allowEmptyCase: false }],
         },
         `
 switch (foo) {
@@ -142,8 +154,7 @@ switch (bar) {
 }
             `,
         {
-            code:
-        `
+            code: `
 switch (foo) {
     case 0:
         a();
@@ -155,11 +166,10 @@ switch (bar) {
         b();
 }
             `,
-            options: [{ reportUnusedFallthroughComment: true }]
+            options: [{ reportUnusedFallthroughComment: true }],
         },
         {
-            code:
-        `
+            code: `
 switch (foo) {
     case 0:
         a();
@@ -171,7 +181,7 @@ switch (bar) {
         b();
 }
             `,
-            options: [{ reportUnusedFallthroughComment: true }]
+            options: [{ reportUnusedFallthroughComment: true }],
         },
         {
             code: `
@@ -183,8 +193,7 @@ switch(foo){
     case 2: doSomething();
 }
           `,
-            options: [{ reportUnusedFallthroughComment: true }]
-
+            options: [{ reportUnusedFallthroughComment: true }],
         },
         {
             code: `
@@ -210,7 +219,7 @@ function f() {
     }
 }
             `,
-            options: [{ reportUnusedFallthroughComment: true }]
+            options: [{ reportUnusedFallthroughComment: true }],
         },
         {
             code: `
@@ -236,7 +245,7 @@ function f() {
     }
 }
             `,
-            options: [{ reportUnusedFallthroughComment: true }]
+            options: [{ reportUnusedFallthroughComment: true }],
         },
         {
             code: `
@@ -247,9 +256,8 @@ switch(foo){
     case 2: doSomething();
 }
           `,
-            options: [{ reportUnusedFallthroughComment: true }]
-
-        }
+            options: [{ reportUnusedFallthroughComment: true }],
+        },
     ],
 
     invalid: [
@@ -260,9 +268,9 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a();\ndefault: b() }",
@@ -271,107 +279,113 @@ switch(foo){
                     messageId: "default",
                     type: "SwitchCase",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a(); default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: if (a) { break; } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: try { throw 0; } catch (err) {} default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: while (a) { break; } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: do { break; } while (a); default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0:\n\n default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: {} default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: a(); { /* falls through */ } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: { /* falls through */ } a(); default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: if (a) { /* falls through */ } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: { { /* falls through */ } } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: { /* comment */ } default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0:\n // comment\n default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: a(); /* falling through */ default: b() }",
-            errors: errorsDefault
+            errors: errorsDefault,
         },
         {
             code: "switch(foo) { case 0: a();\n/* no break */\ncase 1: b(); }",
-            options: [{
-                commentPattern: "break omitted"
-            }],
+            options: [
+                {
+                    commentPattern: "break omitted",
+                },
+            ],
             errors: [
                 {
                     messageId: "case",
                     type: "SwitchCase",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: a();\n/* no break */\n/* todo: fix readability */\ndefault: b() }",
-            options: [{
-                commentPattern: "no break"
-            }],
+            options: [
+                {
+                    commentPattern: "no break",
+                },
+            ],
             errors: [
                 {
                     messageId: "default",
                     type: "SwitchCase",
                     line: 4,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: { a();\n/* no break */\n/* todo: fix readability */ }\ndefault: b() }",
-            options: [{
-                commentPattern: "no break"
-            }],
+            options: [
+                {
+                    commentPattern: "no break",
+                },
+            ],
             errors: [
                 {
                     messageId: "default",
                     type: "SwitchCase",
                     line: 4,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0: \n /* with comments */  \ncase 1: b(); }",
@@ -380,23 +394,25 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0:\n\ncase 1: b(); }",
-            options: [{
-                allowEmptyCase: false
-            }],
+            options: [
+                {
+                    allowEmptyCase: false,
+                },
+            ],
             errors: [
                 {
                     messageId: "case",
                     type: "SwitchCase",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch(foo) { case 0:\n\ncase 1: b(); }",
@@ -406,9 +422,9 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: \n ; case 2:  }",
@@ -418,9 +434,9 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 2,
-                    column: 4
-                }
-            ]
+                    column: 4,
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: ; case 2: ; case 3: }",
@@ -430,15 +446,15 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 1,
-                    column: 24
+                    column: 24,
                 },
                 {
                     messageId: "case",
                     type: "SwitchCase",
                     line: 1,
-                    column: 34
-                }
-            ]
+                    column: 34,
+                },
+            ],
         },
         {
             code: "switch (foo) { case 0: a(); \n// eslint-enable no-fallthrough\n case 1: }",
@@ -448,9 +464,9 @@ switch(foo){
                     messageId: "case",
                     type: "SwitchCase",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: `
@@ -466,9 +482,9 @@ switch (foo) {
             errors: [
                 {
                     line: 6,
-                    messageId: "unusedFallthroughComment"
-                }
-            ]
+                    messageId: "unusedFallthroughComment",
+                },
+            ],
         },
         {
             code: `
@@ -484,9 +500,9 @@ switch (foo) {
             errors: [
                 {
                     line: 6,
-                    messageId: "unusedFallthroughComment"
-                }
-            ]
+                    messageId: "unusedFallthroughComment",
+                },
+            ],
         },
         {
             code: `
@@ -501,10 +517,11 @@ switch(foo){
             errors: [
                 {
                     line: 6,
-                    messageId: "unusedFallthroughComment"
-                }
-            ]
-        }, {
+                    messageId: "unusedFallthroughComment",
+                },
+            ],
+        },
+        {
             code: `
 function f() {
     switch(foo){
@@ -525,9 +542,9 @@ function f() {
             errors: [
                 {
                     line: 12,
-                    messageId: "unusedFallthroughComment"
-                }
-            ]
+                    messageId: "unusedFallthroughComment",
+                },
+            ],
         },
         {
             code: `
@@ -544,9 +561,9 @@ switch (foo) {
             errors: [
                 {
                     line: 6,
-                    messageId: "unusedFallthroughComment"
-                }
-            ]
-        }
-    ]
+                    messageId: "unusedFallthroughComment",
+                },
+            ],
+        },
+    ],
 });

@@ -5,7 +5,6 @@ eleventyNavigation:
     parent: create plugins
     title: Migration to Flat Config
     order: 5
-
 ---
 
 Beginning in ESLint v9.0.0, the default configuration system will be the new flat config system. In order for your plugins to work with flat config files, you'll need to make some changes to your existing plugins.
@@ -19,7 +18,7 @@ const plugin = {
     meta: {},
     configs: {},
     rules: {},
-    processors: {}
+    processors: {},
 };
 
 // for ESM
@@ -39,11 +38,11 @@ With the old eslintrc configuration system, ESLint could pull information about 
 const plugin = {
     meta: {
         name: "eslint-plugin-example",
-        version: "1.0.0"
+        version: "1.0.0",
     },
     configs: {},
     rules: {},
-    processors: {}
+    processors: {},
 };
 
 // for ESM
@@ -72,13 +71,12 @@ const plugin = {
     configs: {},
     rules: {},
     processors: {
-
         // no longer supported
         ".md": {
             preprocess() {},
-            postprocess() {}
-        }
-    }
+            postprocess() {},
+        },
+    },
 };
 
 // for ESM
@@ -95,13 +93,12 @@ const plugin = {
     configs: {},
     rules: {},
     processors: {
-
         // works in both old and new config systems
-        "markdown": {
+        markdown: {
             preprocess() {},
-            postprocess() {}
-        }
-    }
+            postprocess() {},
+        },
+    },
 };
 
 // for ESM
@@ -119,10 +116,10 @@ import example from "eslint-plugin-example";
 export default [
     {
         plugins: {
-            example
+            example,
         },
-        processor: "example/markdown"
-    }
+        processor: "example/markdown",
+    },
 ];
 ```
 
@@ -159,21 +156,21 @@ To migrate to flat config format, you'll need to move the configs to after the d
 const plugin = {
     configs: {},
     rules: {},
-    processors: {}
+    processors: {},
 };
 
 // assign configs here so we can reference `plugin`
 Object.assign(plugin.configs, {
     recommended: {
         plugins: {
-            example: plugin
+            example: plugin,
         },
         rules: {
             "example/rule1": "error",
-            "example/rule2": "error"
-        }
-    }
-})
+            "example/rule2": "error",
+        },
+    },
+});
 
 // for ESM
 export default plugin;
@@ -188,16 +185,15 @@ Your users can then use this exported config like this:
 import example from "eslint-plugin-example";
 
 export default [
-
     // use recommended config
     example.configs.recommended,
 
     // and provide your own overrides
     {
         rules: {
-            "example/rule1": "warn"
-        }
-    }
+            "example/rule1": "warn",
+        },
+    },
 ];
 ```
 
@@ -213,9 +209,9 @@ module.exports = {
             {
                 rules: {
                     "example/rule1": "error",
-                    "example/rule2": "error"
-                }
-            }
+                    "example/rule2": "error",
+                },
+            },
         ],
     },
 };
@@ -268,7 +264,7 @@ To migrate this environment into a config, you need to add a new key in the `plu
 const plugin = {
     configs: {},
     rules: {},
-    processors: {}
+    processors: {},
 };
 
 // assign configs here so we can reference `plugin`
@@ -279,11 +275,11 @@ Object.assign(plugin.configs, {
                 it: "writeable",
                 xit: "writeable",
                 describe: "writeable",
-                xdescribe: "writeable"
-            }
-        }
-    }
-})
+                xdescribe: "writeable",
+            },
+        },
+    },
+});
 
 // for ESM
 export default plugin;
@@ -298,7 +294,6 @@ Your users can then use this exported config like this:
 import example from "eslint-plugin-example";
 
 export default [
-
     // use the mocha globals
     example.configs.mocha,
 
@@ -306,10 +301,10 @@ export default [
     {
         languageOptions: {
             globals: {
-                it: "readonly"
-            }
-        }
-    }
+                it: "readonly",
+            },
+        },
+    },
 ];
 ```
 
@@ -325,6 +320,6 @@ If your plugin needs to work with both the old and new configuration systems, th
 
 ## Further Reading
 
-* [Overview of the flat config file format blog post](https://eslint.org/blog/2022/08/new-config-system-part-2/)
-* [API usage of new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-3/)
-* [Background to new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-1/)
+- [Overview of the flat config file format blog post](https://eslint.org/blog/2022/08/new-config-system-part-2/)
+- [API usage of new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-3/)
+- [Background to new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-1/)

@@ -64,7 +64,10 @@ ruleTester.run("no-regex-spaces", rule, {
 
         // ES2024
         { code: "var foo = /  {2}/v;", languageOptions: { ecmaVersion: 2024 } },
-        { code: "var foo = /[\\q{    }]/v;", languageOptions: { ecmaVersion: 2024 } },
+        {
+            code: "var foo = /[\\q{    }]/v;",
+            languageOptions: { ecmaVersion: 2024 },
+        },
 
         // don't report invalid regex
         "var foo = new RegExp('[  ');",
@@ -73,7 +76,7 @@ ruleTester.run("no-regex-spaces", rule, {
         // don't report if flags cannot be determined
         "new RegExp('  ', flags)",
         "new RegExp('[[abc]  ]', flags + 'v')",
-        "new RegExp('[[abc]\\\\q{  }]', flags + 'v')"
+        "new RegExp('[[abc]\\\\q{  }]', flags + 'v')",
     ],
 
     invalid: [
@@ -84,9 +87,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /bar    baz/;",
@@ -95,9 +98,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = / a b  c d /;",
@@ -106,9 +109,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = RegExp(' a b c d  ');",
@@ -117,9 +120,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = RegExp('bar    baz');",
@@ -128,9 +131,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('bar    baz');",
@@ -139,12 +142,11 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
-
             // `RegExp` is not shadowed in the scope where it's called
             code: "{ let RegExp = function() {}; } var foo = RegExp('bar    baz');",
             output: "{ let RegExp = function() {}; } var foo = RegExp('bar {4}baz');",
@@ -153,9 +155,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = /bar   {3}baz/;",
@@ -164,9 +166,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /bar    ?baz/;",
@@ -175,9 +177,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "3" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('bar   *baz')",
@@ -186,9 +188,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "var foo = RegExp('bar   +baz')",
@@ -197,9 +199,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('bar    ');",
@@ -208,9 +210,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "var foo = /bar\\  baz/;",
@@ -219,9 +221,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /[   ]  /;",
@@ -230,9 +232,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /  [   ] /;",
@@ -241,9 +243,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('[   ]  ');",
@@ -252,9 +254,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "var foo = RegExp('  [ ]');",
@@ -263,9 +265,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = /\\[  /;",
@@ -274,9 +276,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /\\[  \\]/;",
@@ -285,9 +287,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = /(?:  )/;",
@@ -296,9 +298,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = RegExp('^foo(?=   )');",
@@ -307,9 +309,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "3" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = /\\  /",
@@ -318,9 +320,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = / \\  /",
@@ -329,9 +331,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
 
         // report only the first occurrence of consecutive spaces
@@ -342,9 +344,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
 
         // don't fix strings with escape sequences
@@ -355,9 +357,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "var foo = RegExp('\\u0041   ')",
@@ -366,9 +368,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "3" },
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('\\\\[  \\\\]');",
@@ -377,9 +379,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "2" },
-                    type: "NewExpression"
-                }
-            ]
+                    type: "NewExpression",
+                },
+            ],
         },
 
         // ES2024
@@ -387,15 +389,15 @@ ruleTester.run("no-regex-spaces", rule, {
             code: "var foo = /[[    ]    ]    /v;",
             output: "var foo = /[[    ]    ] {4}/v;",
             languageOptions: {
-                ecmaVersion: 2024
+                ecmaVersion: 2024,
             },
             errors: [
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "Literal"
-                }
-            ]
+                    type: "Literal",
+                },
+            ],
         },
         {
             code: "var foo = new RegExp('[[    ]    ]    ', 'v');",
@@ -404,9 +406,9 @@ ruleTester.run("no-regex-spaces", rule, {
                 {
                     messageId: "multipleSpaces",
                     data: { length: "4" },
-                    type: "NewExpression"
-                }
-            ]
-        }
-    ]
+                    type: "NewExpression",
+                },
+            ],
+        },
+    ],
 });

@@ -19,8 +19,8 @@ const rule = require("../../../lib/rules/global-require"),
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 5,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 const valid = [
@@ -32,63 +32,66 @@ const valid = [
     { code: "var x = require('y').foo;" },
     { code: "require('y').foo();" },
     { code: "require('y');" },
-    { code: "function x(){}\n\n\nx();\n\n\nif (x > y) {\n\tdoSomething()\n\n}\n\nvar x = require('y').foo;" },
+    {
+        code: "function x(){}\n\n\nx();\n\n\nif (x > y) {\n\tdoSomething()\n\n}\n\nvar x = require('y').foo;",
+    },
     { code: "var logger = require(DEBUG ? 'dev-logger' : 'logger');" },
     { code: "var logger = DEBUG ? require('dev-logger') : require('logger');" },
     { code: "function localScopedRequire(require) { require('y'); }" },
-    { code: "var someFunc = require('./someFunc'); someFunc(function(require) { return('bananas'); });" },
+    {
+        code: "var someFunc = require('./someFunc'); someFunc(function(require) { return('bananas'); });",
+    },
 
     // Optional chaining
     {
         code: "var x = require('y')?.foo;",
-        languageOptions: { ecmaVersion: 2020 }
-    }
+        languageOptions: { ecmaVersion: 2020 },
+    },
 ];
 
 const error = { messageId: "unexpected", type: "CallExpression" };
 
 const invalid = [
-
     // block statements
     {
         code: "if (process.env.NODE_ENV === 'DEVELOPMENT') {\n\trequire('debug');\n}",
-        errors: [error]
+        errors: [error],
     },
     {
         code: "var x; if (y) { x = require('debug'); }",
-        errors: [error]
+        errors: [error],
     },
     {
         code: "var x; if (y) { x = require('debug').baz; }",
-        errors: [error]
+        errors: [error],
     },
     {
         code: "function x() { require('y') }",
-        errors: [error]
+        errors: [error],
     },
     {
         code: "try { require('x'); } catch (e) { console.log(e); }",
-        errors: [error]
+        errors: [error],
     },
 
     // non-block statements
     {
         code: "var getModule = x => require(x);",
         languageOptions: { ecmaVersion: 6 },
-        errors: [error]
+        errors: [error],
     },
     {
         code: "var x = (x => require(x))('weird')",
         languageOptions: { ecmaVersion: 6 },
-        errors: [error]
+        errors: [error],
     },
     {
         code: "switch(x) { case '1': require('1'); break; }",
-        errors: [error]
-    }
+        errors: [error],
+    },
 ];
 
 ruleTester.run("global-require", rule, {
     valid,
-    invalid
+    invalid,
 });

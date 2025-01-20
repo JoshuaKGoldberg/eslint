@@ -30,9 +30,10 @@ describe("reduceBadExampleSize()", () => {
         assert.strictEqual(
             reduceBadExampleSize({
                 sourceText: initialCode,
-                predicate: code => code.includes("THIS_EXPRESSION_CAUSES_A_BUG")
+                predicate: (code) =>
+                    code.includes("THIS_EXPRESSION_CAUSES_A_BUG"),
             }),
-            expectedFinalCode
+            expectedFinalCode,
         );
     });
 
@@ -57,9 +58,10 @@ describe("reduceBadExampleSize()", () => {
         assert.strictEqual(
             reduceBadExampleSize({
                 sourceText: initialCode,
-                predicate: code => code.includes("THIS_EXPRESSION_CAUSES_A_BUG")
+                predicate: (code) =>
+                    code.includes("THIS_EXPRESSION_CAUSES_A_BUG"),
             }),
-            expectedFinalCode
+            expectedFinalCode,
         );
     });
 
@@ -73,9 +75,10 @@ describe("reduceBadExampleSize()", () => {
         assert.strictEqual(
             reduceBadExampleSize({
                 sourceText: initialCode,
-                predicate: code => code.includes("var") && code.includes("foo = bar")
+                predicate: (code) =>
+                    code.includes("var") && code.includes("foo = bar"),
             }),
-            expectedFinalCode
+            expectedFinalCode,
         );
     });
 });

@@ -3,8 +3,6 @@ title: curly
 rule_type: suggestion
 ---
 
-
-
 JavaScript allows the omission of curly braces when a block contains only one statement. However, it is considered by many to be best practice to _never_ omit curly braces around blocks, even when they are optional, because it can lead to bugs and reduces code clarity. So the following:
 
 ```js
@@ -38,8 +36,7 @@ Examples of **incorrect** code for the default `"all"` option:
 
 if (foo) foo++;
 
-while (bar)
-    baz();
+while (bar) baz();
 
 if (foo) {
     baz();
@@ -96,7 +93,7 @@ while (true) {
     doSomething();
 }
 
-for (let i=0; i < items.length; i++) {
+for (let i = 0; i < items.length; i++) {
     doSomething();
 }
 ```
@@ -111,7 +108,6 @@ Examples of **correct** code for the `"multi"` option:
 /*eslint curly: ["error", "multi"]*/
 
 if (foo) foo++;
-
 else foo();
 
 while (true) {
@@ -133,14 +129,10 @@ Examples of **incorrect** code for the `"multi-line"` option:
 ```js
 /*eslint curly: ["error", "multi-line"]*/
 
-if (foo)
-  doSomething();
-else
-  doSomethingElse();
+if (foo) doSomething();
+else doSomethingElse();
 
-if (foo) foo(
-  bar,
-  baz);
+if (foo) foo(bar, baz);
 ```
 
 :::
@@ -152,23 +144,25 @@ Examples of **correct** code for the `"multi-line"` option:
 ```js
 /*eslint curly: ["error", "multi-line"]*/
 
-if (foo) foo++; else doSomething();
+if (foo) foo++;
+else doSomething();
 
 if (foo) foo++;
-else if (bar) baz()
+else if (bar) baz();
 else doSomething();
 
 do something();
 while (foo);
 
-while (foo
-  && bar) baz();
+while (foo && bar) baz();
 
 if (foo) {
     foo++;
 }
 
-if (foo) { foo++; }
+if (foo) {
+    foo++;
+}
 
 while (true) {
     doSomething();
@@ -192,14 +186,12 @@ Examples of **incorrect** code for the `"multi-or-nest"` option:
 if (!foo)
     foo = {
         bar: baz,
-        qux: foo
+        qux: foo,
     };
 
 while (true)
-  if(foo)
-      doSomething();
-  else
-      doSomethingElse();
+    if (foo) doSomething();
+    else doSomethingElse();
 
 if (foo) {
     foo++;
@@ -226,25 +218,20 @@ Examples of **correct** code for the `"multi-or-nest"` option:
 if (!foo) {
     foo = {
         bar: baz,
-        qux: foo
+        qux: foo,
     };
 }
 
 while (true) {
-  if(foo)
-      doSomething();
-  else
-      doSomethingElse();
+    if (foo) doSomething();
+    else doSomethingElse();
 }
 
-if (foo)
-    foo++;
+if (foo) foo++;
 
-while (true)
-    doSomething();
+while (true) doSomething();
 
-for (let i = 0; foo; i++)
-    doSomething();
+for (let i = 0; foo; i++) doSomething();
 ```
 
 :::
@@ -285,20 +272,16 @@ Examples of **incorrect** code for the `"multi", "consistent"` options:
 if (foo) {
     bar();
     baz();
-} else
-    buz();
+} else buz();
 
-if (foo)
-    bar();
-else if (faa)
-    bor();
+if (foo) bar();
+else if (faa) bor();
 else {
     other();
     things();
 }
 
-if (true)
-    foo();
+if (true) foo();
 else {
     baz();
 }
@@ -333,14 +316,10 @@ if (foo) {
     things();
 }
 
-if (true)
-    foo();
-else
-    baz();
+if (true) foo();
+else baz();
 
-if (foo)
-    foo++;
-
+if (foo) foo++;
 ```
 
 :::

@@ -21,22 +21,21 @@ const ruleTester = new RuleTester({
             sourceType: "script",
             parserOptions: {
                 ecmaFeatures: {
-                    jsx: true
-                }
-            }
-        }
+                    jsx: true,
+                },
+            },
+        },
     }),
     lineError = {
         messageId: "unexpectedInlineComment",
-        type: "Line"
+        type: "Line",
     },
     blockError = {
         messageId: "unexpectedInlineComment",
-        type: "Block"
+        type: "Block",
     };
 
 ruleTester.run("no-inline-comments", rule, {
-
     valid: [
         "// A valid comment before code\nvar a = 1;",
         "var a = 2;\n// A valid comment after code",
@@ -100,63 +99,63 @@ ruleTester.run("no-inline-comments", rule, {
             code: "import(/* webpackChunkName: \"my-chunk-name\" */ './locale/en');",
             options: [
                 {
-                    ignorePattern: "(?:webpackChunkName):\\s.+"
-                }
+                    ignorePattern: "(?:webpackChunkName):\\s.+",
+                },
             ],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "var foo = 2; // Note: This comment is legal.",
             options: [
                 {
-                    ignorePattern: "Note: "
-                }
-            ]
-        }
+                    ignorePattern: "Note: ",
+                },
+            ],
+        },
     ],
 
     invalid: [
         {
             code: "var a = 1; /*A block comment inline after code*/",
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: "/*A block comment inline before code*/ var a = 2;",
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: "/* something */ var a = 2;",
             options: [
                 {
-                    ignorePattern: "otherthing"
-                }
+                    ignorePattern: "otherthing",
+                },
             ],
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: "var a = 3; //A comment inline with code",
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: "var a = 3; // someday use eslint-disable-line here",
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: "var a = 3; // other line comment",
             options: [
                 {
-                    ignorePattern: "something"
-                }
+                    ignorePattern: "something",
+                },
             ],
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: "var a = 4;\n/**A\n * block\n * comment\n * inline\n * between\n * code*/ var foo = a;",
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: "var a = \n{/**/}",
-            errors: [blockError]
+            errors: [blockError],
         },
 
         // JSX
@@ -164,7 +163,7 @@ ruleTester.run("no-inline-comments", rule, {
             code: `var a = (
                 <div>{/* comment */}</div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -172,7 +171,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: `var a = (
@@ -180,7 +179,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -190,7 +189,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -199,7 +198,7 @@ ruleTester.run("no-inline-comments", rule, {
                        */}
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -207,7 +206,7 @@ ruleTester.run("no-inline-comments", rule, {
                        * comment
                        */}</div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -216,7 +215,7 @@ ruleTester.run("no-inline-comments", rule, {
                   * comment
                   */}</div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -226,7 +225,7 @@ ruleTester.run("no-inline-comments", rule, {
                   * comment
                   */}</div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -234,7 +233,7 @@ ruleTester.run("no-inline-comments", rule, {
                 {
                 /* comment */}</div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -242,7 +241,7 @@ ruleTester.run("no-inline-comments", rule, {
                 {b/* comment */}
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -250,7 +249,7 @@ ruleTester.run("no-inline-comments", rule, {
                 {/* comment */b}
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -260,7 +259,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: `var a = (
@@ -270,7 +269,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -282,7 +281,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -292,7 +291,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: `var a = (
@@ -302,7 +301,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -312,7 +311,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -324,7 +323,7 @@ ruleTester.run("no-inline-comments", rule, {
                  */}
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -334,7 +333,7 @@ ruleTester.run("no-inline-comments", rule, {
                 /* comment */}
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -344,7 +343,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -355,7 +354,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [lineError]
+            errors: [lineError],
         },
         {
             code: `var a = (
@@ -366,7 +365,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError]
+            errors: [blockError],
         },
         {
             code: `var a = (
@@ -374,7 +373,7 @@ ruleTester.run("no-inline-comments", rule, {
                 { /* two comments on the same line... */ /* ...are not allowed, same as with a non-JSX code */}
                 </div>
             )`,
-            errors: [blockError, blockError]
+            errors: [blockError, blockError],
         },
         {
             code: `var a = (
@@ -386,7 +385,7 @@ ruleTester.run("no-inline-comments", rule, {
                 }
                 </div>
             )`,
-            errors: [blockError, blockError]
-        }
-    ]
+            errors: [blockError, blockError],
+        },
+    ],
 });

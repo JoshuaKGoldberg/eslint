@@ -22,19 +22,19 @@ ruleTester.run("no-case-declarations", rule, {
     valid: [
         {
             code: "switch (a) { case 1: { let x = 1; break; } default: { let x = 2; break; } }",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "switch (a) { case 1: { const x = 1; break; } default: { const x = 2; break; } }",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "switch (a) { case 1: { function f() {} break; } default: { function f() {} break; } }",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "switch (a) { case 1: { class C {} break; } default: { class C {} break; } }",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         `
             switch (a) {
@@ -46,7 +46,7 @@ ruleTester.run("no-case-declarations", rule, {
             switch (a) {
                 case 1: var x;
             }
-        `
+        `,
     ],
     invalid: [
         {
@@ -58,23 +58,25 @@ ruleTester.run("no-case-declarations", rule, {
                         break;
                 }
             `,
-            errors: [{
-                messageId: "unexpected",
-                type: "FunctionDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: `
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "FunctionDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: `
                 switch (a) {
                     case 1:
                         { {}
                         function f() {}
                         break; }
                 }
-            `
-                    }
-                ]
-            }]
+            `,
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: `
@@ -85,22 +87,24 @@ ruleTester.run("no-case-declarations", rule, {
                 }
             `,
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "VariableDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: `
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "VariableDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: `
                 switch (a) {
                     case 1:
                     case 2:
                         { let x; }
                 }
-            `
-                    }
-                ]
-            }]
+            `,
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: `
@@ -126,9 +130,9 @@ ruleTester.run("no-case-declarations", rule, {
                     case 2:
                         let y;
                 }
-            `
-                        }
-                    ]
+            `,
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpected",
@@ -143,11 +147,11 @@ ruleTester.run("no-case-declarations", rule, {
                     case 2:
                         { let y; }
                 }
-            `
-                        }
-                    ]
-                }
-            ]
+            `,
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: `
@@ -173,9 +177,9 @@ ruleTester.run("no-case-declarations", rule, {
                     default:
                         let y;
                 }
-            `
-                        }
-                    ]
+            `,
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpected",
@@ -190,123 +194,139 @@ ruleTester.run("no-case-declarations", rule, {
                     default:
                         { let y; }
                 }
-            `
-                        }
-                    ]
-                }
-            ]
+            `,
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: let x = 1; break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "VariableDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { case 1: { let x = 1; break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "VariableDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { case 1: { let x = 1; break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { default: let x = 2; break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "VariableDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { default: { let x = 2; break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "VariableDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { default: { let x = 2; break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: const x = 1; break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "VariableDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { case 1: { const x = 1; break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "VariableDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { case 1: { const x = 1; break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { default: const x = 2; break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "VariableDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { default: { const x = 2; break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "VariableDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { default: { const x = 2; break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: function f() {} break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "FunctionDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { case 1: { function f() {} break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "FunctionDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { case 1: { function f() {} break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { default: function f() {} break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "FunctionDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { default: { function f() {} break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "FunctionDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { default: { function f() {} break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { case 1: class C {} break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "ClassDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { case 1: { class C {} break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "ClassDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { case 1: { class C {} break; } }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "switch (a) { default: class C {} break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "unexpected",
-                type: "ClassDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: "switch (a) { default: { class C {} break; } }"
-                    }
-                ]
-            }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "ClassDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: "switch (a) { default: { class C {} break; } }",
+                        },
+                    ],
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/pull/18388#issuecomment-2075356456
@@ -321,13 +341,14 @@ ruleTester.run("no-case-declarations", rule, {
                 }
             `,
             languageOptions: { ecmaVersion: "latest" },
-            errors: [{
-                messageId: "unexpected",
-                type: "FunctionDeclaration",
-                suggestions: [
-                    {
-                        messageId: "addBrackets",
-                        output: `
+            errors: [
+                {
+                    messageId: "unexpected",
+                    type: "FunctionDeclaration",
+                    suggestions: [
+                        {
+                            messageId: "addBrackets",
+                            output: `
                 switch ("foo") {
                     case "bar":
                         { function baz() { }
@@ -335,10 +356,11 @@ ruleTester.run("no-case-declarations", rule, {
                     default:
                         baz();
                 }
-            `
-                    }
-                ]
-            }]
-        }
-    ]
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 });

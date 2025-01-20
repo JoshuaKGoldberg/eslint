@@ -20,19 +20,19 @@ describe("Traverser", () => {
                 {
                     type: "ExpressionStatement",
                     leadingComments: {
-                        type: "Line"
+                        type: "Line",
                     },
                     trailingComments: {
-                        type: "Block"
-                    }
+                        type: "Block",
+                    },
                 },
                 {
                     type: "FooStatement",
                     foo: {
-                        type: "BarStatement"
-                    }
-                }
-            ]
+                        type: "BarStatement",
+                    },
+                },
+            ],
         };
 
         fakeAst.body[0].parent = fakeAst;
@@ -41,12 +41,22 @@ describe("Traverser", () => {
         const exitedNodes = [];
 
         traverser.traverse(fakeAst, {
-            enter: node => enteredNodes.push(node),
-            leave: node => exitedNodes.push(node)
+            enter: (node) => enteredNodes.push(node),
+            leave: (node) => exitedNodes.push(node),
         });
 
-        assert.deepStrictEqual(enteredNodes, [fakeAst, fakeAst.body[0], fakeAst.body[1], fakeAst.body[1].foo]);
-        assert.deepStrictEqual(exitedNodes, [fakeAst.body[0], fakeAst.body[1].foo, fakeAst.body[1], fakeAst]);
+        assert.deepStrictEqual(enteredNodes, [
+            fakeAst,
+            fakeAst.body[0],
+            fakeAst.body[1],
+            fakeAst.body[1].foo,
+        ]);
+        assert.deepStrictEqual(exitedNodes, [
+            fakeAst.body[0],
+            fakeAst.body[1].foo,
+            fakeAst.body[1],
+            fakeAst,
+        ]);
     });
 
     it("traverses AST as using 'visitorKeys' option if given", () => {
@@ -57,21 +67,21 @@ describe("Traverser", () => {
                 {
                     type: "ClassDeclaration",
                     id: {
-                        type: "Identifier"
+                        type: "Identifier",
                     },
                     superClass: null,
                     body: {
                         type: "ClassBody",
-                        body: []
+                        body: [],
                     },
                     experimentalDecorators: [
                         {
                             type: "Decorator",
-                            expression: {}
-                        }
-                    ]
-                }
-            ]
+                            expression: {},
+                        },
+                    ],
+                },
+            ],
         };
 
         fakeAst.body[0].parent = fakeAst;
@@ -80,11 +90,20 @@ describe("Traverser", () => {
 
         // with 'visitorKeys' option to traverse decorators.
         traverser.traverse(fakeAst, {
-            enter: node => visited.push(node.type),
+            enter: (node) => visited.push(node.type),
             visitorKeys: Object.assign({}, Traverser.DEFAULT_VISITOR_KEYS, {
-                ClassDeclaration: Traverser.DEFAULT_VISITOR_KEYS.ClassDeclaration.concat(["experimentalDecorators"])
-            })
+                ClassDeclaration:
+                    Traverser.DEFAULT_VISITOR_KEYS.ClassDeclaration.concat([
+                        "experimentalDecorators",
+                    ]),
+            }),
         });
-        assert.deepStrictEqual(visited, ["Program", "ClassDeclaration", "Identifier", "ClassBody", "Decorator"]);
+        assert.deepStrictEqual(visited, [
+            "Program",
+            "ClassDeclaration",
+            "Identifier",
+            "ClassBody",
+            "Decorator",
+        ]);
     });
 });

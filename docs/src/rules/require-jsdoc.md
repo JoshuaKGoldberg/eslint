@@ -2,7 +2,7 @@
 title: require-jsdoc
 rule_type: suggestion
 related_rules:
-- valid-jsdoc
+    - valid-jsdoc
 ---
 
 :::important
@@ -29,31 +29,34 @@ Some style guides require JSDoc comments for all functions as a way of explainin
 
 This rule requires JSDoc comments for specified nodes. Supported nodes:
 
-* `"FunctionDeclaration"`
-* `"ClassDeclaration"`
-* `"MethodDefinition"`
-* `"ArrowFunctionExpression"`
-* `"FunctionExpression"`
+- `"FunctionDeclaration"`
+- `"ClassDeclaration"`
+- `"MethodDefinition"`
+- `"ArrowFunctionExpression"`
+- `"FunctionExpression"`
 
 ## Options
 
 This rule has a single object option:
 
-* `"require"` requires JSDoc comments for the specified nodes
+- `"require"` requires JSDoc comments for the specified nodes
 
 Default option settings are:
 
 ```json
 {
-    "require-jsdoc": ["error", {
-        "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": false,
-            "ClassDeclaration": false,
-            "ArrowFunctionExpression": false,
-            "FunctionExpression": false
+    "require-jsdoc": [
+        "error",
+        {
+            "require": {
+                "FunctionDeclaration": true,
+                "MethodDefinition": false,
+                "ClassDeclaration": false,
+                "ArrowFunctionExpression": false,
+                "FunctionExpression": false
+            }
         }
-    }]
+    ]
 }
 ```
 
@@ -88,18 +91,18 @@ class Foo {
     }
 }
 
-var bar = function() {
+var bar = function () {
     return 10;
 };
 
 var bar = {
-    bar: function() {
+    bar: function () {
         return 10;
     },
 
     baz() {
         return 10;
-    }
+    },
 };
 ```
 
@@ -134,24 +137,24 @@ function foo() {
  */
 var bar = (test) => {
     return test + 10;
-}
+};
 
 /**
  * It returns 10
  */
 var bar = () => {
     return 10;
-}
+};
 
 /**
  * It returns 10
  */
-var bar = function() {
+var bar = function () {
     return 10;
-}
+};
 
-var array = [1,2,3];
-array.filter(function(item) {
+var array = [1, 2, 3];
+array.filter(function (item) {
     return item > 2;
 });
 
@@ -160,8 +163,8 @@ array.filter(function(item) {
  */
 class Foo {
     /**
-    * It returns 10
-    */
+     * It returns 10
+     */
     bar() {
         return 10;
     }
@@ -170,24 +173,24 @@ class Foo {
 /**
  * It returns 10
  */
-var bar = function() {
+var bar = function () {
     return 10;
 };
 
 var bar = {
     /**
-    * It returns 10
-    */
-    bar: function() {
+     * It returns 10
+     */
+    bar: function () {
         return 10;
     },
 
     /**
-    * It returns 10
-    */
+     * It returns 10
+     */
     baz() {
         return 10;
-    }
+    },
 };
 
 setTimeout(() => {}, 10); // since it's an anonymous arrow function

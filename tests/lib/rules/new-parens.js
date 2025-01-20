@@ -24,7 +24,6 @@ const ruleTester = new RuleTester();
 
 ruleTester.run("new-parens", rule, {
     valid: [
-
         // Default (Always)
         "var a = new Date();",
         "var a = new Date(function() {});",
@@ -36,8 +35,8 @@ ruleTester.run("new-parens", rule, {
         {
             code: "new Storage<RootState>('state');",
             languageOptions: {
-                parser: require(parser("typescript-parsers/new-parens"))
-            }
+                parser: require(parser("typescript-parsers/new-parens")),
+            },
         },
 
         // Explicit Always
@@ -55,52 +54,50 @@ ruleTester.run("new-parens", rule, {
         { code: "var a = (new Foo).bar;", options: ["never"] },
         { code: "var a = new Person('Name')", options: ["never"] },
         { code: "var a = new Person('Name', 12)", options: ["never"] },
-        { code: "var a = new ((Person))('Name');", options: ["never"] }
+        { code: "var a = new ((Person))('Name');", options: ["never"] },
     ],
     invalid: [
-
         // Default (Always)
         {
             code: "var a = new Date;",
             output: "var a = new Date();",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new Date",
             output: "var a = new Date()",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new (Date);",
             output: "var a = new (Date)();",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new (Date)",
             output: "var a = new (Date)()",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = (new Date)",
             output: "var a = (new Date())",
-            errors: [error]
+            errors: [error],
         },
         {
-
             // This `()` is `CallExpression`'s. This is a call of the result of `new Date`.
             code: "var a = (new Date)()",
             output: "var a = (new Date())()",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new foo.Bar;",
             output: "var a = new foo.Bar();",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = (new Foo).bar;",
             output: "var a = (new Foo()).bar;",
-            errors: [error]
+            errors: [error],
         },
 
         // Explicit always
@@ -108,25 +105,25 @@ ruleTester.run("new-parens", rule, {
             code: "var a = new Date;",
             output: "var a = new Date();",
             options: ["always"],
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new foo.Bar;",
             output: "var a = new foo.Bar();",
             options: ["always"],
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = (new Foo).bar;",
             output: "var a = (new Foo()).bar;",
             options: ["always"],
-            errors: [error]
+            errors: [error],
         },
         {
             code: "var a = new new Foo()",
             output: "var a = new new Foo()()",
             options: ["always"],
-            errors: [error]
+            errors: [error],
         },
 
         // Never
@@ -134,55 +131,55 @@ ruleTester.run("new-parens", rule, {
             code: "var a = new Date();",
             output: "var a = (new Date);",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = new Date()",
             output: "var a = (new Date)",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = new (Date)();",
             output: "var a = (new (Date));",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = new (Date)()",
             output: "var a = (new (Date))",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = (new Date())",
             output: "var a = ((new Date))",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = (new Date())()",
             output: "var a = ((new Date))()",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = new foo.Bar();",
             output: "var a = (new foo.Bar);",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = (new Foo()).bar;",
             output: "var a = ((new Foo)).bar;",
             options: ["never"],
-            errors: [neverError]
+            errors: [neverError],
         },
         {
             code: "var a = new new Foo()",
             output: "var a = new (new Foo)",
             options: ["never"],
-            errors: [neverError]
-        }
-    ]
+            errors: [neverError],
+        },
+    ],
 });

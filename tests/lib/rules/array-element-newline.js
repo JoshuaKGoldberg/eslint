@@ -12,7 +12,6 @@
 const rule = require("../../../lib/rules/array-element-newline");
 const RuleTester = require("../../../lib/rule-tester/rule-tester");
 
-
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
@@ -20,9 +19,7 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const ruleTester = new RuleTester();
 
 ruleTester.run("array-element-newline", rule, {
-
     valid: [
-
         /*
          * ArrayExpression
          * "always"
@@ -55,7 +52,10 @@ ruleTester.run("array-element-newline", rule, {
         { code: "var foo = [// any comment \n1,\n2];", options: ["always"] },
         { code: "var foo = [1,\n2 // any comment\n];", options: ["always"] },
         { code: "var foo = [1,\n2,\n3];", options: ["always"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];", options: ["always"] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
+            options: ["always"],
+        },
         { code: "var foo = [\n[1,\n2],\n3,\n[\n4]]", options: ["always"] },
 
         // "never"
@@ -67,7 +67,10 @@ ruleTester.run("array-element-newline", rule, {
         { code: "var foo = /* any comment */ [1, 2];", options: ["never"] },
         { code: "var foo = [1, 2, 3];", options: ["never"] },
         { code: "var foo = [1, (\n2\n), 3];", options: ["never"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];", options: ["never"] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
+            options: ["never"],
+        },
         { code: "var foo = [\n[1,2],3,[4]\n]", options: ["never"] },
         { code: "var foo = [[1,2\n],3,[4\n]\n]", options: ["never"] },
 
@@ -80,13 +83,28 @@ ruleTester.run("array-element-newline", rule, {
         { code: "var foo = [1,\n2,\n3];", options: ["consistent"] },
         { code: "var foo = [1,\n2,\n,\n3];", options: ["consistent"] },
         { code: "var foo = [1, // any comment\n2];", options: ["consistent"] },
-        { code: "var foo = [/* any comment */ 1, 2];", options: ["consistent"] },
+        {
+            code: "var foo = [/* any comment */ 1, 2];",
+            options: ["consistent"],
+        },
         { code: "var foo = [1, (\n2\n), 3];", options: ["consistent"] },
         { code: "var foo = [1,\n(2)\n, 3];", options: ["consistent"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];", options: ["consistent"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];", options: ["consistent"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}];", options: ["consistent"] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}, function bar() {\ndosomething();\n}];", options: ["consistent"] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
+            options: ["consistent"],
+        },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
+            options: ["consistent"],
+        },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}];",
+            options: ["consistent"],
+        },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}, function bar() {\ndosomething();\n}];",
+            options: ["consistent"],
+        },
         { code: "var foo = [1,\n[\n2,3,\n]\n];", options: ["consistent"] },
         { code: "var foo = [\n1,\n[2\n,3\n,]\n];", options: ["consistent"] },
         { code: "var foo = [\n1,[2,\n3]];", options: ["consistent"] },
@@ -96,40 +114,76 @@ ruleTester.run("array-element-newline", rule, {
         { code: "var foo = [1];", options: [{ multiline: true }] },
         { code: "var foo = [1, 2];", options: [{ multiline: true }] },
         { code: "var foo = [1, 2, 3];", options: [{ multiline: true }] },
-        { code: "var f = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];", options: [{ multiline: true }] },
-        { code: "var foo = [\n1,\n2,\n3,\n[\n]\n];", options: [{ multiline: true }] },
+        {
+            code: "var f = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
+            options: [{ multiline: true }],
+        },
+        {
+            code: "var foo = [\n1,\n2,\n3,\n[\n]\n];",
+            options: [{ multiline: true }],
+        },
 
         // { minItems: null }
         { code: "var foo = [];", options: [{ minItems: null }] },
         { code: "var foo = [1];", options: [{ minItems: null }] },
         { code: "var foo = [1, 2];", options: [{ minItems: null }] },
         { code: "var foo = [1, 2, 3];", options: [{ minItems: null }] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];", options: [{ minItems: null }] },
-        { code: "var foo = [1, 2, 3, [[],1,[[]]]];", options: [{ minItems: null }] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
+            options: [{ minItems: null }],
+        },
+        {
+            code: "var foo = [1, 2, 3, [[],1,[[]]]];",
+            options: [{ minItems: null }],
+        },
 
         // { minItems: 0 }
         { code: "var foo = [];", options: [{ minItems: 0 }] },
         { code: "var foo = [1];", options: [{ minItems: 0 }] },
         { code: "var foo = [1,\n2];", options: [{ minItems: 0 }] },
         { code: "var foo = [1,\n2,\n3];", options: [{ minItems: 0 }] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];", options: [{ minItems: 0 }] },
-        { code: "var foo = [\n1, \n2, \n3,\n[\n[],\n[]],\n[]];", options: [{ minItems: 0 }] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
+            options: [{ minItems: 0 }],
+        },
+        {
+            code: "var foo = [\n1, \n2, \n3,\n[\n[],\n[]],\n[]];",
+            options: [{ minItems: 0 }],
+        },
 
         // { minItems: 3 }
         { code: "var foo = [];", options: [{ minItems: 3 }] },
         { code: "var foo = [1];", options: [{ minItems: 3 }] },
         { code: "var foo = [1, 2];", options: [{ minItems: 3 }] },
         { code: "var foo = [1,\n2,\n3];", options: [{ minItems: 3 }] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];", options: [{ minItems: 3 }] },
-        { code: "var foo = [[1,2],[[\n1,\n2,\n3]]];", options: [{ minItems: 3 }] },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
+            options: [{ minItems: 3 }],
+        },
+        {
+            code: "var foo = [[1,2],[[\n1,\n2,\n3]]];",
+            options: [{ minItems: 3 }],
+        },
 
         // { multiline: true, minItems: 3 }
         { code: "var foo = [];", options: [{ multiline: true, minItems: 3 }] },
         { code: "var foo = [1];", options: [{ multiline: true, minItems: 3 }] },
-        { code: "var foo = [1, 2];", options: [{ multiline: true, minItems: 3 }] },
-        { code: "var foo = [1, // any comment\n2,\n, 3];", options: [{ multiline: true, minItems: 3 }] },
-        { code: "var foo = [1,\n2,\n// any comment\n, 3];", options: [{ multiline: true, minItems: 3 }] },
-        { code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];", options: [{ multiline: true, minItems: 3 }] },
+        {
+            code: "var foo = [1, 2];",
+            options: [{ multiline: true, minItems: 3 }],
+        },
+        {
+            code: "var foo = [1, // any comment\n2,\n, 3];",
+            options: [{ multiline: true, minItems: 3 }],
+        },
+        {
+            code: "var foo = [1,\n2,\n// any comment\n, 3];",
+            options: [{ multiline: true, minItems: 3 }],
+        },
+        {
+            code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
+            options: [{ multiline: true, minItems: 3 }],
+        },
 
         /*
          * ArrayPattern
@@ -138,26 +192,63 @@ ruleTester.run("array-element-newline", rule, {
         { code: "var [] = foo;", languageOptions: { ecmaVersion: 6 } },
         { code: "var [a] = foo;", languageOptions: { ecmaVersion: 6 } },
         { code: "var [a,\nb] = foo;", languageOptions: { ecmaVersion: 6 } },
-        { code: "var [a, // any comment\nb] = foo;", languageOptions: { ecmaVersion: 6 } },
-        { code: "var [// any comment \na,\nb] = foo;", languageOptions: { ecmaVersion: 6 } },
-        { code: "var [a,\nb // any comment\n] = foo;", languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var [a, // any comment\nb] = foo;",
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var [// any comment \na,\nb] = foo;",
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var [a,\nb // any comment\n] = foo;",
+            languageOptions: { ecmaVersion: 6 },
+        },
         { code: "var [a,\nb,\nb] = foo;", languageOptions: { ecmaVersion: 6 } },
-        { code: "var [\na,\n[\nb,\nc]] = foo;", languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var [\na,\n[\nb,\nc]] = foo;",
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         // "never"
-        { code: "var [a,[b,c]] = foo;", options: ["never"], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var [a,[b,c]] = foo;",
+            options: ["never"],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         // { minItems: 3 }
-        { code: "var [] = foo;", options: [{ minItems: 3 }], languageOptions: { ecmaVersion: 6 } },
-        { code: "var [a] = foo;", options: [{ minItems: 3 }], languageOptions: { ecmaVersion: 6 } },
-        { code: "var [a, b] = foo;", options: [{ minItems: 3 }], languageOptions: { ecmaVersion: 6 } },
-        { code: "var [a,\nb,\nc] = foo;", options: [{ minItems: 3 }], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var [] = foo;",
+            options: [{ minItems: 3 }],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var [a] = foo;",
+            options: [{ minItems: 3 }],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var [a, b] = foo;",
+            options: [{ minItems: 3 }],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var [a,\nb,\nc] = foo;",
+            options: [{ minItems: 3 }],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         /*
          * ArrayExpression & ArrayPattern
          * { ArrayExpression: "always", ArrayPattern: "never" }
          */
-        { code: "var [a, b] = [1,\n2]", options: [{ ArrayExpression: "always", ArrayPattern: "never" }], languageOptions: { ecmaVersion: 6 } }],
+        {
+            code: "var [a, b] = [1,\n2]",
+            options: [{ ArrayExpression: "always", ArrayPattern: "never" }],
+            languageOptions: { ecmaVersion: 6 },
+        },
+    ],
 
     invalid: [
         {
@@ -169,9 +260,9 @@ ruleTester.run("array-element-newline", rule, {
                     column: 3,
                     messageId: "missingLineBreak",
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
 
         /*
@@ -188,9 +279,9 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
-                }
-            ]
+                    endColumn: 15,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2, 3];",
@@ -202,16 +293,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 17,
                     endLine: 1,
-                    endColumn: 18
-                }
-            ]
+                    endColumn: 18,
+                },
+            ],
         },
         {
             code: "var foo = [1,2, 3];",
@@ -223,16 +314,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 14
+                    endColumn: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 16,
                     endLine: 1,
-                    endColumn: 17
-                }
-            ]
+                    endColumn: 17,
+                },
+            ],
         },
         {
             code: "var foo = [1, (2), 3];",
@@ -244,16 +335,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 19,
                     endLine: 1,
-                    endColumn: 20
-                }
-            ]
+                    endColumn: 20,
+                },
+            ],
         },
         {
             code: "var foo = [1,(\n2\n), 3];",
@@ -263,14 +354,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
+                    column: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 3,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [1,        \t      (\n2\n),\n3];",
@@ -280,9 +371,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [1, ((((2)))), 3];",
@@ -294,16 +385,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 25,
                     endLine: 1,
-                    endColumn: 26
-                }
-            ]
+                    endColumn: 26,
+                },
+            ],
         },
         {
             code: "var foo = [1,/* any comment */(2), 3];",
@@ -315,16 +406,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 31,
                     endLine: 1,
-                    endColumn: 31
+                    endColumn: 31,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 35,
                     endLine: 1,
-                    endColumn: 36
-                }
-            ]
+                    endColumn: 36,
+                },
+            ],
         },
         {
             code: "var foo = [1,(  2), 3];",
@@ -336,16 +427,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 14
+                    endColumn: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 20,
                     endLine: 1,
-                    endColumn: 21
-                }
-            ]
+                    endColumn: 21,
+                },
+            ],
         },
         {
             code: "var foo = [1, [2], 3];",
@@ -357,16 +448,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 19,
                     endLine: 1,
-                    endColumn: 20
-                }
-            ]
+                    endColumn: 20,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
@@ -376,9 +467,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\n(function foo() {\ndosomething();\n}), function bar() {\ndosomething();\n}\n];",
@@ -388,9 +479,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 4
-                }
-            ]
+                    column: 4,
+                },
+            ],
         },
         {
             code: "var foo = [\n[1,\n2],\n3,[\n4]]",
@@ -400,9 +491,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     line: 4,
                     column: 3,
-                    messageId: "missingLineBreak"
-                }
-            ]
+                    messageId: "missingLineBreak",
+                },
+            ],
         },
 
         // "never"
@@ -414,9 +505,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n, 2\n];",
@@ -426,9 +517,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [\n1 // any comment\n, 2\n];",
@@ -438,9 +529,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, // any comment\n2\n];",
@@ -450,9 +541,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
-                    column: 18
-                }
-            ]
+                    column: 18,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,\n2 // any comment\n];",
@@ -462,9 +553,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,\n2,\n3\n];",
@@ -476,16 +567,16 @@ ruleTester.run("array-element-newline", rule, {
                     line: 2,
                     column: 3,
                     endLine: 3,
-                    endColumn: 1
+                    endColumn: 1,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 3,
                     column: 3,
                     endLine: 4,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
@@ -495,9 +586,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, /* any comment */\nfunction bar() {\ndosomething();\n}\n];",
@@ -507,9 +598,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 4,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
 
         {
@@ -520,9 +611,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     line: 1,
                     column: 15,
-                    messageId: "unexpectedLineBreak"
-                }
-            ]
+                    messageId: "unexpectedLineBreak",
+                },
+            ],
         },
 
         // "consistent"
@@ -536,9 +627,9 @@ ruleTester.run("array-element-newline", rule, {
                     line: 2,
                     column: 3,
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2,\n3];",
@@ -550,9 +641,9 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
-                }
-            ]
+                    endColumn: 15,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n(\n2), 3];",
@@ -564,9 +655,9 @@ ruleTester.run("array-element-newline", rule, {
                     line: 3,
                     column: 4,
                     endLine: 3,
-                    endColumn: 5
-                }
-            ]
+                    endColumn: 5,
+                },
+            ],
         },
         {
             code: "var foo = [1,        \t      (\n2\n),\n3];",
@@ -578,9 +669,9 @@ ruleTester.run("array-element-newline", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 29
-                }
-            ]
+                    endColumn: 29,
+                },
+            ],
         },
         {
             code: "var foo = [1, /* any comment */(2),\n3];",
@@ -590,9 +681,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 32
-                }
-            ]
+                    column: 32,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n},function bar() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}];",
@@ -602,9 +693,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,[2,3,\n[]],\n[]\n];",
@@ -614,14 +705,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     line: 2,
                     column: 3,
-                    messageId: "missingLineBreak"
+                    messageId: "missingLineBreak",
                 },
                 {
                     line: 2,
                     column: 6,
-                    messageId: "missingLineBreak"
-                }
-            ]
+                    messageId: "missingLineBreak",
+                },
+            ],
         },
 
         // { multiline: true }
@@ -633,9 +724,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
@@ -645,9 +736,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, /* any comment */ function bar() {\ndosomething();\n}\n];",
@@ -657,9 +748,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,2,3,\n[\n]\n];",
@@ -669,14 +760,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     line: 2,
                     column: 3,
-                    messageId: "missingLineBreak"
+                    messageId: "missingLineBreak",
                 },
                 {
                     line: 2,
                     column: 5,
-                    messageId: "missingLineBreak"
-                }
-            ]
+                    messageId: "missingLineBreak",
+                },
+            ],
         },
 
         // { minItems: null }
@@ -688,9 +779,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2,\n3];",
@@ -700,14 +791,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 14
+                    column: 14,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
@@ -717,9 +808,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
 
         // { minItems: 0 }
@@ -731,9 +822,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2, 3];",
@@ -743,14 +834,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
+                    column: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
@@ -760,9 +851,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
 
         // { minItems: 3 }
@@ -774,9 +865,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2, 3];",
@@ -786,14 +877,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
+                    column: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n},\nfunction bar() {\ndosomething();\n}\n];",
@@ -803,9 +894,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
 
         // { multiline: true, minItems: 3 }
@@ -817,14 +908,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 14
+                    column: 14,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -834,9 +925,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}, function bar() {\ndosomething();\n}\n];",
@@ -846,9 +937,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 4,
-                    column: 3
-                }
-            ]
+                    column: 3,
+                },
+            ],
         },
 
         /*
@@ -864,9 +955,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 8
-                }
-            ]
+                    column: 8,
+                },
+            ],
         },
         {
             code: "var [a, b, c] = foo;",
@@ -877,14 +968,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 8
+                    column: 8,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 11
-                }
-            ]
+                    column: 11,
+                },
+            ],
         },
 
         // { minItems: 3 }
@@ -897,9 +988,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 8
-                }
-            ]
+                    column: 8,
+                },
+            ],
         },
         {
             code: "var [a, b, c] = foo;",
@@ -910,14 +1001,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 8
+                    column: 8,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 11
-                }
-            ]
+                    column: 11,
+                },
+            ],
         },
 
         /*
@@ -933,14 +1024,14 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 8
+                    column: 8,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 2,
-                    column: 9
-                }
-            ]
+                    column: 9,
+                },
+            ],
         },
         {
             code: "var [a, b] = [1, 2]",
@@ -951,9 +1042,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "missingLineBreak",
                     line: 1,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: "var [a,\nb] = [1,\n2]",
@@ -964,10 +1055,9 @@ ruleTester.run("array-element-newline", rule, {
                 {
                     messageId: "unexpectedLineBreak",
                     line: 1,
-                    column: 8
-                }
-            ]
-        }
-    ]
-
+                    column: 8,
+                },
+            ],
+        },
+    ],
 });

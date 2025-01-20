@@ -3,7 +3,6 @@
 /* eslint consistent-return: 0 -- no default case */
 
 const messages = {
-
     env: `
 A config object is using the "env" key, which is not supported in flat config system.
 
@@ -110,10 +109,9 @@ https://eslint.org/docs/latest/use/configure/migration-guide#linter-options
 A config object is using the "root" key, which is not supported in flat config system.
 
 Flat configs always act as if they are the root config file, so this key can be safely removed.
-`
+`,
 };
 
-module.exports = function({ key }) {
-
+module.exports = function ({ key }) {
     return messages[key].trim();
 };

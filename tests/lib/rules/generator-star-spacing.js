@@ -20,13 +20,17 @@ const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2018 } });
 
 const missingBeforeError = { messageId: "missingBefore", type: "Punctuator" };
 const missingAfterError = { messageId: "missingAfter", type: "Punctuator" };
-const unexpectedBeforeError = { messageId: "unexpectedBefore", type: "Punctuator" };
-const unexpectedAfterError = { messageId: "unexpectedAfter", type: "Punctuator" };
+const unexpectedBeforeError = {
+    messageId: "unexpectedBefore",
+    type: "Punctuator",
+};
+const unexpectedAfterError = {
+    messageId: "unexpectedAfter",
+    type: "Punctuator",
+};
 
 ruleTester.run("generator-star-spacing", rule, {
-
     valid: [
-
         // Default ("before")
         "function foo(){}",
         "function *foo(){}",
@@ -44,485 +48,490 @@ ruleTester.run("generator-star-spacing", rule, {
         // "before"
         {
             code: "function foo(){}",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){}",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(arg1, arg2){}",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "var foo = function *foo(){};",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "var foo = function *(){};",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "var foo = { *foo(){} };",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "var foo = {*foo(){} };",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "class Foo { *foo(){} }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "class Foo {*foo(){} }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "class Foo { static *foo(){} }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "class Foo {*[ foo ](){} }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "var foo = {*[ foo ](){} };",
-            options: ["before"]
+            options: ["before"],
         },
 
         // "after"
         {
             code: "function foo(){}",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function* foo(){}",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function* foo(arg1, arg2){}",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "var foo = function* foo(){};",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "var foo = function* (){};",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "var foo = {* foo(){} };",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "var foo = { * foo(){} };",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "class Foo {* foo(){} }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "class Foo { * foo(){} }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "class Foo { static* foo(){} }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "var foo = {* [foo](){} };",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "class Foo {* [foo](){} }",
-            options: ["after"]
+            options: ["after"],
         },
 
         // "both"
         {
             code: "function foo(){}",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function * foo(){}",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function * foo(arg1, arg2){}",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "var foo = function * foo(){};",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "var foo = function * (){};",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "var foo = { * foo(){} };",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "var foo = {* foo(){} };",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "class Foo { * foo(){} }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "class Foo {* foo(){} }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "class Foo { static * foo(){} }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "var foo = {* [foo](){} };",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "class Foo {* [foo](){} }",
-            options: ["both"]
+            options: ["both"],
         },
 
         // "neither"
         {
             code: "function foo(){}",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function*foo(){}",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function*foo(arg1, arg2){}",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "var foo = function*foo(){};",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "var foo = function*(){};",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "var foo = {*foo(){} };",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "var foo = { *foo(){} };",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "class Foo {*foo(){} }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "class Foo { *foo(){} }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "class Foo { static*foo(){} }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "var foo = {*[ foo ](){} };",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "class Foo {*[ foo ](){} }",
-            options: ["neither"]
+            options: ["neither"],
         },
 
         // {"before": true, "after": false}
         {
             code: "function foo(){}",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "function *foo(){}",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "function *foo(arg1, arg2){}",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "var foo = function *foo(){};",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "var foo = function *(){};",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "var foo = { *foo(){} };",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "var foo = {*foo(){} };",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "class Foo { *foo(){} }",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "class Foo {*foo(){} }",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "class Foo { static *foo(){} }",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
 
         // {"before": false, "after": true}
         {
             code: "function foo(){}",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "function* foo(){}",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "function* foo(arg1, arg2){}",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "var foo = function* foo(){};",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "var foo = function* (){};",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "var foo = {* foo(){} };",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "var foo = { * foo(){} };",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "class Foo {* foo(){} }",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "class Foo { * foo(){} }",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "class Foo { static* foo(){} }",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
 
         // {"before": true, "after": true}
         {
             code: "function foo(){}",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "function * foo(){}",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "function * foo(arg1, arg2){}",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "var foo = function * foo(){};",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "var foo = function * (){};",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "var foo = { * foo(){} };",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "var foo = {* foo(){} };",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "class Foo { * foo(){} }",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "class Foo {* foo(){} }",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "class Foo { static * foo(){} }",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
 
         // {"before": false, "after": false}
         {
             code: "function foo(){}",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "function*foo(){}",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "function*foo(arg1, arg2){}",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "var foo = function*foo(){};",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "var foo = function*(){};",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "var foo = {*foo(){} };",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "var foo = { *foo(){} };",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "class Foo {*foo(){} }",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "class Foo { *foo(){} }",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "class Foo { static*foo(){} }",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
 
         // full configurability
         {
             code: "function * foo(){}",
-            options: [{ before: false, after: false, named: "both" }]
+            options: [{ before: false, after: false, named: "both" }],
         },
         {
             code: "var foo = function * (){};",
-            options: [{ before: false, after: false, anonymous: "both" }]
+            options: [{ before: false, after: false, anonymous: "both" }],
         },
         {
             code: "class Foo { * foo(){} }",
-            options: [{ before: false, after: false, method: "both" }]
+            options: [{ before: false, after: false, method: "both" }],
         },
         {
             code: "var foo = { * foo(){} }",
-            options: [{ before: false, after: false, method: "both" }]
+            options: [{ before: false, after: false, method: "both" }],
         },
         {
             code: "var foo = { bar: function * () {} }",
-            options: [{ before: false, after: false, anonymous: "both" }]
+            options: [{ before: false, after: false, anonymous: "both" }],
         },
         {
             code: "class Foo { static * foo(){} }",
-            options: [{ before: false, after: false, method: "both" }]
+            options: [{ before: false, after: false, method: "both" }],
         },
 
         // default to top level "before"
         {
             code: "function *foo(){}",
-            options: [{ method: "both" }]
+            options: [{ method: "both" }],
         },
 
         // don't apply unrelated override
         {
             code: "function*foo(){}",
-            options: [{ before: false, after: false, method: "both" }]
+            options: [{ before: false, after: false, method: "both" }],
         },
 
         // ensure using object-type override works
         {
             code: "function * foo(){}",
-            options: [{ before: false, after: false, named: { before: true, after: true } }]
+            options: [
+                {
+                    before: false,
+                    after: false,
+                    named: { before: true, after: true },
+                },
+            ],
         },
 
         // unspecified option uses default
         {
             code: "function *foo(){}",
-            options: [{ before: false, after: false, named: { before: true } }]
+            options: [{ before: false, after: false, named: { before: true } }],
         },
 
         // https://github.com/eslint/eslint/issues/7101#issuecomment-246080531
         {
             code: "async function foo() { }",
-            languageOptions: { ecmaVersion: 8 }
+            languageOptions: { ecmaVersion: 8 },
         },
         {
             code: "(async function() { })",
-            languageOptions: { ecmaVersion: 8 }
+            languageOptions: { ecmaVersion: 8 },
         },
         {
             code: "async () => { }",
-            languageOptions: { ecmaVersion: 8 }
+            languageOptions: { ecmaVersion: 8 },
         },
         {
             code: "({async foo() { }})",
-            languageOptions: { ecmaVersion: 8 }
+            languageOptions: { ecmaVersion: 8 },
         },
         {
             code: "class A {async foo() { }}",
-            languageOptions: { ecmaVersion: 8 }
+            languageOptions: { ecmaVersion: 8 },
         },
         {
             code: "(class {async foo() { }})",
-            languageOptions: { ecmaVersion: 8 }
-        }
+            languageOptions: { ecmaVersion: 8 },
+        },
     ],
 
     invalid: [
-
         // Default ("before")
         {
             code: "function*foo(){}",
             output: "function *foo(){}",
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "function* foo(arg1, arg2){}",
             output: "function *foo(arg1, arg2){}",
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function*foo(){};",
             output: "var foo = function *foo(){};",
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "var foo = function* (){};",
             output: "var foo = function *(){};",
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = {* foo(){} };",
             output: "var foo = {*foo(){} };",
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo {* foo(){} }",
             output: "class Foo {*foo(){} }",
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { static* foo(){} }",
             output: "class Foo { static *foo(){} }",
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
 
         // "before"
@@ -530,49 +539,49 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function *foo(){}",
             options: ["before"],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "function* foo(arg1, arg2){}",
             output: "function *foo(arg1, arg2){}",
             options: ["before"],
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function*foo(){};",
             output: "var foo = function *foo(){};",
             options: ["before"],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "var foo = function* (){};",
             output: "var foo = function *(){};",
             options: ["before"],
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = {* foo(){} };",
             output: "var foo = {*foo(){} };",
             options: ["before"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo {* foo(){} }",
             output: "class Foo {*foo(){} }",
             options: ["before"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "var foo = {* [ foo ](){} };",
             output: "var foo = {*[ foo ](){} };",
             options: ["before"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo {* [ foo ](){} }",
             output: "class Foo {*[ foo ](){} }",
             options: ["before"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
 
         // "after"
@@ -580,55 +589,55 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function* foo(){}",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "function *foo(arg1, arg2){}",
             output: "function* foo(arg1, arg2){}",
             options: ["after"],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = function *foo(){};",
             output: "var foo = function* foo(){};",
             options: ["after"],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = function *(){};",
             output: "var foo = function* (){};",
             options: ["after"],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = { *foo(){} };",
             output: "var foo = { * foo(){} };",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { *foo(){} }",
             output: "class Foo { * foo(){} }",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { static *foo(){} }",
             output: "class Foo { static* foo(){} }",
             options: ["after"],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = { *[foo](){} };",
             output: "var foo = { * [foo](){} };",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { *[foo](){} }",
             output: "class Foo { * [foo](){} }",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
 
         // "both"
@@ -636,55 +645,55 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function * foo(){}",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "function*foo(arg1, arg2){}",
             output: "function * foo(arg1, arg2){}",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = function*foo(){};",
             output: "var foo = function * foo(){};",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = function*(){};",
             output: "var foo = function * (){};",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = {*foo(){} };",
             output: "var foo = {* foo(){} };",
             options: ["both"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo {*foo(){} }",
             output: "class Foo {* foo(){} }",
             options: ["both"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { static*foo(){} }",
             output: "class Foo { static * foo(){} }",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = {*[foo](){} };",
             output: "var foo = {* [foo](){} };",
             options: ["both"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo {*[foo](){} }",
             output: "class Foo {* [foo](){} }",
             options: ["both"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
 
         // "neither"
@@ -692,55 +701,55 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function * foo(){}",
             output: "function*foo(){}",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "function * foo(arg1, arg2){}",
             output: "function*foo(arg1, arg2){}",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function * foo(){};",
             output: "var foo = function*foo(){};",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function * (){};",
             output: "var foo = function*(){};",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = { * foo(){} };",
             output: "var foo = { *foo(){} };",
             options: ["neither"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { * foo(){} }",
             output: "class Foo { *foo(){} }",
             options: ["neither"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { static * foo(){} }",
             output: "class Foo { static*foo(){} }",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = { * [ foo ](){} };",
             output: "var foo = { *[ foo ](){} };",
             options: ["neither"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { * [ foo ](){} }",
             output: "class Foo { *[ foo ](){} }",
             options: ["neither"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
 
         // {"before": true, "after": false}
@@ -748,37 +757,37 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function *foo(){}",
             options: [{ before: true, after: false }],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "function* foo(arg1, arg2){}",
             output: "function *foo(arg1, arg2){}",
             options: [{ before: true, after: false }],
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function*foo(){};",
             output: "var foo = function *foo(){};",
             options: [{ before: true, after: false }],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "var foo = function* (){};",
             output: "var foo = function *(){};",
             options: [{ before: true, after: false }],
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = {* foo(){} };",
             output: "var foo = {*foo(){} };",
             options: [{ before: true, after: false }],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo {* foo(){} }",
             output: "class Foo {*foo(){} }",
             options: [{ before: true, after: false }],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
 
         // {"before": false, "after": true}
@@ -786,43 +795,43 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function* foo(){}",
             options: [{ before: false, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "function *foo(arg1, arg2){}",
             output: "function* foo(arg1, arg2){}",
             options: [{ before: false, after: true }],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = function *foo(){};",
             output: "var foo = function* foo(){};",
             options: [{ before: false, after: true }],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = function *(){};",
             output: "var foo = function* (){};",
             options: [{ before: false, after: true }],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "var foo = { *foo(){} };",
             output: "var foo = { * foo(){} };",
             options: [{ before: false, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { *foo(){} }",
             output: "class Foo { * foo(){} }",
             options: [{ before: false, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { static *foo(){} }",
             output: "class Foo { static* foo(){} }",
             options: [{ before: false, after: true }],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
 
         // {"before": true, "after": true}
@@ -830,43 +839,43 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function * foo(){}",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "function*foo(arg1, arg2){}",
             output: "function * foo(arg1, arg2){}",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = function*foo(){};",
             output: "var foo = function * foo(){};",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = function*(){};",
             output: "var foo = function * (){};",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = {*foo(){} };",
             output: "var foo = {* foo(){} };",
             options: [{ before: true, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo {*foo(){} }",
             output: "class Foo {* foo(){} }",
             options: [{ before: true, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "class Foo { static*foo(){} }",
             output: "class Foo { static * foo(){} }",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
 
         // {"before": false, "after": false}
@@ -874,43 +883,43 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function * foo(){}",
             output: "function*foo(){}",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "function * foo(arg1, arg2){}",
             output: "function*foo(arg1, arg2){}",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function * foo(){};",
             output: "var foo = function*foo(){};",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = function * (){};",
             output: "var foo = function*(){};",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "var foo = { * foo(){} };",
             output: "var foo = { *foo(){} };",
             options: [{ before: false, after: false }],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { * foo(){} }",
             output: "class Foo { *foo(){} }",
             options: [{ before: false, after: false }],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "class Foo { static * foo(){} }",
             output: "class Foo { static*foo(){} }",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
 
         // full configurability
@@ -918,37 +927,37 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function * foo(){}",
             options: [{ before: false, after: false, named: "both" }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "var foo = function*(){};",
             output: "var foo = function * (){};",
             options: [{ before: false, after: false, anonymous: "both" }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "class Foo { *foo(){} }",
             output: "class Foo { * foo(){} }",
             options: [{ before: false, after: false, method: "both" }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "var foo = { *foo(){} }",
             output: "var foo = { * foo(){} }",
             options: [{ before: false, after: false, method: "both" }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "var foo = { bar: function*() {} }",
             output: "var foo = { bar: function * () {} }",
             options: [{ before: false, after: false, anonymous: "both" }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "class Foo { static*foo(){} }",
             output: "class Foo { static * foo(){} }",
             options: [{ before: false, after: false, method: "both" }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
 
         // default to top level "before"
@@ -956,7 +965,7 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function *foo(){}",
             options: [{ method: "both" }],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
 
         // don't apply unrelated override
@@ -964,15 +973,21 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function * foo(){}",
             output: "function*foo(){}",
             options: [{ before: false, after: false, method: "both" }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
 
         // ensure using object-type override works
         {
             code: "function*foo(){}",
             output: "function * foo(){}",
-            options: [{ before: false, after: false, named: { before: true, after: true } }],
-            errors: [missingBeforeError, missingAfterError]
+            options: [
+                {
+                    before: false,
+                    after: false,
+                    named: { before: true, after: true },
+                },
+            ],
+            errors: [missingBeforeError, missingAfterError],
         },
 
         // unspecified option uses default
@@ -980,7 +995,7 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "function*foo(){}",
             output: "function *foo(){}",
             options: [{ before: false, after: false, named: { before: true } }],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
 
         // async generators
@@ -988,39 +1003,37 @@ ruleTester.run("generator-star-spacing", rule, {
             code: "({ async * foo(){} })",
             output: "({ async*foo(){} })",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "({ async*foo(){} })",
             output: "({ async * foo(){} })",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "class Foo { async * foo(){} }",
             output: "class Foo { async*foo(){} }",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "class Foo { async*foo(){} }",
             output: "class Foo { async * foo(){} }",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "class Foo { static async * foo(){} }",
             output: "class Foo { static async*foo(){} }",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
         {
             code: "class Foo { static async*foo(){} }",
             output: "class Foo { static async * foo(){} }",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
-        }
-
-    ]
-
+            errors: [missingBeforeError, missingAfterError],
+        },
+    ],
 });

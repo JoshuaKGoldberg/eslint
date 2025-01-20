@@ -12,7 +12,7 @@
 const {
     parseRuleId,
     getRuleFromConfig,
-    getRuleOptionsSchema
+    getRuleOptionsSchema,
 } = require("../../../lib/config/flat-config-helpers");
 const assert = require("chai").assert;
 
@@ -21,16 +21,13 @@ const assert = require("chai").assert;
 //-----------------------------------------------------------------------------
 
 describe("Config Helpers", () => {
-
-
     describe("parseRuleId()", () => {
-
         it("should return plugin name and rule name for core rule", () => {
             const result = parseRuleId("foo");
 
             assert.deepStrictEqual(result, {
                 pluginName: "@",
-                ruleName: "foo"
+                ruleName: "foo",
             });
         });
 
@@ -39,16 +36,18 @@ describe("Config Helpers", () => {
 
             assert.deepStrictEqual(result, {
                 pluginName: "test",
-                ruleName: "foo"
+                ruleName: "foo",
             });
         });
 
         it("should return plugin name and rule name with a/b/c format", () => {
-            const result = parseRuleId("node/no-unsupported-features/es-builtins");
+            const result = parseRuleId(
+                "node/no-unsupported-features/es-builtins",
+            );
 
             assert.deepStrictEqual(result, {
                 pluginName: "node",
-                ruleName: "no-unsupported-features/es-builtins"
+                ruleName: "no-unsupported-features/es-builtins",
             });
         });
 
@@ -57,7 +56,7 @@ describe("Config Helpers", () => {
 
             assert.deepStrictEqual(result, {
                 pluginName: "@test/foo",
-                ruleName: "bar"
+                ruleName: "bar",
             });
         });
     });
@@ -69,16 +68,15 @@ describe("Config Helpers", () => {
                 plugins: {
                     test: {
                         rules: {
-                            one: rule
-                        }
-                    }
-                }
+                            one: rule,
+                        },
+                    },
+                },
             };
 
             const result = getRuleFromConfig("test/one", config);
 
             assert.strictEqual(result, rule);
-
         });
 
         it("should retrieve rule from core in config", () => {
@@ -87,16 +85,15 @@ describe("Config Helpers", () => {
                 plugins: {
                     "@": {
                         rules: {
-                            semi: rule
-                        }
-                    }
-                }
+                            semi: rule,
+                        },
+                    },
+                },
             };
 
             const result = getRuleFromConfig("semi", config);
 
             assert.strictEqual(result, rule);
-
         });
     });
 
@@ -104,7 +101,7 @@ describe("Config Helpers", () => {
         const noOptionsSchema = {
             type: "array",
             minItems: 0,
-            maxItems: 0
+            maxItems: 0,
         };
 
         it("should return schema that doesn't accept options if rule doesn't have `meta`", () => {
@@ -140,23 +137,22 @@ describe("Config Helpers", () => {
             const rule = { meta: { schema: [firstOption] } };
             const result = getRuleOptionsSchema(rule);
 
-            assert.deepStrictEqual(
-                result,
-                {
-                    type: "array",
-                    items: [firstOption],
-                    minItems: 0,
-                    maxItems: 1
-                }
-            );
+            assert.deepStrictEqual(result, {
+                type: "array",
+                items: [firstOption],
+                minItems: 0,
+                maxItems: 1,
+            });
         });
 
         it("should return `meta.schema` as is if `meta.schema` is an object", () => {
             const schema = {
                 type: "array",
-                items: [{
-                    enum: ["always", "never"]
-                }]
+                items: [
+                    {
+                        enum: ["always", "never"],
+                    },
+                ],
             };
             const rule = { meta: { schema } };
             const result = getRuleOptionsSchema(rule);
@@ -171,7 +167,7 @@ describe("Config Helpers", () => {
             assert.strictEqual(result, null);
         });
 
-        [null, true, 0, 1, "", "always", () => {}].forEach(schema => {
+        [null, true, 0, 1, "", "always", () => {}].forEach((schema) => {
             it(`should throw an error if \`meta.schema\` is ${typeof schema} ${schema}`, () => {
                 const rule = { meta: { schema } };
 
@@ -188,5 +184,4 @@ describe("Config Helpers", () => {
             assert.deepStrictEqual(result, noOptionsSchema);
         });
     });
-
 });

@@ -2,13 +2,12 @@
 title: no-void
 rule_type: suggestion
 related_rules:
-- no-undef-init
-- no-undefined
+    - no-undef-init
+    - no-undefined
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
-- https://oreilly.com/javascript/excerpts/javascript-good-parts/bad-parts.html
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
+    - https://oreilly.com/javascript/excerpts/javascript-good-parts/bad-parts.html
 ---
-
 
 The `void` operator takes an operand and returns `undefined`: `void expression` will evaluate `expression` and return `undefined`. It can be used to ignore any side effects `expression` may produce:
 
@@ -16,19 +15,19 @@ The common case of using `void` operator is to get a "pure" `undefined` value as
 
 ```js
 // will always return undefined
-(function(){
+(function () {
     return void 0;
 })();
 
 // will return 1 in ES3 and undefined in ES5+
-(function(){
+(function () {
     undefined = 1;
     return undefined;
 })();
 
 // will throw TypeError in ES5+
-(function(){
-    'use strict';
+(function () {
+    "use strict";
     undefined = 1;
 })();
 ```
@@ -44,8 +43,12 @@ When used with IIFE (immediately-invoked function expression), `void` can be use
 
 ```js
 var foo = 1;
-void function(){ foo = 1; }() // will assign foo a value of 1
-+function(){ foo = 1; }() // same as above
+void (function () {
+    foo = 1;
+})() + // will assign foo a value of 1
+    (function () {
+        foo = 1;
+    })(); // same as above
 ```
 
 ```js
@@ -65,7 +68,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-void: "error"*/
 
-void foo
+void foo;
 void someFunction();
 
 var foo = void bar();
@@ -80,7 +83,7 @@ function baz() {
 
 This rule has an object option:
 
-* `allowAsStatement` set to `true` allows the `void` operator to be used as a statement (Default `false`).
+- `allowAsStatement` set to `true` allows the `void` operator to be used as a statement (Default `false`).
 
 ### allowAsStatement
 

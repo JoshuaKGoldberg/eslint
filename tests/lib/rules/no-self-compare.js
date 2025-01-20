@@ -26,32 +26,104 @@ ruleTester.run("no-self-compare", rule, {
         "foo.bar.baz === foo.bar.qux",
         {
             code: "class C { #field; foo() { this.#field === this['#field']; } }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C { #field; foo() { this['#field'] === this.#field; } }",
-            languageOptions: { ecmaVersion: 2022 }
-        }
+            languageOptions: { ecmaVersion: 2022 },
+        },
     ],
     invalid: [
-        { code: "if (x === x) { }", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "if (x !== x) { }", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "if (x > x) { }", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "if ('x' > 'x') { }", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "do {} while (x === x)", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x === x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x !== x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x == x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x != x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x > x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x < x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x >= x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "x <= x", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
-        { code: "foo.bar().baz.qux >= foo.bar ().baz .qux", errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }] },
+        {
+            code: "if (x === x) { }",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "if (x !== x) { }",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "if (x > x) { }",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "if ('x' > 'x') { }",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "do {} while (x === x)",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x === x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x !== x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x == x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x != x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x > x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x < x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x >= x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "x <= x",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+        {
+            code: "foo.bar().baz.qux >= foo.bar ().baz .qux",
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
         {
             code: "class C { #field; foo() { this.#field === this.#field; } }",
             languageOptions: { ecmaVersion: 2022 },
-            errors: [{ messageId: "comparingToSelf", type: "BinaryExpression" }]
-        }
-    ]
+            errors: [
+                { messageId: "comparingToSelf", type: "BinaryExpression" },
+            ],
+        },
+    ],
 });

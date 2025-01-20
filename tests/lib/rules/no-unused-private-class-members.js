@@ -27,8 +27,8 @@ function definedError(classMemberName) {
     return {
         messageId: "unusedPrivateClassMember",
         data: {
-            classMemberName: `#${classMemberName}`
-        }
+            classMemberName: `#${classMemberName}`,
+        },
     };
 }
 
@@ -177,35 +177,38 @@ ruleTester.run("no-unused-private-class-members", rule, {
     foo() {
         this.#x = 1;
     }
-}`
+}`,
     ],
     invalid: [
         {
             code: `class Foo {
     #unusedMember = 5;
 }`,
-            errors: [definedError("unusedMember")]
+            errors: [definedError("unusedMember")],
         },
         {
             code: `class First {}
 class Second {
     #unusedMemberInSecondClass = 5;
 }`,
-            errors: [definedError("unusedMemberInSecondClass")]
+            errors: [definedError("unusedMemberInSecondClass")],
         },
         {
             code: `class First {
     #unusedMemberInFirstClass = 5;
 }
 class Second {}`,
-            errors: [definedError("unusedMemberInFirstClass")]
+            errors: [definedError("unusedMemberInFirstClass")],
         },
         {
             code: `class First {
     #firstUnusedMemberInSameClass = 5;
     #secondUnusedMemberInSameClass = 5;
 }`,
-            errors: [definedError("firstUnusedMemberInSameClass"), definedError("secondUnusedMemberInSameClass")]
+            errors: [
+                definedError("firstUnusedMemberInSameClass"),
+                definedError("secondUnusedMemberInSameClass"),
+            ],
         },
         {
             code: `class Foo {
@@ -214,7 +217,7 @@ class Second {}`,
         this.#usedOnlyInWrite = 42;
     }
 }`,
-            errors: [definedError("usedOnlyInWrite")]
+            errors: [definedError("usedOnlyInWrite")],
         },
         {
             code: `class Foo {
@@ -223,7 +226,7 @@ class Second {}`,
         this.#usedOnlyInWriteStatement += 42;
     }
 }`,
-            errors: [definedError("usedOnlyInWriteStatement")]
+            errors: [definedError("usedOnlyInWriteStatement")],
         },
         {
             code: `class C {
@@ -233,7 +236,7 @@ class Second {}`,
         this.#usedOnlyInIncrement++;
     }
 }`,
-            errors: [definedError("usedOnlyInIncrement")]
+            errors: [definedError("usedOnlyInIncrement")],
         },
         {
             code: `class C {
@@ -249,7 +252,7 @@ class Second {}`,
         };
     }
 }`,
-            errors: [definedError("unusedInOuterClass")]
+            errors: [definedError("unusedInOuterClass")],
         },
         {
             code: `class C {
@@ -275,7 +278,7 @@ class Second {}`,
         }
     }
 }`,
-            errors: [definedError("unusedOnlyInSecondNestedClass")]
+            errors: [definedError("unusedOnlyInSecondNestedClass")],
         },
 
         //--------------------------------------------------------------------------
@@ -285,7 +288,7 @@ class Second {}`,
             code: `class Foo {
     #unusedMethod() {}
 }`,
-            errors: [definedError("unusedMethod")]
+            errors: [definedError("unusedMethod")],
         },
         {
             code: `class Foo {
@@ -297,13 +300,13 @@ class Second {}`,
         return this.#usedMethod();
     }
 }`,
-            errors: [definedError("unusedMethod")]
+            errors: [definedError("unusedMethod")],
         },
         {
             code: `class Foo {
     set #unusedSetter(value) {}
 }`,
-            errors: [definedError("unusedSetter")]
+            errors: [definedError("unusedSetter")],
         },
         {
             code: `class Foo {
@@ -314,7 +317,7 @@ class Second {}`,
         }
     }
 }`,
-            errors: [definedError("unusedForInLoop")]
+            errors: [definedError("unusedForInLoop")],
         },
         {
             code: `class Foo {
@@ -325,7 +328,7 @@ class Second {}`,
         }
     }
 }`,
-            errors: [definedError("unusedForOfLoop")]
+            errors: [definedError("unusedForOfLoop")],
         },
         {
             code: `class Foo {
@@ -334,7 +337,7 @@ class Second {}`,
         ({ x: this.#unusedInDestructuring } = bar);
     }
 }`,
-            errors: [definedError("unusedInDestructuring")]
+            errors: [definedError("unusedInDestructuring")],
         },
         {
             code: `class Foo {
@@ -343,7 +346,7 @@ class Second {}`,
         [...this.#unusedInRestPattern] = bar;
     }
 }`,
-            errors: [definedError("unusedInRestPattern")]
+            errors: [definedError("unusedInRestPattern")],
         },
         {
             code: `class Foo {
@@ -352,7 +355,7 @@ class Second {}`,
         [this.#unusedInAssignmentPattern = 1] = bar;
     }
 }`,
-            errors: [definedError("unusedInAssignmentPattern")]
+            errors: [definedError("unusedInAssignmentPattern")],
         },
         {
             code: `class Foo {
@@ -361,7 +364,7 @@ class Second {}`,
         [this.#unusedInAssignmentPattern] = bar;
     }
 }`,
-            errors: [definedError("unusedInAssignmentPattern")]
+            errors: [definedError("unusedInAssignmentPattern")],
         },
         {
             code: `class C {
@@ -381,10 +384,12 @@ class Second {}`,
         }
     }
 }`,
-            errors: [{
-                ...definedError("usedOnlyInTheSecondInnerClass"),
-                line: 2
-            }]
-        }
-    ]
+            errors: [
+                {
+                    ...definedError("usedOnlyInTheSecondInnerClass"),
+                    line: 2,
+                },
+            ],
+        },
+    ],
 });

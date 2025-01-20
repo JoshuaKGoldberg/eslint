@@ -3,7 +3,6 @@ title: no-catch-shadow
 rule_type: suggestion
 ---
 
-
 This rule was **deprecated** in ESLint v5.1.0.
 
 In IE 8 and earlier, the catch clause parameter can overwrite the value of a variable in the outer scope, if that variable has the same name as the catch clause parameter.
@@ -13,11 +12,9 @@ var err = "x";
 
 try {
     throw "problem";
-} catch (err) {
+} catch (err) {}
 
-}
-
-console.log(err)    // err is 'problem', not 'x'
+console.log(err); // err is 'problem', not 'x'
 ```
 
 ## Rule Details
@@ -35,19 +32,15 @@ var err = "x";
 
 try {
     throw "problem";
-} catch (err) {
-
-}
+} catch (err) {}
 
 function error() {
     // ...
-};
+}
 
 try {
     throw "problem";
-} catch (error) {
-
-}
+} catch (error) {}
 ```
 
 :::
@@ -63,19 +56,15 @@ var err = "x";
 
 try {
     throw "problem";
-} catch (e) {
-
-}
+} catch (e) {}
 
 function error() {
     // ...
-};
+}
 
 try {
     throw "problem";
-} catch (e) {
-
-}
+} catch (e) {}
 ```
 
 :::

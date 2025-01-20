@@ -25,7 +25,7 @@ function destructuringTest(code) {
     return {
         code,
         options: ["self"],
-        languageOptions: { ecmaVersion: 6 }
+        languageOptions: { ecmaVersion: 6 },
     };
 }
 
@@ -36,8 +36,8 @@ function destructuringTest(code) {
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 5,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("consistent-this", rule, {
@@ -55,19 +55,133 @@ ruleTester.run("consistent-this", rule, {
         destructuringTest("var {foo, bar} = this"),
         destructuringTest("({foo, bar} = this)"),
         destructuringTest("var [foo, bar] = this"),
-        destructuringTest("[foo, bar] = this")
+        destructuringTest("[foo, bar] = this"),
     ],
     invalid: [
-        { code: "var context = this", errors: [{ messageId: "unexpectedAlias", data: { name: "context" }, type: "VariableDeclarator" }] },
-        { code: "var that = this", options: ["self"], errors: [{ messageId: "unexpectedAlias", data: { name: "that" }, type: "VariableDeclarator" }] },
-        { code: "var foo = 42, self = this", options: ["that"], errors: [{ messageId: "unexpectedAlias", data: { name: "self" }, type: "VariableDeclarator" }] },
-        { code: "var self = 42", options: ["self"], errors: [{ messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "VariableDeclarator" }] },
-        { code: "var self", options: ["self"], errors: [{ messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "VariableDeclarator" }] },
-        { code: "var self; self = 42", options: ["self"], errors: [{ messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "VariableDeclarator" }, { messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "AssignmentExpression" }] },
-        { code: "context = this", options: ["that"], errors: [{ messageId: "unexpectedAlias", data: { name: "context" }, type: "AssignmentExpression" }] },
-        { code: "that = this", options: ["self"], errors: [{ messageId: "unexpectedAlias", data: { name: "that" }, type: "AssignmentExpression" }] },
-        { code: "self = this", options: ["that"], errors: [{ messageId: "unexpectedAlias", data: { name: "self" }, type: "AssignmentExpression" }] },
-        { code: "self += this", options: ["self"], errors: [{ messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "AssignmentExpression" }] },
-        { code: "var self; (function() { self = this; }())", options: ["self"], errors: [{ messageId: "aliasNotAssignedToThis", data: { name: "self" }, type: "VariableDeclarator" }] }
-    ]
+        {
+            code: "var context = this",
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "context" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+        {
+            code: "var that = this",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "that" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+        {
+            code: "var foo = 42, self = this",
+            options: ["that"],
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "self" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+        {
+            code: "var self = 42",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+        {
+            code: "var self",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+        {
+            code: "var self; self = 42",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "VariableDeclarator",
+                },
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "AssignmentExpression",
+                },
+            ],
+        },
+        {
+            code: "context = this",
+            options: ["that"],
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "context" },
+                    type: "AssignmentExpression",
+                },
+            ],
+        },
+        {
+            code: "that = this",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "that" },
+                    type: "AssignmentExpression",
+                },
+            ],
+        },
+        {
+            code: "self = this",
+            options: ["that"],
+            errors: [
+                {
+                    messageId: "unexpectedAlias",
+                    data: { name: "self" },
+                    type: "AssignmentExpression",
+                },
+            ],
+        },
+        {
+            code: "self += this",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "AssignmentExpression",
+                },
+            ],
+        },
+        {
+            code: "var self; (function() { self = this; }())",
+            options: ["self"],
+            errors: [
+                {
+                    messageId: "aliasNotAssignedToThis",
+                    data: { name: "self" },
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+    ],
 });

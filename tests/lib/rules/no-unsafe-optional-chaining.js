@@ -14,7 +14,7 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 
 const languageOptions = {
     ecmaVersion: 2021,
-    sourceType: "module"
+    sourceType: "module",
 };
 
 const ruleTester = new RuleTester({ languageOptions });
@@ -165,23 +165,27 @@ ruleTester.run("no-unsafe-optional-chaining", rule, {
               bar /= ((await obj?.foo) ?? baz);
               bar %= ((await obj?.foo) ?? baz);
               bar **= ((await obj?.foo) ?? baz);
-            }`
-        ].map(code => ({
+            }`,
+        ].map((code) => ({
             code,
-            options: [{
-                disallowArithmeticOperators: true
-            }]
+            options: [
+                {
+                    disallowArithmeticOperators: true,
+                },
+            ],
         })),
         {
             code: "obj?.foo - bar;",
-            options: [{}]
+            options: [{}],
         },
         {
             code: "obj?.foo - bar;",
-            options: [{
-                disallowArithmeticOperators: false
-            }]
-        }
+            options: [
+                {
+                    disallowArithmeticOperators: false,
+                },
+            ],
+        },
     ],
 
     invalid: [
@@ -272,10 +276,12 @@ ruleTester.run("no-unsafe-optional-chaining", rule, {
             "async function foo() { (await (a ? b : obj?.foo))(); }",
             "async function foo() { (await (a ? obj?.foo : b))[1]; }",
             "async function foo() { (await (a ? b : obj?.foo)).bar; }",
-            "async function foo() { (a ? b : await obj?.foo).bar; }"
-        ].map(code => ({
+            "async function foo() { (a ? b : await obj?.foo).bar; }",
+        ].map((code) => ({
             code,
-            errors: [{ messageId: "unsafeOptionalChain", type: "ChainExpression" }]
+            errors: [
+                { messageId: "unsafeOptionalChain", type: "ChainExpression" },
+            ],
         })),
         {
             code: "(obj?.foo && obj?.baz).bar",
@@ -284,43 +290,43 @@ ruleTester.run("no-unsafe-optional-chaining", rule, {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 2
+                    column: 2,
                 },
                 {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
         {
             code: "with (obj?.foo) {};",
             languageOptions: {
-                sourceType: "script"
+                sourceType: "script",
             },
             errors: [
                 {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 7
-                }
-            ]
+                    column: 7,
+                },
+            ],
         },
         {
             code: "async function foo() { with ( await obj?.foo) {}; }",
             languageOptions: {
-                sourceType: "script"
+                sourceType: "script",
             },
             errors: [
                 {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 37
-                }
-            ]
+                    column: 37,
+                },
+            ],
         },
         {
             code: "(foo ? obj?.foo : obj?.bar).bar",
@@ -329,15 +335,15 @@ ruleTester.run("no-unsafe-optional-chaining", rule, {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 8
+                    column: 8,
                 },
                 {
                     messageId: "unsafeOptionalChain",
                     type: "ChainExpression",
                     line: 1,
-                    column: 19
-                }
-            ]
+                    column: 19,
+                },
+            ],
         },
         ...[
             "obj?.foo + bar;",
@@ -371,11 +377,13 @@ ruleTester.run("no-unsafe-optional-chaining", rule, {
             "bar += (foo ? bar : obj?.foo);",
             "async function foo() { await obj?.foo + bar; }",
             "async function foo() { (foo || await obj?.foo) + bar;}",
-            "async function foo() { bar + (foo || await obj?.foo); }"
-        ].map(code => ({
+            "async function foo() { bar + (foo || await obj?.foo); }",
+        ].map((code) => ({
             code,
             options: [{ disallowArithmeticOperators: true }],
-            errors: [{ messageId: "unsafeArithmetic", type: "ChainExpression" }]
-        }))
-    ]
+            errors: [
+                { messageId: "unsafeArithmetic", type: "ChainExpression" },
+            ],
+        })),
+    ],
 });

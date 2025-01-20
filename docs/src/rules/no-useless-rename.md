@@ -2,10 +2,8 @@
 title: no-useless-rename
 rule_type: suggestion
 related_rules:
-- object-shorthand
+    - object-shorthand
 ---
-
-
 
 ES2015 allows for the renaming of references in import and export statements as well as destructuring assignments. This gives programmers a concise syntax for performing these operations while renaming these references:
 
@@ -39,9 +37,9 @@ This rule disallows the renaming of import, export, and destructured assignments
 
 This rule allows for more fine-grained control with the following options:
 
-* `ignoreImport`: When set to `true`, this rule does not check imports
-* `ignoreExport`: When set to `true`, this rule does not check exports
-* `ignoreDestructuring`: When set to `true`, this rule does not check destructuring assignments
+- `ignoreImport`: When set to `true`, this rule does not check imports
+- `ignoreExport`: When set to `true`, this rule does not check exports
+- `ignoreDestructuring`: When set to `true`, this rule does not check destructuring assignments
 
 By default, all options are set to `false`:
 
@@ -67,9 +65,9 @@ export { foo2 as "foo2" };
 export { foo3 as foo3 } from "bar";
 export { "foo4" as "foo4" } from "bar";
 let { foo3: foo3 } = bar;
-let { 'foo4': foo4 } = bar;
+let { foo4: foo4 } = bar;
 function foo({ bar: bar }) {}
-({ foo: foo }) => {}
+({ foo: foo }) => {};
 ```
 
 :::
@@ -99,8 +97,8 @@ let { [qux]: qux } = bar;
 function foo3({ bar }) {}
 function foo4({ bar: baz }) {}
 
-({ foo }) => {}
-({ foo: bar }) => {}
+({ foo }) => {};
+({ foo: bar }) => {};
 ```
 
 :::
@@ -140,7 +138,7 @@ Examples of **correct** code for this rule with `{ ignoreDestructuring: true }`:
 
 let { foo: foo } = bar;
 function baz({ bar: bar }) {}
-({ foo: foo }) => {}
+({ foo: foo }) => {};
 ```
 
 :::
@@ -151,4 +149,4 @@ You can safely disable this rule if you do not care about redundantly renaming i
 
 ## Compatibility
 
-* **JSCS**: [disallowIdenticalDestructuringNames](https://jscs-dev.github.io/rule/disallowIdenticalDestructuringNames)
+- **JSCS**: [disallowIdenticalDestructuringNames](https://jscs-dev.github.io/rule/disallowIdenticalDestructuringNames)

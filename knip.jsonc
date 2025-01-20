@@ -7,9 +7,9 @@
             "mocha": {
                 "entry": [
                     "tests/{bin,conf,lib,tools}/**/*.js", // see Makefile.js
-                    "tests/_utils/test-lazy-loading-rules.js"
+                    "tests/_utils/test-lazy-loading-rules.js",
                 ],
-                "project": ["tests/**/*.js"]
+                "project": ["tests/**/*.js"],
             },
             "ignore": [
                 // If Knip would consider exports as named, their usage is too dynamic: globals[`es${ecmaVersion}`]
@@ -20,24 +20,24 @@
                 "tests/lib/rule-tester/rule-tester.js",
                 "tests/performance/jshint.js",
                 // Many are required using dynamic paths such as `fs.readFileSync(path.join())`:
-                "tests/fixtures/**"
+                "tests/fixtures/**",
             ],
             "ignoreDependencies": [
                 "c8",
                 "@wdio/cli",
                 "rollup-plugin-node-polyfills",
                 // Optional peer dependency used for loading TypeScript configuration files
-                "jiti"
-            ]
+                "jiti",
+            ],
         },
         "docs": {
-            "ignore": ["src/assets/js/search.js", "_examples/**"]
+            "ignore": ["src/assets/js/search.js", "_examples/**"],
         },
         // Workspaces with default configs:
         "packages/*": {
             "ignore": ["tests/types/**"],
-            "ignoreDependencies": ["eslint"]
+            "ignoreDependencies": ["eslint"],
         },
-        "tools/internal-rules": {}
-    }
+        "tools/internal-rules": {},
+    },
 }

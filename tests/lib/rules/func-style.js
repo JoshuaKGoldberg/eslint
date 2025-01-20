@@ -22,149 +22,185 @@ ruleTester.run("func-style", rule, {
     valid: [
         {
             code: "function foo(){}\n function bar(){}",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "foo.bar = function(){};",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "(function() { /* code */ }());",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "var module = (function() { return {}; }());",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "var object = { foo: function(){} };",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "Array.prototype.foo = function(){};",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "foo.bar = function(){};",
-            options: ["expression"]
+            options: ["expression"],
         },
         {
             code: "var foo = function(){};\n var bar = function(){};",
-            options: ["expression"]
+            options: ["expression"],
         },
         {
             code: "var foo = () => {};\n var bar = () => {}",
             options: ["expression"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
 
         // https://github.com/eslint/eslint/issues/3819
         {
             code: "var foo = function() { this; }.bind(this);",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "var foo = () => { this; };",
             options: ["declaration"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "class C extends D { foo() { var bar = () => { super.baz(); }; } }",
             options: ["declaration"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var obj = { foo() { var bar = () => super.baz; } }",
             options: ["declaration"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "export default function () {};",
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: "var foo = () => {};",
             options: ["declaration", { allowArrowFunctions: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var foo = () => { function foo() { this; } };",
             options: ["declaration", { allowArrowFunctions: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var foo = () => ({ bar() { super.baz(); } });",
             options: ["declaration", { allowArrowFunctions: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "export function foo() {};",
-            options: ["declaration"]
+            options: ["declaration"],
         },
         {
             code: "export function foo() {};",
-            options: ["expression", { overrides: { namedExports: "declaration" } }]
+            options: [
+                "expression",
+                { overrides: { namedExports: "declaration" } },
+            ],
         },
         {
             code: "export function foo() {};",
-            options: ["declaration", { overrides: { namedExports: "declaration" } }]
+            options: [
+                "declaration",
+                { overrides: { namedExports: "declaration" } },
+            ],
         },
         {
             code: "export function foo() {};",
-            options: ["expression", { overrides: { namedExports: "ignore" } }]
+            options: ["expression", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export function foo() {};",
-            options: ["declaration", { overrides: { namedExports: "ignore" } }]
+            options: ["declaration", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export var foo = function(){};",
-            options: ["expression"]
+            options: ["expression"],
         },
         {
             code: "export var foo = function(){};",
-            options: ["declaration", { overrides: { namedExports: "expression" } }]
+            options: [
+                "declaration",
+                { overrides: { namedExports: "expression" } },
+            ],
         },
         {
             code: "export var foo = function(){};",
-            options: ["expression", { overrides: { namedExports: "expression" } }]
+            options: [
+                "expression",
+                { overrides: { namedExports: "expression" } },
+            ],
         },
         {
             code: "export var foo = function(){};",
-            options: ["declaration", { overrides: { namedExports: "ignore" } }]
+            options: ["declaration", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export var foo = function(){};",
-            options: ["expression", { overrides: { namedExports: "ignore" } }]
+            options: ["expression", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export var foo = () => {};",
-            options: ["expression", { overrides: { namedExports: "expression" } }]
+            options: [
+                "expression",
+                { overrides: { namedExports: "expression" } },
+            ],
         },
         {
             code: "export var foo = () => {};",
-            options: ["declaration", { overrides: { namedExports: "expression" } }]
+            options: [
+                "declaration",
+                { overrides: { namedExports: "expression" } },
+            ],
         },
         {
             code: "export var foo = () => {};",
-            options: ["declaration", { overrides: { namedExports: "ignore" } }]
+            options: ["declaration", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export var foo = () => {};",
-            options: ["expression", { overrides: { namedExports: "ignore" } }]
+            options: ["expression", { overrides: { namedExports: "ignore" } }],
         },
         {
             code: "export var foo = () => {};",
-            options: ["declaration", { allowArrowFunctions: true, overrides: { namedExports: "expression" } }]
+            options: [
+                "declaration",
+                {
+                    allowArrowFunctions: true,
+                    overrides: { namedExports: "expression" },
+                },
+            ],
         },
         {
             code: "export var foo = () => {};",
-            options: ["expression", { allowArrowFunctions: true, overrides: { namedExports: "expression" } }]
+            options: [
+                "expression",
+                {
+                    allowArrowFunctions: true,
+                    overrides: { namedExports: "expression" },
+                },
+            ],
         },
         {
             code: "export var foo = () => {};",
-            options: ["declaration", { allowArrowFunctions: true, overrides: { namedExports: "ignore" } }]
-        }
+            options: [
+                "declaration",
+                {
+                    allowArrowFunctions: true,
+                    overrides: { namedExports: "ignore" },
+                },
+            ],
+        },
     ],
 
     invalid: [
@@ -174,9 +210,9 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "var foo = () => {};",
@@ -185,9 +221,9 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "var foo = () => { function foo() { this; } };",
@@ -196,9 +232,9 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "var foo = () => ({ bar() { super.baz(); } });",
@@ -207,9 +243,9 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "function foo(){}",
@@ -217,9 +253,9 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "expression",
-                    type: "FunctionDeclaration"
-                }
-            ]
+                    type: "FunctionDeclaration",
+                },
+            ],
         },
         {
             code: "export function foo(){}",
@@ -227,29 +263,35 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "expression",
-                    type: "FunctionDeclaration"
-                }
-            ]
+                    type: "FunctionDeclaration",
+                },
+            ],
         },
         {
             code: "export function foo() {};",
-            options: ["declaration", { overrides: { namedExports: "expression" } }],
+            options: [
+                "declaration",
+                { overrides: { namedExports: "expression" } },
+            ],
             errors: [
                 {
                     messageId: "expression",
-                    type: "FunctionDeclaration"
-                }
-            ]
+                    type: "FunctionDeclaration",
+                },
+            ],
         },
         {
             code: "export function foo() {};",
-            options: ["expression", { overrides: { namedExports: "expression" } }],
+            options: [
+                "expression",
+                { overrides: { namedExports: "expression" } },
+            ],
             errors: [
                 {
                     messageId: "expression",
-                    type: "FunctionDeclaration"
-                }
-            ]
+                    type: "FunctionDeclaration",
+                },
+            ],
         },
         {
             code: "export var foo = function(){};",
@@ -258,31 +300,37 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "export var foo = function(){};",
-            options: ["expression", { overrides: { namedExports: "declaration" } }],
+            options: [
+                "expression",
+                { overrides: { namedExports: "declaration" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "export var foo = function(){};",
-            options: ["declaration", { overrides: { namedExports: "declaration" } }],
+            options: [
+                "declaration",
+                { overrides: { namedExports: "declaration" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "export var foo = () => {};",
@@ -291,64 +339,79 @@ ruleTester.run("func-style", rule, {
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "export var b = () => {};",
-            options: ["expression", { overrides: { namedExports: "declaration" } }],
+            options: [
+                "expression",
+                { overrides: { namedExports: "declaration" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "export var c = () => {};",
-            options: ["declaration", { overrides: { namedExports: "declaration" } }],
+            options: [
+                "declaration",
+                { overrides: { namedExports: "declaration" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "function foo() {};",
-            options: ["expression", { overrides: { namedExports: "declaration" } }],
+            options: [
+                "expression",
+                { overrides: { namedExports: "declaration" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "expression",
-                    type: "FunctionDeclaration"
-                }
-            ]
+                    type: "FunctionDeclaration",
+                },
+            ],
         },
         {
             code: "var foo = function() {};",
-            options: ["declaration", { overrides: { namedExports: "expression" } }],
+            options: [
+                "declaration",
+                { overrides: { namedExports: "expression" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
+                    type: "VariableDeclarator",
+                },
+            ],
         },
         {
             code: "var foo = () => {};",
-            options: ["declaration", { overrides: { namedExports: "expression" } }],
+            options: [
+                "declaration",
+                { overrides: { namedExports: "expression" } },
+            ],
             languageOptions: { ecmaVersion: 6 },
             errors: [
                 {
                     messageId: "declaration",
-                    type: "VariableDeclarator"
-                }
-            ]
-        }
-    ]
+                    type: "VariableDeclarator",
+                },
+            ],
+        },
+    ],
 });

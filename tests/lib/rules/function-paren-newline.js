@@ -14,21 +14,27 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const { unIndent } = require("../../_utils");
 const fixtureParser = require("../../fixtures/fixture-parser");
 
-
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const LEFT_MISSING_ERROR = { messageId: "expectedAfter", type: "Punctuator" };
-const LEFT_UNEXPECTED_ERROR = { messageId: "unexpectedAfter", type: "Punctuator" };
+const LEFT_UNEXPECTED_ERROR = {
+    messageId: "unexpectedAfter",
+    type: "Punctuator",
+};
 const RIGHT_MISSING_ERROR = { messageId: "expectedBefore", type: "Punctuator" };
-const RIGHT_UNEXPECTED_ERROR = { messageId: "unexpectedBefore", type: "Punctuator" };
+const RIGHT_UNEXPECTED_ERROR = {
+    messageId: "unexpectedBefore",
+    type: "Punctuator",
+};
 const EXPECTED_BETWEEN = { messageId: "expectedBetween", type: "Identifier" };
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 6, sourceType: "script" } });
+const ruleTester = new RuleTester({
+    languageOptions: { ecmaVersion: 6, sourceType: "script" },
+});
 
 ruleTester.run("function-paren-newline", rule, {
-
     valid: [
         "new new Foo();",
 
@@ -89,11 +95,11 @@ ruleTester.run("function-paren-newline", rule, {
         `,
         {
             code: "function baz(foo, bar) {}",
-            options: ["multiline"]
+            options: ["multiline"],
         },
         {
             code: "async (foo, bar) => {};",
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -102,65 +108,65 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) => {};
             `,
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(source)",
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "import(source\n  + ext)",
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // multiline-arguments
         {
             code: "function baz(foo, bar) {}",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "function baz(foo) {}",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "(function(foo, bar) {});",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "(function(foo) {});",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "(function baz(foo, bar) {});",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "(function baz(foo) {});",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "(foo, bar) => {};",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "foo => {};",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "baz(foo, bar);",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "baz(foo);",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "function baz() {}",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -169,7 +175,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {}
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -177,7 +183,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo
                 ) {}
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -186,7 +192,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {});
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -194,7 +200,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo
                 ) {});
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -203,7 +209,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {});
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -211,7 +217,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo
                 ) {});
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -220,7 +226,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) => {};
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -228,7 +234,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo
                 ) => {};
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -237,7 +243,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 );
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -245,40 +251,40 @@ ruleTester.run("function-paren-newline", rule, {
                     foo
                 );
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
                 baz(\`foo
                     bar\`)
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "new Foo(bar, baz)",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "new Foo(bar)",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "new Foo",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "new (Foo)",
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: "async (foo, bar) => {};",
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async (foo) => {};",
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -287,7 +293,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -297,22 +303,22 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(source)",
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "import(source\n  + ext)",
             options: ["multiline-arguments"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         {
@@ -320,7 +326,7 @@ ruleTester.run("function-paren-newline", rule, {
                 (foo)
                 (bar)
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
         {
             code: `
@@ -328,7 +334,7 @@ ruleTester.run("function-paren-newline", rule, {
                   return value;
                 })
             `,
-            options: ["multiline-arguments"]
+            options: ["multiline-arguments"],
         },
 
         // always option
@@ -339,7 +345,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {}
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -348,7 +354,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {});
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -357,7 +363,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {});
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -366,7 +372,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) => {};
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -375,14 +381,14 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 );
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
                 function baz(
                 ) {}
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -391,7 +397,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["always"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -401,64 +407,64 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["always"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(\n  source\n)",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // never option
         {
             code: "function baz(foo, bar) {}",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "(function(foo, bar) {});",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "(function baz(foo, bar) {});",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "(foo, bar) => {};",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "baz(foo, bar);",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "function baz() {}",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "async (foo, bar) => {};",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(source)",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // minItems option
         {
             code: "function baz(foo, bar) {}",
-            options: [{ minItems: 3 }]
+            options: [{ minItems: 3 }],
         },
         {
             code: `
@@ -466,7 +472,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo, bar, qux
                 ) {}
             `,
-            options: [{ minItems: 3 }]
+            options: [{ minItems: 3 }],
         },
         {
             code: `
@@ -474,16 +480,16 @@ ruleTester.run("function-paren-newline", rule, {
                     foo, bar, qux
                 );
             `,
-            options: [{ minItems: 3 }]
+            options: [{ minItems: 3 }],
         },
         {
             code: "baz(foo, bar);",
-            options: [{ minItems: 3 }]
+            options: [{ minItems: 3 }],
         },
         {
             code: "async (foo, bar) => {};",
             options: [{ minItems: 3 }],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -494,35 +500,35 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: [{ minItems: 3 }],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
             options: [{ minItems: 3 }],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(source)",
             options: [{ minItems: 3 }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "import(\n  source\n)",
             options: [{ minItems: 1 }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // consistent option
         {
             code: "foo(bar, baz)",
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: `
                 foo(bar,
                 baz)
             `,
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: `
@@ -530,7 +536,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar, baz
                 )
             `,
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: `
@@ -539,17 +545,17 @@ ruleTester.run("function-paren-newline", rule, {
                     baz
                 )
             `,
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: "async (foo, bar) => {};",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "async foo => {};",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -557,7 +563,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) => {};
             `,
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -566,7 +572,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
@@ -576,17 +582,17 @@ ruleTester.run("function-paren-newline", rule, {
                 ) => {};
             `,
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: "import(source)",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "import(\n  source\n)",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // https://github.com/eslint/eslint/issues/15091#issuecomment-975605821
@@ -603,13 +609,17 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["multiline"],
             languageOptions: {
-                parser: require(fixtureParser("function-paren-newline", "arrow-function-return-type"))
-            }
-        }
+                parser: require(
+                    fixtureParser(
+                        "function-paren-newline",
+                        "arrow-function-return-type",
+                    ),
+                ),
+            },
+        },
     ],
 
     invalid: [
-
         // multiline option (default)
         {
             code: `
@@ -622,7 +632,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar
                 ) {}
             `,
-            errors: [LEFT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR],
         },
         {
             code: `
@@ -635,7 +645,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo,
                     bar\n) {})
             `,
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -646,7 +656,7 @@ ruleTester.run("function-paren-newline", rule, {
                 (function baz(\nfoo,
                     bar\n) {})
             `,
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -656,7 +666,7 @@ ruleTester.run("function-paren-newline", rule, {
             output: `
                 baz(foo, bar);
             `,
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -666,7 +676,7 @@ ruleTester.run("function-paren-newline", rule, {
             output: `
                 (foo, bar) => {};
             `,
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -677,7 +687,7 @@ ruleTester.run("function-paren-newline", rule, {
             output: `
                 function baz(foo, bar) {}
             `,
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -690,7 +700,7 @@ ruleTester.run("function-paren-newline", rule, {
                 function baz(foo =
                     1) {}
             `,
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -700,7 +710,7 @@ ruleTester.run("function-paren-newline", rule, {
             output: `
                 function baz() {}
             `,
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -711,7 +721,7 @@ ruleTester.run("function-paren-newline", rule, {
                 new Foo(\nbar,
                     baz\n);
             `,
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -719,7 +729,7 @@ ruleTester.run("function-paren-newline", rule, {
                 foo) {}
             `,
             output: null,
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -727,7 +737,7 @@ ruleTester.run("function-paren-newline", rule, {
                 /* not fixed due to comment */) {}
             `,
             output: null,
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -739,7 +749,7 @@ ruleTester.run("function-paren-newline", rule, {
                 async (foo, bar) => {};
             `,
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -750,7 +760,7 @@ ruleTester.run("function-paren-newline", rule, {
                 async (foo, bar) => {};
             `,
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -762,7 +772,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) => {};
             `,
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -776,13 +786,13 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) => {};
             `,
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: "import(\n  source\n)",
             output: "import(source)",
             languageOptions: { ecmaVersion: 2020 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
 
         // multiline-arguments
@@ -798,7 +808,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) {}
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR],
         },
         {
             code: `
@@ -812,7 +822,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) {})
             `,
             options: ["multiline-arguments"],
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -824,7 +834,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) {})
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -835,7 +845,7 @@ ruleTester.run("function-paren-newline", rule, {
                 baz(foo, bar);
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -846,7 +856,7 @@ ruleTester.run("function-paren-newline", rule, {
                 (foo, bar) => {};
             `,
             options: ["multiline-arguments"],
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -858,7 +868,7 @@ ruleTester.run("function-paren-newline", rule, {
                 function baz(foo, bar) {}
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -869,7 +879,7 @@ ruleTester.run("function-paren-newline", rule, {
                 function baz() {}
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -881,7 +891,7 @@ ruleTester.run("function-paren-newline", rule, {
                     baz\n);
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -893,7 +903,7 @@ ruleTester.run("function-paren-newline", rule, {
                 foo\n) {}
             `,
             options: ["multiline-arguments"],
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -902,7 +912,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             output: null,
             options: ["multiline-arguments"],
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -918,7 +928,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) {}
             `,
             options: ["multiline-arguments"],
-            errors: [EXPECTED_BETWEEN]
+            errors: [EXPECTED_BETWEEN],
         },
         {
             code: `
@@ -934,7 +944,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) {}
             `,
             options: ["multiline-arguments"],
-            errors: [EXPECTED_BETWEEN]
+            errors: [EXPECTED_BETWEEN],
         },
         {
             code: `
@@ -946,7 +956,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) {}
             `,
             options: ["multiline-arguments"],
-            errors: [LEFT_MISSING_ERROR, EXPECTED_BETWEEN, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, EXPECTED_BETWEEN, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -958,7 +968,7 @@ ruleTester.run("function-paren-newline", rule, {
                     foo\n);
             `,
             options: ["multiline-arguments"],
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -969,7 +979,7 @@ ruleTester.run("function-paren-newline", rule, {
                 baz(foo);
             `,
             options: ["multiline-arguments"],
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -981,7 +991,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["multiline-arguments"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -994,7 +1004,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["multiline-arguments"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1009,21 +1019,21 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["multiline-arguments"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: "import(source\n)",
             output: "import(source)",
             options: ["multiline-arguments"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: "import(\n  source)",
             output: "import(\n  source\n)",
             options: ["multiline-arguments"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
 
         // always option
@@ -1039,7 +1049,7 @@ ruleTester.run("function-paren-newline", rule, {
                 ) {}
             `,
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR],
         },
         {
             code: `
@@ -1053,7 +1063,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) {})
             `,
             options: ["always"],
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1065,43 +1075,43 @@ ruleTester.run("function-paren-newline", rule, {
                     bar\n) {})
             `,
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "function baz(foo, bar) {}",
             output: "function baz(\nfoo, bar\n) {}",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "(function(foo, bar) {});",
             output: "(function(\nfoo, bar\n) {});",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "(function baz(foo, bar) {});",
             output: "(function baz(\nfoo, bar\n) {});",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "(foo, bar) => {};",
             output: "(\nfoo, bar\n) => {};",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "baz(foo, bar);",
             output: "baz(\nfoo, bar\n);",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "function baz() {}",
             output: "function baz(\n) {}",
             options: ["always"],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1112,7 +1122,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["always"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1125,7 +1135,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["always"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1140,14 +1150,14 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["always"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: "import(source)",
             output: "import(\nsource\n)",
             options: ["always"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
 
         // never option
@@ -1162,7 +1172,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) {}
             `,
             options: ["never"],
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1175,7 +1185,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) {})
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1186,7 +1196,7 @@ ruleTester.run("function-paren-newline", rule, {
                 new new C()();
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
 
         {
@@ -1201,7 +1211,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) {}
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1215,7 +1225,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) {});
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1229,7 +1239,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) {});
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1243,7 +1253,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar) => {};
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1257,7 +1267,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar);
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1268,7 +1278,7 @@ ruleTester.run("function-paren-newline", rule, {
                 function baz() {}
             `,
             options: ["never"],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1283,7 +1293,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["never"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1297,14 +1307,14 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["never"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: "import(\n  source\n)",
             output: "import(source)",
             options: ["never"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
 
         // minItems option
@@ -1312,7 +1322,7 @@ ruleTester.run("function-paren-newline", rule, {
             code: "function baz(foo, bar, qux) {}",
             output: "function baz(\nfoo, bar, qux\n) {}",
             options: [{ minItems: 3 }],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1324,13 +1334,13 @@ ruleTester.run("function-paren-newline", rule, {
                 function baz(foo, bar) {}
             `,
             options: [{ minItems: 3 }],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: "baz(foo, bar, qux);",
             output: "baz(\nfoo, bar, qux\n);",
             options: [{ minItems: 3 }],
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1344,7 +1354,7 @@ ruleTester.run("function-paren-newline", rule, {
                     bar);
             `,
             options: [{ minItems: 3 }],
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1359,7 +1369,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: [{ minItems: 3 }],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1373,7 +1383,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: [{ minItems: 3 }],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1384,21 +1394,21 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: [{ minItems: 3 }],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
         {
             code: "import(\n  source\n)",
             output: "import(source)",
             options: [{ minItems: 3 }],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: "import(source)",
             output: "import(\nsource\n)",
             options: [{ minItems: 1 }],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR]
+            errors: [LEFT_MISSING_ERROR, RIGHT_MISSING_ERROR],
         },
 
         // consistent option
@@ -1414,7 +1424,7 @@ ruleTester.run("function-paren-newline", rule, {
                     baz\n)
             `,
             options: ["consistent"],
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1427,7 +1437,7 @@ ruleTester.run("function-paren-newline", rule, {
                     baz)
             `,
             options: ["consistent"],
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: `
@@ -1442,7 +1452,7 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["consistent"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
         {
             code: `
@@ -1456,21 +1466,21 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["consistent"],
             languageOptions: { ecmaVersion: 2017 },
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: "import(source\n)",
             output: "import(source)",
             options: ["consistent"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [RIGHT_UNEXPECTED_ERROR]
+            errors: [RIGHT_UNEXPECTED_ERROR],
         },
         {
             code: "import(\n  source)",
             output: "import(\n  source\n)",
             options: ["consistent"],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [RIGHT_MISSING_ERROR]
+            errors: [RIGHT_MISSING_ERROR],
         },
 
         // https://github.com/eslint/eslint/issues/15091#issuecomment-975605821
@@ -1495,9 +1505,14 @@ ruleTester.run("function-paren-newline", rule, {
             `,
             options: ["never"],
             languageOptions: {
-                parser: require(fixtureParser("function-paren-newline", "arrow-function-return-type"))
+                parser: require(
+                    fixtureParser(
+                        "function-paren-newline",
+                        "arrow-function-return-type",
+                    ),
+                ),
             },
-            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR]
-        }
-    ]
+            errors: [LEFT_UNEXPECTED_ERROR, RIGHT_UNEXPECTED_ERROR],
+        },
+    ],
 });

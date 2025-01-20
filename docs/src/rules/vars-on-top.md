@@ -2,12 +2,11 @@
 title: vars-on-top
 rule_type: suggestion
 further_reading:
-- https://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
-- https://danhough.com/blog/single-var-pattern-rant/
-- https://benalman.com/news/2012/05/multiple-var-statements-javascript/
+    - https://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
+    - https://danhough.com/blog/single-var-pattern-rant/
+    - https://benalman.com/news/2012/05/multiple-var-statements-javascript/
 ---
-
 
 The `vars-on-top` rule generates warnings when variable declarations are not used serially at the top of a function scope or the top of a program.
 By default variable declarations are always moved (“hoisted”) invisibly to the top of their containing scope by the JavaScript interpreter.
@@ -35,7 +34,7 @@ function doSomething() {
 
 // Variable declaration in for initializer:
 function doSomethingElse() {
-    for (var i=0; i<10; i++) {}
+    for (var i = 0; i < 10; i++) {}
 }
 ```
 
@@ -61,7 +60,6 @@ var a;
 // Variables in class static blocks should be at the top of the static blocks.
 
 class C {
-
     // Variable declaration in a nested block:
     static {
         if (something) {
@@ -74,7 +72,6 @@ class C {
         f();
         var a;
     }
-
 }
 ```
 
@@ -97,7 +94,7 @@ function doSomething() {
 
 function doSomethingElse() {
     var i;
-    for (i=0; i<10; i++) {}
+    for (i = 0; i < 10; i++) {}
 }
 ```
 
@@ -120,7 +117,6 @@ f();
 /*eslint vars-on-top: "error"*/
 
 class C {
-
     static {
         var a;
         if (something) {
@@ -132,7 +128,6 @@ class C {
         var a;
         f();
     }
-
 }
 ```
 
@@ -153,7 +148,7 @@ function doSomething() {
     // this is the first var.
     var first;
     // this is the second var.
-    var second
+    var second;
 }
 ```
 

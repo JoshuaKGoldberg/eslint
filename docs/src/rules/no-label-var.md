@@ -2,11 +2,10 @@
 title: no-label-var
 rule_type: suggestion
 related_rules:
-- no-extra-label
-- no-labels
-- no-unused-labels
+    - no-extra-label
+    - no-labels
+    - no-unused-labels
 ---
-
 
 ## Rule Details
 
@@ -21,10 +20,9 @@ Examples of **incorrect** code for this rule:
 
 var x = foo;
 function bar() {
-x:
-  for (;;) {
-    break x;
-  }
+    x: for (;;) {
+        break x;
+    }
 }
 ```
 
@@ -40,14 +38,13 @@ Examples of **correct** code for this rule:
 // The variable that has the same name as the label is not in scope.
 
 function foo() {
-  var q = t;
+    var q = t;
 }
 
 function bar() {
-q:
-  for(;;) {
-    break q;
-  }
+    q: for (;;) {
+        break q;
+    }
 }
 ```
 

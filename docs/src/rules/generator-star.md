@@ -1,7 +1,7 @@
 ---
 title: generator-star
 further_reading:
-- https://leanpub.com/understandinges6/read/#leanpub-auto-generators
+    - https://leanpub.com/understandinges6/read/#leanpub-auto-generators
 ---
 
 Enforces consistent spacing around the asterisk in generator functions.
@@ -25,7 +25,7 @@ function* generator() {
 This is also valid:
 
 ```js
-function *generator() {
+function* generator() {
     yield "44";
     yield "55";
 }
@@ -34,7 +34,7 @@ function *generator() {
 This is valid as well:
 
 ```js
-function * generator() {
+function* generator() {
     yield "44";
     yield "55";
 }
@@ -57,50 +57,43 @@ You can set the style in configuration like this:
 When using `"start"` this placement will be enforced:
 
 ```js
-function* generator() {
-}
+function* generator() {}
 ```
 
 When using `"middle"` this placement will be enforced:
 
 ```js
-function * generator() {
-}
+function* generator() {}
 ```
 
 When using `"end"` this placement will be enforced:
 
 ```js
-function *generator() {
-}
+function* generator() {}
 ```
 
 When using the expression syntax `"start"` will be enforced here:
 
 ```js
-var generator = function* () {
-}
+var generator = function* () {};
 ```
 
 When using the expression syntax `"middle"` will be enforced here:
 
 ```js
-var generator = function * () {
-}
+var generator = function* () {};
 ```
 
 When using the expression syntax `"end"` will be enforced here:
 
 ```js
-var generator = function *() {
-}
+var generator = function* () {};
 ```
 
 When using the expression syntax this is valid for both `"start"` and `"end"`:
 
 ```js
-var generator = function*() {
-}
+var generator = function* () {};
 ```
 
 The shortened object literal syntax for generators is not affected by this rule.

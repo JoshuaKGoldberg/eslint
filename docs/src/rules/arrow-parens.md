@@ -2,7 +2,7 @@
 title: arrow-parens
 rule_type: layout
 further_reading:
-- https://github.com/airbnb/javascript#arrows--one-arg-parens
+    - https://github.com/airbnb/javascript#arrows--one-arg-parens
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/arrow-parens) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -16,10 +16,10 @@ This rule enforces parentheses around arrow function parameters regardless of ar
 
 ```js
 // Bad
-a => {}
+(a) => {};
 
 // Good
-(a) => {}
+(a) => {};
 ```
 
 Following this style will help you find arrow functions (`=>`) which may be mistakenly included in a condition
@@ -27,7 +27,7 @@ when a comparison such as `>=` was the intent.
 
 ```js
 // Bad
-if (a => 2) {
+if ((a) => 2) {
 }
 
 // Good
@@ -39,10 +39,10 @@ The rule can also be configured to discourage the use of parens when they are no
 
 ```js
 // Bad
-(a) => {}
+(a) => {};
 
 // Good
-a => {}
+(a) => {};
 ```
 
 ## Options
@@ -51,12 +51,12 @@ This rule has a string option and an object one.
 
 String options are:
 
-* `"always"` (default) requires parens around arguments in all cases.
-* `"as-needed"` enforces no parens where they can be omitted.
+- `"always"` (default) requires parens around arguments in all cases.
+- `"as-needed"` enforces no parens where they can be omitted.
 
 Object properties for variants of the `"as-needed"` option:
 
-* `"requireForBlockBody": true` modifies the as-needed rule in order to require parens if the function body is in an instructions block (surrounded by braces).
+- `"requireForBlockBody": true` modifies the as-needed rule in order to require parens if the function body is in an instructions block (surrounded by braces).
 
 ### always
 
@@ -67,12 +67,17 @@ Examples of **incorrect** code for this rule with the default `"always"` option:
 ```js
 /*eslint arrow-parens: ["error", "always"]*/
 
-a => {};
-a => a;
-a => {'\n'};
-a.then(foo => {});
-a.then(foo => a);
-a(foo => { if (true) {} });
+(a) => {};
+(a) => a;
+(a) => {
+    "\n";
+};
+a.then((foo) => {});
+a.then((foo) => a);
+a((foo) => {
+    if (true) {
+    }
+});
 ```
 
 :::
@@ -87,9 +92,14 @@ Examples of **correct** code for this rule with the default `"always"` option:
 () => {};
 (a) => {};
 (a) => a;
-(a) => {'\n'}
+(a) => {
+    "\n";
+};
 a.then((foo) => {});
-a.then((foo) => { if (true) {} });
+a.then((foo) => {
+    if (true) {
+    }
+});
 ```
 
 :::
@@ -102,10 +112,10 @@ One of the benefits of this option is that it prevents the incorrect use of arro
 var a = 1;
 var b = 2;
 // ...
-if (a => b) {
- console.log('bigger');
+if ((a) => b) {
+    console.log("bigger");
 } else {
- console.log('smaller');
+    console.log("smaller");
 }
 // outputs 'bigger', not smaller as expected
 ```
@@ -119,9 +129,9 @@ var a = 1;
 var b = 0;
 // ...
 if ((a) => b) {
- console.log('truthy value returned');
+    console.log("truthy value returned");
 } else {
- console.log('falsy value returned');
+    console.log("falsy value returned");
 }
 // outputs 'truthy value returned'
 ```
@@ -129,8 +139,11 @@ if ((a) => b) {
 The following is another example of this behavior:
 
 ```js
-var a = 1, b = 2, c = 3, d = 4;
-var f = a => b ? c: d;
+var a = 1,
+    b = 2,
+    c = 3,
+    d = 4;
+var f = (a) => (b ? c : d);
 // f = ?
 ```
 
@@ -139,8 +152,11 @@ var f = a => b ? c: d;
 This should be rewritten like so:
 
 ```js
-var a = 1, b = 2, c = 3, d = 4;
-var f = (a) => b ? c: d;
+var a = 1,
+    b = 2,
+    c = 3,
+    d = 4;
+var f = (a) => (b ? c : d);
 ```
 
 ### as-needed
@@ -154,11 +170,16 @@ Examples of **incorrect** code for this rule with the `"as-needed"` option:
 
 (a) => {};
 (a) => a;
-(a) => {'\n'};
+(a) => {
+    "\n";
+};
 a.then((foo) => {});
 a.then((foo) => a);
-a((foo) => { if (true) {} });
-const f = /** @type {number} */(a) => a + a;
+a((foo) => {
+    if (true) {
+    }
+});
+const f = /** @type {number} */ (a) => a + a;
 const g = /* comment */ (a) => a + a;
 const h = (a) /* comment */ => a + a;
 ```
@@ -173,16 +194,21 @@ Examples of **correct** code for this rule with the `"as-needed"` option:
 /*eslint arrow-parens: ["error", "as-needed"]*/
 
 () => {};
-a => {};
-a => a;
-a => {'\n'};
-a.then(foo => {});
-a.then(foo => { if (true) {} });
+(a) => {};
+(a) => a;
+(a) => {
+    "\n";
+};
+a.then((foo) => {});
+a.then((foo) => {
+    if (true) {
+    }
+});
 (a, b, c) => a;
 (a = 10) => a;
 ([a, b]) => a;
-({a, b}) => a;
-const f = (/** @type {number} */a) => a + a;
+({ a, b }) => a;
+const f = (/** @type {number} */ a) => a + a;
 const g = (/* comment */ a) => a + a;
 const h = (a /* comment */) => a + a;
 ```
@@ -199,13 +225,15 @@ Examples of **incorrect** code for the `{ "requireForBlockBody": true }` option:
 /*eslint arrow-parens: [2, "as-needed", { "requireForBlockBody": true }]*/
 
 (a) => a;
-a => {};
-a => {'\n'};
+(a) => {};
+(a) => {
+    "\n";
+};
 a.map((x) => x * x);
-a.map(x => {
-  return x * x;
+a.map((x) => {
+    return x * x;
 });
-a.then(foo => {});
+a.then((foo) => {});
 ```
 
 :::
@@ -218,17 +246,25 @@ Examples of **correct** code for the `{ "requireForBlockBody": true }` option:
 /*eslint arrow-parens: [2, "as-needed", { "requireForBlockBody": true }]*/
 
 (a) => {};
-(a) => {'\n'};
-a => ({});
+(a) => {
+    "\n";
+};
+(a) => ({});
 () => {};
-a => a;
+(a) => a;
 a.then((foo) => {});
-a.then((foo) => { if (true) {} });
-a((foo) => { if (true) {} });
+a.then((foo) => {
+    if (true) {
+    }
+});
+a((foo) => {
+    if (true) {
+    }
+});
 (a, b, c) => a;
 (a = 10) => a;
 ([a, b]) => a;
-({a, b}) => a;
+({ a, b }) => a;
 ```
 
 :::

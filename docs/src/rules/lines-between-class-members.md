@@ -2,8 +2,8 @@
 title: lines-between-class-members
 rule_type: layout
 related_rules:
-- padded-blocks
-- padding-line-between-statements
+    - padded-blocks
+    - padding-line-between-statements
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/lines-between-class-members) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -19,13 +19,13 @@ Examples of **incorrect** code for this rule:
 ```js
 /* eslint lines-between-class-members: ["error", "always"]*/
 class MyClass {
-  x;
-  foo() {
-    //...
-  }
-  bar() {
-    //...
-  }
+    x;
+    foo() {
+        //...
+    }
+    bar() {
+        //...
+    }
 }
 ```
 
@@ -38,15 +38,15 @@ Examples of **correct** code for this rule:
 ```js
 /* eslint lines-between-class-members: ["error", "always"]*/
 class MyClass {
-  x;
+    x;
 
-  foo() {
-    //...
-  }
+    foo() {
+        //...
+    }
 
-  bar() {
-    //...
-  }
+    bar() {
+        //...
+    }
 }
 ```
 
@@ -59,9 +59,8 @@ Examples of additional **correct** code for this rule:
 ```js
 /* eslint lines-between-class-members: ["error", "always"]*/
 class MyClass {
-  x = 1
-
-  ;in = 2
+    x = 1;
+    in = 2;
 }
 ```
 
@@ -73,18 +72,18 @@ This rule has two options, first option can be string or object, second option i
 
 First option can be string `"always"` or `"never"` or an object with a property named `enforce`:
 
-* `"always"`(default) require an empty line after class members
-* `"never"` disallows an empty line after class members
-* `Object`: An object with a property named `enforce`. The enforce property should be an array of objects, each specifying the configuration for enforcing empty lines between specific pairs of class members.
-    * **enforce**: You can supply any number of configurations. If a member pair matches multiple configurations, the last matched configuration will be used. If a member pair does not match any configurations, it will be ignored. Each object should have the following properties:
-        * **blankLine**: Can be set to either `"always"` or `"never"`, indicating whether a blank line should be required or disallowed between the specified members.
-        * **prev**: Specifies the type of the preceding class member. It can be `"method"` for class methods, `"field"` for class fields, or `"*"` for any class member.
-        * **next**: Specifies the type of the following class member. It follows the same options as `prev`.
+- `"always"`(default) require an empty line after class members
+- `"never"` disallows an empty line after class members
+- `Object`: An object with a property named `enforce`. The enforce property should be an array of objects, each specifying the configuration for enforcing empty lines between specific pairs of class members.
+    - **enforce**: You can supply any number of configurations. If a member pair matches multiple configurations, the last matched configuration will be used. If a member pair does not match any configurations, it will be ignored. Each object should have the following properties:
+        - **blankLine**: Can be set to either `"always"` or `"never"`, indicating whether a blank line should be required or disallowed between the specified members.
+        - **prev**: Specifies the type of the preceding class member. It can be `"method"` for class methods, `"field"` for class fields, or `"*"` for any class member.
+        - **next**: Specifies the type of the following class member. It follows the same options as `prev`.
 
 Second option is an object with a property named `exceptAfterSingleLine`:
 
-* `"exceptAfterSingleLine": false`(default) **do not** skip checking empty lines after single-line class members
-* `"exceptAfterSingleLine": true` skip checking empty lines after single-line class members
+- `"exceptAfterSingleLine": false`(default) **do not** skip checking empty lines after single-line class members
+- `"exceptAfterSingleLine": true` skip checking empty lines after single-line class members
 
 Examples of **incorrect** code for this rule with the string option:
 
@@ -92,10 +91,10 @@ Examples of **incorrect** code for this rule with the string option:
 
 ```js
 /* eslint lines-between-class-members: ["error", "always"]*/
-class Foo{
-  x;
-  bar(){}
-  baz(){}
+class Foo {
+    x;
+    bar() {}
+    baz() {}
 }
 ```
 
@@ -105,12 +104,12 @@ class Foo{
 
 ```js
 /* eslint lines-between-class-members: ["error", "never"]*/
-class Bar{
-  x;
+class Bar {
+    x;
 
-  bar(){}
+    bar() {}
 
-  baz(){}
+    baz() {}
 }
 ```
 
@@ -122,12 +121,12 @@ Examples of **correct** code for this rule with the string option:
 
 ```js
 /* eslint lines-between-class-members: ["error", "always"]*/
-class Foo{
-  x;
+class Foo {
+    x;
 
-  bar(){}
+    bar() {}
 
-  baz(){}
+    baz() {}
 }
 ```
 
@@ -137,10 +136,10 @@ class Foo{
 
 ```js
 /* eslint lines-between-class-members: ["error", "never"]*/
-class Bar{
-  x;
-  bar(){}
-  baz(){}
+class Bar {
+    x;
+    bar() {}
+    baz() {}
 }
 ```
 
@@ -162,21 +161,21 @@ Examples of **incorrect** code for this rule with the array of configurations op
 ]*/
 
 class MyClass {
-  constructor(height, width) {
-      this.height = height;
-      this.width = width;
-  }
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
-  fieldA = 'Field A';
-  #fieldB = 'Field B';
+    fieldA = "Field A";
+    #fieldB = "Field B";
 
-  method1() {}
+    method1() {}
 
-  get area() {
-    return this.method1();
-  }
+    get area() {
+        return this.method1();
+    }
 
-  method2() {}
+    method2() {}
 }
 ```
 
@@ -198,19 +197,19 @@ class MyClass {
 ]*/
 
 class MyClass {
-  constructor(height, width) {
-      this.height = height;
-      this.width = width;
-  }
-  fieldA = 'Field A';
-  #fieldB = 'Field B';
-  method1() {}
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+    fieldA = "Field A";
+    #fieldB = "Field B";
+    method1() {}
 
-  get area() {
-    return this.method1();
-  }
+    get area() {
+        return this.method1();
+    }
 
-  method2() {}
+    method2() {}
 }
 ```
 
@@ -232,20 +231,20 @@ Examples of **correct** code for this rule with the array of configurations opti
 ]*/
 
 class MyClass {
-  constructor(height, width) {
-      this.height = height;
-      this.width = width;
-  }
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
-  fieldA = 'Field A';
+    fieldA = "Field A";
 
-  #fieldB = 'Field B';
+    #fieldB = "Field B";
 
-  method1() {}
-  get area() {
-    return this.method1();
-  }
-  method2() {}
+    method1() {}
+    get area() {
+        return this.method1();
+    }
+    method2() {}
 }
 ```
 
@@ -267,20 +266,20 @@ class MyClass {
 ]*/
 
 class MyClass {
-  constructor(height, width) {
-      this.height = height;
-      this.width = width;
-  }
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
-  fieldA = 'Field A';
+    fieldA = "Field A";
 
-  #fieldB = 'Field B';
+    #fieldB = "Field B";
 
-  method1() {}
-  get area() {
-    return this.method1();
-  }
-  method2() {}
+    method1() {}
+    get area() {
+        return this.method1();
+    }
+    method2() {}
 }
 ```
 
@@ -292,14 +291,14 @@ Examples of **correct** code for this rule with the object option:
 
 ```js
 /* eslint lines-between-class-members: ["error", "always", { "exceptAfterSingleLine": true }]*/
-class Foo{
-  x; // single line class member
-  bar(){} // single line class member
-  baz(){
-    // multi line class member
-  }
+class Foo {
+    x; // single line class member
+    bar() {} // single line class member
+    baz() {
+        // multi line class member
+    }
 
-  qux(){}
+    qux() {}
 }
 ```
 
@@ -321,19 +320,19 @@ class Foo{
 ]*/
 
 class MyClass {
-  constructor(height, width) {
-      this.height = height;
-      this.width = width;
-  }
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
-  fieldA = 'Field A';
-  #fieldB = 'Field B';
-  method1() {}
-  get area() {
-    return this.method1();
-  }
+    fieldA = "Field A";
+    #fieldB = "Field B";
+    method1() {}
+    get area() {
+        return this.method1();
+    }
 
-  method2() {}
+    method2() {}
 }
 ```
 
@@ -345,5 +344,5 @@ If you don't want to enforce empty lines between class members, you can disable 
 
 ## Compatibility
 
-* [requirePaddingNewLinesAfterBlocks](https://jscs-dev.github.io/rule/requirePaddingNewLinesAfterBlocks)
-* [disallowPaddingNewLinesAfterBlocks](https://jscs-dev.github.io/rule/disallowPaddingNewLinesAfterBlocks)
+- [requirePaddingNewLinesAfterBlocks](https://jscs-dev.github.io/rule/requirePaddingNewLinesAfterBlocks)
+- [disallowPaddingNewLinesAfterBlocks](https://jscs-dev.github.io/rule/disallowPaddingNewLinesAfterBlocks)

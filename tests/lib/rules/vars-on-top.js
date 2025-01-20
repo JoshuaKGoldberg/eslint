@@ -20,18 +20,11 @@ const ruleTester = new RuleTester();
 const error = { messageId: "top", type: "VariableDeclaration" };
 
 ruleTester.run("vars-on-top", rule, {
-
     valid: [
-        [
-            "var first = 0;",
-            "function foo() {",
-            "    first = 2;",
-            "}"
-        ].join("\n"),
-        [
-            "function foo() {",
-            "}"
-        ].join("\n"),
+        ["var first = 0;", "function foo() {", "    first = 2;", "}"].join(
+            "\n",
+        ),
+        ["function foo() {", "}"].join("\n"),
         [
             "function foo() {",
             "   var first;",
@@ -40,7 +33,7 @@ ruleTester.run("vars-on-top", rule, {
             "   } else {",
             "       first = 1;",
             "   }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -53,7 +46,7 @@ ruleTester.run("vars-on-top", rule, {
             "       third = true;",
             "   }",
             "   first = second;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -61,7 +54,7 @@ ruleTester.run("vars-on-top", rule, {
             "   for (i = 0; i < 10; i++) {",
             "       alert(i);",
             "   }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -71,7 +64,7 @@ ruleTester.run("vars-on-top", rule, {
             "       var outer = inner;",
             "   }",
             "   outer = 1;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -79,7 +72,7 @@ ruleTester.run("vars-on-top", rule, {
             "   //Hello",
             "   var second = 1;",
             "   first = second;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -89,7 +82,7 @@ ruleTester.run("vars-on-top", rule, {
             "   */",
             "   var second = 1;",
             "   first = second;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -100,7 +93,7 @@ ruleTester.run("vars-on-top", rule, {
             "       first = 5;",
             "   }",
             "   first = second;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -111,7 +104,7 @@ ruleTester.run("vars-on-top", rule, {
             "       third = 5;",
             "   }",
             "   first = second;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -121,7 +114,7 @@ ruleTester.run("vars-on-top", rule, {
             "       third = 5;",
             "   }",
             "   first = 5;",
-            "}"
+            "}",
         ].join("\n"),
         [
             "function foo() {",
@@ -131,7 +124,7 @@ ruleTester.run("vars-on-top", rule, {
             "       third = 5;",
             "   });",
             "   first = 5;",
-            "}"
+            "}",
         ].join("\n"),
         {
             code: [
@@ -141,56 +134,68 @@ ruleTester.run("vars-on-top", rule, {
                 "       alert(j);",
                 "   }",
                 "   i = i + 1;",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 6
-            }
+                ecmaVersion: 6,
+            },
         },
         "'use strict'; var x; f();",
         "'use strict'; 'directive'; var x; var y; f();",
         "function f() { 'use strict'; var x; f(); }",
         "function f() { 'use strict'; 'directive'; var x; var y; f(); }",
-        { code: "import React from 'react'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "'use strict'; import React from 'react'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import React from 'react'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import * as foo from 'mod.js'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import { square, diag } from 'lib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import { default as foo } from 'lib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import 'src/mylib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
-        { code: "import theDefault, { named1, named2 } from 'src/mylib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }", languageOptions: { ecmaVersion: 6, sourceType: "module" } },
         {
-            code: [
-                "export var x;",
-                "var y;",
-                "var z;"
-            ].join("\n"),
-            languageOptions: {
-                ecmaVersion: 6,
-                sourceType: "module"
-            }
+            code: "import React from 'react'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
-            code: [
-                "var x;",
-                "export var y;",
-                "var z;"
-            ].join("\n"),
-            languageOptions: {
-                ecmaVersion: 6,
-                sourceType: "module"
-            }
+            code: "'use strict'; import React from 'react'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
-            code: [
-                "var x;",
-                "var y;",
-                "export var z;"
-            ].join("\n"),
+            code: "import React from 'react'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: "import * as foo from 'mod.js'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: "import { square, diag } from 'lib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: "import { default as foo } from 'lib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: "import 'src/mylib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: "import theDefault, { named1, named2 } from 'src/mylib'; 'use strict'; var y; function f() { 'use strict'; var x; var y; f(); }",
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
+        },
+        {
+            code: ["export var x;", "var y;", "var z;"].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
-            }
+                sourceType: "module",
+            },
+        },
+        {
+            code: ["var x;", "export var y;", "var z;"].join("\n"),
+            languageOptions: {
+                ecmaVersion: 6,
+                sourceType: "module",
+            },
+        },
+        {
+            code: ["var x;", "var y;", "export var z;"].join("\n"),
+            languageOptions: {
+                ecmaVersion: 6,
+                sourceType: "module",
+            },
         },
         {
             code: [
@@ -198,11 +203,11 @@ ruleTester.run("vars-on-top", rule, {
                 "    static {",
                 "        var x;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
+                ecmaVersion: 2022,
+            },
         },
         {
             code: [
@@ -211,11 +216,11 @@ ruleTester.run("vars-on-top", rule, {
                 "        var x;",
                 "        foo();",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
+                ecmaVersion: 2022,
+            },
         },
         {
             code: [
@@ -224,11 +229,11 @@ ruleTester.run("vars-on-top", rule, {
                 "        var x;",
                 "        var y;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
+                ecmaVersion: 2022,
+            },
         },
         {
             code: [
@@ -238,11 +243,11 @@ ruleTester.run("vars-on-top", rule, {
                 "        var y;",
                 "        foo();",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
+                ecmaVersion: 2022,
+            },
         },
         {
             code: [
@@ -251,11 +256,11 @@ ruleTester.run("vars-on-top", rule, {
                 "        let x;",
                 "        var y;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
+                ecmaVersion: 2022,
+            },
         },
         {
             code: [
@@ -264,12 +269,12 @@ ruleTester.run("vars-on-top", rule, {
                 "        foo();",
                 "        let x;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
-            }
-        }
+                ecmaVersion: 2022,
+            },
+        },
     ],
 
     invalid: [
@@ -280,9 +285,9 @@ ruleTester.run("vars-on-top", rule, {
                 "    first = 2;",
                 "    second = 2;",
                 "}",
-                "var second = 0;"
+                "var second = 0;",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -295,9 +300,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   var second = 1;",
                 "   second = 2;",
                 "   first = second;",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -307,9 +312,9 @@ ruleTester.run("vars-on-top", rule, {
                 "       var second = true;",
                 "   }",
                 "   first = second;",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -317,9 +322,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   for (var i = 0; i < 10; i++) {",
                 "       alert(i);",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -329,9 +334,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   for (i = 0; i < first; i ++) {",
                 "       var second = i;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -343,9 +348,9 @@ ruleTester.run("vars-on-top", rule, {
                 "           var hello = 1;",
                 "           break;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -357,9 +362,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   } catch (e) {",
                 "       alert('error');",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -371,9 +376,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   } catch (e) {",
                 "       var hello = 1;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -382,9 +387,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   while (first) {",
                 "       var hello = 1;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -393,9 +398,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   do {",
                 "       var hello = 1;",
                 "   } while (first == 10);",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -404,9 +409,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   for (var item in first) {",
                 "       item++;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -416,9 +421,9 @@ ruleTester.run("vars-on-top", rule, {
                 "   for (item in first) {",
                 "       var hello = item;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -428,83 +433,70 @@ ruleTester.run("vars-on-top", rule, {
                 "   for (item in first) {",
                 "       var hello = item;",
                 "   }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: { ecmaVersion: 6 },
-            errors: [error]
+            errors: [error],
         },
         {
             code: "'use strict'; 0; var x; f();",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "'use strict'; var x; 'directive'; var y; f();",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "function f() { 'use strict'; 0; var x; f(); }",
-            errors: [error]
+            errors: [error],
         },
         {
             code: "function f() { 'use strict'; var x; 'directive';  var y; f(); }",
-            errors: [error]
+            errors: [error],
         },
         {
-            code: [
-                "export function f() {}",
-                "var x;"
-            ].join("\n"),
+            code: ["export function f() {}", "var x;"].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
+                sourceType: "module",
             },
-            errors: [error]
+            errors: [error],
         },
         {
-            code: [
-                "var x;",
-                "export function f() {}",
-                "var y;"
-            ].join("\n"),
+            code: ["var x;", "export function f() {}", "var y;"].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
+                sourceType: "module",
             },
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
                 "import {foo} from 'foo';",
                 "export {foo};",
-                "var test = 1;"
+                "var test = 1;",
             ].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
+                sourceType: "module",
             },
-            errors: [error]
+            errors: [error],
         },
         {
-            code: [
-                "export {foo} from 'foo';",
-                "var test = 1;"
-            ].join("\n"),
+            code: ["export {foo} from 'foo';", "var test = 1;"].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
+                sourceType: "module",
             },
-            errors: [error]
+            errors: [error],
         },
         {
-            code: [
-                "export * from 'foo';",
-                "var test = 1;"
-            ].join("\n"),
+            code: ["export * from 'foo';", "var test = 1;"].join("\n"),
             languageOptions: {
                 ecmaVersion: 6,
-                sourceType: "module"
+                sourceType: "module",
             },
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -513,12 +505,12 @@ ruleTester.run("vars-on-top", rule, {
                 "        foo();",
                 "        var x;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -527,12 +519,12 @@ ruleTester.run("vars-on-top", rule, {
                 "        'use strict';", // static blocks do not have directives
                 "        var x;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -542,12 +534,12 @@ ruleTester.run("vars-on-top", rule, {
                 "        foo();",
                 "        var y;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
-            errors: [{ ...error, line: 5 }]
+            errors: [{ ...error, line: 5 }],
         },
         {
             code: [
@@ -557,12 +549,12 @@ ruleTester.run("vars-on-top", rule, {
                 "            var x;",
                 "        }",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
-            errors: [error]
+            errors: [error],
         },
         {
             code: [
@@ -571,12 +563,12 @@ ruleTester.run("vars-on-top", rule, {
                 "        if (foo)",
                 "            var x;",
                 "    }",
-                "}"
+                "}",
             ].join("\n"),
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
-            errors: [error]
-        }
-    ]
+            errors: [error],
+        },
+    ],
 });

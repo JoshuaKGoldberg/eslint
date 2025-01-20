@@ -20,13 +20,17 @@ const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 6 } });
 
 const missingBeforeError = { messageId: "missingBefore", type: "Punctuator" };
 const missingAfterError = { messageId: "missingAfter", type: "Punctuator" };
-const unexpectedBeforeError = { messageId: "unexpectedBefore", type: "Punctuator" };
-const unexpectedAfterError = { messageId: "unexpectedAfter", type: "Punctuator" };
+const unexpectedBeforeError = {
+    messageId: "unexpectedBefore",
+    type: "Punctuator",
+};
+const unexpectedAfterError = {
+    messageId: "unexpectedAfter",
+    type: "Punctuator",
+};
 
 ruleTester.run("yield-star-spacing", rule, {
-
     valid: [
-
         // default (after)
         "function *foo(){ yield foo; }",
         "function *foo(){ yield* foo; }",
@@ -34,137 +38,136 @@ ruleTester.run("yield-star-spacing", rule, {
         // after
         {
             code: "function *foo(){ yield foo; }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ yield* foo; }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ yield* foo(); }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ yield* 0 }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ yield* []; }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ var result = yield* foo(); }",
-            options: ["after"]
+            options: ["after"],
         },
         {
             code: "function *foo(){ var result = yield* (foo()); }",
-            options: ["after"]
+            options: ["after"],
         },
 
         // before
         {
             code: "function *foo(){ yield foo; }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){ yield *foo; }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){ yield *foo(); }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){ yield *0 }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){ yield *[]; }",
-            options: ["before"]
+            options: ["before"],
         },
         {
             code: "function *foo(){ var result = yield *foo(); }",
-            options: ["before"]
+            options: ["before"],
         },
 
         // both
         {
             code: "function *foo(){ yield foo; }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function *foo(){ yield * foo; }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function *foo(){ yield * foo(); }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function *foo(){ yield * 0 }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function *foo(){ yield * []; }",
-            options: ["both"]
+            options: ["both"],
         },
         {
             code: "function *foo(){ var result = yield * foo(); }",
-            options: ["both"]
+            options: ["both"],
         },
 
         // neither
         {
             code: "function *foo(){ yield foo; }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function *foo(){ yield*foo; }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function *foo(){ yield*foo(); }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function *foo(){ yield*0 }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function *foo(){ yield*[]; }",
-            options: ["neither"]
+            options: ["neither"],
         },
         {
             code: "function *foo(){ var result = yield*foo(); }",
-            options: ["neither"]
+            options: ["neither"],
         },
 
         // object option
         {
             code: "function *foo(){ yield* foo; }",
-            options: [{ before: false, after: true }]
+            options: [{ before: false, after: true }],
         },
         {
             code: "function *foo(){ yield *foo; }",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "function *foo(){ yield * foo; }",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "function *foo(){ yield*foo; }",
-            options: [{ before: false, after: false }]
-        }
+            options: [{ before: false, after: false }],
+        },
     ],
 
     invalid: [
-
         // default (after)
         {
             code: "function *foo(){ yield *foo1; }",
             output: "function *foo(){ yield* foo1; }",
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
 
         // after
@@ -172,19 +175,19 @@ ruleTester.run("yield-star-spacing", rule, {
             code: "function *foo(){ yield *foo1; }",
             output: "function *foo(){ yield* foo1; }",
             options: ["after"],
-            errors: [unexpectedBeforeError, missingAfterError]
+            errors: [unexpectedBeforeError, missingAfterError],
         },
         {
             code: "function *foo(){ yield * foo; }",
             output: "function *foo(){ yield* foo; }",
             options: ["after"],
-            errors: [unexpectedBeforeError]
+            errors: [unexpectedBeforeError],
         },
         {
             code: "function *foo(){ yield*foo2; }",
             output: "function *foo(){ yield* foo2; }",
             options: ["after"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
 
         // before
@@ -192,19 +195,19 @@ ruleTester.run("yield-star-spacing", rule, {
             code: "function *foo(){ yield* foo; }",
             output: "function *foo(){ yield *foo; }",
             options: ["before"],
-            errors: [missingBeforeError, unexpectedAfterError]
+            errors: [missingBeforeError, unexpectedAfterError],
         },
         {
             code: "function *foo(){ yield * foo; }",
             output: "function *foo(){ yield *foo; }",
             options: ["before"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "function *foo(){ yield*foo; }",
             output: "function *foo(){ yield *foo; }",
             options: ["before"],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
 
         // both
@@ -212,19 +215,19 @@ ruleTester.run("yield-star-spacing", rule, {
             code: "function *foo(){ yield* foo; }",
             output: "function *foo(){ yield * foo; }",
             options: ["both"],
-            errors: [missingBeforeError]
+            errors: [missingBeforeError],
         },
         {
             code: "function *foo(){ yield *foo3; }",
             output: "function *foo(){ yield * foo3; }",
             options: ["both"],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "function *foo(){ yield*foo4; }",
             output: "function *foo(){ yield * foo4; }",
             options: ["both"],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
 
         // neither
@@ -232,19 +235,19 @@ ruleTester.run("yield-star-spacing", rule, {
             code: "function *foo(){ yield* foo; }",
             output: "function *foo(){ yield*foo; }",
             options: ["neither"],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "function *foo(){ yield *foo; }",
             output: "function *foo(){ yield*foo; }",
             options: ["neither"],
-            errors: [unexpectedBeforeError]
+            errors: [unexpectedBeforeError],
         },
         {
             code: "function *foo(){ yield * foo; }",
             output: "function *foo(){ yield*foo; }",
             options: ["neither"],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
+            errors: [unexpectedBeforeError, unexpectedAfterError],
         },
 
         // object option
@@ -252,26 +255,25 @@ ruleTester.run("yield-star-spacing", rule, {
             code: "function *foo(){ yield*foo; }",
             output: "function *foo(){ yield* foo; }",
             options: [{ before: false, after: true }],
-            errors: [missingAfterError]
+            errors: [missingAfterError],
         },
         {
             code: "function *foo(){ yield * foo; }",
             output: "function *foo(){ yield *foo; }",
             options: [{ before: true, after: false }],
-            errors: [unexpectedAfterError]
+            errors: [unexpectedAfterError],
         },
         {
             code: "function *foo(){ yield*foo; }",
             output: "function *foo(){ yield * foo; }",
             options: [{ before: true, after: true }],
-            errors: [missingBeforeError, missingAfterError]
+            errors: [missingBeforeError, missingAfterError],
         },
         {
             code: "function *foo(){ yield * foo; }",
             output: "function *foo(){ yield*foo; }",
             options: [{ before: false, after: false }],
-            errors: [unexpectedBeforeError, unexpectedAfterError]
-        }
-    ]
-
+            errors: [unexpectedBeforeError, unexpectedAfterError],
+        },
+    ],
 });

@@ -2,10 +2,9 @@
 title: handle-callback-err
 rule_type: suggestion
 further_reading:
-- https://github.com/maxogden/art-of-node#callbacks
-- https://web.archive.org/web/20171224042620/https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/
+    - https://github.com/maxogden/art-of-node#callbacks
+    - https://web.archive.org/web/20171224042620/https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/
 ---
-
 
 This rule was **deprecated** in ESLint v7.0.0. Please use the corresponding rule in [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n).
 
@@ -14,7 +13,7 @@ This pattern expects an `Error` object or `null` as the first argument of the ca
 Forgetting to handle these errors can lead to some really strange behavior in your application.
 
 ```js
-function loadData (err, data) {
+function loadData(err, data) {
     doSomething(); // forgot to handle error
 }
 ```
@@ -34,10 +33,9 @@ Examples of **incorrect** code for this rule with the default `"err"` parameter 
 ```js
 /*eslint handle-callback-err: "error"*/
 
-function loadData (err, data) {
+function loadData(err, data) {
     doSomething();
 }
-
 ```
 
 :::
@@ -49,15 +47,16 @@ Examples of **correct** code for this rule with the default `"err"` parameter na
 ```js
 /*eslint handle-callback-err: "error"*/
 
-function loadData (err, data) {
+function loadData(err, data) {
     if (err) {
         console.log(err.stack);
     }
     doSomething();
 }
 
-function generateError (err) {
-    if (err) {}
+function generateError(err) {
+    if (err) {
+    }
 }
 ```
 
@@ -70,9 +69,9 @@ Examples of **correct** code for this rule with a sample `"error"` parameter nam
 ```js
 /*eslint handle-callback-err: ["error", "error"]*/
 
-function loadData (error, data) {
+function loadData(error, data) {
     if (error) {
-       console.log(error.stack);
+        console.log(error.stack);
     }
     doSomething();
 }
@@ -87,9 +86,9 @@ so you need a more flexible configuration to ensure that the rule reports all un
 
 If the configured name of the error variable begins with a `^` it is considered to be a regexp pattern.
 
-* If the option is `"^(err|error|anySpecificError)$"`, the rule reports unhandled errors where the parameter name can be `err`, `error` or `anySpecificError`.
-* If the option is `"^.+Error$"`, the rule reports unhandled errors where the parameter name ends with `Error` (for example, `connectionError` or `validationError` will match).
-* If the option is `"^.*(e|E)rr"`, the rule reports unhandled errors where the parameter name matches any string that contains `err` or `Err` (for example, `err`, `error`, `anyError`, `some_err` will match).
+- If the option is `"^(err|error|anySpecificError)$"`, the rule reports unhandled errors where the parameter name can be `err`, `error` or `anySpecificError`.
+- If the option is `"^.+Error$"`, the rule reports unhandled errors where the parameter name ends with `Error` (for example, `connectionError` or `validationError` will match).
+- If the option is `"^.*(e|E)rr"`, the rule reports unhandled errors where the parameter name matches any string that contains `err` or `Err` (for example, `err`, `error`, `anyError`, `some_err` will match).
 
 ## When Not To Use It
 

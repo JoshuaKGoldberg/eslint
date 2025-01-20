@@ -5,7 +5,6 @@ eleventyNavigation:
     parent: configure
     title: Ignore Files
     order: 7
-
 ---
 
 {%- from 'components/npx_tabs.macro.html' import npx_tabs %}
@@ -19,8 +18,8 @@ This page explains how to use `ignores` property of an ESLint configuration obje
 :::
 You can configure ESLint to ignore certain files and directories while linting by specifying one or more glob patterns in the following ways:
 
-* Inside of your `eslint.config.js` file.
-* On the command line using `--ignore-pattern`.
+- Inside of your `eslint.config.js` file.
+- On the command line using `--ignore-pattern`.
 
 ## Ignoring Files
 
@@ -30,8 +29,8 @@ In your `eslint.config.js` file, if an `ignores` key is used without any other k
 // eslint.config.js
 export default [
     {
-        ignores: [".config/*"]
-    }
+        ignores: [".config/*"],
+    },
 ];
 ```
 
@@ -52,8 +51,8 @@ Ignoring directories works the same way as ignoring files, by placing a pattern 
 // eslint.config.js
 export default [
     {
-        ignores: [".config/"]
-    }
+        ignores: [".config/"],
+    },
 ];
 ```
 
@@ -63,8 +62,8 @@ Unlike `.gitignore`, an ignore pattern like `.config` will only ignore the `.con
 // eslint.config.js
 export default [
     {
-        ignores: ["**/.config/"]
-    }
+        ignores: ["**/.config/"],
+    },
 ];
 ```
 
@@ -76,26 +75,26 @@ You can also unignore files and directories that are ignored by previous pattern
 export default [
     {
         ignores: [
-            "!node_modules/",           // unignore `node_modules/` directory
-            "node_modules/*",           // ignore its content
-            "!node_modules/mylibrary/"  // unignore `node_modules/mylibrary` directory
-        ]
-    }
+            "!node_modules/", // unignore `node_modules/` directory
+            "node_modules/*", // ignore its content
+            "!node_modules/mylibrary/", // unignore `node_modules/mylibrary` directory
+        ],
+    },
 ];
 ```
 
 If you'd like to ignore a directory except for specific files or subdirectories, then the ignore pattern `directory/**/*` must be used instead of `directory/**`. The pattern `directory/**` ignores the entire directory and its contents, so traversal will skip over the directory completely and you cannot unignore anything inside.
 
-For example,  `build/**` ignores directory `build` and its contents, whereas `build/**/*` ignores only its contents. If you'd like to ignore everything in the `build` directory except for `build/test.js`, you'd need to create a config like this:
+For example, `build/**` ignores directory `build` and its contents, whereas `build/**/*` ignores only its contents. If you'd like to ignore everything in the `build` directory except for `build/test.js`, you'd need to create a config like this:
 
 ```js
 export default [
     {
         ignores: [
-            "build/**/*",     // ignore all contents in and under `build/` directory but not the `build/` directory itself
-            "!build/test.js"  // unignore `!build/test.js`
-        ]
-    }
+            "build/**/*", // ignore all contents in and under `build/` directory but not the `build/` directory itself
+            "!build/test.js", // unignore `!build/test.js`
+        ],
+    },
 ];
 ```
 
@@ -107,11 +106,11 @@ For example, this config ignores all files in and under `build` directory except
 export default [
     {
         ignores: [
-            "build/**/*",        // ignore all contents in and under `build/` directory but not the `build/` directory itself
-            "!build/**/*/",      // unignore all subdirectories
-            "!build/**/test.js"  // unignore `test.js` files
-        ]
-    }
+            "build/**/*", // ignore all contents in and under `build/` directory but not the `build/` directory itself
+            "!build/**/*/", // unignore all subdirectories
+            "!build/**/test.js", // unignore `test.js` files
+        ],
+    },
 ];
 ```
 
@@ -143,9 +142,9 @@ When you pass directories to the ESLint CLI, files and directories are silently 
 // eslint.config.js
 export default [
     {
-        ignores: ["foo.js"]
-    }
-]
+        ignores: ["foo.js"],
+    },
+];
 ```
 
 And then you run:
@@ -184,7 +183,7 @@ export default [
     includeIgnoreFile(gitignorePath),
     {
         // your overrides
-    }
+    },
 ];
 ```
 

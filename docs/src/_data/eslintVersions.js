@@ -15,17 +15,17 @@ const eleventyFetch = require("@11ty/eleventy-fetch");
 // Exports
 //-----------------------------------------------------------------------------
 
-module.exports = async function() {
-
+module.exports = async function () {
     const thisBranch = process.env.BRANCH;
     const thisVersion = require("../../package.json").version;
 
     // Fetch the current list of ESLint versions from the `main` branch on GitHub
-    const url = "https://raw.githubusercontent.com/eslint/eslint/main/docs/src/_data/versions.json";
+    const url =
+        "https://raw.githubusercontent.com/eslint/eslint/main/docs/src/_data/versions.json";
 
     const data = await eleventyFetch(url, {
         duration: "1d", // Cache for local development. Netlify does not keep this cache and will therefore always fetch from GitHub.
-        type: "json"
+        type: "json",
     });
 
     const { items } = data;
@@ -41,7 +41,6 @@ module.exports = async function() {
         const isNumberVersion = /^\d/u.test(item.version); // `false` for HEAD
 
         if (isNumberVersion) {
-
             // Make sure the version is correct
             if (isItemForThisBranch) {
                 item.version = thisVersion;
@@ -68,7 +67,7 @@ module.exports = async function() {
             branch: "",
             display: "",
             path: "",
-            selected: true
+            selected: true,
         });
     }
 

@@ -15,34 +15,35 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2022, sourceType: "script" } });
+const ruleTester = new RuleTester({
+    languageOptions: { ecmaVersion: 2022, sourceType: "script" },
+});
 
 const VARIABLE_ERROR = {
     messageId: "nonAtomicUpdate",
     data: { value: "foo" },
-    type: "AssignmentExpression"
+    type: "AssignmentExpression",
 };
 
 const STATIC_PROPERTY_ERROR = {
     messageId: "nonAtomicObjectUpdate",
     data: { value: "foo.bar", object: "foo" },
-    type: "AssignmentExpression"
+    type: "AssignmentExpression",
 };
 
 const COMPUTED_PROPERTY_ERROR = {
     messageId: "nonAtomicObjectUpdate",
     data: { value: "foo[bar].baz", object: "foo" },
-    type: "AssignmentExpression"
+    type: "AssignmentExpression",
 };
 
 const PRIVATE_PROPERTY_ERROR = {
     messageId: "nonAtomicObjectUpdate",
     data: { value: "foo.#bar", object: "foo" },
-    type: "AssignmentExpression"
+    type: "AssignmentExpression",
 };
 
 ruleTester.run("require-atomic-updates", rule, {
-
     valid: [
         "let foo; async function x() { foo += bar; }",
         "let foo; async function x() { foo = foo + bar; }",
@@ -59,7 +60,6 @@ ruleTester.run("require-atomic-updates", rule, {
         "async function x() { let foo; bar(() => { let foo; blah(foo); }); foo += await result; }",
         "let foo; async function x() { foo = foo + 1; await bar; }",
         "async function x() { foo += await bar; }",
-
 
         /*
          * Ensure rule doesn't take exponential time in the number of branches
@@ -225,7 +225,7 @@ ruleTester.run("require-atomic-updates", rule, {
                     }
                 }
             `,
-            options: [{ allowProperties: true }]
+            options: [{ allowProperties: true }],
         },
         {
             code: `
@@ -235,110 +235,110 @@ ruleTester.run("require-atomic-updates", rule, {
                     foo.bar = 1;
                 }
             `,
-            options: [{ allowProperties: true }]
-        }
+            options: [{ allowProperties: true }],
+        },
     ],
 
     invalid: [
         {
             code: "let foo; async function x() { foo += await amount; }",
-            errors: [{ messageId: "nonAtomicUpdate", data: { value: "foo" } }]
+            errors: [{ messageId: "nonAtomicUpdate", data: { value: "foo" } }],
         },
         {
             code: "if (1); let foo; async function x() { foo += await amount; }",
-            errors: [{ messageId: "nonAtomicUpdate", data: { value: "foo" } }]
+            errors: [{ messageId: "nonAtomicUpdate", data: { value: "foo" } }],
         },
         {
             code: "let foo; async function x() { while (condition) { foo += await amount; } }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = foo + await amount; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = foo + (bar ? baz : await amount); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = foo + (bar ? await amount : baz); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = condition ? foo + await amount : somethingElse; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = (condition ? foo : await bar) + await bar; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo += bar + await amount; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "async function x() { let foo; bar(() => foo); foo += await amount; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; function* x() { foo += yield baz }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = bar(foo, await something) }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "const foo = {}; async function x() { foo.bar += await baz }",
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: "const foo = []; async function x() { foo[bar].baz += await result;  }",
-            errors: [COMPUTED_PROPERTY_ERROR]
+            errors: [COMPUTED_PROPERTY_ERROR],
         },
         {
             code: "const foo = {}; class C { #bar; async wrap() { foo.#bar += await baz } }",
-            errors: [PRIVATE_PROPERTY_ERROR]
+            errors: [PRIVATE_PROPERTY_ERROR],
         },
         {
             code: "let foo; async function* x() { foo = (yield foo) + await bar; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = foo + await result(foo); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = await result(foo, await somethingElse); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "function* x() { let foo; yield async function y() { foo += await bar; } }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function* x() { foo = await foo + (yield bar); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo; async function x() { foo = bar + await foo; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo = {}; async function x() { foo[bar].baz = await (foo.bar += await foo[bar].baz) }",
-            errors: [COMPUTED_PROPERTY_ERROR, STATIC_PROPERTY_ERROR]
+            errors: [COMPUTED_PROPERTY_ERROR, STATIC_PROPERTY_ERROR],
         },
         {
             code: "let foo = ''; async function x() { foo += await bar; }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo = 0; async function x() { foo = (a ? b : foo) + await bar; if (baz); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
         {
             code: "let foo = 0; async function x() { foo = (a ? b ? c ? d ? foo : e : f : g : h) + await bar; if (baz); }",
-            errors: [VARIABLE_ERROR]
+            errors: [VARIABLE_ERROR],
         },
 
         // https://github.com/eslint/eslint/issues/11723
@@ -349,7 +349,7 @@ ruleTester.run("require-atomic-updates", rule, {
                     foo.bar = buz.bar;
                 }
             `,
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
 
         // https://github.com/eslint/eslint/issues/15076
@@ -365,21 +365,24 @@ ruleTester.run("require-atomic-updates", rule, {
                     }
               };
             `,
-            languageOptions: { sourceType: "commonjs", globals: { process: "readonly" } },
+            languageOptions: {
+                sourceType: "commonjs",
+                globals: { process: "readonly" },
+            },
             errors: [
                 {
                     messageId: "nonAtomicObjectUpdate",
                     data: { value: "process.exitCode", object: "process" },
                     type: "AssignmentExpression",
-                    line: 6
+                    line: 6,
                 },
                 {
                     messageId: "nonAtomicObjectUpdate",
                     data: { value: "process.exitCode", object: "process" },
                     type: "AssignmentExpression",
-                    line: 8
-                }
-            ]
+                    line: 8,
+                },
+            ],
         },
 
         // allowProperties
@@ -391,7 +394,7 @@ ruleTester.run("require-atomic-updates", rule, {
                     }
                 }
             `,
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -401,7 +404,7 @@ ruleTester.run("require-atomic-updates", rule, {
                     foo.bar = 1;
                 }
             `,
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -412,8 +415,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{}],
-            errors: [STATIC_PROPERTY_ERROR]
-
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -424,7 +426,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{}],
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -435,8 +437,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{ allowProperties: false }],
-            errors: [STATIC_PROPERTY_ERROR]
-
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -447,7 +448,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{ allowProperties: false }],
-            errors: [STATIC_PROPERTY_ERROR]
+            errors: [STATIC_PROPERTY_ERROR],
         },
         {
             code: `
@@ -459,8 +460,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{ allowProperties: true }],
-            errors: [VARIABLE_ERROR]
-
+            errors: [VARIABLE_ERROR],
         },
         {
             code: `
@@ -472,7 +472,7 @@ ruleTester.run("require-atomic-updates", rule, {
                 }
             `,
             options: [{ allowProperties: true }],
-            errors: [VARIABLE_ERROR]
-        }
-    ]
+            errors: [VARIABLE_ERROR],
+        },
+    ],
 });

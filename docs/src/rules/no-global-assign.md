@@ -2,12 +2,10 @@
 title: no-global-assign
 rule_type: suggestion
 related_rules:
-- no-extend-native
-- no-redeclare
-- no-shadow
+    - no-extend-native
+    - no-redeclare
+    - no-shadow
 ---
-
-
 
 JavaScript environments contain a number of built-in global variables, such as `window` in browsers and `process` in Node.js. In almost all cases, you don't want to assign a value to these global variables as doing so could result in losing access to important functionality. For example, you probably don't want to do this in browser code:
 
@@ -32,8 +30,8 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-global-assign: "error"*/
 
-Object = null
-undefined = 1
+Object = null;
+undefined = 1;
 ```
 
 :::
@@ -44,7 +42,7 @@ undefined = 1
 /*eslint no-global-assign: "error"*/
 /*global window:readonly*/
 
-window = {}
+window = {};
 ```
 
 :::
@@ -56,9 +54,9 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-global-assign: "error"*/
 
-a = 1
-var b = 1
-b = 2
+a = 1;
+var b = 1;
+b = 2;
 ```
 
 :::
@@ -69,7 +67,7 @@ b = 2
 /*eslint no-global-assign: "error"*/
 /*global onload:writable*/
 
-onload = function() {}
+onload = function () {};
 ```
 
 :::
@@ -81,7 +79,7 @@ This rule accepts an `exceptions` option, which can be used to specify a list of
 ```json
 {
     "rules": {
-        "no-global-assign": ["error", {"exceptions": ["Object"]}]
+        "no-global-assign": ["error", { "exceptions": ["Object"] }]
     }
 }
 ```

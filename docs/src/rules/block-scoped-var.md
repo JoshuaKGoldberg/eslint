@@ -2,10 +2,9 @@
 title: block-scoped-var
 rule_type: suggestion
 further_reading:
-- https://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
+    - https://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
 ---
-
 
 The `block-scoped-var` rule generates warnings when variables are used outside of the block in which they were defined. This emulates C-style block scope.
 

@@ -2,14 +2,10 @@
 title: no-nonoctal-decimal-escape
 rule_type: suggestion
 related_rules:
-- no-octal-escape
+    - no-octal-escape
 further_reading:
-- https://tc39.es/ecma262/#prod-annexB-NonOctalDecimalEscapeSequence
+    - https://tc39.es/ecma262/#prod-annexB-NonOctalDecimalEscapeSequence
 ---
-
-
-
-
 
 Although not being specified in the language until ECMAScript 2021, `\8` and `\9` escape sequences in string literals were allowed in most JavaScript engines, and treated as "useless" escapes:
 

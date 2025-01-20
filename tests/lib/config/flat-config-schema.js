@@ -7,7 +7,9 @@
 
 const { flatConfigSchema } = require("../../../lib/config/flat-config-schema");
 const { assert } = require("chai");
-const { Legacy: { ConfigArray } } = require("@eslint/eslintrc");
+const {
+    Legacy: { ConfigArray },
+} = require("@eslint/eslintrc");
 
 /**
  * This function checks the result of merging two values in eslintrc config.
@@ -22,7 +24,7 @@ const { Legacy: { ConfigArray } } = require("@eslint/eslintrc");
 function confirmLegacyMergeResult(first, second, expectedResult) {
     const configArray = new ConfigArray(
         { settings: first },
-        { settings: second }
+        { settings: second },
     );
     const config = configArray.extractConfig("/file");
     const actualResult = config.settings;
@@ -31,7 +33,6 @@ function confirmLegacyMergeResult(first, second, expectedResult) {
 }
 
 describe("merge", () => {
-
     const { merge } = flatConfigSchema.settings;
 
     it("merges two objects", () => {
@@ -196,36 +197,43 @@ describe("merge", () => {
         const second = { foo: void 0, baz: void 0 };
         const result = merge(first, second);
 
-        assert.deepStrictEqual(result, { foo: void 0, bar: void 0, baz: void 0 });
+        assert.deepStrictEqual(result, {
+            foo: void 0,
+            bar: void 0,
+            baz: void 0,
+        });
     });
 
     it("considers only own enumerable properties", () => {
         const first = {
             __proto__: { inherited1: "A" }, // non-own properties are not considered
             included1: "B",
-            notMerged1: { first: true }
+            notMerged1: { first: true },
         };
         const second = {
             __proto__: { inherited2: "C" }, // non-own properties are not considered
             included2: "D",
-            notMerged2: { second: true }
+            notMerged2: { second: true },
         };
 
         // non-enumerable properties are not considered
-        Object.defineProperty(first, "notMerged2", { enumerable: false, value: { first: true } });
-        Object.defineProperty(second, "notMerged1", { enumerable: false, value: { second: true } });
+        Object.defineProperty(first, "notMerged2", {
+            enumerable: false,
+            value: { first: true },
+        });
+        Object.defineProperty(second, "notMerged1", {
+            enumerable: false,
+            value: { second: true },
+        });
 
         const result = merge(first, second);
 
-        assert.deepStrictEqual(
-            result,
-            {
-                included1: "B",
-                included2: "D",
-                notMerged1: { first: true },
-                notMerged2: { second: true }
-            }
-        );
+        assert.deepStrictEqual(result, {
+            included1: "B",
+            included2: "D",
+            notMerged1: { first: true },
+            notMerged2: { second: true },
+        });
         confirmLegacyMergeResult(first, second, result);
     });
 
@@ -296,7 +304,11 @@ describe("merge", () => {
 
         assert.strictEqual(result, result.reference.reference);
 
-        const expected = { foo: 42, bar: "baz", reference: { foo: 42, bar: "baz" } };
+        const expected = {
+            foo: 42,
+            bar: "baz",
+            reference: { foo: 42, bar: "baz" },
+        };
 
         expected.reference.reference = expected;
         assert.deepStrictEqual(result, expected);
@@ -309,13 +321,13 @@ describe("merge", () => {
             a: firstCommon,
             b: firstCommon,
             c: { foo: "different" },
-            d: firstCommon
+            d: firstCommon,
         };
         const second = {
             a: secondCommon,
             b: { bar: "something else" },
             c: secondCommon,
-            d: secondCommon
+            d: secondCommon,
         };
         const result = merge(first, second);
 
@@ -325,7 +337,7 @@ describe("merge", () => {
             a: { foo: 42, bar: "baz" },
             b: { foo: 42, bar: "something else" },
             c: { foo: "different", bar: "baz" },
-            d: { foo: 42, bar: "baz" }
+            d: { foo: 42, bar: "baz" },
         };
 
         assert.deepStrictEqual(result, expected);

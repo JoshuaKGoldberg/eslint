@@ -18,7 +18,6 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const ruleTester = new RuleTester();
 
 ruleTester.run("multiline-comment-style", rule, {
-
     valid: [
         `
             /*
@@ -89,7 +88,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // The following line comment
                 // contains '*/'.
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -98,7 +97,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * a comment
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -107,7 +106,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * a JSDoc comment
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -115,19 +114,19 @@ ruleTester.run("multiline-comment-style", rule, {
                   "error"
                 ] */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
                 // this is a single-line comment
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
                 /* foo */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -135,20 +134,20 @@ ruleTester.run("multiline-comment-style", rule, {
                  * foo
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
                 /* foo */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
                 /*
                    foo */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -156,14 +155,14 @@ ruleTester.run("multiline-comment-style", rule, {
                    foo
                 */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
                 /*
               foo */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -171,21 +170,21 @@ ruleTester.run("multiline-comment-style", rule, {
             foo
         */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
                 // this is
                 // a comment
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
                 /* this is
                    a comment */ foo;
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -193,7 +192,7 @@ ruleTester.run("multiline-comment-style", rule, {
 
                 // another comment
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -201,7 +200,7 @@ ruleTester.run("multiline-comment-style", rule, {
 
                 // another comment
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -209,13 +208,13 @@ ruleTester.run("multiline-comment-style", rule, {
 
                 // another comment
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
                 /* eslint semi: "error" */
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -224,7 +223,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * a JSDoc comment
                  */
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -233,7 +232,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * a JSDoc comment
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -242,21 +241,21 @@ ruleTester.run("multiline-comment-style", rule, {
                  * a JSDoc comment
                  */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
                 /* This is
                    a comment */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
                 /* This is
                          a comment */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -264,7 +263,7 @@ ruleTester.run("multiline-comment-style", rule, {
                     "error"
                 ] */
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -272,7 +271,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  + 4 is 9, and the value of 5
                  * 4 is 20. */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -283,7 +282,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -293,7 +292,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -304,7 +303,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * !
                  */
             `,
-            options: ["bare-block"]
+            options: ["bare-block"],
         },
         {
             code: `
@@ -315,7 +314,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * !
                  */
             `,
-            options: ["starred-block"]
+            options: ["starred-block"],
         },
         {
             code: `
@@ -326,7 +325,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * !
                  */
             `,
-            options: ["separate-lines"]
+            options: ["separate-lines"],
         },
         {
             code: `
@@ -335,8 +334,8 @@ ruleTester.run("multiline-comment-style", rule, {
                  *some.code();
                  */
             `,
-            options: ["starred-block"]
-        }
+            options: ["starred-block"],
+        },
     ],
 
     invalid: [
@@ -351,7 +350,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * line comments
                  */
             `,
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -359,7 +358,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 ///bar
             `,
             output: null,
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -380,7 +379,10 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            errors: [{ messageId: "expectedBlock", line: 2 }, { messageId: "expectedBlock", line: 5 }]
+            errors: [
+                { messageId: "expectedBlock", line: 2 },
+                { messageId: "expectedBlock", line: 5 },
+            ],
         },
         {
             code: `
@@ -397,7 +399,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -414,7 +416,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -431,7 +433,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * qux
                  */
             `,
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -445,7 +447,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a newline at the start
                  */
             `,
-            errors: [{ messageId: "startNewline", line: 2 }]
+            errors: [{ messageId: "startNewline", line: 2 }],
         },
         {
             code: `
@@ -459,7 +461,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a newline at the start
                  */
             `,
-            errors: [{ messageId: "startNewline", line: 2 }]
+            errors: [{ messageId: "startNewline", line: 2 }],
         },
         {
             code: `
@@ -473,7 +475,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a newline at the end
                  */
             `,
-            errors: [{ messageId: "endNewline", line: 4 }]
+            errors: [{ messageId: "endNewline", line: 4 }],
         },
         {
             code: `
@@ -488,7 +490,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a '*' at the start
                  */
             `,
-            errors: [{ messageId: "missingStar", line: 4 }]
+            errors: [{ messageId: "missingStar", line: 4 }],
         },
         {
             code: `
@@ -503,7 +505,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a '*' at the start
                  */
             `,
-            errors: [{ messageId: "missingStar", line: 4 }]
+            errors: [{ messageId: "missingStar", line: 4 }],
         },
         {
             code: `
@@ -518,7 +520,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is missing a '*' at the start
                  */
             `,
-            errors: [{ messageId: "missingStar", line: 4 }]
+            errors: [{ messageId: "missingStar", line: 4 }],
         },
         {
             code: `
@@ -533,7 +535,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * has a '*' with the wrong offset at the start
                  */
             `,
-            errors: [{ messageId: "alignment", line: 4 }]
+            errors: [{ messageId: "alignment", line: 4 }],
         },
         {
             code: `
@@ -548,7 +550,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    * has a '*' with the wrong offset at the start
                    */
             `,
-            errors: [{ messageId: "alignment", line: 4 }]
+            errors: [{ messageId: "alignment", line: 4 }],
         },
         {
             code: `
@@ -563,7 +565,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is misaligned
                  */
             `,
-            errors: [{ messageId: "alignment", line: 5 }]
+            errors: [{ messageId: "alignment", line: 5 }],
         },
         {
             code: `
@@ -580,7 +582,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is blank
                  */
             `,
-            errors: [{ messageId: "alignment", line: 4 }]
+            errors: [{ messageId: "alignment", line: 4 }],
         },
         {
             code: `
@@ -597,7 +599,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is blank
                  */
             `,
-            errors: [{ messageId: "alignment", line: 4 }]
+            errors: [{ messageId: "alignment", line: 4 }],
         },
         {
             code: `
@@ -612,7 +614,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * is misaligned
                  */ foo
             `,
-            errors: [{ messageId: "alignment", line: 5 }]
+            errors: [{ messageId: "alignment", line: 5 }],
         },
         {
             code: `
@@ -626,7 +628,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // bar
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -640,7 +642,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // Comment
             `,
             options: ["separate-lines", { checkJSDoc: true }],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -656,7 +658,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // qux
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -668,7 +670,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -682,7 +684,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -694,7 +696,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -706,7 +708,7 @@ ruleTester.run("multiline-comment-style", rule, {
                      bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -718,7 +720,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -734,7 +736,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    qux */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -748,7 +750,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -762,7 +764,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -776,7 +778,7 @@ ruleTester.run("multiline-comment-style", rule, {
                      bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -790,7 +792,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -808,7 +810,7 @@ ruleTester.run("multiline-comment-style", rule, {
                    qux */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -832,8 +834,8 @@ ruleTester.run("multiline-comment-style", rule, {
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
+                { messageId: "alignment", line: 7 },
+            ],
         },
         {
             code: `
@@ -857,8 +859,8 @@ ruleTester.run("multiline-comment-style", rule, {
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
+                { messageId: "alignment", line: 7 },
+            ],
         },
         {
             code: `
@@ -882,8 +884,8 @@ ruleTester.run("multiline-comment-style", rule, {
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
+                { messageId: "alignment", line: 7 },
+            ],
         },
         {
             code: `
@@ -907,8 +909,8 @@ ruleTester.run("multiline-comment-style", rule, {
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
+                { messageId: "alignment", line: 7 },
+            ],
         },
         {
             code: `
@@ -932,8 +934,8 @@ ruleTester.run("multiline-comment-style", rule, {
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
+                { messageId: "alignment", line: 7 },
+            ],
         },
         {
             code: `
@@ -950,9 +952,7 @@ ruleTester.run("multiline-comment-style", rule, {
                  * }
                  */
             `,
-            errors: [
-                { messageId: "expectedBlock", line: 2 }
-            ]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -970,9 +970,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // }
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -994,9 +992,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 //${" "}
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1018,9 +1014,7 @@ ruleTester.run("multiline-comment-style", rule, {
                     */
             `,
             options: ["bare-block"],
-            errors: [
-                { messageId: "expectedBareBlock", line: 2 }
-            ]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -1042,9 +1036,7 @@ ruleTester.run("multiline-comment-style", rule, {
                     */
             `,
             options: ["bare-block"],
-            errors: [
-                { messageId: "expectedBareBlock", line: 2 }
-            ]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -1062,9 +1054,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // }
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1082,9 +1072,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 //   }
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1102,9 +1090,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // }
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1122,9 +1108,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // }
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1144,9 +1128,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 //${" "}
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1162,9 +1144,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // }${" "}
             `,
             options: ["separate-lines"],
-            errors: [
-                { messageId: "expectedLines", line: 2 }
-            ]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1180,7 +1160,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // bar
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1196,7 +1176,7 @@ ruleTester.run("multiline-comment-style", rule, {
                 // bar
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1212,7 +1192,7 @@ ${"                   "}
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -1228,7 +1208,7 @@ ${"                   "}
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBareBlock", line: 2 }]
+            errors: [{ messageId: "expectedBareBlock", line: 2 }],
         },
         {
             code: `
@@ -1244,7 +1224,7 @@ ${"                   "}
                  */
             `,
             options: ["starred-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -1260,7 +1240,7 @@ ${"                   "}
                  */
             `,
             options: ["starred-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -1274,7 +1254,7 @@ ${"                   "}
                    bar */
             `,
             options: ["bare-block"],
-            errors: [{ messageId: "expectedBlock", line: 2 }]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -1288,7 +1268,7 @@ ${"                   "}
                 // bar${" "}
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1302,7 +1282,7 @@ ${"                   "}
                 // bar${" "}
             `,
             options: ["separate-lines"],
-            errors: [{ messageId: "expectedLines", line: 2 }]
+            errors: [{ messageId: "expectedLines", line: 2 }],
         },
         {
             code: `
@@ -1322,8 +1302,8 @@ ${"                   "}
                 { messageId: "startNewline", line: 2 },
                 { messageId: "missingStar", line: 3 },
                 { messageId: "missingStar", line: 4 },
-                { messageId: "endNewline", line: 4 }
-            ]
+                { messageId: "endNewline", line: 4 },
+            ],
         },
         {
             code: `
@@ -1343,8 +1323,8 @@ ${"                   "}
                 { messageId: "startNewline", line: 2 },
                 { messageId: "missingStar", line: 3 },
                 { messageId: "missingStar", line: 4 },
-                { messageId: "endNewline", line: 4 }
-            ]
+                { messageId: "endNewline", line: 4 },
+            ],
         },
         {
             code: `
@@ -1364,8 +1344,8 @@ ${"                   "}
                 { messageId: "startNewline", line: 2 },
                 { messageId: "missingStar", line: 3 },
                 { messageId: "missingStar", line: 4 },
-                { messageId: "endNewline", line: 4 }
-            ]
+                { messageId: "endNewline", line: 4 },
+            ],
         },
         {
             code: `
@@ -1385,8 +1365,8 @@ ${"                   "}
                 { messageId: "startNewline", line: 2 },
                 { messageId: "missingStar", line: 3 },
                 { messageId: "missingStar", line: 4 },
-                { messageId: "endNewline", line: 4 }
-            ]
+                { messageId: "endNewline", line: 4 },
+            ],
         },
         {
             code: `
@@ -1404,8 +1384,8 @@ ${"                   "}
             options: ["starred-block"],
             errors: [
                 { messageId: "missingStar", line: 3 },
-                { messageId: "missingStar", line: 4 }
-            ]
+                { messageId: "missingStar", line: 4 },
+            ],
         },
         {
             code: `
@@ -1421,9 +1401,7 @@ ${"                   "}
                  */
             `,
             options: ["starred-block"],
-            errors: [
-                { messageId: "missingStar", line: 3 }
-            ]
+            errors: [{ messageId: "missingStar", line: 3 }],
         },
         {
             code: `
@@ -1432,9 +1410,7 @@ ${"                   "}
             `,
             output: null,
             options: ["starred-block"],
-            errors: [
-                { messageId: "expectedBlock", line: 2 }
-            ]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -1443,9 +1419,7 @@ ${"                   "}
             `,
             output: null,
             options: ["starred-block"],
-            errors: [
-                { messageId: "expectedBlock", line: 2 }
-            ]
+            errors: [{ messageId: "expectedBlock", line: 2 }],
         },
         {
             code: `
@@ -1470,8 +1444,8 @@ ${"                   "}
                 { messageId: "missingStar", line: 4 },
                 { messageId: "missingStar", line: 5 },
                 { messageId: "missingStar", line: 6 },
-                { messageId: "alignment", line: 7 }
-            ]
-        }
-    ]
+                { messageId: "alignment", line: 7 },
+            ],
+        },
+    ],
 });

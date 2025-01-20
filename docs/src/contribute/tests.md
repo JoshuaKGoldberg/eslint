@@ -39,8 +39,8 @@ ruleTester.run("my-rule", myRule, {
             only: true,
         },
         // Other invalid cases
-    ]
-})
+    ],
+});
 ```
 
 Running individual tests is useful when you're working on a specific bug and iterating on the solution. You should be sure to run `npm test` before submitting a pull request. `npm test` uses Mocha's `--forbid-only` option to prevent `only` tests from passing full test runs.

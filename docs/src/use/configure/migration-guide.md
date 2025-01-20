@@ -16,8 +16,8 @@ To learn more about the flat config format, refer to [this blog post](https://es
 
 For reference information on these configuration formats, refer to the following documentation:
 
-* [eslintrc configuration files](configuration-files-deprecated)
-* [flat configuration files](configuration-files)
+- [eslintrc configuration files](configuration-files-deprecated)
+- [flat configuration files](configuration-files)
 
 ## Migrate Your Config File
 
@@ -44,10 +44,10 @@ To use flat config with ESLint v8, place a `eslint.config.js` file in the root o
 
 While the configuration file format has changed from eslintrc to flat config, the following has stayed the same:
 
-* Syntax for configuring rules.
-* Syntax for configuring processors.
-* The CLI, except for the flag changes noted in [CLI Flag Changes](#cli-flag-changes).
-* Global variables are configured the same way, but on a different property (see [Configuring Language Options](#configuring-language-options)).
+- Syntax for configuring rules.
+- Syntax for configuring processors.
+- The CLI, except for the flag changes noted in [CLI Flag Changes](#cli-flag-changes).
+- Global variables are configured the same way, but on a different property (see [Configuring Language Options](#configuring-language-options)).
 
 ## Key Differences between Configuration Formats
 
@@ -69,8 +69,8 @@ module.exports = {
     plugins: ["jsdoc"],
     rules: {
         "jsdoc/require-description": "error",
-        "jsdoc/check-values": "error"
-    }
+        "jsdoc/check-values": "error",
+    },
     // ...other config
 };
 ```
@@ -86,13 +86,13 @@ export default [
     {
         files: ["**/*.js"],
         plugins: {
-            jsdoc: jsdoc
+            jsdoc: jsdoc,
         },
         rules: {
             "jsdoc/require-description": "error",
-            "jsdoc/check-values": "error"
-        }
-    }
+            "jsdoc/check-values": "error",
+        },
+    },
 ];
 ```
 
@@ -129,10 +129,10 @@ export default [
     {
         // ...other config
         languageOptions: {
-            parser: babelParser
-        }
+            parser: babelParser,
+        },
         // ...other config
-    }
+    },
 ];
 ```
 
@@ -150,13 +150,13 @@ module.exports = {
     processors: {
         ".md": {
             preprocess() {},
-            postprocess() {}
+            postprocess() {},
         },
-        "someProcessor": {
+        someProcessor: {
             preprocess() {},
-            postprocess() {}
-        }
-    }
+            postprocess() {},
+        },
+    },
 };
 ```
 
@@ -166,7 +166,7 @@ In eslintrc, you would configure as follows:
 // .eslintrc.js
 module.exports = {
     plugins: ["someplugin"],
-    processor: "someplugin/someProcessor"
+    processor: "someplugin/someProcessor",
 };
 ```
 
@@ -174,10 +174,12 @@ ESLint would also automatically add the equivalent of the following:
 
 ```javascript
 {
-     overrides: [{
-        files: ["**/*.md"],
-        processor: "someplugin/.md"
-     }]
+    overrides: [
+        {
+            files: ["**/*.md"],
+            processor: "someplugin/.md",
+        },
+    ];
 }
 ```
 
@@ -190,17 +192,17 @@ import somePlugin from "eslint-plugin-someplugin";
 export default [
     {
         plugins: { somePlugin },
-        processor: "somePlugin/someProcessor"
+        processor: "somePlugin/someProcessor",
     },
     {
         plugins: { somePlugin },
         // We can embed the processor object in the config directly
-        processor: somePlugin.processors.someProcessor
+        processor: somePlugin.processors.someProcessor,
     },
     {
         // We don't need the plugin to be present in the config to use the processor directly
-        processor: somePlugin.processors.someProcessor
-    }
+        processor: somePlugin.processors.someProcessor,
+    },
 ];
 ```
 
@@ -229,8 +231,8 @@ For example, this eslintrc file applies to all files in the directory where it i
 module.exports = {
     // ...other config
     rules: {
-        semi: ["warn", "always"]
-    }
+        semi: ["warn", "always"],
+    },
 };
 ```
 
@@ -245,16 +247,16 @@ module.exports = {
         {
             files: ["src/**/*"],
             rules: {
-                semi: ["warn", "always"]
-            }
+                semi: ["warn", "always"],
+            },
         },
         {
-            files:["test/**/*"],
+            files: ["test/**/*"],
             rules: {
-                "no-console": "off"
-            }
-        }
-    ]
+                "no-console": "off",
+            },
+        },
+    ],
 };
 ```
 
@@ -271,10 +273,10 @@ export default [
     {
         rules: {
             indent: ["error", 2],
-            "no-unused-vars": "warn"
-        }
+            "no-unused-vars": "warn",
+        },
         // ...other configuration
-    }
+    },
 ];
 ```
 
@@ -291,15 +293,15 @@ export default [
     {
         files: ["src/**/*", "test/**/*"],
         rules: {
-            semi: ["warn", "always"]
-        }
+            semi: ["warn", "always"],
+        },
     },
     {
-        files:["test/**/*"],
+        files: ["test/**/*"],
         rules: {
-            "no-console": "off"
-        }
-    }
+            "no-console": "off",
+        },
+    },
     // ...other configurations
 ];
 ```
@@ -318,17 +320,17 @@ For example, here's an eslintrc file with language options:
 module.exports = {
     env: {
         browser: true,
-        node: true
+        node: true,
     },
     globals: {
         myCustomGlobal: "readonly",
     },
     parserOptions: {
         ecmaVersion: 2022,
-        sourceType: "module"
-    }
+        sourceType: "module",
+    },
     // ...other config
-}
+};
 ```
 
 Here's the same configuration in flat config:
@@ -346,11 +348,11 @@ export default [
             globals: {
                 ...globals.browser,
                 ...globals.node,
-                myCustomGlobal: "readonly"
-            }
-        }
+                myCustomGlobal: "readonly",
+            },
+        },
         // ...other config
-    }
+    },
 ];
 ```
 
@@ -405,15 +407,13 @@ import globals from "globals";
 export default [
     // ...other config
     {
-        files: [
-            "tests/**"
-        ],
+        files: ["tests/**"],
         languageOptions: {
             globals: {
-                ...globals.mocha
-            }
-        }
-    }
+                ...globals.mocha,
+            },
+        },
+    },
 ];
 ```
 
@@ -421,8 +421,8 @@ export default [
 
 In eslintrc files, use the `extends` property to use predefined and shareable configs. ESLint comes with two predefined configs that you can access as strings:
 
-* `"eslint:recommended"`: the rules recommended by ESLint.
-* `"eslint:all"`: all rules shipped with ESLint.
+- `"eslint:recommended"`: the rules recommended by ESLint.
+- `"eslint:all"`: all rules shipped with ESLint.
 
 You can also use the `extends` property to extend a shareable config. Shareable configs can either be paths to local config files or npm package names.
 
@@ -445,10 +445,10 @@ module.exports = {
     // ...other config
     extends: "eslint:recommended",
     rules: {
-        semi: ["warn", "always"]
+        semi: ["warn", "always"],
     },
     // ...other config
-}
+};
 ```
 
 This eslintrc file uses built-in config, local custom config, and shareable config from an npm package:
@@ -458,12 +458,16 @@ This eslintrc file uses built-in config, local custom config, and shareable conf
 
 module.exports = {
     // ...other config
-    extends: ["eslint:recommended", "./custom-config.js", "eslint-config-my-config"],
+    extends: [
+        "eslint:recommended",
+        "./custom-config.js",
+        "eslint-config-my-config",
+    ],
     rules: {
-        semi: ["warn", "always"]
+        semi: ["warn", "always"],
     },
     // ...other config
-}
+};
 ```
 
 To use the same configs in flat config, you would do the following:
@@ -481,10 +485,10 @@ export default [
     myConfig,
     {
         rules: {
-            semi: ["warn", "always"]
+            semi: ["warn", "always"],
         },
         // ...other config
-    }
+    },
 ];
 ```
 
@@ -527,11 +531,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const compat = new FlatCompat({
-    baseDirectory: __dirname
+    baseDirectory: __dirname,
 });
 
 export default [
-
     // mimic ESLintRC-style extends
     ...compat.extends("eslint-config-my-config"),
 ];
@@ -573,8 +576,8 @@ export default [
     // ...other config
     {
         // Note: there should be no other properties in this object
-        ignores: ["**/temp.js", "config/*"]
-    }
+        ignores: ["**/temp.js", "config/*"],
+    },
 ];
 ```
 
@@ -598,8 +601,8 @@ For example, here's an eslintrc file with linter options enabled:
 module.exports = {
     // ...other config
     noInlineConfig: true,
-    reportUnusedDisableDirectives: true
-}
+    reportUnusedDisableDirectives: true,
+};
 ```
 
 Here's the same options in flat config:
@@ -612,9 +615,9 @@ export default [
         // ...other config
         linterOptions: {
             noInlineConfig: true,
-            reportUnusedDisableDirectives: "warn"
-        }
-    }
+            reportUnusedDisableDirectives: "warn",
+        },
+    },
 ];
 ```
 
@@ -622,9 +625,9 @@ export default [
 
 The following CLI flags are no longer supported with the flat config file format:
 
-* `--rulesdir`
-* `--ext`
-* `--resolve-plugins-relative-to`
+- `--rulesdir`
+- `--ext`
+- `--resolve-plugins-relative-to`
 
 The flag `--no-eslintrc` has been replaced with `--no-config-lookup`.
 
@@ -642,17 +645,16 @@ export default [
         plugins: {
             local: {
                 rules: {
-                    "my-rule": myRule
-                }
-            }
+                    "my-rule": myRule,
+                },
+            },
         },
 
         // configure the rule
         rules: {
-            "local/my-rule": ["error"]
-        }
-
-    }
+            "local/my-rule": ["error"],
+        },
+    },
 ];
 ```
 
@@ -664,10 +666,10 @@ The `--ext` flag was used to specify additional file extensions ESLint should se
 // eslint.config.js
 export default [
     {
-        files: ["**/*.ts", "**/*.tsx"]
+        files: ["**/*.ts", "**/*.tsx"],
 
         // any additional configuration for these file types here
-    }
+    },
 ];
 ```
 
@@ -689,9 +691,9 @@ With flat config, it's no longer possible to use a `package.json` file to config
 
 The following changes have been made from the eslintrc to the flat config file format:
 
-* The `root` option no longer exists. (Flat config files act as if `root: true` is set.)
-* The `files` option cannot be a single string anymore, it must be an array.
-* The `sourceType` option now supports the new value `"commonjs"` (`.eslintrc` supports it too, but it was never documented).
+- The `root` option no longer exists. (Flat config files act as if `root: true` is set.)
+- The `files` option cannot be a single string anymore, it must be an array.
+- The `sourceType` option now supports the new value `"commonjs"` (`.eslintrc` supports it too, but it was never documented).
 
 ## TypeScript Types for Flat Config Files
 
@@ -707,8 +709,8 @@ In versions of `vscode-eslint` prior to v3.0.10, the new configuration system is
 
 ```json
 {
-  // required in vscode-eslint < v3.0.10 only
-  "eslint.experimental.useFlatConfig": true
+    // required in vscode-eslint < v3.0.10 only
+    "eslint.experimental.useFlatConfig": true
 }
 ```
 
@@ -716,6 +718,6 @@ In a future version of the ESLint plugin, you will no longer need to enable this
 
 ## Further Reading
 
-* [Overview of the flat config file format blog post](https://eslint.org/blog/2022/08/new-config-system-part-2/)
-* [API usage of new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-3/)
-* [Background to new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-1/)
+- [Overview of the flat config file format blog post](https://eslint.org/blog/2022/08/new-config-system-part-2/)
+- [API usage of new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-3/)
+- [Background to new configuration system blog post](https://eslint.org/blog/2022/08/new-config-system-part-1/)

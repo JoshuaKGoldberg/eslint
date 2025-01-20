@@ -31,16 +31,16 @@ function createParentDirective(range, value, ruleIds = []) {
             loc: {
                 start: {
                     line: 1,
-                    column: 1
+                    column: 1,
                 },
                 end: {
                     line: 1,
-                    column: range[1] + 1
-                }
-            }
+                    column: range[1] + 1,
+                },
+            },
         },
         value,
-        ruleIds
+        ruleIds,
     };
 }
 
@@ -50,7 +50,7 @@ const sourceCode = {
     },
     getLoc(node) {
         return node.loc;
-    }
+    },
 };
 
 //------------------------------------------------------------------------------
@@ -64,10 +64,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ parentDirective: createParentDirective([0, 7]), type: "disable", line: 1, column: 8, ruleId: null, justification: "justification" }],
-                    problems: [{ line: 1, column: 7, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 7]),
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 7, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 7, ruleId: "foo" }]
+                [{ line: 1, column: 7, ruleId: "foo" }],
             );
         });
 
@@ -76,10 +85,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ parentDirective: createParentDirective([21, 27]), type: "disable", line: 2, column: 1, ruleId: null, justification: "justification" }],
-                    problems: [{ line: 1, column: 10, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([21, 27]),
+                            type: "disable",
+                            line: 2,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 10, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 10, ruleId: "foo" }]
+                [{ line: 1, column: 10, ruleId: "foo" }],
             );
         });
 
@@ -88,10 +106,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 8, ruleId: null, justification: "justification" }],
-                    problems: [{ line: 1, column: 8, ruleId: null }]
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 8, ruleId: null }],
                 }),
-                [{ line: 1, column: 8, ruleId: null, suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 8,
+                        ruleId: null,
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -100,10 +138,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 8, ruleId: null, justification: "justification" }],
-                    problems: [{ line: 1, column: 10, ruleId: "foo" }]
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 10, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 10, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 10,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -112,10 +170,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 8, ruleId: null, justification: "justification" }],
-                    problems: [{ line: 2, column: 3, ruleId: "foo" }]
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
     });
@@ -126,10 +204,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 8, ruleId: "foo", justification: "justification" }],
-                    problems: [{ line: 2, column: 3, ruleId: "foo" }]
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -138,10 +236,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 8, ruleId: "foo", justification: "justification" }],
-                    problems: [{ line: 1, column: 8, ruleId: "foo" }]
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 8, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 8, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 8,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -150,17 +268,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([26, 29]),
-                        type: "disable",
-                        line: 1,
-                        column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 2, column: 3, ruleId: "not-foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([26, 29]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 3, ruleId: "not-foo" }],
                 }),
-                [{ line: 2, column: 3, ruleId: "not-foo" }]
+                [{ line: 2, column: 3, ruleId: "not-foo" }],
             );
         });
 
@@ -169,16 +289,18 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([7, 31]),
-                        type: "disable",
-                        line: 1,
-                        column: 8,
-                        ruleId: "foo"
-                    }],
-                    problems: [{ line: 1, column: 7, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([7, 31]),
+                            type: "disable",
+                            line: 1,
+                            column: 8,
+                            ruleId: "foo",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 7, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 7, ruleId: "foo" }]
+                [{ line: 1, column: 7, ruleId: "foo" }],
             );
         });
     });
@@ -196,7 +318,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([27, 45]),
@@ -204,12 +326,12 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 1, column: 27, ruleId: "foo" }]
+                    problems: [{ line: 1, column: 27, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 27, ruleId: "foo" }]
+                [{ line: 1, column: 27, ruleId: "foo" }],
             );
         });
 
@@ -225,7 +347,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([26, 40]),
@@ -233,12 +355,12 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 1, column: 26, ruleId: "foo" }]
+                    problems: [{ line: 1, column: 26, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 26, ruleId: "foo" }]
+                [{ line: 1, column: 26, ruleId: "foo" }],
             );
         });
 
@@ -248,12 +370,33 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { type: "disable", line: 1, column: 1, ruleId: null, justification: "j1" },
-                        { type: "enable", line: 1, column: 26, ruleId: null, justification: "j2" }
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "j1",
+                        },
+                        {
+                            type: "enable",
+                            line: 1,
+                            column: 26,
+                            ruleId: null,
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 1, column: 3, ruleId: "foo" }]
+                    problems: [{ line: 1, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j1" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -269,7 +412,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([26, 44]),
@@ -277,7 +420,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([45, 63]),
@@ -285,12 +428,21 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
-                    problems: [{ line: 3, column: 3, ruleId: "foo" }]
+                    problems: [{ line: 3, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 3, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j3" }] }]
+                [
+                    {
+                        line: 3,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j3" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -306,7 +458,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 44]),
@@ -314,7 +466,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([45, 63]),
@@ -322,12 +474,21 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
-                    problems: [{ line: 3, column: 3, ruleId: "foo" }]
+                    problems: [{ line: 3, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 3, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j3" }] }]
+                [
+                    {
+                        line: 3,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j3" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -343,7 +504,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([25, 44]),
@@ -351,12 +512,12 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 1, column: 3, ruleId: "not-foo" }]
+                    problems: [{ line: 1, column: 3, ruleId: "not-foo" }],
                 }),
-                [{ line: 1, column: 3, ruleId: "not-foo" }]
+                [{ line: 1, column: 3, ruleId: "not-foo" }],
             );
         });
     });
@@ -374,7 +535,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 44]),
@@ -382,12 +543,12 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 2, column: 4, ruleId: "foo" }]
+                    problems: [{ line: 2, column: 4, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 4, ruleId: "foo" }]
+                [{ line: 2, column: 4, ruleId: "foo" }],
             );
         });
 
@@ -403,7 +564,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 44]),
@@ -411,12 +572,12 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 2, column: 1, ruleId: "foo" }]
+                    problems: [{ line: 2, column: 1, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 1, ruleId: "foo" }]
+                [{ line: 2, column: 1, ruleId: "foo" }],
             );
         });
 
@@ -432,7 +593,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 44]),
@@ -440,12 +601,21 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 2, column: 4, ruleId: "not-foo" }]
+                    problems: [{ line: 2, column: 4, ruleId: "not-foo" }],
                 }),
-                [{ line: 2, column: 4, ruleId: "not-foo", suppressions: [{ kind: "directive", justification: "j1" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 4,
+                        ruleId: "not-foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -455,9 +625,27 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { type: "disable", line: 1, column: 1, ruleId: null, justification: "j1" },
-                        { type: "enable", line: 1, column: 22, ruleId: "foo", justification: "j2" },
-                        { type: "enable", line: 1, column: 46, ruleId: "bar", justification: "j3" }
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "j1",
+                        },
+                        {
+                            type: "enable",
+                            line: 1,
+                            column: 22,
+                            ruleId: "foo",
+                            justification: "j2",
+                        },
+                        {
+                            type: "enable",
+                            line: 1,
+                            column: 46,
+                            ruleId: "bar",
+                            justification: "j3",
+                        },
                     ],
                     problems: [
                         { line: 1, column: 10, ruleId: "foo" },
@@ -465,17 +653,38 @@ describe("apply-disable-directives", () => {
                         { line: 1, column: 30, ruleId: "foo" },
                         { line: 1, column: 30, ruleId: "bar" },
                         { line: 1, column: 50, ruleId: "foo" },
-                        { line: 1, column: 50, ruleId: "bar" }
-                    ]
+                        { line: 1, column: 50, ruleId: "bar" },
+                    ],
                 }),
                 [
-                    { line: 1, column: 10, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j1" }] },
-                    { line: 1, column: 10, ruleId: "bar", suppressions: [{ kind: "directive", justification: "j1" }] },
+                    {
+                        line: 1,
+                        column: 10,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                    {
+                        line: 1,
+                        column: 10,
+                        ruleId: "bar",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
                     { line: 1, column: 30, ruleId: "foo" },
-                    { line: 1, column: 30, ruleId: "bar", suppressions: [{ kind: "directive", justification: "j1" }] },
+                    {
+                        line: 1,
+                        column: 30,
+                        ruleId: "bar",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
                     { line: 1, column: 50, ruleId: "foo" },
-                    { line: 1, column: 50, ruleId: "bar" }
-                ]
+                    { line: 1, column: 50, ruleId: "bar" },
+                ],
             );
         });
     });
@@ -486,17 +695,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([6, 27]),
-                        type: "disable-line",
-                        line: 2,
-                        column: 1,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 1, column: 5, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([6, 27]),
+                            type: "disable-line",
+                            line: 2,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 5, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 5, ruleId: "foo" }]
+                [{ line: 1, column: 5, ruleId: "foo" }],
             );
         });
 
@@ -505,17 +716,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([7, 28]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 8,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 1, column: 1, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([7, 28]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 1, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -524,17 +749,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([7, 28]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 8,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 1, column: 10, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([7, 28]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 8,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 10, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 10, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 10,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -543,17 +782,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([7, 34]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 8,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 2, column: 1, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([7, 34]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 8,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 1, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 1, ruleId: "foo" }]
+                [{ line: 2, column: 1, ruleId: "foo" }],
             );
         });
     });
@@ -564,17 +805,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([7, 34]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 8,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 1, column: 2, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([7, 34]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 8,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 2, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 2, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 2,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -583,17 +838,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 27]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 1, column: 2, ruleId: "not-foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 27]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 1, column: 2, ruleId: "not-foo" }],
                 }),
-                [{ line: 1, column: 2, ruleId: "not-foo" }]
+                [{ line: 1, column: 2, ruleId: "not-foo" }],
             );
         });
 
@@ -609,7 +866,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([24, 28]),
@@ -617,12 +874,21 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 22,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 1, column: 5, ruleId: "not-foo" }]
+                    problems: [{ line: 1, column: 5, ruleId: "not-foo" }],
                 }),
-                [{ line: 1, column: 5, ruleId: "not-foo", suppressions: [{ kind: "directive", justification: "j1" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 5,
+                        ruleId: "not-foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -638,7 +904,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([38, 73]),
@@ -646,7 +912,7 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([76, 111]),
@@ -654,7 +920,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective: createParentDirective([114, 149]),
@@ -662,7 +928,7 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j4"
+                            justification: "j4",
                         },
                         {
                             parentDirective: createParentDirective([152, 187]),
@@ -670,7 +936,7 @@ describe("apply-disable-directives", () => {
                             line: 5,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j5"
+                            justification: "j5",
                         },
                         {
                             parentDirective: createParentDirective([190, 225]),
@@ -678,12 +944,21 @@ describe("apply-disable-directives", () => {
                             line: 6,
                             column: 8,
                             ruleId: "foo",
-                            justification: "j6"
-                        }
+                            justification: "j6",
+                        },
                     ],
-                    problems: [{ line: 2, column: 1, ruleId: "foo" }]
+                    problems: [{ line: 2, column: 1, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j2" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
     });
@@ -694,17 +969,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 31]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 2, column: 3, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 31]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 3, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 3,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -713,16 +1002,18 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 31]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: null
-                    }],
-                    problems: [{ line: 1, column: 3, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 31]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                        },
+                    ],
+                    problems: [{ line: 1, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 1, column: 3, ruleId: "foo" }]
+                [{ line: 1, column: 3, ruleId: "foo" }],
             );
         });
 
@@ -731,17 +1022,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 31]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 3, column: 3, ruleId: "foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 31]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 3, column: 3, ruleId: "foo" }],
                 }),
-                [{ line: 3, column: 3, ruleId: "foo" }]
+                [{ line: 3, column: 3, ruleId: "foo" }],
             );
         });
 
@@ -751,12 +1044,35 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { parentDirective: createParentDirective([0, 31]), type: "disable-next-line", line: 1, column: 1, ruleId: null, justification: "j1" },
-                        { parentDirective: createParentDirective([31, 50]), type: "enable", line: 1, column: 31, ruleId: null, justification: "j2" }
+                        {
+                            parentDirective: createParentDirective([0, 31]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "j1",
+                        },
+                        {
+                            parentDirective: createParentDirective([31, 50]),
+                            type: "enable",
+                            line: 1,
+                            column: 31,
+                            ruleId: null,
+                            justification: "j2",
+                        },
                     ],
-                    problems: [{ line: 2, column: 2, ruleId: "foo" }]
+                    problems: [{ line: 2, column: 2, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 2, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j1" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 2,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
     });
@@ -767,10 +1083,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable-next-line", line: 1, column: 1, ruleId: "foo", justification: "justification" }],
-                    problems: [{ line: 2, column: 1, ruleId: "foo" }]
+                    directives: [
+                        {
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 1, ruleId: "foo" }],
                 }),
-                [{ line: 2, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -779,17 +1115,19 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 31]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [{ line: 2, column: 1, ruleId: "not-foo" }]
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 31]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [{ line: 2, column: 1, ruleId: "not-foo" }],
                 }),
-                [{ line: 2, column: 1, ruleId: "not-foo" }]
+                [{ line: 2, column: 1, ruleId: "not-foo" }],
             );
         });
     });
@@ -799,10 +1137,18 @@ describe("apply-disable-directives", () => {
             assert.throws(
                 () =>
                     applyDisableDirectives({
-                        directives: [{ type: "foo", line: 1, column: 4, ruleId: "foo", justification: "justification" }],
-                        problems: []
+                        directives: [
+                            {
+                                type: "foo",
+                                line: 1,
+                                column: 4,
+                                ruleId: "foo",
+                                justification: "justification",
+                            },
+                        ],
+                        problems: [],
                     }),
-                "Unrecognized directive type 'foo'"
+                "Unrecognized directive type 'foo'",
             );
         });
     });
@@ -813,28 +1159,33 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 20]),
-                        type: "disable",
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 20]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [],
+                    reportUnusedDisableDirectives: "error",
+                }),
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
-                        justification: "justification"
-                    }],
-                    problems: [],
-                    reportUnusedDisableDirectives: "error"
-                }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-disable directive (no problems were reported).",
-                    line: 1,
-                    column: 1,
-                    fix: {
-                        range: [0, 20],
-                        text: " "
+                        fix: {
+                            range: [0, 20],
+                            text: " ",
+                        },
+                        severity: 2,
+                        nodeType: null,
                     },
-                    severity: 2,
-                    nodeType: null
-                }]
+                ],
             );
         });
 
@@ -843,25 +1194,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 20]),
-                        type: "disable",
-                        line: 1,
-                        column: 1,
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 20]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            justification: "justification",
+                        },
+                    ],
                     disableFixes: true,
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-disable directive (no problems were reported).",
-                    line: 1,
-                    column: 1,
-                    severity: 2,
-                    nodeType: null
-                }]
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
+                        line: 1,
+                        column: 1,
+                        severity: 2,
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -870,11 +1226,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 1, ruleId: null, justification: "justification" }],
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 2, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -883,29 +1259,34 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 21]),
-                        type: "disable",
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 21]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [],
+                    reportUnusedDisableDirectives: "error",
+                }),
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 1,
                         column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [],
-                    reportUnusedDisableDirectives: "error"
-                }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-disable directive (no problems were reported from 'foo').",
-                    line: 1,
-                    column: 1,
-                    fix: {
-                        range: [0, 21],
-                        text: " "
+                        fix: {
+                            range: [0, 21],
+                            text: " ",
+                        },
+                        severity: 2,
+                        nodeType: null,
                     },
-                    severity: 2,
-                    nodeType: null
-                }]
+                ],
             );
         });
 
@@ -914,36 +1295,39 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 24]),
-                        type: "disable",
-                        line: 1,
-                        column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 24]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
                     problems: [{ line: 1, column: 20, ruleId: "not-foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 24],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: "not-foo",
                         line: 1,
-                        column: 20
-                    }
-                ]
+                        column: 20,
+                    },
+                ],
             );
         });
 
@@ -959,7 +1343,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 8,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([0, 21]),
@@ -967,31 +1351,32 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 24,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 1, column: 2, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "foo",
                         line: 1,
-                        column: 2
+                        column: 2,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         line: 1,
                         column: 8,
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1007,7 +1392,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 41]),
@@ -1015,24 +1400,27 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 12,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-disable directive (no problems were reported).",
-                    line: 1,
-                    column: 1,
-                    fix: {
-                        range: [0, 20],
-                        text: " "
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
+                        line: 1,
+                        column: 1,
+                        fix: {
+                            range: [0, 20],
+                            text: " ",
+                        },
+                        severity: 2,
+                        nodeType: null,
                     },
-                    severity: 2,
-                    nodeType: null
-                }]
+                ],
             );
         });
 
@@ -1048,7 +1436,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 42]),
@@ -1056,38 +1444,40 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 2,
                         column: 1,
                         fix: {
                             range: [21, 42],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1103,7 +1493,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([22, 45]),
@@ -1111,24 +1501,25 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 3, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 3,
@@ -1136,10 +1527,10 @@ describe("apply-disable-directives", () => {
                         ruleId: "foo",
                         suppressions: [
                             { kind: "directive", justification: "j1" },
-                            { kind: "directive", justification: "j2" }
-                        ]
-                    }
-                ]
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1155,7 +1546,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([22, 45]),
@@ -1163,24 +1554,25 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 3, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 3,
@@ -1188,10 +1580,10 @@ describe("apply-disable-directives", () => {
                         ruleId: "foo",
                         suppressions: [
                             { kind: "directive", justification: "j1" },
-                            { kind: "directive", justification: "j2" }
-                        ]
-                    }
-                ]
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1200,11 +1592,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable", line: 1, column: 1, ruleId: "foo", justification: "justification" }],
+                    directives: [
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
                     problems: [{ line: 1, column: 6, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 1, column: 6, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 6,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1220,7 +1632,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([22, 45]),
@@ -1228,24 +1640,25 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 3, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 3,
@@ -1253,10 +1666,10 @@ describe("apply-disable-directives", () => {
                         ruleId: "foo",
                         suppressions: [
                             { kind: "directive", justification: "j1" },
-                            { kind: "directive", justification: "j2" }
-                        ]
-                    }
-                ]
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1272,7 +1685,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 45]),
@@ -1280,32 +1693,35 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 3, column: 1, ruleId: "bar" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 2,
                         column: 1,
                         fix: {
                             range: [21, 45],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 3,
                         column: 1,
                         ruleId: "bar",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1321,7 +1737,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([25, 46]),
@@ -1329,31 +1745,32 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 1, column: 30, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 20],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: "foo",
                         line: 1,
-                        column: 30
-                    }
-                ]
+                        column: 30,
+                    },
+                ],
             );
         });
 
@@ -1369,7 +1786,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([25, 49]),
@@ -1377,31 +1794,32 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 26,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 1, column: 30, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 24],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: "foo",
                         line: 1,
-                        column: 30
-                    }
-                ]
+                        column: 30,
+                    },
+                ],
             );
         });
 
@@ -1417,7 +1835,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([22, 45]),
@@ -1425,7 +1843,7 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([46, 69]),
@@ -1433,43 +1851,45 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 4, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 2,
                         column: 1,
                         fix: {
                             range: [22, 45],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: "foo",
                         line: 4,
-                        column: 1
-                    }
-                ]
+                        column: 1,
+                    },
+                ],
             );
         });
 
@@ -1478,28 +1898,33 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 20]),
-                        type: "enable",
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 20]),
+                            type: "enable",
+                            line: 1,
+                            column: 1,
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [],
+                    reportUnusedDisableDirectives: "error",
+                }),
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 1,
                         column: 1,
-                        justification: "justification"
-                    }],
-                    problems: [],
-                    reportUnusedDisableDirectives: "error"
-                }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
-                    line: 1,
-                    column: 1,
-                    fix: {
-                        range: [0, 20],
-                        text: " "
+                        fix: {
+                            range: [0, 20],
+                            text: " ",
+                        },
+                        severity: 2,
+                        nodeType: null,
                     },
-                    severity: 2,
-                    nodeType: null
-                }]
+                ],
             );
         });
 
@@ -1508,25 +1933,30 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 20]),
-                        type: "enable",
-                        line: 1,
-                        column: 1,
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 20]),
+                            type: "enable",
+                            line: 1,
+                            column: 1,
+                            justification: "justification",
+                        },
+                    ],
                     disableFixes: true,
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
-                    line: 1,
-                    column: 1,
-                    severity: 2,
-                    nodeType: null
-                }]
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        line: 1,
+                        column: 1,
+                        severity: 2,
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1536,13 +1966,37 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { type: "disable", line: 1, column: 1, ruleId: null, justification: "justification" },
-                        { type: "enable", line: 3, column: 1, ruleId: null, justification: "justification" }
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                        {
+                            type: "enable",
+                            line: 3,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 2, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1551,29 +2005,34 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 21]),
-                        type: "enable",
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 21]),
+                            type: "enable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "justification",
+                        },
+                    ],
+                    problems: [],
+                    reportUnusedDisableDirectives: "error",
+                }),
+                [
+                    {
+                        ruleId: null,
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 1,
                         column: 1,
-                        ruleId: "foo",
-                        justification: "justification"
-                    }],
-                    problems: [],
-                    reportUnusedDisableDirectives: "error"
-                }),
-                [{
-                    ruleId: null,
-                    message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
-                    line: 1,
-                    column: 1,
-                    fix: {
-                        range: [0, 21],
-                        text: " "
+                        fix: {
+                            range: [0, 21],
+                            text: " ",
+                        },
+                        severity: 2,
+                        nodeType: null,
                     },
-                    severity: 2,
-                    nodeType: null
-                }]
+                ],
             );
         });
 
@@ -1589,7 +2048,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "not-foo",
-                            justification: "justification"
+                            justification: "justification",
                         },
                         {
                             parentDirective: createParentDirective([48, 72]),
@@ -1597,32 +2056,38 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "justification"
-                        }
+                            justification: "justification",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "not-foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "not-foo",
                         line: 2,
                         column: 1,
-                        suppressions: [{ justification: "justification", kind: "directive" }]
+                        suppressions: [
+                            {
+                                justification: "justification",
+                                kind: "directive",
+                            },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [48, 72],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1638,7 +2103,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([42, 63]),
@@ -1646,7 +2111,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([63, 84]),
@@ -1654,7 +2119,7 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([84, 105]),
@@ -1662,44 +2127,48 @@ describe("apply-disable-directives", () => {
                             line: 5,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "foo",
                         line: 2,
                         column: 1,
-                        suppressions: [{ justification: "j1", kind: "directive" }]
+                        suppressions: [
+                            { justification: "j1", kind: "directive" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         fix: {
                             range: [63, 84],
-                            text: " "
+                            text: " ",
                         },
                         line: 4,
                         column: 1,
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         fix: {
                             range: [84, 105],
-                            text: " "
+                            text: " ",
                         },
                         line: 5,
                         column: 1,
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1715,7 +2184,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([42, 63]),
@@ -1723,7 +2192,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([63, 84]),
@@ -1731,32 +2200,35 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
-                        }
+                            justification: "j1",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "foo",
                         line: 2,
                         column: 1,
-                        suppressions: [{ justification: "j1", kind: "directive" }]
+                        suppressions: [
+                            { justification: "j1", kind: "directive" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         fix: {
                             range: [63, 84],
-                            text: " "
+                            text: " ",
                         },
                         line: 4,
                         column: 1,
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1772,7 +2244,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 42]),
@@ -1780,38 +2252,40 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 2,
                         column: 1,
                         fix: {
                             range: [21, 42],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1827,7 +2301,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: null,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([21, 42]),
@@ -1835,7 +2309,7 @@ describe("apply-disable-directives", () => {
                             line: 2,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([63, 84]),
@@ -1843,32 +2317,35 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: null,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 3, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 21],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 3,
                         column: 1,
                         ruleId: "foo",
-                        suppressions: [{ kind: "directive", justification: "j2" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1884,7 +2361,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([42, 63]),
@@ -1892,7 +2369,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: null,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([63, 84]),
@@ -1900,32 +2377,35 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "foo",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 4,
                         column: 1,
                         fix: {
                             range: [63, 84],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -1935,13 +2415,34 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { type: "disable", line: 1, column: 1, ruleId: "foo", justification: "j1" },
-                        { type: "enable", line: 3, column: 1, ruleId: "foo", justification: "j2" }
+                        {
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "j1",
+                        },
+                        {
+                            type: "enable",
+                            line: 3,
+                            column: 1,
+                            ruleId: "foo",
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 2, column: 1, ruleId: "foo", suppressions: [{ kind: "directive", justification: "j1" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 1,
+                        ruleId: "foo",
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -1957,7 +2458,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([42, 63]),
@@ -1965,7 +2466,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([63, 84]),
@@ -1973,11 +2474,11 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: null,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
@@ -1985,22 +2486,23 @@ describe("apply-disable-directives", () => {
                         column: 1,
                         ruleId: "foo",
                         suppressions: [
-                            { kind: "directive", justification: "j1" }
-                        ]
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 4,
                         column: 1,
                         fix: {
                             range: [63, 84],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2016,7 +2518,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "bar",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([60, 80]),
@@ -2024,7 +2526,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([80, 100]),
@@ -2032,32 +2534,35 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: null,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "bar" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "bar",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [60, 80],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2073,7 +2578,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([60, 80]),
@@ -2081,7 +2586,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([80, 100]),
@@ -2089,32 +2594,35 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "foo",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 4,
                         column: 1,
                         fix: {
                             range: [80, 100],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2130,7 +2638,7 @@ describe("apply-disable-directives", () => {
                             line: 1,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([40, 60]),
@@ -2138,7 +2646,7 @@ describe("apply-disable-directives", () => {
                             line: 3,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([60, 80]),
@@ -2146,7 +2654,7 @@ describe("apply-disable-directives", () => {
                             line: 4,
                             column: 1,
                             ruleId: "foo",
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective: createParentDirective([80, 100]),
@@ -2154,44 +2662,48 @@ describe("apply-disable-directives", () => {
                             line: 5,
                             column: 1,
                             ruleId: null,
-                            justification: "j4"
-                        }
+                            justification: "j4",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "foo",
                         line: 2,
                         column: 1,
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'foo').",
                         line: 4,
                         column: 1,
                         fix: {
                             range: [60, 80],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 5,
                         column: 1,
                         fix: {
                             range: [80, 100],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2207,7 +2719,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective: createParentDirective([40, 60]),
@@ -2215,7 +2727,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective: createParentDirective([80, 100]),
@@ -2223,7 +2735,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 5,
                             column: 1,
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective: createParentDirective([100, 120]),
@@ -2231,38 +2743,47 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 6,
                             column: 1,
-                            justification: "j4"
-                        }
+                            justification: "j4",
+                        },
                     ],
-                    problems: [{ line: 2, column: 1, ruleId: "used" }, { line: 4, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    problems: [
+                        { line: 2, column: 1, ruleId: "used" },
+                        { line: 4, column: 1, ruleId: "used" },
+                    ],
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         line: 4,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }, { kind: "directive", justification: "j2" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                            { kind: "directive", justification: "j2" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found).",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found).",
                         line: 6,
                         column: 1,
                         fix: {
                             range: [100, 120],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2271,45 +2792,67 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 22]),
-                        type: "disable-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 22]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 22],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
-
 
         it("Does not add a problem for // eslint-disable-line (problem)", () => {
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable-line", line: 1, column: 1, ruleId: null, justification: "justification" }],
+                    directives: [
+                        {
+                            type: "disable-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [{ line: 1, column: 10, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 1, column: 10, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 1,
+                        column: 10,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -2318,31 +2861,34 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 27]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 2,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 27]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 2,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 2,
                         fix: {
                             range: [0, 27],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2351,11 +2897,31 @@ describe("apply-disable-directives", () => {
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{ type: "disable-next-line", line: 1, column: 1, ruleId: null, justification: "justification" }],
+                    directives: [
+                        {
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [{ line: 2, column: 10, ruleId: "foo" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
-                [{ line: 2, column: 10, ruleId: "foo", suppressions: [{ kind: "directive", justification: "justification" }] }]
+                [
+                    {
+                        line: 2,
+                        column: 10,
+                        ruleId: "foo",
+                        suppressions: [
+                            {
+                                kind: "directive",
+                                justification: "justification",
+                            },
+                        ],
+                    },
+                ],
             );
         });
 
@@ -2365,72 +2931,92 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode,
                     directives: [
-                        { parentDirective: createParentDirective([0, 20]), type: "disable", line: 1, column: 1, ruleId: null },
-                        { parentDirective: createParentDirective([20, 43]), type: "disable-line", line: 1, column: 22, ruleId: null }
+                        {
+                            parentDirective: createParentDirective([0, 20]),
+                            type: "disable",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                        },
+                        {
+                            parentDirective: createParentDirective([20, 43]),
+                            type: "disable-line",
+                            line: 1,
+                            column: 22,
+                            ruleId: null,
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 1,
                         fix: {
                             range: [0, 20],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported).",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported).",
                         line: 1,
                         column: 22,
                         fix: {
                             range: [20, 43],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
-        it("Does not add problems when reportUnusedDisableDirectives: \"off\" is used", () => {
+        it('Does not add problems when reportUnusedDisableDirectives: "off" is used', () => {
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode,
-                    directives: [{
-                        parentDirective: createParentDirective([0, 27]),
-                        type: "disable-next-line",
-                        line: 1,
-                        column: 1,
-                        ruleId: null,
-                        justification: "justification"
-                    }],
+                    directives: [
+                        {
+                            parentDirective: createParentDirective([0, 27]),
+                            type: "disable-next-line",
+                            line: 1,
+                            column: 1,
+                            ruleId: null,
+                            justification: "justification",
+                        },
+                    ],
                     problems: [],
-                    reportUnusedDisableDirectives: "off"
+                    reportUnusedDisableDirectives: "off",
                 }),
-                []
+                [],
             );
         });
     });
 
     describe("unused rules within directives", () => {
         it("Adds a problem for /* eslint-disable used, unused */", () => {
-            const parentDirective = createParentDirective([0, 32], "used, unused", ["used", "unused"]);
+            const parentDirective = createParentDirective(
+                [0, 32],
+                "used, unused",
+                ["used", "unused"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used, unused */"
+                        text: "/* eslint-disable used, unused */",
                     },
                     directives: [
                         {
@@ -2439,7 +3025,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2447,43 +3033,50 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 22,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused').",
                         line: 1,
                         column: 22,
                         fix: {
                             range: [22, 30],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
         it("Adds a problem for /* eslint-disable used , unused , -- unused and used are ok */", () => {
-            const parentDirective = createParentDirective([0, 62], "used , unused ,", ["used", "unused"]);
+            const parentDirective = createParentDirective(
+                [0, 62],
+                "used , unused ,",
+                ["used", "unused"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used , unused , -- unused and used are ok */"
+                        text: "/* eslint-disable used , unused , -- unused and used are ok */",
                     },
                     directives: [
                         {
@@ -2492,7 +3085,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2500,44 +3093,51 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 24,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused').",
                         line: 1,
                         column: 24,
                         fix: {
                             range: [23, 32],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused, used */", () => {
-            const parentDirective = createParentDirective([0, 32], "unused, used", ["unused", "used"]);
+            const parentDirective = createParentDirective(
+                [0, 32],
+                "unused, used",
+                ["unused", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused, used */"
+                        text: "/* eslint-disable unused, used */",
                     },
                     directives: [
                         {
@@ -2546,7 +3146,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2554,44 +3154,51 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 25,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [18, 26],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j2" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused,, ,, used */", () => {
-            const parentDirective = createParentDirective([0, 37], " unused,, ,, used ", ["unused", "used"]);
+            const parentDirective = createParentDirective(
+                [0, 37],
+                " unused,, ,, used ",
+                ["unused", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused,, ,, used */"
+                        text: "/* eslint-disable unused,, ,, used */",
                     },
                     directives: [
                         {
@@ -2600,7 +3207,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2608,44 +3215,51 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 29,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [18, 25],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j2" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j2" },
+                        ],
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused-1, unused-2, used */", () => {
-            const parentDirective = createParentDirective([0, 45], "unused-1, unused-2, used", ["unused-1", "unused-2", "used"]);
+            const parentDirective = createParentDirective(
+                [0, 45],
+                "unused-1, unused-2, used",
+                ["unused-1", "unused-2", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused-1, unused-2, used */"
+                        text: "/* eslint-disable unused-1, unused-2, used */",
                     },
                     directives: [
                         {
@@ -2654,7 +3268,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2662,7 +3276,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 28,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -2670,56 +3284,64 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 38,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-1').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-1').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [18, 28],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-2').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-2').",
                         line: 1,
                         column: 28,
                         fix: {
                             range: [26, 36],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j3" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j3" },
+                        ],
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused-1, unused-2, used, unused-3 */", () => {
-            const parentDirective = createParentDirective([0, 55], "unused-1, unused-2, used, unused-3", ["unused-1", "unused-2", "used", "unused-3"]);
+            const parentDirective = createParentDirective(
+                [0, 55],
+                "unused-1, unused-2, used, unused-3",
+                ["unused-1", "unused-2", "used", "unused-3"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused-1, unused-2, used, unused-3 */"
+                        text: "/* eslint-disable unused-1, unused-2, used, unused-3 */",
                     },
                     directives: [
                         {
@@ -2728,7 +3350,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2736,7 +3358,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 28,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -2744,7 +3366,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 38,
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective,
@@ -2752,68 +3374,77 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 43,
-                            justification: "j4"
-                        }
+                            justification: "j4",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-1').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-1').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [18, 28],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-2').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-2').",
                         line: 1,
                         column: 28,
                         fix: {
                             range: [26, 36],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-3').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-3').",
                         line: 1,
                         column: 43,
                         fix: {
                             range: [42, 52],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j3" }]
-                    }
-                ]
+                        suppressions: [
+                            { kind: "directive", justification: "j3" },
+                        ],
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused-1, unused-2 */", () => {
-            const parentDirective = createParentDirective([0, 39], "unused-1, unused-2", ["unused-1", "unused-2"]);
+            const parentDirective = createParentDirective(
+                [0, 39],
+                "unused-1, unused-2",
+                ["unused-1", "unused-2"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused-1, unused-2 */"
+                        text: "/* eslint-disable unused-1, unused-2 */",
                     },
                     directives: [
                         {
@@ -2822,7 +3453,7 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -2830,38 +3461,43 @@ describe("apply-disable-directives", () => {
                             type: "disable",
                             line: 1,
                             column: 28,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-1' or 'unused-2').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-1' or 'unused-2').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [0, 39],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable unused-1, unused-2, unused-3 */", () => {
-            const parentDirective = createParentDirective([0, 49], "unused-1, unused-2, unused-3", ["unused-1", "unused-2", "unused-3"]);
+            const parentDirective = createParentDirective(
+                [0, 49],
+                "unused-1, unused-2, unused-3",
+                ["unused-1", "unused-2", "unused-3"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable unused-1, unused-2, unused-3 */"
+                        text: "/* eslint-disable unused-1, unused-2, unused-3 */",
                     },
                     directives: [
                         {
@@ -2869,40 +3505,41 @@ describe("apply-disable-directives", () => {
                             ruleId: "unused-1",
                             type: "disable",
                             line: 1,
-                            column: 18
+                            column: 18,
                         },
                         {
                             parentDirective,
                             ruleId: "unused-2",
                             type: "disable",
                             line: 1,
-                            column: 28
+                            column: 28,
                         },
                         {
                             parentDirective,
                             ruleId: "unused-3",
                             type: "disable",
                             line: 1,
-                            column: 38
-                        }
+                            column: 38,
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'unused-1', 'unused-2', or 'unused-3').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'unused-1', 'unused-2', or 'unused-3').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [0, 49],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
@@ -2912,46 +3549,60 @@ describe("apply-disable-directives", () => {
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable foo */ \n  (problem)    // eslint-disable-line foo, bar"
+                        text: "/* eslint-disable foo */ \n  (problem)    // eslint-disable-line foo, bar",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "foo", ["foo"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "foo",
+                                ["foo"],
+                            ),
                             ruleId: "foo",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
-                            parentDirective: createParentDirective([41, 81], "foo, bar", ["foo", "bar"]),
+                            parentDirective: createParentDirective(
+                                [41, 81],
+                                "foo, bar",
+                                ["foo", "bar"],
+                            ),
                             ruleId: "foo",
                             type: "disable-line",
                             line: 2,
                             column: 11,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
-                            parentDirective: createParentDirective([41, 81], "foo, bar", ["foo", "bar"]),
+                            parentDirective: createParentDirective(
+                                [41, 81],
+                                "foo, bar",
+                                ["foo", "bar"],
+                            ),
                             ruleId: "bar",
                             type: "disable-line",
                             line: 2,
                             column: 11,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [
                         { line: 2, column: 1, ruleId: "bar" },
-                        { line: 2, column: 6, ruleId: "foo" }
+                        { line: 2, column: 6, ruleId: "foo" },
                     ],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: "bar",
                         line: 2,
                         column: 1,
-                        suppressions: [{ kind: "directive", justification: "j2" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j2" },
+                        ],
                     },
                     {
                         ruleId: "foo",
@@ -2959,43 +3610,52 @@ describe("apply-disable-directives", () => {
                         column: 6,
                         suppressions: [
                             { kind: "directive", justification: "j1" },
-                            { kind: "directive", justification: "j2" }
-                        ]
+                            { kind: "directive", justification: "j2" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-disable directive (no problems were reported from 'foo').",
+                        message:
+                            "Unused eslint-disable directive (no problems were reported from 'foo').",
                         line: 2,
                         column: 11,
                         fix: {
                             range: [64, 69],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable used, unused */", () => {
-            const parentDirective = createParentDirective([52, 84], "used, unused", ["used", "unused"]);
+            const parentDirective = createParentDirective(
+                [52, 84],
+                "used, unused",
+                ["used", "unused"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable used, unused */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable used, unused */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3003,7 +3663,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3011,52 +3671,63 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [73, 81],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable used , unused , -- unused and used are ok */", () => {
-            const parentDirective = createParentDirective([52, 113], " eslint-enable used , unused , -- unused and used are ok ", ["used", "unused"]);
+            const parentDirective = createParentDirective(
+                [52, 113],
+                " eslint-enable used , unused , -- unused and used are ok ",
+                ["used", "unused"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable used , unused , -- unused and used are ok */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable used , unused , -- unused and used are ok */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3064,7 +3735,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3072,53 +3743,64 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [74, 83],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable unused, used */", () => {
-            const parentDirective = createParentDirective([52, 84], "unused, used", ["unused", "used"]);
+            const parentDirective = createParentDirective(
+                [52, 84],
+                "unused, used",
+                ["unused", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused, used */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused, used */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3126,7 +3808,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3134,53 +3816,64 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [69, 77],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable unused,, ,, used */", () => {
-            const parentDirective = createParentDirective([52, 88], "unused,, ,, used", ["unused", "used"]);
+            const parentDirective = createParentDirective(
+                [52, 88],
+                "unused,, ,, used",
+                ["unused", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused,, ,, used */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused,, ,, used */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3188,7 +3881,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3196,53 +3889,64 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
-                        }
+                            justification: "j3",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [69, 76],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable unused-1, unused-2, used */", () => {
-            const parentDirective = createParentDirective([52, 96], "unused-1, unused-2, used", ["unused-1", "unused-2", "used"]);
+            const parentDirective = createParentDirective(
+                [52, 96],
+                "unused-1, unused-2, used",
+                ["unused-1", "unused-2", "used"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused-1, unused-2, used */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused-1, unused-2, used */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3250,7 +3954,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3258,7 +3962,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective,
@@ -3266,65 +3970,77 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j4"
-                        }
+                            justification: "j4",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [69, 79],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-2').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-2').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [77, 87],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-disable used */ /* (problem from used) */ /* eslint-enable unused-1, unused-2, used, unused-3 */", () => {
-            const parentDirective = createParentDirective([52, 106], "unused-1, unused-2, used, unused-3", ["unused-1", "unused-2", "used", "unused-3"]);
+            const parentDirective = createParentDirective(
+                [52, 106],
+                "unused-1, unused-2, used, unused-3",
+                ["unused-1", "unused-2", "used", "unused-3"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
                     language: jslang,
                     sourceCode: {
                         ...sourceCode,
-                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused-1, unused-2, used, unused-3 */"
+                        text: "/* eslint-disable used */\n/* (problem from used) */\n/* eslint-enable unused-1, unused-2, used, unused-3 */",
                     },
                     directives: [
                         {
-                            parentDirective: createParentDirective([0, 29], "used", ["used"]),
+                            parentDirective: createParentDirective(
+                                [0, 29],
+                                "used",
+                                ["used"],
+                            ),
                             ruleId: "used",
                             type: "disable",
                             line: 1,
                             column: 1,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3332,7 +4048,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j2"
+                            justification: "j2",
                         },
                         {
                             parentDirective,
@@ -3340,7 +4056,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j3"
+                            justification: "j3",
                         },
                         {
                             parentDirective,
@@ -3348,7 +4064,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j4"
+                            justification: "j4",
                         },
                         {
                             parentDirective,
@@ -3356,61 +4072,70 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 3,
                             column: 1,
-                            justification: "j5"
-                        }
+                            justification: "j5",
+                        },
                     ],
                     problems: [{ line: 2, column: 1, ruleId: "used" }],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         line: 2,
                         column: 1,
                         ruleId: "used",
-                        suppressions: [{ kind: "directive", justification: "j1" }]
+                        suppressions: [
+                            { kind: "directive", justification: "j1" },
+                        ],
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [69, 79],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-2').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-2').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [77, 87],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
+                        nodeType: null,
                     },
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-3').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-3').",
                         line: 3,
                         column: 1,
                         fix: {
                             range: [93, 103],
-                            text: ""
+                            text: "",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-enable unused-1, unused-2 */", () => {
-            const parentDirective = createParentDirective([0, 39], " eslint-enable unused-1, unused-2 ", ["unused-1", "unused-2"]);
+            const parentDirective = createParentDirective(
+                [0, 39],
+                " eslint-enable unused-1, unused-2 ",
+                ["unused-1", "unused-2"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
@@ -3423,7 +4148,7 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 1,
                             column: 18,
-                            justification: "j1"
+                            justification: "j1",
                         },
                         {
                             parentDirective,
@@ -3431,31 +4156,36 @@ describe("apply-disable-directives", () => {
                             type: "enable",
                             line: 1,
                             column: 28,
-                            justification: "j2"
-                        }
+                            justification: "j2",
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1' or 'unused-2').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1' or 'unused-2').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [0, 39],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
 
         it("Adds a problem for /* eslint-enable unused-1, unused-2, unused-3 */", () => {
-            const parentDirective = createParentDirective([0, 49], " eslint-enable unused-1, unused-2, unused-3 ", ["unused-1", "unused-2", "unused-3"]);
+            const parentDirective = createParentDirective(
+                [0, 49],
+                " eslint-enable unused-1, unused-2, unused-3 ",
+                ["unused-1", "unused-2", "unused-3"],
+            );
 
             assert.deepStrictEqual(
                 applyDisableDirectives({
@@ -3467,40 +4197,41 @@ describe("apply-disable-directives", () => {
                             ruleId: "unused-1",
                             type: "enable",
                             line: 1,
-                            column: 18
+                            column: 18,
                         },
                         {
                             parentDirective,
                             ruleId: "unused-2",
                             type: "enable",
                             line: 1,
-                            column: 28
+                            column: 28,
                         },
                         {
                             parentDirective,
                             ruleId: "unused-3",
                             type: "enable",
                             line: 1,
-                            column: 38
-                        }
+                            column: 38,
+                        },
                     ],
                     problems: [],
-                    reportUnusedDisableDirectives: "error"
+                    reportUnusedDisableDirectives: "error",
                 }),
                 [
                     {
                         ruleId: null,
-                        message: "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1', 'unused-2', or 'unused-3').",
+                        message:
+                            "Unused eslint-enable directive (no matching eslint-disable directives were found for 'unused-1', 'unused-2', or 'unused-3').",
                         line: 1,
                         column: 18,
                         fix: {
                             range: [0, 49],
-                            text: " "
+                            text: " ",
                         },
                         severity: 2,
-                        nodeType: null
-                    }
-                ]
+                        nodeType: null,
+                    },
+                ],
             );
         });
     });

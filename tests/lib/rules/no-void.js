@@ -17,8 +17,8 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 
 const ruleTester = new RuleTester({
     languageOptions: {
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("no-void", rule, {
@@ -29,41 +29,41 @@ ruleTester.run("no-void", rule, {
         "delete foo;",
         {
             code: "void 0",
-            options: [{ allowAsStatement: true }]
+            options: [{ allowAsStatement: true }],
         },
         {
             code: "void(0)",
-            options: [{ allowAsStatement: true }]
-        }
+            options: [{ allowAsStatement: true }],
+        },
     ],
 
     invalid: [
         {
             code: "void 0",
-            errors: [{ messageId: "noVoid" }]
+            errors: [{ messageId: "noVoid" }],
         },
         {
             code: "void 0",
             options: [{}],
-            errors: [{ messageId: "noVoid" }]
+            errors: [{ messageId: "noVoid" }],
         },
         {
             code: "void 0",
             options: [{ allowAsStatement: false }],
-            errors: [{ messageId: "noVoid" }]
+            errors: [{ messageId: "noVoid" }],
         },
         {
             code: "void(0)",
-            errors: [{ messageId: "noVoid" }]
+            errors: [{ messageId: "noVoid" }],
         },
         {
             code: "var foo = void 0",
-            errors: [{ messageId: "noVoid" }]
+            errors: [{ messageId: "noVoid" }],
         },
         {
             code: "var foo = void 0",
             options: [{ allowAsStatement: true }],
-            errors: [{ messageId: "noVoid" }]
-        }
-    ]
+            errors: [{ messageId: "noVoid" }],
+        },
+    ],
 });

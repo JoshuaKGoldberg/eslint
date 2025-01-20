@@ -32,7 +32,7 @@ ruleTester.run("no-new-wrappers", rule, {
             import String from "./string";
             const str = new String(42);
             `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         `
         if (foo) {
@@ -45,45 +45,51 @@ ruleTester.run("no-new-wrappers", rule, {
             code: "new String()",
             languageOptions: {
                 globals: {
-                    String: "off"
-                }
-            }
+                    String: "off",
+                },
+            },
         },
         `
         /* global Boolean:off */
         assert(new Boolean);
-        `
+        `,
     ],
     invalid: [
         {
             code: "var a = new String('hello');",
-            errors: [{
-                messageId: "noConstructor",
-                data: {
-                    fn: "String"
+            errors: [
+                {
+                    messageId: "noConstructor",
+                    data: {
+                        fn: "String",
+                    },
+                    type: "NewExpression",
                 },
-                type: "NewExpression"
-            }]
+            ],
         },
         {
             code: "var a = new Number(10);",
-            errors: [{
-                messageId: "noConstructor",
-                data: {
-                    fn: "Number"
+            errors: [
+                {
+                    messageId: "noConstructor",
+                    data: {
+                        fn: "Number",
+                    },
+                    type: "NewExpression",
                 },
-                type: "NewExpression"
-            }]
+            ],
         },
         {
             code: "var a = new Boolean(false);",
-            errors: [{
-                messageId: "noConstructor",
-                data: {
-                    fn: "Boolean"
+            errors: [
+                {
+                    messageId: "noConstructor",
+                    data: {
+                        fn: "Boolean",
+                    },
+                    type: "NewExpression",
                 },
-                type: "NewExpression"
-            }]
+            ],
         },
         {
             code: `
@@ -94,14 +100,16 @@ ruleTester.run("no-new-wrappers", rule, {
             }
             `,
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                messageId: "noConstructor",
-                data: {
-                    fn: "String"
+            errors: [
+                {
+                    messageId: "noConstructor",
+                    data: {
+                        fn: "String",
+                    },
+                    type: "NewExpression",
+                    line: 2,
                 },
-                type: "NewExpression",
-                line: 2
-            }]
-        }
-    ]
+            ],
+        },
+    ],
 });

@@ -2,7 +2,7 @@
 title: one-var-declaration-per-line
 rule_type: suggestion
 related_rules:
-- one-var
+    - one-var
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/one-var-declaration-per-line) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -16,9 +16,7 @@ var foo, bar, baz;
 Others prefer to declare one var per line.
 
 ```js
-var foo,
-    bar,
-    baz;
+var foo, bar, baz;
 ```
 
 Keeping to one of these styles across a project's codebase can help with maintaining code consistency.
@@ -31,8 +29,8 @@ This rule enforces a consistent newlines around variable declarations. This rule
 
 This rule has a single string option:
 
-* `"initializations"` (default) enforces a newline around variable initializations
-* `"always"` enforces a newline around variable declarations
+- `"initializations"` (default) enforces a newline around variable initializations
+- `"always"` enforces a newline around variable declarations
 
 ### initializations
 
@@ -43,10 +41,13 @@ Examples of **incorrect** code for this rule with the default `"initializations"
 ```js
 /*eslint one-var-declaration-per-line: ["error", "initializations"]*/
 
-var a, b, c = 0;
+var a,
+    b,
+    c = 0;
 
 let d,
-    e = 0, f;
+    e = 0,
+    f;
 ```
 
 :::
@@ -60,8 +61,7 @@ Examples of **correct** code for this rule with the default `"initializations"` 
 
 var a, b;
 
-let c,
-    d;
+let c, d;
 
 let e,
     f = 0;
@@ -80,9 +80,11 @@ Examples of **incorrect** code for this rule with the `"always"` option:
 
 var a, b;
 
-let c, d = 0;
+let c,
+    d = 0;
 
-const e = 0, f = 0;
+const e = 0,
+    f = 0;
 ```
 
 :::
@@ -94,8 +96,7 @@ Examples of **correct** code for this rule with the `"always"` option:
 ```js
 /*eslint one-var-declaration-per-line: ["error", "always"]*/
 
-var a,
-    b;
+var a, b;
 
 let c,
     d = 0;

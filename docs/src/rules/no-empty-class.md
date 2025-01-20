@@ -1,6 +1,5 @@
 ---
 title: no-empty-class
-
 ---
 
 Disallows empty character classes in regular expressions.

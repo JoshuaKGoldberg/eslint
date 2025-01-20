@@ -2,10 +2,9 @@
 title: no-console
 rule_type: suggestion
 related_rules:
-- no-alert
-- no-debugger
+    - no-alert
+    - no-debugger
 ---
-
 
 In JavaScript that is designed to be executed in the browser, it's considered a best practice to avoid using methods on `console`. Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client. In general, calls using `console` should be stripped before being pushed to production.
 
@@ -50,7 +49,7 @@ Console.log("Hello world!");
 
 This rule has an object option for exceptions:
 
-* `"allow"` has an array of strings which are allowed methods of the `console` object
+- `"allow"` has an array of strings which are allowed methods of the `console` object
 
 Examples of additional **correct** code for this rule with a sample `{ "allow": ["warn", "error"] }` option:
 
@@ -74,7 +73,7 @@ Another case where you might not use this rule is if you want to enforce `consol
 ```js
 /* eslint no-console: ["error", { allow: ["warn"] }] */
 console.error = function (message) {
-  throw new Error(message);
+    throw new Error(message);
 };
 ```
 
@@ -83,13 +82,14 @@ With the `no-console` rule in the above example, ESLint will report an error. Fo
 ```js
 // eslint-disable-next-line no-console
 console.error = function (message) {
-  throw new Error(message);
+    throw new Error(message);
 };
 
 // or
 
-console.error = function (message) {  // eslint-disable-line no-console
-  throw new Error(message);
+console.error = function (message) {
+    // eslint-disable-line no-console
+    throw new Error(message);
 };
 ```
 

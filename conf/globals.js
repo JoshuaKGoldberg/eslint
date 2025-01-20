@@ -13,7 +13,7 @@ const commonjs = {
     exports: true,
     global: false,
     module: false,
-    require: false
+    require: false,
 };
 
 const es3 = {
@@ -53,12 +53,12 @@ const es3 = {
     undefined: false,
     unescape: false,
     URIError: false,
-    valueOf: false
+    valueOf: false,
 };
 
 const es5 = {
     ...es3,
-    JSON: false
+    JSON: false,
 };
 
 const es2015 = {
@@ -82,28 +82,28 @@ const es2015 = {
     Uint8Array: false,
     Uint8ClampedArray: false,
     WeakMap: false,
-    WeakSet: false
+    WeakSet: false,
 };
 
 // no new globals in ES2016
 const es2016 = {
-    ...es2015
+    ...es2015,
 };
 
 const es2017 = {
     ...es2016,
     Atomics: false,
-    SharedArrayBuffer: false
+    SharedArrayBuffer: false,
 };
 
 // no new globals in ES2018
 const es2018 = {
-    ...es2017
+    ...es2017,
 };
 
 // no new globals in ES2019
 const es2019 = {
-    ...es2018
+    ...es2018,
 };
 
 const es2020 = {
@@ -111,32 +111,31 @@ const es2020 = {
     BigInt: false,
     BigInt64Array: false,
     BigUint64Array: false,
-    globalThis: false
+    globalThis: false,
 };
 
 const es2021 = {
     ...es2020,
     AggregateError: false,
     FinalizationRegistry: false,
-    WeakRef: false
+    WeakRef: false,
 };
 
 const es2022 = {
-    ...es2021
+    ...es2021,
 };
 
 const es2023 = {
-    ...es2022
+    ...es2022,
 };
 
 const es2024 = {
-    ...es2023
+    ...es2023,
 };
 
 const es2025 = {
-    ...es2024
+    ...es2024,
 };
-
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -156,5 +155,5 @@ module.exports = {
     es2022,
     es2023,
     es2024,
-    es2025
+    es2025,
 };

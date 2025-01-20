@@ -41,15 +41,15 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "never"
             | "consistent"
             | Partial<{
-                /**
-                 * @default true
-                 */
-                multiline: boolean;
-                /**
-                 * @default null
-                 */
-                minItems: number | null;
-            }>,
+                  /**
+                   * @default true
+                   */
+                  multiline: boolean;
+                  /**
+                   * @default null
+                   */
+                  minItems: number | null;
+              }>,
         ]
     >;
 
@@ -62,43 +62,43 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     "array-bracket-spacing":
         | Linter.RuleEntry<
-            [
-                "never",
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    singleValue: boolean;
-                    /**
-                     * @default false
-                     */
-                    objectsInArrays: boolean;
-                    /**
-                     * @default false
-                     */
-                    arraysInArrays: boolean;
-                }>,
-            ]
-        >
+              [
+                  "never",
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      singleValue: boolean;
+                      /**
+                       * @default false
+                       */
+                      objectsInArrays: boolean;
+                      /**
+                       * @default false
+                       */
+                      arraysInArrays: boolean;
+                  }>,
+              ]
+          >
         | Linter.RuleEntry<
-            [
-                "always",
-                Partial<{
-                    /**
-                     * @default true
-                     */
-                    singleValue: boolean;
-                    /**
-                     * @default true
-                     */
-                    objectsInArrays: boolean;
-                    /**
-                     * @default true
-                     */
-                    arraysInArrays: boolean;
-                }>,
-            ]
-        >;
+              [
+                  "always",
+                  Partial<{
+                      /**
+                       * @default true
+                       */
+                      singleValue: boolean;
+                      /**
+                       * @default true
+                       */
+                      objectsInArrays: boolean;
+                      /**
+                       * @default true
+                       */
+                      arraysInArrays: boolean;
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to enforce line breaks after each array element.
@@ -113,15 +113,15 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "never"
             | "consistent"
             | Partial<{
-                /**
-                 * @default true
-                 */
-                multiline: boolean;
-                /**
-                 * @default null
-                 */
-                minItems: number | null;
-            }>,
+                  /**
+                   * @default true
+                   */
+                  multiline: boolean;
+                  /**
+                   * @default null
+                   */
+                  minItems: number | null;
+              }>,
         ]
     >;
 
@@ -226,27 +226,47 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "always-multiline"
             | "only-multiline"
             | Partial<{
-                /**
-                 * @default 'never'
-                 */
-                arrays: "never" | "always" | "always-multiline" | "only-multiline";
-                /**
-                 * @default 'never'
-                 */
-                objects: "never" | "always" | "always-multiline" | "only-multiline";
-                /**
-                 * @default 'never'
-                 */
-                imports: "never" | "always" | "always-multiline" | "only-multiline";
-                /**
-                 * @default 'never'
-                 */
-                exports: "never" | "always" | "always-multiline" | "only-multiline";
-                /**
-                 * @default 'never'
-                 */
-                functions: "never" | "always" | "always-multiline" | "only-multiline";
-            }>,
+                  /**
+                   * @default 'never'
+                   */
+                  arrays:
+                      | "never"
+                      | "always"
+                      | "always-multiline"
+                      | "only-multiline";
+                  /**
+                   * @default 'never'
+                   */
+                  objects:
+                      | "never"
+                      | "always"
+                      | "always-multiline"
+                      | "only-multiline";
+                  /**
+                   * @default 'never'
+                   */
+                  imports:
+                      | "never"
+                      | "always"
+                      | "always-multiline"
+                      | "only-multiline";
+                  /**
+                   * @default 'never'
+                   */
+                  exports:
+                      | "never"
+                      | "always"
+                      | "always-multiline"
+                      | "only-multiline";
+                  /**
+                   * @default 'never'
+                   */
+                  functions:
+                      | "never"
+                      | "always"
+                      | "always-multiline"
+                      | "only-multiline";
+              }>,
         ]
     >;
 
@@ -335,34 +355,34 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     "func-name-matching":
         | Linter.RuleEntry<
-            [
-                "always" | "never",
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    considerPropertyDescriptor: boolean;
-                    /**
-                     * @default false
-                     */
-                    includeCommonJSModuleExports: boolean;
-                }>,
-            ]
-        >
+              [
+                  "always" | "never",
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      considerPropertyDescriptor: boolean;
+                      /**
+                       * @default false
+                       */
+                      includeCommonJSModuleExports: boolean;
+                  }>,
+              ]
+          >
         | Linter.RuleEntry<
-            [
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    considerPropertyDescriptor: boolean;
-                    /**
-                     * @default false
-                     */
-                    includeCommonJSModuleExports: boolean;
-                }>,
-            ]
-        >;
+              [
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      considerPropertyDescriptor: boolean;
+                      /**
+                       * @default false
+                       */
+                      includeCommonJSModuleExports: boolean;
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to require or disallow named `function` expressions.
@@ -395,7 +415,7 @@ export interface StylisticIssues extends Linter.RulesRecord {
                 allowArrowFunctions: boolean;
                 overrides: {
                     namedExports: "declaration" | "expression" | "ignore";
-                }
+                };
             }>,
         ]
     >;
@@ -415,8 +435,8 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "multiline-arguments"
             | "consistent"
             | Partial<{
-                minItems: number;
-            }>,
+                  minItems: number;
+              }>,
         ]
     >;
 
@@ -518,19 +538,19 @@ export interface StylisticIssues extends Linter.RulesRecord {
                  */
                 VariableDeclarator:
                     | Partial<{
-                        /**
-                         * @default 1
-                         */
-                        var: number | "first";
-                        /**
-                         * @default 1
-                         */
-                        let: number | "first";
-                        /**
-                         * @default 1
-                         */
-                        const: number | "first";
-                    }>
+                          /**
+                           * @default 1
+                           */
+                          var: number | "first";
+                          /**
+                           * @default 1
+                           */
+                          let: number | "first";
+                          /**
+                           * @default 1
+                           */
+                          const: number | "first";
+                      }>
                     | number
                     | "first";
                 /**
@@ -620,149 +640,149 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "key-spacing": Linter.RuleEntry<
         [
             | Partial<
-                | {
-                    /**
-                     * @default false
-                     */
-                    beforeColon: boolean;
-                    /**
-                     * @default true
-                     */
-                    afterColon: boolean;
-                    /**
-                     * @default 'strict'
-                     */
-                    mode: "strict" | "minimum";
-                    align:
-                        | Partial<{
-                            /**
-                             * @default false
-                             */
-                            beforeColon: boolean;
-                            /**
-                             * @default true
-                             */
-                            afterColon: boolean;
-                            /**
-                             * @default 'colon'
-                             */
-                            on: "value" | "colon";
-                            /**
-                             * @default 'strict'
-                             */
-                            mode: "strict" | "minimum";
-                        }>
-                        | "value"
-                        | "colon";
-                }
-                | {
-                    singleLine?:
-                        | Partial<{
-                            /**
-                             * @default false
-                             */
-                            beforeColon: boolean;
-                            /**
-                             * @default true
-                             */
-                            afterColon: boolean;
-                            /**
-                             * @default 'strict'
-                             */
-                            mode: "strict" | "minimum";
-                        }>
-                        | undefined;
-                    multiLine?:
-                        | Partial<{
-                            /**
-                             * @default false
-                             */
-                            beforeColon: boolean;
-                            /**
-                             * @default true
-                             */
-                            afterColon: boolean;
-                            /**
-                             * @default 'strict'
-                             */
-                            mode: "strict" | "minimum";
-                            align:
-                                | Partial<{
-                                    /**
-                                     * @default false
-                                     */
-                                    beforeColon: boolean;
-                                    /**
-                                     * @default true
-                                     */
-                                    afterColon: boolean;
-                                    /**
-                                     * @default 'colon'
-                                     */
-                                    on: "value" | "colon";
-                                    /**
-                                     * @default 'strict'
-                                     */
-                                    mode: "strict" | "minimum";
-                                }>
-                                | "value"
-                                | "colon";
-                        }>
-                        | undefined;
-                }
-            >
+                  | {
+                        /**
+                         * @default false
+                         */
+                        beforeColon: boolean;
+                        /**
+                         * @default true
+                         */
+                        afterColon: boolean;
+                        /**
+                         * @default 'strict'
+                         */
+                        mode: "strict" | "minimum";
+                        align:
+                            | Partial<{
+                                  /**
+                                   * @default false
+                                   */
+                                  beforeColon: boolean;
+                                  /**
+                                   * @default true
+                                   */
+                                  afterColon: boolean;
+                                  /**
+                                   * @default 'colon'
+                                   */
+                                  on: "value" | "colon";
+                                  /**
+                                   * @default 'strict'
+                                   */
+                                  mode: "strict" | "minimum";
+                              }>
+                            | "value"
+                            | "colon";
+                    }
+                  | {
+                        singleLine?:
+                            | Partial<{
+                                  /**
+                                   * @default false
+                                   */
+                                  beforeColon: boolean;
+                                  /**
+                                   * @default true
+                                   */
+                                  afterColon: boolean;
+                                  /**
+                                   * @default 'strict'
+                                   */
+                                  mode: "strict" | "minimum";
+                              }>
+                            | undefined;
+                        multiLine?:
+                            | Partial<{
+                                  /**
+                                   * @default false
+                                   */
+                                  beforeColon: boolean;
+                                  /**
+                                   * @default true
+                                   */
+                                  afterColon: boolean;
+                                  /**
+                                   * @default 'strict'
+                                   */
+                                  mode: "strict" | "minimum";
+                                  align:
+                                      | Partial<{
+                                            /**
+                                             * @default false
+                                             */
+                                            beforeColon: boolean;
+                                            /**
+                                             * @default true
+                                             */
+                                            afterColon: boolean;
+                                            /**
+                                             * @default 'colon'
+                                             */
+                                            on: "value" | "colon";
+                                            /**
+                                             * @default 'strict'
+                                             */
+                                            mode: "strict" | "minimum";
+                                        }>
+                                      | "value"
+                                      | "colon";
+                              }>
+                            | undefined;
+                    }
+              >
             | {
-                align: Partial<{
-                    /**
-                     * @default false
-                     */
-                    beforeColon: boolean;
-                    /**
-                     * @default true
-                     */
-                    afterColon: boolean;
-                    /**
-                     * @default 'colon'
-                     */
-                    on: "value" | "colon";
-                    /**
-                     * @default 'strict'
-                     */
-                    mode: "strict" | "minimum";
-                }>;
-                singleLine?:
-                    | Partial<{
-                        /**
-                         * @default false
-                         */
-                        beforeColon: boolean;
-                        /**
-                         * @default true
-                         */
-                        afterColon: boolean;
-                        /**
-                         * @default 'strict'
-                         */
-                        mode: "strict" | "minimum";
-                    }>
-                    | undefined;
-                multiLine?:
-                    | Partial<{
-                        /**
-                         * @default false
-                         */
-                        beforeColon: boolean;
-                        /**
-                         * @default true
-                         */
-                        afterColon: boolean;
-                        /**
-                         * @default 'strict'
-                         */
-                        mode: "strict" | "minimum";
-                    }>
-                    | undefined;
-            },
+                  align: Partial<{
+                      /**
+                       * @default false
+                       */
+                      beforeColon: boolean;
+                      /**
+                       * @default true
+                       */
+                      afterColon: boolean;
+                      /**
+                       * @default 'colon'
+                       */
+                      on: "value" | "colon";
+                      /**
+                       * @default 'strict'
+                       */
+                      mode: "strict" | "minimum";
+                  }>;
+                  singleLine?:
+                      | Partial<{
+                            /**
+                             * @default false
+                             */
+                            beforeColon: boolean;
+                            /**
+                             * @default true
+                             */
+                            afterColon: boolean;
+                            /**
+                             * @default 'strict'
+                             */
+                            mode: "strict" | "minimum";
+                        }>
+                      | undefined;
+                  multiLine?:
+                      | Partial<{
+                            /**
+                             * @default false
+                             */
+                            beforeColon: boolean;
+                            /**
+                             * @default true
+                             */
+                            afterColon: boolean;
+                            /**
+                             * @default 'strict'
+                             */
+                            mode: "strict" | "minimum";
+                        }>
+                      | undefined;
+              },
         ]
     >;
 
@@ -903,15 +923,17 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     "lines-between-class-members": Linter.RuleEntry<
         [
-            "always" | "never" | {
-                enforce: Array<
-                    {
-                        blankLine: "always" | "never";
-                        prev: "method" | "field" | "*";
-                        next: "method" | "field" | "*";
-                    }
-                >
-            },
+            (
+                | "always"
+                | "never"
+                | {
+                      enforce: Array<{
+                          blankLine: "always" | "never";
+                          prev: "method" | "field" | "*";
+                          next: "method" | "field" | "*";
+                      }>;
+                  }
+            ),
             Partial<{
                 /**
                  * @default false
@@ -995,19 +1017,19 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "max-lines": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 300
-                 */
-                max: number;
-                /**
-                 * @default false
-                 */
-                skipBlankLines: boolean;
-                /**
-                 * @default false
-                 */
-                skipComments: boolean;
-            }>
+                  /**
+                   * @default 300
+                   */
+                  max: number;
+                  /**
+                   * @default false
+                   */
+                  skipBlankLines: boolean;
+                  /**
+                   * @default false
+                   */
+                  skipComments: boolean;
+              }>
             | number,
         ]
     >;
@@ -1050,11 +1072,11 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "max-nested-callbacks": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 10
-                 */
-                max: number;
-            }>
+                  /**
+                   * @default 10
+                   */
+                  max: number;
+              }>
             | number,
         ]
     >;
@@ -1068,11 +1090,11 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "max-params": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 3
-                 */
-                max: number;
-            }>
+                  /**
+                   * @default 3
+                   */
+                  max: number;
+              }>
             | number,
         ]
     >;
@@ -1086,15 +1108,15 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "max-statements": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 10
-                 */
-                max: number;
-                /**
-                 * @default false
-                 */
-                ignoreTopLevelFunctions: boolean;
-            }>
+                  /**
+                   * @default 10
+                   */
+                  max: number;
+                  /**
+                   * @default false
+                   */
+                  ignoreTopLevelFunctions: boolean;
+              }>
             | number,
         ]
     >;
@@ -1109,11 +1131,11 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "max-statements-per-line": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 1
-                 */
-                max: number;
-            }>
+                  /**
+                   * @default 1
+                   */
+                  max: number;
+              }>
             | number,
         ]
     >;
@@ -1125,7 +1147,9 @@ export interface StylisticIssues extends Linter.RulesRecord {
      * @deprecated since 9.3.0, please use the [corresponding rule](https://eslint.style/rules/js/multiline-comment-style) in `@stylistic/eslint-plugin-js`.
      * @see https://eslint.org/docs/latest/rules/multiline-comment-style
      */
-    "multiline-comment-style": Linter.RuleEntry<["starred-block" | "bare-block" | "separate-lines"]>;
+    "multiline-comment-style": Linter.RuleEntry<
+        ["starred-block" | "bare-block" | "separate-lines"]
+    >;
 
     /**
      * Rule to enforce newlines between operands of ternary expressions.
@@ -1134,7 +1158,9 @@ export interface StylisticIssues extends Linter.RulesRecord {
      * @deprecated since 8.53.0, please use the [corresponding rule](https://eslint.style/rules/js/multiline-ternary) in `@stylistic/eslint-plugin-js`.
      * @see https://eslint.org/docs/latest/rules/multiline-ternary
      */
-    "multiline-ternary": Linter.RuleEntry<["always" | "always-multiline" | "never"]>;
+    "multiline-ternary": Linter.RuleEntry<
+        ["always" | "always-multiline" | "never"]
+    >;
 
     /**
      * Rule to require constructor names to begin with a capital letter.
@@ -1298,13 +1324,13 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "no-multiple-empty-lines": Linter.RuleEntry<
         [
             | Partial<{
-                /**
-                 * @default 2
-                 */
-                max: number;
-                maxEOF: number;
-                maxBOF: number;
-            }>
+                  /**
+                   * @default 2
+                   */
+                  max: number;
+                  maxEOF: number;
+                  maxBOF: number;
+              }>
             | number,
         ]
     >;
@@ -1361,9 +1387,9 @@ export interface StylisticIssues extends Linter.RulesRecord {
             ...Array<
                 | string
                 | {
-                    selector: string;
-                    message?: string | undefined;
-                }
+                      selector: string;
+                      message?: string | undefined;
+                  }
             >,
         ]
     >;
@@ -1521,34 +1547,37 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "always"
             | "never"
             | Partial<{
-                /**
-                 * @default false
-                 */
-                multiline: boolean;
-                minProperties: number;
-                /**
-                 * @default true
-                 */
-                consistent: boolean;
-            }>
+                  /**
+                   * @default false
+                   */
+                  multiline: boolean;
+                  minProperties: number;
+                  /**
+                   * @default true
+                   */
+                  consistent: boolean;
+              }>
             | Partial<
-                Record<
-                    "ObjectExpression" | "ObjectPattern" | "ImportDeclaration" | "ExportDeclaration",
-                    | "always"
-                    | "never"
-                    | Partial<{
-                        /**
-                         * @default false
-                         */
-                        multiline: boolean;
-                        minProperties: number;
-                        /**
-                         * @default true
-                         */
-                        consistent: boolean;
-                    }>
-                >
-            >,
+                  Record<
+                      | "ObjectExpression"
+                      | "ObjectPattern"
+                      | "ImportDeclaration"
+                      | "ExportDeclaration",
+                      | "always"
+                      | "never"
+                      | Partial<{
+                            /**
+                             * @default false
+                             */
+                            multiline: boolean;
+                            minProperties: number;
+                            /**
+                             * @default true
+                             */
+                            consistent: boolean;
+                        }>
+                  >
+              >,
         ]
     >;
 
@@ -1561,35 +1590,35 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     "object-curly-spacing":
         | Linter.RuleEntry<
-            [
-                "never",
-                {
-                    /**
-                     * @default false
-                     */
-                    arraysInObjects: boolean;
-                    /**
-                     * @default false
-                     */
-                    objectsInObjects: boolean;
-                },
-            ]
-        >
+              [
+                  "never",
+                  {
+                      /**
+                       * @default false
+                       */
+                      arraysInObjects: boolean;
+                      /**
+                       * @default false
+                       */
+                      objectsInObjects: boolean;
+                  },
+              ]
+          >
         | Linter.RuleEntry<
-            [
-                "always",
-                {
-                    /**
-                     * @default true
-                     */
-                    arraysInObjects: boolean;
-                    /**
-                     * @default true
-                     */
-                    objectsInObjects: boolean;
-                },
-            ]
-        >;
+              [
+                  "always",
+                  {
+                      /**
+                       * @default true
+                       */
+                      arraysInObjects: boolean;
+                      /**
+                       * @default true
+                       */
+                      objectsInObjects: boolean;
+                  },
+              ]
+          >;
 
     /**
      * Rule to enforce placing object properties on separate lines.
@@ -1621,14 +1650,22 @@ export interface StylisticIssues extends Linter.RulesRecord {
             | "never"
             | "consecutive"
             | Partial<
-                {
-                    /**
-                     * @default false
-                     */
-                    separateRequires: boolean;
-                } & Record<"var" | "let" | "const", "always" | "never" | "consecutive">
-            >
-            | Partial<Record<"initialized" | "uninitialized", "always" | "never" | "consecutive">>,
+                  {
+                      /**
+                       * @default false
+                       */
+                      separateRequires: boolean;
+                  } & Record<
+                      "var" | "let" | "const",
+                      "always" | "never" | "consecutive"
+                  >
+              >
+            | Partial<
+                  Record<
+                      "initialized" | "uninitialized",
+                      "always" | "never" | "consecutive"
+                  >
+              >,
         ]
     >;
 
@@ -1639,7 +1676,9 @@ export interface StylisticIssues extends Linter.RulesRecord {
      * @deprecated since 8.53.0, please use the [corresponding rule](https://eslint.style/rules/js/one-var-declaration-per-line) in `@stylistic/eslint-plugin-js`.
      * @see https://eslint.org/docs/latest/rules/one-var-declaration-per-line
      */
-    "one-var-declaration-per-line": Linter.RuleEntry<["initializations" | "always"]>;
+    "one-var-declaration-per-line": Linter.RuleEntry<
+        ["initializations" | "always"]
+    >;
 
     /**
      * Rule to require or disallow assignment operator shorthand where possible.
@@ -1674,7 +1713,16 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     "padded-blocks": Linter.RuleEntry<
         [
-            "always" | "never" | Partial<Record<"blocks" | "classes" | "switches", "always" | "never">>,
+            (
+                | "always"
+                | "never"
+                | Partial<
+                      Record<
+                          "blocks" | "classes" | "switches",
+                          "always" | "never"
+                      >
+                  >
+            ),
             {
                 /**
                  * @default false
@@ -1719,35 +1767,35 @@ export interface StylisticIssues extends Linter.RulesRecord {
     "quote-props":
         | Linter.RuleEntry<["always" | "consistent"]>
         | Linter.RuleEntry<
-            [
-                "as-needed",
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    keywords: boolean;
-                    /**
-                     * @default true
-                     */
-                    unnecessary: boolean;
-                    /**
-                     * @default false
-                     */
-                    numbers: boolean;
-                }>,
-            ]
-        >
+              [
+                  "as-needed",
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      keywords: boolean;
+                      /**
+                       * @default true
+                       */
+                      unnecessary: boolean;
+                      /**
+                       * @default false
+                       */
+                      numbers: boolean;
+                  }>,
+              ]
+          >
         | Linter.RuleEntry<
-            [
-                "consistent-as-needed",
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    keywords: boolean;
-                }>,
-            ]
-        >;
+              [
+                  "consistent-as-needed",
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      keywords: boolean;
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to enforce the consistent use of either backticks, double, or single quotes.
@@ -1781,27 +1829,30 @@ export interface StylisticIssues extends Linter.RulesRecord {
      */
     semi:
         | Linter.RuleEntry<
-            [
-                "always",
-                Partial<{
-                    /**
-                     * @default false
-                     */
-                    omitLastInOneLineBlock: boolean;
-                }>,
-            ]
-        >
+              [
+                  "always",
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      omitLastInOneLineBlock: boolean;
+                  }>,
+              ]
+          >
         | Linter.RuleEntry<
-            [
-                "never",
-                Partial<{
-                    /**
-                     * @default 'any'
-                     */
-                    beforeStatementContinuationChars: "any" | "always" | "never";
-                }>,
-            ]
-        >;
+              [
+                  "never",
+                  Partial<{
+                      /**
+                       * @default 'any'
+                       */
+                      beforeStatementContinuationChars:
+                          | "any"
+                          | "always"
+                          | "never";
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to enforce consistent spacing before and after semicolons.
@@ -1893,7 +1944,16 @@ export interface StylisticIssues extends Linter.RulesRecord {
      * @see https://eslint.org/docs/latest/rules/space-before-blocks
      */
     "space-before-blocks": Linter.RuleEntry<
-        ["always" | "never" | Partial<Record<"functions" | "keywords" | "classes", "always" | "never" | "off">>]
+        [
+            | "always"
+            | "never"
+            | Partial<
+                  Record<
+                      "functions" | "keywords" | "classes",
+                      "always" | "never" | "off"
+                  >
+              >,
+        ]
     >;
 
     /**
@@ -1904,7 +1964,16 @@ export interface StylisticIssues extends Linter.RulesRecord {
      * @see https://eslint.org/docs/latest/rules/space-before-function-paren
      */
     "space-before-function-paren": Linter.RuleEntry<
-        ["always" | "never" | Partial<Record<"anonymous" | "named" | "asyncArrow", "always" | "never" | "ignore">>]
+        [
+            | "always"
+            | "never"
+            | Partial<
+                  Record<
+                      "anonymous" | "named" | "asyncArrow",
+                      "always" | "never" | "ignore"
+                  >
+              >,
+        ]
     >;
 
     /**

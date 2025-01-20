@@ -2,10 +2,10 @@
 title: function-call-argument-newline
 rule_type: layout
 related_rules:
-- function-paren-newline
-- func-call-spacing
-- object-property-newline
-- array-element-newline
+    - function-paren-newline
+    - func-call-spacing
+    - object-property-newline
+    - array-element-newline
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/function-call-argument-newline) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -20,9 +20,9 @@ This rule enforces line breaks between arguments of a function call.
 
 This rule has a string option:
 
-* `"always"` (default) requires line breaks between arguments
-* `"never"` disallows line breaks between arguments
-* `"consistent"` requires consistent usage of line breaks between arguments
+- `"always"` (default) requires line breaks between arguments
+- `"never"` disallows line breaks between arguments
+- `"consistent"` requires consistent usage of line breaks between arguments
 
 ### always
 
@@ -37,7 +37,7 @@ foo("one", "two", "three");
 
 bar("one", "two", {
     one: 1,
-    two: 2
+    two: 2,
 });
 
 baz("one", "two", (x) => {
@@ -54,34 +54,18 @@ Examples of **correct** code for this rule with the default `"always"` option:
 ```js
 /*eslint function-call-argument-newline: ["error", "always"]*/
 
-foo(
-    "one",
-    "two",
-    "three"
-);
+foo("one", "two", "three");
 
-bar(
-    "one",
-    "two",
-    { one: 1, two: 2 }
-);
+bar("one", "two", { one: 1, two: 2 });
 // or
-bar(
-    "one",
-    "two",
-    {
-        one: 1,
-        two: 2
-    }
-);
+bar("one", "two", {
+    one: 1,
+    two: 2,
+});
 
-baz(
-    "one",
-    "two",
-    (x) => {
-        console.log(x);
-    }
-);
+baz("one", "two", (x) => {
+    console.log(x);
+});
 ```
 
 :::
@@ -95,25 +79,16 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 ```js
 /*eslint function-call-argument-newline: ["error", "never"]*/
 
-foo(
-    "one",
-    "two", "three"
-);
+foo("one", "two", "three");
 
-bar(
-    "one",
-    "two", {
-        one: 1,
-        two: 2
-    }
-);
+bar("one", "two", {
+    one: 1,
+    two: 2,
+});
 
-baz(
-    "one",
-    "two", (x) => {
-        console.log(x);
-    }
-);
+baz("one", "two", (x) => {
+    console.log(x);
+});
 ```
 
 :::
@@ -127,15 +102,13 @@ Examples of **correct** code for this rule with the `"never"` option:
 
 foo("one", "two", "three");
 // or
-foo(
-    "one", "two", "three"
-);
+foo("one", "two", "three");
 
 bar("one", "two", { one: 1, two: 2 });
 // or
 bar("one", "two", {
     one: 1,
-    two: 2
+    two: 2,
 });
 
 baz("one", "two", (x) => {
@@ -154,19 +127,15 @@ Examples of **incorrect** code for this rule with the `"consistent"` option:
 ```js
 /*eslint function-call-argument-newline: ["error", "consistent"]*/
 
-foo("one", "two",
-    "three");
+foo("one", "two", "three");
 //or
-foo("one",
-    "two", "three");
+foo("one", "two", "three");
 
-bar("one", "two",
-    { one: 1, two: 2}
-);
+bar("one", "two", { one: 1, two: 2 });
 
-baz("one", "two",
-    (x) => { console.log(x); }
-);
+baz("one", "two", (x) => {
+    console.log(x);
+});
 ```
 
 :::
@@ -180,43 +149,27 @@ Examples of **correct** code for this rule with the `"consistent"` option:
 
 foo("one", "two", "three");
 // or
-foo(
-    "one",
-    "two",
-    "three"
-);
+foo("one", "two", "three");
 
 bar("one", "two", {
     one: 1,
-    two: 2
+    two: 2,
 });
 // or
-bar(
-    "one",
-    "two",
-    { one: 1, two: 2 }
-);
+bar("one", "two", { one: 1, two: 2 });
 // or
-bar(
-    "one",
-    "two",
-    {
-        one: 1,
-        two: 2
-    }
-);
+bar("one", "two", {
+    one: 1,
+    two: 2,
+});
 
 baz("one", "two", (x) => {
     console.log(x);
 });
 // or
-baz(
-    "one",
-    "two",
-    (x) => {
-        console.log(x);
-    }
-);
+baz("one", "two", (x) => {
+    console.log(x);
+});
 ```
 
 :::

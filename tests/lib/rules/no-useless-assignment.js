@@ -28,9 +28,9 @@ const ruleTester = new RuleTester({
                         return {
                             VariableDeclaration(node) {
                                 sourceCode.markVariableAsUsed("a", node);
-                            }
+                            },
                         };
-                    }
+                    },
                 },
                 jsx: {
                     create(context) {
@@ -39,23 +39,31 @@ const ruleTester = new RuleTester({
                         return {
                             JSXIdentifier(node) {
                                 const scope = sourceCode.getScope(node);
-                                const variable = scope.variables.find(v => v.name === node.name);
+                                const variable = scope.variables.find(
+                                    (v) => v.name === node.name,
+                                );
 
-                                variable.references.push(new Reference(node, scope, Reference.READ, null, false, null));
-
-                            }
+                                variable.references.push(
+                                    new Reference(
+                                        node,
+                                        scope,
+                                        Reference.READ,
+                                        null,
+                                        false,
+                                        null,
+                                    ),
+                                );
+                            },
                         };
-                    }
-                }
-            }
-        }
-    }
+                    },
+                },
+            },
+        },
+    },
 });
-
 
 ruleTester.run("no-useless-assignment", rule, {
     valid: [
-
         // Basic tests
         `let v = 'used';
         console.log(v);
@@ -157,12 +165,11 @@ ruleTester.run("no-useless-assignment", rule, {
         console.log(foo);
         foo = 'unused like but exported';`,
         {
-            code:
-            `/* exported foo */
+            code: `/* exported foo */
             let foo = 'used';
             console.log(foo);
             foo = 'unused like but exported with directive';`,
-            languageOptions: { sourceType: "script" }
+            languageOptions: { sourceType: "script" },
         },
 
         // Mark variables as used via markVariableAsUsed()
@@ -304,8 +311,8 @@ ruleTester.run("no-useless-assignment", rule, {
                 console = bk;
             }`,
             languageOptions: {
-                globals: { console: false }
-            }
+                globals: { console: false },
+            },
         },
 
         // Try catch finally
@@ -380,10 +387,10 @@ ruleTester.run("no-useless-assignment", rule, {
             languageOptions: {
                 parserOptions: {
                     ecmaFeatures: {
-                        jsx: true
-                    }
-                }
-            }
+                        jsx: true,
+                    },
+                },
+            },
         },
         {
             code: `/*eslint test/jsx:1*/
@@ -397,10 +404,10 @@ ruleTester.run("no-useless-assignment", rule, {
             languageOptions: {
                 parserOptions: {
                     ecmaFeatures: {
-                        jsx: true
-                    }
-                }
-            }
+                        jsx: true,
+                    },
+                },
+            },
         },
         {
             code: `/*eslint test/jsx:1*/
@@ -415,29 +422,27 @@ ruleTester.run("no-useless-assignment", rule, {
             languageOptions: {
                 parserOptions: {
                     ecmaFeatures: {
-                        jsx: true
-                    }
-                }
-            }
-        }
+                        jsx: true,
+                    },
+                },
+            },
+        },
     ],
     invalid: [
         {
-            code:
-            `let v = 'used';
+            code: `let v = 'used';
             console.log(v);
             v = 'unused'`,
             errors: [
                 {
                     messageId: "unnecessaryAssignment",
                     line: 3,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -446,13 +451,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 if (condition) {
                     v = 'unused';
@@ -464,13 +468,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 if (condition) {
                     console.log(v);
@@ -482,13 +485,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 6,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `var foo = function () {
+            code: `var foo = function () {
                 let v = 'used';
                 console.log(v);
                 v = 'unused'
@@ -497,13 +499,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `var foo = () => {
+            code: `var foo = () => {
                 let v = 'used';
                 console.log(v);
                 v = 'unused'
@@ -512,13 +513,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `class foo {
+            code: `class foo {
                 static {
                     let v = 'used';
                     console.log(v);
@@ -529,13 +529,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'unused';
                 if (condition) {
                     v = 'used';
@@ -547,13 +546,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 2,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -563,18 +561,17 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
+                    column: 17,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -587,9 +584,9 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -605,13 +602,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 3,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -623,18 +619,17 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
+                    column: 17,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'unused';
                 if (condition) {
                     if (condition2) {
@@ -651,13 +646,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 2,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v;
                 if (condition) {
                     v = 'unused';
@@ -675,13 +669,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 if (condition) {
                     v = 'unused';
@@ -694,20 +687,19 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 21
+                    column: 21,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
 
         // Update
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let a = 42;
                 console.log(a);
                 a++;
@@ -716,13 +708,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let a = 42;
                 console.log(a);
                 a--;
@@ -731,15 +722,14 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         // Assign to complex patterns
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let a = 'used', b = 'used', c = 'used', d = 'used';
                 console.log(a, b, c, d);
                 ({ a, arr: [b, c,, ...d] } = fn());
@@ -749,23 +739,22 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 20
+                    column: 20,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 29
+                    column: 29,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 39
-                }
-            ]
+                    column: 39,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let a = 'used', b = 'used', c = 'used';
                 console.log(a, b, c);
                 ({ a = 'unused', foo: b, ...c } = fn());
@@ -774,25 +763,24 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 20
+                    column: 20,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 39
+                    column: 39,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 45
-                }
-            ]
+                    column: 45,
+                },
+            ],
         },
 
         // Variable used in other scopes, but write only.
         {
-            code:
-            `function foo () {
+            code: `function foo () {
                 let v = 'used';
                 console.log(v);
                 setTimeout(() => v = 42, 1);
@@ -802,15 +790,14 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         // Code Path Segment End Statements
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 if (condition) {
                     let v = 'used';
@@ -824,18 +811,17 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 6,
-                    column: 21
+                    column: 21,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 9,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo() {
+            code: `function foo() {
                 let v = 'used';
                 if (condition) {
                     console.log(v);
@@ -848,18 +834,17 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 21
+                    column: 21,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 7,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo () {
+            code: `function foo () {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -870,13 +855,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo () {
+            code: `function foo () {
                 let v = 'used';
                 console.log(v);
                 v = 'unused';
@@ -887,13 +871,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
-            code:
-            `function foo () {
+            code: `function foo () {
                 let v = 'used';
                 console.log(v);
                 for (let i = 0; i < 10; i++) {
@@ -915,18 +898,17 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 5,
-                    column: 21
+                    column: 21,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 14,
-                    column: 21
-                }
-            ]
+                    column: 21,
+                },
+            ],
         },
         {
-            code:
-            `function foo () {
+            code: `function foo () {
                 let v = 'used';
                 console.log(v);
                 for (let i = 0; i < 10; i++) {
@@ -941,15 +923,14 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 6,
-                    column: 25
-                }
-            ]
+                    column: 25,
+                },
+            ],
         },
 
         // Try catch
         {
-            code:
-            `let message = 'unused';
+            code: `let message = 'unused';
             try {
                 const result = call();
                 message = result.message;
@@ -961,13 +942,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
-            code:
-            `let message = 'unused';
+            code: `let message = 'unused';
             try {
                 message = 'used';
                 console.log(message)
@@ -977,13 +957,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
-            code:
-            `let message = 'unused';
+            code: `let message = 'unused';
             try {
                 message = call();
             } catch (e) {
@@ -994,13 +973,12 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
-            code:
-            `let v = 'unused';
+            code: `let v = 'unused';
             try {
                 v = callA();
                 try {
@@ -1016,9 +994,9 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
 
         // An expression within an assignment.
@@ -1032,9 +1010,9 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 3,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: `
@@ -1046,9 +1024,9 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `const obj = { a: 1 };
@@ -1062,14 +1040,14 @@ ruleTester.run("no-useless-assignment", rule, {
                 {
                     messageId: "unnecessaryAssignment",
                     line: 3,
-                    column: 17
+                    column: 17,
                 },
                 {
                     messageId: "unnecessaryAssignment",
                     line: 4,
-                    column: 22
-                }
-            ]
-        }
-    ]
+                    column: 22,
+                },
+            ],
+        },
+    ],
 });

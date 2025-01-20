@@ -5,7 +5,6 @@ handled_by_typescript: true
 extra_typescript_info: Note that, technically, TypeScript will only catch this if you have the `strict` or `noImplicitThis` flags enabled. These are enabled in most TypeScript projects, since they are considered to be best practice.
 ---
 
-
 Under the strict mode, `this` keywords outside of classes or class-like objects might be `undefined` and raise a `TypeError`.
 
 ## Rule Details
@@ -20,27 +19,27 @@ For `this` inside functions, this rule basically checks whether or not the funct
 
 This rule judges from following conditions whether or not the function is a constructor:
 
-* The name of the function starts with uppercase.
-* The function is assigned to a variable which starts with an uppercase letter.
-* The function is a constructor of ES2015 Classes.
+- The name of the function starts with uppercase.
+- The function is assigned to a variable which starts with an uppercase letter.
+- The function is a constructor of ES2015 Classes.
 
 This rule judges from following conditions whether or not the function is a method:
 
-* The function is on an object literal.
-* The function is assigned to a property.
-* The function is a method/getter/setter of ES2015 Classes.
+- The function is on an object literal.
+- The function is assigned to a property.
+- The function is a method/getter/setter of ES2015 Classes.
 
 And this rule allows `this` keywords in functions below:
 
-* The `call/apply/bind` method of the function is called directly.
-* The function is a callback of array methods (such as `.forEach()`) if `thisArg` is given.
-* The function has `@this` tag in its JSDoc comment.
+- The `call/apply/bind` method of the function is called directly.
+- The function is a callback of array methods (such as `.forEach()`) if `thisArg` is given.
+- The function has `@this` tag in its JSDoc comment.
 
 And this rule always allows `this` keywords in the following contexts:
 
-* At the top level of scripts.
-* In class field initializers.
-* In class static blocks.
+- At the top level of scripts.
+- In class field initializers.
+- In class static blocks.
 
 Otherwise are considered problems.
 
@@ -56,7 +55,7 @@ Examples of **incorrect** code for this rule in strict mode:
 
 "use strict";
 
-(function() {
+(function () {
     this.a = 0;
     baz(() => this);
 })();
@@ -66,27 +65,27 @@ function foo() {
     baz(() => this);
 }
 
-var foo = function() {
+var foo = function () {
     this.a = 0;
     baz(() => this);
 };
 
-foo(function() {
+foo(function () {
     this.a = 0;
     baz(() => this);
 });
 
 var obj = {
-    aaa: function() {
+    aaa: function () {
         return function foo() {
             // There is in a method `aaa`, but `foo` is not a method.
             this.a = 0;
             baz(() => this);
         };
-    }
+    },
 };
 
-foo.forEach(function() {
+foo.forEach(function () {
     this.a = 0;
     baz(() => this);
 });
@@ -124,42 +123,46 @@ var obj = {
     foo: function foo() {
         // OK, this is in a method (this function is on object literal).
         this.a = 0;
-    }
+    },
 };
 
 var obj = {
     foo() {
         // OK, this is in a method (this function is on object literal).
         this.a = 0;
-    }
+    },
 };
 
 var obj = {
     get foo() {
         // OK, this is in a method (this function is on object literal).
         return this.a;
-    }
+    },
 };
 
 var obj = Object.create(null, {
-    foo: {value: function foo() {
-        // OK, this is in a method (this function is on object literal).
-        this.a = 0;
-    }}
+    foo: {
+        value: function foo() {
+            // OK, this is in a method (this function is on object literal).
+            this.a = 0;
+        },
+    },
 });
 
 Object.defineProperty(obj, "foo", {
     value: function foo() {
         // OK, this is in a method (this function is on object literal).
         this.a = 0;
-    }
+    },
 });
 
 Object.defineProperties(obj, {
-    foo: {value: function foo() {
-        // OK, this is in a method (this function is on object literal).
-        this.a = 0;
-    }}
+    foo: {
+        value: function foo() {
+            // OK, this is in a method (this function is on object literal).
+            this.a = 0;
+        },
+    },
 });
 
 function Foo() {
@@ -181,7 +184,6 @@ Foo.prototype.foo = function foo() {
 };
 
 class Baz {
-
     // OK, this is in a class field initializer.
     a = this.b;
 
@@ -207,12 +209,12 @@ class Baz {
     }
 }
 
-var foo = (function foo() {
+var foo = function foo() {
     // OK, the `bind` method of this function is called directly.
     this.a = 0;
-}).bind(obj);
+}.bind(obj);
 
-foo.forEach(function() {
+foo.forEach(function () {
     // OK, `thisArg` of `.forEach()` is given.
     this.a = 0;
     baz(() => this);
@@ -231,7 +233,7 @@ function foo() {
 
 This rule has an object option, with one option:
 
-* `"capIsConstructor": false` (default `true`) disables the assumption that a function which name starts with an uppercase is a constructor.
+- `"capIsConstructor": false` (default `true`) disables the assumption that a function which name starts with an uppercase is a constructor.
 
 ### capIsConstructor
 
@@ -254,13 +256,13 @@ function Foo() {
 
 var bar = function Foo() {
     this.a = 0;
-}
+};
 
-var Bar = function() {
+var Bar = function () {
     this.a = 0;
 };
 
-Baz = function() {
+Baz = function () {
     this.a = 0;
 };
 ```

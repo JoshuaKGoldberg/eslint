@@ -20,7 +20,6 @@ const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2021 } });
 
 ruleTester.run("constructor-super", rule, {
     valid: [
-
         // non derived classes.
         "class A { }",
         "class A { constructor() { } }",
@@ -84,7 +83,7 @@ ruleTester.run("constructor-super", rule, {
             "        super();",
             "        for (let i = 0; i < 0; i++);",
             "    }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "class A extends Object {",
@@ -92,7 +91,7 @@ ruleTester.run("constructor-super", rule, {
             "        super();",
             "        for (; i < 0; i++);",
             "    }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "class A extends Object {",
@@ -102,7 +101,7 @@ ruleTester.run("constructor-super", rule, {
             "            if (foo) break;",
             "        }",
             "    }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "class A extends Object {",
@@ -110,7 +109,7 @@ ruleTester.run("constructor-super", rule, {
             "        super();",
             "        for (let i = 0; i < 0;);",
             "    }",
-            "}"
+            "}",
         ].join("\n"),
         [
             "class A extends Object {",
@@ -120,7 +119,7 @@ ruleTester.run("constructor-super", rule, {
             "            if (foo) break;",
             "        }",
             "    }",
-            "}"
+            "}",
         ].join("\n"),
 
         // https://github.com/eslint/eslint/issues/8848
@@ -154,165 +153,195 @@ ruleTester.run("constructor-super", rule, {
                     super();
                 }
             }
-        `
+        `,
     ],
     invalid: [
-
         // inherit from non constructors.
         {
             code: "class A extends null { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends null { constructor() { } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: "class A extends 100 { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends 'test' { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B = 5) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B && 5) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
-
             // `B &&= 5` evaluates either to a falsy value of `B` (which, then, cannot be a constructor), or to '5'
             code: "class A extends (B &&= 5) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B += C) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B -= C) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B **= C) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B |= C) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
         {
             code: "class A extends (B &= C) { constructor() { super(); } }",
-            errors: [{ messageId: "badSuper", type: "CallExpression" }]
+            errors: [{ messageId: "badSuper", type: "CallExpression" }],
         },
 
         // derived classes.
         {
             code: "class A extends B { constructor() { } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { for (var a of b) super.foo(); } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { for (var i = 1; i < 10; i++) super.foo(); } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
 
         // nested execution scope.
         {
             code: "class A extends B { constructor() { var c = class extends D { constructor() { super(); } } } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { var c = () => super(); } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { class C extends D { constructor() { super(); } } } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition", column: 21 }]
+            errors: [
+                {
+                    messageId: "missingAll",
+                    type: "MethodDefinition",
+                    column: 21,
+                },
+            ],
         },
         {
             code: "class A extends B { constructor() { var C = class extends D { constructor() { super(); } } } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition", column: 21 }]
+            errors: [
+                {
+                    messageId: "missingAll",
+                    type: "MethodDefinition",
+                    column: 21,
+                },
+            ],
         },
         {
             code: "class A extends B { constructor() { super(); class C extends D { constructor() { } } } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition", column: 66 }]
+            errors: [
+                {
+                    messageId: "missingAll",
+                    type: "MethodDefinition",
+                    column: 66,
+                },
+            ],
         },
         {
             code: "class A extends B { constructor() { super(); var C = class extends D { constructor() { } } } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition", column: 72 }]
+            errors: [
+                {
+                    messageId: "missingAll",
+                    type: "MethodDefinition",
+                    column: 72,
+                },
+            ],
         },
 
         // lacked in some code path.
         {
             code: "class A extends B { constructor() { if (a) super(); } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { if (a); else super(); } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { a && super(); } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { switch (a) { case 0: super(); } } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { switch (a) { case 0: break; default: super(); } } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { try { super(); } catch (err) {} } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { try { a; } catch (err) { super(); } } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
         {
             code: "class A extends B { constructor() { if (a) return; super(); } }",
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
         },
 
         // duplicate.
         {
             code: "class A extends B { constructor() { super(); super(); } }",
-            errors: [{ messageId: "duplicate", type: "CallExpression", column: 46 }]
+            errors: [
+                { messageId: "duplicate", type: "CallExpression", column: 46 },
+            ],
         },
         {
             code: "class A extends B { constructor() { super() || super(); } }",
-            errors: [{ messageId: "duplicate", type: "CallExpression", column: 48 }]
+            errors: [
+                { messageId: "duplicate", type: "CallExpression", column: 48 },
+            ],
         },
         {
             code: "class A extends B { constructor() { if (a) super(); super(); } }",
-            errors: [{ messageId: "duplicate", type: "CallExpression", column: 53 }]
+            errors: [
+                { messageId: "duplicate", type: "CallExpression", column: 53 },
+            ],
         },
         {
             code: "class A extends B { constructor() { switch (a) { case 0: super(); default: super(); } } }",
-            errors: [{ messageId: "duplicate", type: "CallExpression", column: 76 }]
+            errors: [
+                { messageId: "duplicate", type: "CallExpression", column: 76 },
+            ],
         },
         {
             code: "class A extends B { constructor(a) { while (a) super(); } }",
             errors: [
                 { messageId: "missingSome", type: "MethodDefinition" },
-                { messageId: "duplicate", type: "CallExpression", column: 48 }
-            ]
+                { messageId: "duplicate", type: "CallExpression", column: 48 },
+            ],
         },
 
         // ignores `super()` on unreachable paths.
         {
             code: "class A extends B { constructor() { return; super(); } }",
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
 
         // https://github.com/eslint/eslint/issues/8248
@@ -322,7 +351,7 @@ ruleTester.run("constructor-super", rule, {
                     for (a in b) for (c in d);
                 }
             }`,
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
 
         {
@@ -335,7 +364,7 @@ ruleTester.run("constructor-super", rule, {
                 }
 
             }`,
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: `class C extends D {
@@ -349,7 +378,7 @@ ruleTester.run("constructor-super", rule, {
                 }
 
             }`,
-            errors: [{ messageId: "missingAll", type: "MethodDefinition" }]
+            errors: [{ messageId: "missingAll", type: "MethodDefinition" }],
         },
         {
             code: `class C extends D {
@@ -361,7 +390,7 @@ ruleTester.run("constructor-super", rule, {
                 }
 
             }`,
-            errors: [{ messageId: "duplicate", type: "CallExpression" }]
+            errors: [{ messageId: "duplicate", type: "CallExpression" }],
         },
         {
             code: `class C extends D {
@@ -376,7 +405,7 @@ ruleTester.run("constructor-super", rule, {
                 }
 
             }`,
-            errors: [{ messageId: "missingSome", type: "MethodDefinition" }]
-        }
-    ]
+            errors: [{ messageId: "missingSome", type: "MethodDefinition" }],
+        },
+    ],
 });

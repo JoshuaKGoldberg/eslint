@@ -17,13 +17,13 @@ This rule requires or disallows logical assignment operator shorthand.
 This rule has a string and an object option.
 String option:
 
-* `"always"` (default)
-* `"never"`
+- `"always"` (default)
+- `"never"`
 
 Object option (only available if string option is set to `"always"`):
 
-* `"enforceForIfStatements": false`(default) Do *not* check for equivalent `if` statements
-* `"enforceForIfStatements": true` Check for equivalent `if` statements
+- `"enforceForIfStatements": false`(default) Do _not_ check for equivalent `if` statements
+- `"enforceForIfStatements": true` Check for equivalent `if` statements
 
 #### always
 
@@ -37,15 +37,15 @@ Examples of **incorrect** code for this rule with the default `"always"` option:
 ```js
 /*eslint logical-assignment-operators: ["error", "always"]*/
 
-a = a || b
-a = a && b
-a = a ?? b
-a || (a = b)
-a && (a = b)
-a ?? (a = b)
-a = a || b || c
-a = a && b && c
-a = a ?? b ?? c
+a = a || b;
+a = a && b;
+a = a ?? b;
+a || (a = b);
+a && (a = b);
+a ?? (a = b);
+a = a || b || c;
+a = a && b && c;
+a = a ?? b ?? c;
 ```
 
 :::
@@ -57,15 +57,15 @@ Examples of **correct** code for this rule with the default `"always"` option:
 ```js
 /*eslint logical-assignment-operators: ["error", "always"]*/
 
-a = b
-a += b
-a ||= b
-a = b || c
-a || (b = c)
+a = b;
+a += b;
+a ||= b;
+a = b || c;
+a || (b = c);
 
-if (a) a = b
+if (a) a = b;
 
-a = (a || b) || c
+a = a || b || c;
 ```
 
 :::
@@ -79,9 +79,9 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 ```js
 /*eslint logical-assignment-operators: ["error", "never"]*/
 
-a ||= b
-a &&= b
-a ??= b
+a ||= b;
+a &&= b;
+a ??= b;
 ```
 
 :::
@@ -93,9 +93,9 @@ Examples of **correct** code for this rule with the `"never"` option:
 ```js
 /*eslint logical-assignment-operators: ["error", "never"]*/
 
-a = a || b
-a = a && b
-a = a ?? b
+a = a || b;
+a = a && b;
+a = a ?? b;
 ```
 
 :::
@@ -111,11 +111,11 @@ Examples of **incorrect** code for this rule with the `["always", { enforceForIf
 ```js
 /*eslint logical-assignment-operators: ["error", "always", { enforceForIfStatements: true }]*/
 
-if (a) a = b // <=> a &&= b
-if (!a) a = b // <=> a ||= b
+if (a) a = b; // <=> a &&= b
+if (!a) a = b; // <=> a ||= b
 
-if (a == null) a = b // <=> a ??= b
-if (a === null || a === undefined) a = b // <=> a ??= b
+if (a == null) a = b; // <=> a ??= b
+if (a === null || a === undefined) a = b; // <=> a ??= b
 ```
 
 :::
@@ -127,8 +127,8 @@ Examples of **correct** code for this rule with the `["always", { enforceForIfSt
 ```js
 /*eslint logical-assignment-operators: ["error", "always", { enforceForIfStatements: true }]*/
 
-if (a) b = c
-if (a === 0) a = b
+if (a) b = c;
+if (a === 0) a = b;
 ```
 
 :::

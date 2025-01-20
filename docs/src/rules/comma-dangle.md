@@ -48,31 +48,34 @@ This rule has a string option or an object option:
 {
     "comma-dangle": ["error", "never"],
     // or
-    "comma-dangle": ["error", {
-        "arrays": "never",
-        "objects": "never",
-        "imports": "never",
-        "exports": "never",
-        "functions": "never"
-    }]
+    "comma-dangle": [
+        "error",
+        {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }
+    ]
 }
 ```
 
-* `"never"` (default) disallows trailing commas
-* `"always"` requires trailing commas
-* `"always-multiline"` requires trailing commas when the last element or property is in a *different* line than the closing `]` or `}` and disallows trailing commas when the last element or property is on the *same* line as the closing `]` or `}`
-* `"only-multiline"` allows (but does not require) trailing commas when the last element or property is in a *different* line than the closing `]` or `}` and disallows trailing commas when the last element or property is on the *same* line as the closing `]` or `}`
+- `"never"` (default) disallows trailing commas
+- `"always"` requires trailing commas
+- `"always-multiline"` requires trailing commas when the last element or property is in a _different_ line than the closing `]` or `}` and disallows trailing commas when the last element or property is on the _same_ line as the closing `]` or `}`
+- `"only-multiline"` allows (but does not require) trailing commas when the last element or property is in a _different_ line than the closing `]` or `}` and disallows trailing commas when the last element or property is on the _same_ line as the closing `]` or `}`
 
 You can also use an object option to configure this rule for each type of syntax.
 Each of the following options can be set to `"never"`, `"always"`, `"always-multiline"`, `"only-multiline"`, or `"ignore"`.
 The default for each option is `"never"` unless otherwise specified.
 
-* `arrays` is for array literals and array patterns of destructuring. (e.g. `let [a,] = [1,];`)
-* `objects` is for object literals and object patterns of destructuring. (e.g. `let {a,} = {a: 1};`)
-* `imports` is for import declarations of ES Modules. (e.g. `import {a,} from "foo";`)
-* `exports` is for export declarations of ES Modules. (e.g. `export {a,};`)
-* `functions` is for function declarations and function calls. (e.g. `(function(a,){ })(b,);`)
-    * `functions` should only be enabled when linting ECMAScript 2017 or higher.
+- `arrays` is for array literals and array patterns of destructuring. (e.g. `let [a,] = [1,];`)
+- `objects` is for object literals and object patterns of destructuring. (e.g. `let {a,} = {a: 1};`)
+- `imports` is for import declarations of ES Modules. (e.g. `import {a,} from "foo";`)
+- `exports` is for export declarations of ES Modules. (e.g. `export {a,};`)
+- `functions` is for function declarations and function calls. (e.g. `(function(a,){ })(b,);`)
+    - `functions` should only be enabled when linting ECMAScript 2017 or higher.
 
 ### never
 
@@ -88,11 +91,11 @@ var foo = {
     qux: "quux",
 };
 
-var arr = [1,2,];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux",
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -107,14 +110,14 @@ Examples of **correct** code for this rule with the default `"never"` option:
 
 var foo = {
     bar: "baz",
-    qux: "quux"
+    qux: "quux",
 };
 
-var arr = [1,2];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux"
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -131,14 +134,14 @@ Examples of **incorrect** code for this rule with the `"always"` option:
 
 var foo = {
     bar: "baz",
-    qux: "quux"
+    qux: "quux",
 };
 
-var arr = [1,2];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux"
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -156,11 +159,11 @@ var foo = {
     qux: "quux",
 };
 
-var arr = [1,2,];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux",
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -177,24 +180,20 @@ Examples of **incorrect** code for this rule with the `"always-multiline"` optio
 
 var foo = {
     bar: "baz",
-    qux: "quux"
+    qux: "quux",
 };
 
-var foo = { bar: "baz", qux: "quux", };
+var foo = { bar: "baz", qux: "quux" };
 
-var arr = [1,2,];
+var arr = [1, 2];
 
-var arr = [1,
-    2,];
+var arr = [1, 2];
 
-var arr = [
-    1,
-    2
-];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux"
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -212,20 +211,16 @@ var foo = {
     qux: "quux",
 };
 
-var foo = {bar: "baz", qux: "quux"};
-var arr = [1,2];
+var foo = { bar: "baz", qux: "quux" };
+var arr = [1, 2];
 
-var arr = [1,
-    2];
+var arr = [1, 2];
 
-var arr = [
-    1,
-    2,
-];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux",
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -240,13 +235,11 @@ Examples of **incorrect** code for this rule with the `"only-multiline"` option:
 ```js
 /*eslint comma-dangle: ["error", "only-multiline"]*/
 
-var foo = { bar: "baz", qux: "quux", };
+var foo = { bar: "baz", qux: "quux" };
 
-var arr = [1,2,];
+var arr = [1, 2];
 
-var arr = [1,
-    2,];
-
+var arr = [1, 2];
 ```
 
 :::
@@ -265,33 +258,26 @@ var foo = {
 
 var foo = {
     bar: "baz",
-    qux: "quux"
+    qux: "quux",
 };
 
-var foo = {bar: "baz", qux: "quux"};
-var arr = [1,2];
+var foo = { bar: "baz", qux: "quux" };
+var arr = [1, 2];
 
-var arr = [1,
-    2];
+var arr = [1, 2];
 
-var arr = [
-    1,
-    2,
-];
+var arr = [1, 2];
 
-var arr = [
-    1,
-    2
-];
+var arr = [1, 2];
 
 foo({
-  bar: "baz",
-  qux: "quux",
+    bar: "baz",
+    qux: "quux",
 });
 
 foo({
-  bar: "baz",
-  qux: "quux"
+    bar: "baz",
+    qux: "quux",
 });
 ```
 
@@ -306,11 +292,10 @@ Examples of **incorrect** code for this rule with the `{"functions": "never"}` o
 ```js
 /*eslint comma-dangle: ["error", {"functions": "never"}]*/
 
-function foo(a, b,) {
-}
+function foo(a, b) {}
 
-foo(a, b,);
-new foo(a, b,);
+foo(a, b);
+new foo(a, b);
 ```
 
 :::
@@ -322,8 +307,7 @@ Examples of **correct** code for this rule with the `{"functions": "never"}` opt
 ```js
 /*eslint comma-dangle: ["error", {"functions": "never"}]*/
 
-function foo(a, b) {
-}
+function foo(a, b) {}
 
 foo(a, b);
 new foo(a, b);
@@ -338,8 +322,7 @@ Examples of **incorrect** code for this rule with the `{"functions": "always"}` 
 ```js
 /*eslint comma-dangle: ["error", {"functions": "always"}]*/
 
-function foo(a, b) {
-}
+function foo(a, b) {}
 
 foo(a, b);
 new foo(a, b);
@@ -354,11 +337,10 @@ Examples of **correct** code for this rule with the `{"functions": "always"}` op
 ```js
 /*eslint comma-dangle: ["error", {"functions": "always"}]*/
 
-function foo(a, b,) {
-}
+function foo(a, b) {}
 
-foo(a, b,);
-new foo(a, b,);
+foo(a, b);
+new foo(a, b);
 ```
 
 :::

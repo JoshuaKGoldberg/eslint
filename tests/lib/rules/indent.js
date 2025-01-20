@@ -18,11 +18,22 @@ const path = require("node:path");
 // Helpers
 //------------------------------------------------------------------------------
 
-const fixture = fs.readFileSync(path.join(__dirname, "../../fixtures/rules/indent/indent-invalid-fixture-1.js"), "utf8");
-const fixedFixture = fs.readFileSync(path.join(__dirname, "../../fixtures/rules/indent/indent-valid-fixture-1.js"), "utf8");
+const fixture = fs.readFileSync(
+    path.join(
+        __dirname,
+        "../../fixtures/rules/indent/indent-invalid-fixture-1.js",
+    ),
+    "utf8",
+);
+const fixedFixture = fs.readFileSync(
+    path.join(
+        __dirname,
+        "../../fixtures/rules/indent/indent-valid-fixture-1.js",
+    ),
+    "utf8",
+);
 const parser = require("../../fixtures/fixture-parser");
 const { unIndent } = require("../../_utils");
-
 
 /**
  * Create error message object for failure cases with a single 'found' indentation type
@@ -36,23 +47,28 @@ function expectedErrors(providedIndentType, providedErrors) {
     let errors;
 
     if (Array.isArray(providedIndentType)) {
-        errors = Array.isArray(providedIndentType[0]) ? providedIndentType : [providedIndentType];
+        errors = Array.isArray(providedIndentType[0])
+            ? providedIndentType
+            : [providedIndentType];
         indentType = "space";
     } else {
-        errors = Array.isArray(providedErrors[0]) ? providedErrors : [providedErrors];
+        errors = Array.isArray(providedErrors[0])
+            ? providedErrors
+            : [providedErrors];
         indentType = providedIndentType;
     }
 
-    return errors.map(err => ({
+    return errors.map((err) => ({
         messageId: "wrongIndentation",
         data: {
-            expected: typeof err[1] === "string" && typeof err[2] === "string"
-                ? err[1]
-                : `${err[1]} ${indentType}${err[1] === 1 ? "" : "s"}`,
-            actual: err[2]
+            expected:
+                typeof err[1] === "string" && typeof err[2] === "string"
+                    ? err[1]
+                    : `${err[1]} ${indentType}${err[1] === 1 ? "" : "s"}`,
+            actual: err[2],
         },
         type: err[3],
-        line: err[0]
+        line: err[0],
     }));
 }
 
@@ -65,9 +81,9 @@ const ruleTester = new RuleTester({
         ecmaVersion: 8,
         sourceType: "script",
         parserOptions: {
-            ecmaFeatures: { jsx: true }
-        }
-    }
+            ecmaFeatures: { jsx: true },
+        },
+    },
 });
 
 ruleTester.run("indent", rule, {
@@ -80,7 +96,7 @@ ruleTester.run("indent", rule, {
                   }
                 );
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -89,7 +105,7 @@ ruleTester.run("indent", rule, {
                     window.ah.mobileAppVersion = responseData;
                   });
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -101,7 +117,7 @@ ruleTester.run("indent", rule, {
                   }
                 );
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -112,7 +128,7 @@ ruleTester.run("indent", rule, {
                     window.ah.mobileAppVersion = responseData;
                   });
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -125,7 +141,7 @@ ruleTester.run("indent", rule, {
                     );
                 }
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -135,7 +151,7 @@ ruleTester.run("indent", rule, {
                     }
                 );
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -147,7 +163,7 @@ ruleTester.run("indent", rule, {
                         return 100 * x;
                     });
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -157,7 +173,7 @@ ruleTester.run("indent", rule, {
                         b: 2
                     };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -167,7 +183,7 @@ ruleTester.run("indent", rule, {
                 \t\tb: 2
                 \t};
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -181,7 +197,7 @@ ruleTester.run("indent", rule, {
                         d: 4
                     };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -191,7 +207,7 @@ ruleTester.run("indent", rule, {
                     'c'
                 ];
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -200,15 +216,15 @@ ruleTester.run("indent", rule, {
                     'c',
                 ];
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: "var x = 0 && 1;",
-            options: [4]
+            options: [4],
         },
         {
             code: "var x = 0 && { a: 1, b: 2 };",
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -217,7 +233,7 @@ ruleTester.run("indent", rule, {
                         1
                     );
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -226,7 +242,7 @@ ruleTester.run("indent", rule, {
                   res.end();
                 });
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -243,7 +259,7 @@ ruleTester.run("indent", rule, {
                     });
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -252,7 +268,7 @@ ruleTester.run("indent", rule, {
                   expect(true).toBe(true);
                 });
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -268,10 +284,9 @@ ruleTester.run("indent", rule, {
                         })
                 }
             `,
-            options: [4]
+            options: [4],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11802
             code: unIndent`
                 import foo from "foo"
@@ -279,7 +294,7 @@ ruleTester.run("indent", rule, {
                 ;(() => {})()
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -295,12 +310,12 @@ ruleTester.run("indent", rule, {
                     });
                 }
             `,
-            options: [4, { MemberExpression: 0 }]
+            options: [4, { MemberExpression: 0 }],
         },
 
         {
             code: "// hi",
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -311,11 +326,11 @@ ruleTester.run("indent", rule, {
                   files.concat(fileList)
                 };
             `,
-            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }]
+            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }],
         },
         {
             code: "  ",
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -323,7 +338,7 @@ ruleTester.run("indent", rule, {
                   console.log('hi');
                   b = true;};
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -331,7 +346,7 @@ ruleTester.run("indent", rule, {
                   console.log('hi');
                   return true;};
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -339,7 +354,7 @@ ruleTester.run("indent", rule, {
                   console.log('hi');
                   return true;};
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -347,7 +362,7 @@ ruleTester.run("indent", rule, {
                   console.log('hi');
                 };
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -356,7 +371,7 @@ ruleTester.run("indent", rule, {
                     console.log('hi');
                   }) });
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -364,7 +379,7 @@ ruleTester.run("indent", rule, {
                     ,3
                 ]
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -377,7 +392,7 @@ ruleTester.run("indent", rule, {
                   console.log(method);
                 });
             `,
-            options: [2, { SwitchCase: 1, VariableDeclarator: 2 }]
+            options: [2, { SwitchCase: 1, VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
@@ -391,7 +406,7 @@ ruleTester.run("indent", rule, {
                     }
                 });
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -402,7 +417,7 @@ ruleTester.run("indent", rule, {
                         }
                     ];
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -415,7 +430,7 @@ ruleTester.run("indent", rule, {
                     x: 2
                 }];
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         unIndent`
             [{
@@ -447,7 +462,7 @@ ruleTester.run("indent", rule, {
                     ]
                 });
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -461,7 +476,7 @@ ruleTester.run("indent", rule, {
                   ]
                 };
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -472,7 +487,7 @@ ruleTester.run("indent", rule, {
                   }
                 );
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -481,7 +496,7 @@ ruleTester.run("indent", rule, {
                     b: 2
                 });
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -495,7 +510,7 @@ ruleTester.run("indent", rule, {
                     }
                   ];
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -508,7 +523,7 @@ ruleTester.run("indent", rule, {
                   }
                 ];
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -520,7 +535,7 @@ ruleTester.run("indent", rule, {
                       b: 2
                     };
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         unIndent`
             var
@@ -574,7 +589,7 @@ ruleTester.run("indent", rule, {
                   bar =
                     2
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
@@ -582,7 +597,7 @@ ruleTester.run("indent", rule, {
                   bar
                     = 2
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
@@ -591,7 +606,7 @@ ruleTester.run("indent", rule, {
                   bar
                     = 2
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
@@ -602,7 +617,7 @@ ruleTester.run("indent", rule, {
                     =
                     2
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
@@ -611,7 +626,7 @@ ruleTester.run("indent", rule, {
                   bar
                     = (2)
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
@@ -620,7 +635,7 @@ ruleTester.run("indent", rule, {
                 const a = 'a',
                       b = 'b';
             `,
-            options: [2, { VariableDeclarator: "first" }]
+            options: [2, { VariableDeclarator: "first" }],
         },
         {
             code: unIndent`
@@ -629,7 +644,7 @@ ruleTester.run("indent", rule, {
                 const a = 'a',
                       b = 'b'  // <-- no semicolon here
             `,
-            options: [2, { VariableDeclarator: "first" }]
+            options: [2, { VariableDeclarator: "first" }],
         },
         {
             code: unIndent`
@@ -638,7 +653,7 @@ ruleTester.run("indent", rule, {
                     baz = 3
                 ;
             `,
-            options: [2, { VariableDeclarator: { var: 2 } }]
+            options: [2, { VariableDeclarator: { var: 2 } }],
         },
         {
             code: unIndent`
@@ -647,21 +662,21 @@ ruleTester.run("indent", rule, {
                     baz = 3
                     ;
             `,
-            options: [2, { VariableDeclarator: { var: 2 } }]
+            options: [2, { VariableDeclarator: { var: 2 } }],
         },
         {
             code: unIndent`
                 var foo = 'foo',
                     bar = bar;
             `,
-            options: [2, { VariableDeclarator: { var: "first" } }]
+            options: [2, { VariableDeclarator: { var: "first" } }],
         },
         {
             code: unIndent`
                 var foo = 'foo',
                     bar = 'bar'  // <-- no semicolon here
             `,
-            options: [2, { VariableDeclarator: { var: "first" } }]
+            options: [2, { VariableDeclarator: { var: "first" } }],
         },
         {
             code: unIndent`
@@ -669,14 +684,14 @@ ruleTester.run("indent", rule, {
                 bar = 2,
                 baz
             `,
-            options: [2, { VariableDeclarator: "first" }]
+            options: [2, { VariableDeclarator: "first" }],
         },
         {
             code: unIndent`
             let
                 foo
             `,
-            options: [4, { VariableDeclarator: "first" }]
+            options: [4, { VariableDeclarator: "first" }],
         },
         {
             code: unIndent`
@@ -684,7 +699,7 @@ ruleTester.run("indent", rule, {
                 bar =
                 2
             `,
-            options: [2, { VariableDeclarator: "first" }]
+            options: [2, { VariableDeclarator: "first" }],
         },
         {
             code: unIndent`
@@ -694,7 +709,7 @@ ruleTester.run("indent", rule, {
                       b: 2
                     };
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -704,7 +719,7 @@ ruleTester.run("indent", rule, {
                     }),
                     b = 2;
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -715,7 +730,7 @@ ruleTester.run("indent", rule, {
                   },
                   b = 2;
             `,
-            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -726,7 +741,7 @@ ruleTester.run("indent", rule, {
                     },
                     b = 2;
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -736,7 +751,7 @@ ruleTester.run("indent", rule, {
                     },
                     b = 2;
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -745,7 +760,7 @@ ruleTester.run("indent", rule, {
                   b: 2
                 };
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -756,7 +771,7 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         unIndent`
             var foo = bar ||
@@ -782,14 +797,14 @@ ruleTester.run("indent", rule, {
                   if (true)
                     console.log(val);
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
                 with (a)
                     b();
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -797,7 +812,7 @@ ruleTester.run("indent", rule, {
                     b();
                 c();
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -806,7 +821,7 @@ ruleTester.run("indent", rule, {
                     if (true)
                       console.log(val);
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -814,7 +829,7 @@ ruleTester.run("indent", rule, {
                   y++;                   x++;
                 }
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -822,7 +837,7 @@ ruleTester.run("indent", rule, {
                   x++;
                 }
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -834,67 +849,67 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
                 var geometry = 2,
                 rotate = 2;
             `,
-            options: [2, { VariableDeclarator: 0 }]
+            options: [2, { VariableDeclarator: 0 }],
         },
         {
             code: unIndent`
                 var geometry,
                     rotate;
             `,
-            options: [4, { VariableDeclarator: 1 }]
+            options: [4, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
                 var geometry,
                 \trotate;
             `,
-            options: ["tab", { VariableDeclarator: 1 }]
+            options: ["tab", { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
                 var geometry,
                   rotate;
             `,
-            options: [2, { VariableDeclarator: 1 }]
+            options: [2, { VariableDeclarator: 1 }],
         },
         {
             code: unIndent`
                 var geometry,
                     rotate;
             `,
-            options: [2, { VariableDeclarator: 2 }]
+            options: [2, { VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
                 let geometry,
                     rotate;
             `,
-            options: [2, { VariableDeclarator: 2 }]
+            options: [2, { VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
                 const geometry = 2,
                     rotate = 3;
             `,
-            options: [2, { VariableDeclarator: 2 }]
+            options: [2, { VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
                 var geometry, box, face1, face2, colorT, colorB, sprite, padding, maxWidth,
                   height, rotate;
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
             code: "var geometry, box, face1, face2, colorT, colorB, sprite, padding, maxWidth;",
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -902,7 +917,7 @@ ruleTester.run("indent", rule, {
                 //hi sd
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -910,11 +925,11 @@ ruleTester.run("indent", rule, {
                   //hi sd
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: "while (1 < 2) console.log('hi');",
-            options: [2]
+            options: [2],
         },
 
         {
@@ -924,7 +939,7 @@ ruleTester.run("indent", rule, {
                     index;
                 });
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -933,7 +948,7 @@ ruleTester.run("indent", rule, {
                     return index;
                 });
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -941,7 +956,7 @@ ruleTester.run("indent", rule, {
                     index;
                 });
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -949,7 +964,7 @@ ruleTester.run("indent", rule, {
                     return index;
                 });
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -958,7 +973,7 @@ ruleTester.run("indent", rule, {
                         baz
                     ]);
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -978,7 +993,7 @@ ruleTester.run("indent", rule, {
                         break;
                 }
             `,
-            options: [4, { SwitchCase: 1 }]
+            options: [4, { SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -998,7 +1013,7 @@ ruleTester.run("indent", rule, {
                             break;
                 }
             `,
-            options: [4, { SwitchCase: 2 }]
+            options: [4, { SwitchCase: 2 }],
         },
         unIndent`
             switch (a) {
@@ -1090,7 +1105,7 @@ ruleTester.run("indent", rule, {
                         break;
                 }
             `,
-            options: [4, { SwitchCase: 1 }]
+            options: [4, { SwitchCase: 1 }],
         },
         unIndent`
             var obj = {foo: 1, bar: 2};
@@ -1110,7 +1125,7 @@ ruleTester.run("indent", rule, {
                 import React from 'react'
             `,
             options: [2],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -1120,7 +1135,7 @@ ruleTester.run("indent", rule, {
                     baz
                 } from 'qux';
             `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -1131,7 +1146,7 @@ ruleTester.run("indent", rule, {
                     baz
                 } from 'qux';
             `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -1139,7 +1154,7 @@ ruleTester.run("indent", rule, {
                     b = 2,
                     c = 3;
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -1147,11 +1162,11 @@ ruleTester.run("indent", rule, {
                     ,b = 2
                     ,c = 3;
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: "while (1 < 2) console.log('hi')",
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1162,7 +1177,7 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1172,7 +1187,7 @@ ruleTester.run("indent", rule, {
                   }
                 ];
             `,
-            options: [2, { VariableDeclarator: 2 }]
+            options: [2, { VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
@@ -1189,8 +1204,7 @@ ruleTester.run("indent", rule, {
                   }
                 );
             `,
-            options: [2, { VariableDeclarator: 3 }]
-
+            options: [2, { VariableDeclarator: 3 }],
         },
         {
             code: unIndent`
@@ -1201,7 +1215,7 @@ ruleTester.run("indent", rule, {
                 let light = true,
                     shadow = false;
             `,
-            options: [2, { VariableDeclarator: { const: 3, let: 2 } }]
+            options: [2, { VariableDeclarator: { const: 3, let: 2 } }],
         },
         {
             code: unIndent`
@@ -1227,7 +1241,10 @@ ruleTester.run("indent", rule, {
                       b: 2
                     };
             `,
-            options: [2, { VariableDeclarator: { var: 2, const: 3 }, SwitchCase: 1 }]
+            options: [
+                2,
+                { VariableDeclarator: { var: 2, const: 3 }, SwitchCase: 1 },
+            ],
         },
         {
             code: unIndent`
@@ -1248,14 +1265,14 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
                 foo =
                   bar;
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1263,7 +1280,7 @@ ruleTester.run("indent", rule, {
                   bar
                 );
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1271,7 +1288,7 @@ ruleTester.run("indent", rule, {
                   , crypto    = require('crypto')
                   ;
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             var a = 1
@@ -1289,7 +1306,7 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [2, { FunctionDeclaration: { parameters: "first" } }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -1301,7 +1318,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { parameters: "first" } }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -1316,7 +1333,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1325,7 +1342,7 @@ ruleTester.run("indent", rule, {
                     var a;
                   }).d.e;
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1336,7 +1353,7 @@ ruleTester.run("indent", rule, {
                     a = 5,
                     b = 4
             `,
-            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }]
+            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }],
         },
         {
             code: unIndent`
@@ -1349,7 +1366,7 @@ ruleTester.run("indent", rule, {
 
                 if (YO) console.log(TE)
             `,
-            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }]
+            options: [2, { VariableDeclarator: { var: 2, let: 2, const: 3 } }],
         },
         {
             code: unIndent`
@@ -1363,7 +1380,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1380,7 +1397,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1397,7 +1414,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2, { MemberExpression: 0 }]
+            options: [2, { MemberExpression: 0 }],
         },
         unIndent`
             const someOtherFunction = argument => {
@@ -1415,7 +1432,7 @@ ruleTester.run("indent", rule, {
                   'y'
                 ]);
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1426,7 +1443,7 @@ ruleTester.run("indent", rule, {
                       get b(){}
                     };
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1439,7 +1456,7 @@ ruleTester.run("indent", rule, {
                     },
                     c = 3;
             `,
-            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }]
+            options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1449,7 +1466,7 @@ ruleTester.run("indent", rule, {
                     get b(){}
                 }
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1459,7 +1476,7 @@ ruleTester.run("indent", rule, {
                     get b(){}
                 }
             `,
-            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1468,7 +1485,7 @@ ruleTester.run("indent", rule, {
                   , name: 2
                 };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1482,7 +1499,7 @@ ruleTester.run("indent", rule, {
                     }
                 };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -1496,7 +1513,7 @@ ruleTester.run("indent", rule, {
                     ]
                 };
             `,
-            options: [4, { VariableDeclarator: 0, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 0, SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -1507,7 +1524,7 @@ ruleTester.run("indent", rule, {
                     }
                 ];
             `,
-            options: [4, { VariableDeclarator: 0, SwitchCase: 1 }]
+            options: [4, { VariableDeclarator: 0, SwitchCase: 1 }],
         },
         unIndent`
             [[
@@ -1537,7 +1554,7 @@ ruleTester.run("indent", rule, {
                     });
                 };
             `,
-            options: [4, { MemberExpression: 0 }]
+            options: [4, { MemberExpression: 0 }],
         },
         {
             code: unIndent`
@@ -1550,7 +1567,7 @@ ruleTester.run("indent", rule, {
                         });
                 };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -1565,7 +1582,7 @@ ruleTester.run("indent", rule, {
                     );
                 };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -1580,7 +1597,7 @@ ruleTester.run("indent", rule, {
                     );
                 };
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -1596,7 +1613,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1608,7 +1625,7 @@ ruleTester.run("indent", rule, {
                   },
                   bar = 1;
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1617,7 +1634,7 @@ ruleTester.run("indent", rule, {
                   baz() {}
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1626,7 +1643,7 @@ ruleTester.run("indent", rule, {
                   baz() {}
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1637,7 +1654,7 @@ ruleTester.run("indent", rule, {
                   baz() {}
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -1645,7 +1662,7 @@ ruleTester.run("indent", rule, {
                   files[name] = foo;
                 });
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1655,7 +1672,7 @@ ruleTester.run("indent", rule, {
                 }
                 })();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1665,7 +1682,7 @@ ruleTester.run("indent", rule, {
                         }
                 })();
             `,
-            options: [4, { outerIIFEBody: 2 }]
+            options: [4, { outerIIFEBody: 2 }],
         },
         {
             code: unIndent`
@@ -1675,7 +1692,7 @@ ruleTester.run("indent", rule, {
                 }
                 })(1, 2);
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1685,7 +1702,7 @@ ruleTester.run("indent", rule, {
                 }
                 }());
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1695,7 +1712,7 @@ ruleTester.run("indent", rule, {
                 }
                 }();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1705,7 +1722,7 @@ ruleTester.run("indent", rule, {
                 \t\t\t}
                 }();
             `,
-            options: ["tab", { outerIIFEBody: 3 }]
+            options: ["tab", { outerIIFEBody: 3 }],
         },
         {
             code: unIndent`
@@ -1715,7 +1732,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1725,7 +1742,7 @@ ruleTester.run("indent", rule, {
                 }
                 }();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1735,7 +1752,7 @@ ruleTester.run("indent", rule, {
                 }
                 }();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1745,7 +1762,7 @@ ruleTester.run("indent", rule, {
                 }
                 }(x));
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1755,7 +1772,7 @@ ruleTester.run("indent", rule, {
                         }
                 }(x));
             `,
-            options: [4, { outerIIFEBody: 2 }]
+            options: [4, { outerIIFEBody: 2 }],
         },
         {
             code: unIndent`
@@ -1765,7 +1782,7 @@ ruleTester.run("indent", rule, {
                   }
                 };
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1777,7 +1794,7 @@ ruleTester.run("indent", rule, {
                   x = x + 1;
                 };
             `,
-            options: [2, { outerIIFEBody: 20 }]
+            options: [2, { outerIIFEBody: 20 }],
         },
         {
             code: unIndent`
@@ -1787,14 +1804,14 @@ ruleTester.run("indent", rule, {
                 }
                 })();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
                 function foo() {
                 }
             `,
-            options: ["tab", { outerIIFEBody: 0 }]
+            options: ["tab", { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1804,7 +1821,7 @@ ruleTester.run("indent", rule, {
                 }
                 })();
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1812,7 +1829,7 @@ ruleTester.run("indent", rule, {
                   console.log('hi');
                 }
             `,
-            options: [2, { outerIIFEBody: 0 }]
+            options: [2, { outerIIFEBody: 0 }],
         },
         {
             code: unIndent`
@@ -1820,7 +1837,7 @@ ruleTester.run("indent", rule, {
                     return x + 1;
                 })();
             `,
-            options: [4, { outerIIFEBody: "off" }]
+            options: [4, { outerIIFEBody: "off" }],
         },
         {
             code: unIndent`
@@ -1828,7 +1845,7 @@ ruleTester.run("indent", rule, {
                 return x + 1;
                 })();
             `,
-            options: [4, { outerIIFEBody: "off" }]
+            options: [4, { outerIIFEBody: "off" }],
         },
         {
             code: unIndent`
@@ -1838,7 +1855,7 @@ ruleTester.run("indent", rule, {
                     }
                 })();
             `,
-            options: [4, { outerIIFEBody: "off" }]
+            options: [4, { outerIIFEBody: "off" }],
         },
         {
             code: unIndent`
@@ -1848,18 +1865,18 @@ ruleTester.run("indent", rule, {
                 }
                 })();
             `,
-            options: [4, { outerIIFEBody: "off" }]
+            options: [4, { outerIIFEBody: "off" }],
         },
         {
             code: unIndent`
                 function foo() {
                 }
             `,
-            options: [4, { outerIIFEBody: "off" }]
+            options: [4, { outerIIFEBody: "off" }],
         },
         {
             code: "Buffer.length",
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -1867,14 +1884,14 @@ ruleTester.run("indent", rule, {
                     .indexOf('a')
                     .toString()
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
                 Buffer.
                     length
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -1882,7 +1899,7 @@ ruleTester.run("indent", rule, {
                     .foo
                     .bar
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -1890,7 +1907,7 @@ ruleTester.run("indent", rule, {
                 \t.foo
                 \t.bar
             `,
-            options: ["tab", { MemberExpression: 1 }]
+            options: ["tab", { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -1898,7 +1915,7 @@ ruleTester.run("indent", rule, {
                     .foo
                     .bar
             `,
-            options: [2, { MemberExpression: 2 }]
+            options: [2, { MemberExpression: 2 }],
         },
         unIndent`
             (
@@ -1960,14 +1977,14 @@ ruleTester.run("indent", rule, {
                     .turned
                  .off();
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
                 foo = bar.baz()
                     .bip();
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         unIndent`
             function foo() {
@@ -1991,7 +2008,7 @@ ruleTester.run("indent", rule, {
                   qux();
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2000,7 +2017,7 @@ ruleTester.run("indent", rule, {
                     bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: 1, body: 2 } }]
+            options: [2, { FunctionDeclaration: { parameters: 1, body: 2 } }],
         },
         {
             code: unIndent`
@@ -2009,7 +2026,7 @@ ruleTester.run("indent", rule, {
                   bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: 3, body: 1 } }]
+            options: [2, { FunctionDeclaration: { parameters: 3, body: 1 } }],
         },
         {
             code: unIndent`
@@ -2019,7 +2036,7 @@ ruleTester.run("indent", rule, {
                             bar();
                 }
             `,
-            options: [4, { FunctionDeclaration: { parameters: 1, body: 3 } }]
+            options: [4, { FunctionDeclaration: { parameters: 1, body: 3 } }],
         },
         {
             code: unIndent`
@@ -2029,7 +2046,10 @@ ruleTester.run("indent", rule, {
                   bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first", body: 1 } }]
+            options: [
+                2,
+                { FunctionDeclaration: { parameters: "first", body: 1 } },
+            ],
         },
         {
             code: unIndent`
@@ -2038,7 +2058,7 @@ ruleTester.run("indent", rule, {
                       bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { body: 3 } }]
+            options: [2, { FunctionDeclaration: { body: 3 } }],
         },
         {
             code: unIndent`
@@ -2048,7 +2068,10 @@ ruleTester.run("indent", rule, {
                     bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first", body: 2 } }]
+            options: [
+                2,
+                { FunctionDeclaration: { parameters: "first", body: 2 } },
+            ],
         },
         {
             code: unIndent`
@@ -2059,7 +2082,7 @@ ruleTester.run("indent", rule, {
                 bar();
                 }
             `,
-            options: [2, { FunctionExpression: { parameters: 2, body: 0 } }]
+            options: [2, { FunctionExpression: { parameters: 2, body: 0 } }],
         },
         {
             code: unIndent`
@@ -2069,7 +2092,7 @@ ruleTester.run("indent", rule, {
                                     bar();
                 }
             `,
-            options: [2, { FunctionExpression: { parameters: 1, body: 10 } }]
+            options: [2, { FunctionExpression: { parameters: 1, body: 10 } }],
         },
         {
             code: unIndent`
@@ -2079,7 +2102,10 @@ ruleTester.run("indent", rule, {
                     bar();
                 }
             `,
-            options: [4, { FunctionExpression: { parameters: "first", body: 1 } }]
+            options: [
+                4,
+                { FunctionExpression: { parameters: "first", body: 1 } },
+            ],
         },
         {
             code: unIndent`
@@ -2089,7 +2115,10 @@ ruleTester.run("indent", rule, {
                       bar();
                 }
             `,
-            options: [2, { FunctionExpression: { parameters: "first", body: 3 } }]
+            options: [
+                2,
+                { FunctionExpression: { parameters: "first", body: 3 } },
+            ],
         },
         {
             code: unIndent`
@@ -2099,7 +2128,13 @@ ruleTester.run("indent", rule, {
                       }
                 );
             `,
-            options: [2, { FunctionExpression: { body: 3 }, CallExpression: { arguments: 3 } }]
+            options: [
+                2,
+                {
+                    FunctionExpression: { body: 3 },
+                    CallExpression: { arguments: 3 },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -2109,7 +2144,7 @@ ruleTester.run("indent", rule, {
                 \t   \t\t\t  \t\t\t  \t   \tqux();
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2119,7 +2154,7 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { FunctionDeclaration: { body: 1 } }]
+            options: [2, { FunctionDeclaration: { body: 1 } }],
         },
         {
             code: unIndent`
@@ -2127,7 +2162,7 @@ ruleTester.run("indent", rule, {
                   bar();
                    \t\t}
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2138,7 +2173,7 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { FunctionDeclaration: { body: 1, parameters: 2 } }]
+            options: [2, { FunctionDeclaration: { body: 1, parameters: 2 } }],
         },
         {
             code: unIndent`
@@ -2146,7 +2181,7 @@ ruleTester.run("indent", rule, {
                     foo
                 ))
             `,
-            options: [4]
+            options: [4],
         },
 
         // ternary expressions (https://github.com/eslint/eslint/issues/7420)
@@ -2156,7 +2191,7 @@ ruleTester.run("indent", rule, {
                   ? bar
                   : baz
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2165,7 +2200,7 @@ ruleTester.run("indent", rule, {
                   qux
                 );
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2181,7 +2216,7 @@ ruleTester.run("indent", rule, {
                     return false
                   }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2197,7 +2232,7 @@ ruleTester.run("indent", rule, {
                     return false
                   }
             `,
-            options: [2, { offsetTernaryExpressions: false }]
+            options: [2, { offsetTernaryExpressions: false }],
         },
         {
             code: unIndent`
@@ -2213,7 +2248,7 @@ ruleTester.run("indent", rule, {
                       return false
                     }
             `,
-            options: [2, { offsetTernaryExpressions: true }]
+            options: [2, { offsetTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -2229,7 +2264,7 @@ ruleTester.run("indent", rule, {
                               return false
                           }
             `,
-            options: [4, { offsetTernaryExpressions: true }]
+            options: [4, { offsetTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -2239,7 +2274,7 @@ ruleTester.run("indent", rule, {
                   : Promise.resolve(2)
                 : Promise.resolve(3)
             `,
-            options: [2, { offsetTernaryExpressions: true }]
+            options: [2, { offsetTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -2249,7 +2284,7 @@ ruleTester.run("indent", rule, {
                   ? Promise.resolve(2)
                   : Promise.resolve(3)
             `,
-            options: [2, { offsetTernaryExpressions: true }]
+            options: [2, { offsetTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -2265,7 +2300,7 @@ ruleTester.run("indent", rule, {
               \t\t\t\treturn false
               \t\t\t}
             `,
-            options: ["tab", { offsetTernaryExpressions: true }]
+            options: ["tab", { offsetTernaryExpressions: true }],
         },
         unIndent`
             [
@@ -2276,7 +2311,6 @@ ruleTester.run("indent", rule, {
             ];
         `,
         {
-
             /*
              * Checking comments:
              * https://github.com/eslint/eslint/issues/3845, https://github.com/eslint/eslint/issues/6571
@@ -2289,7 +2323,7 @@ ruleTester.run("indent", rule, {
                 bar();
                 // trailing comment
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2299,7 +2333,7 @@ ruleTester.run("indent", rule, {
                     // call the baz function
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
             code: unIndent`
@@ -2309,7 +2343,7 @@ ruleTester.run("indent", rule, {
                   // no default
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         unIndent`
             [
@@ -2317,7 +2351,6 @@ ruleTester.run("indent", rule, {
             ]
         `,
         {
-
             /*
              * Destructuring assignments:
              * https://github.com/eslint/eslint/issues/6813
@@ -2330,7 +2363,7 @@ ruleTester.run("indent", rule, {
                   foobar: baz = foobar
                 } = qux;
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2341,7 +2374,7 @@ ruleTester.run("indent", rule, {
                   foobar = baz
                 ] = qux;
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2353,7 +2386,7 @@ ruleTester.run("indent", rule, {
                   a: 1
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2363,7 +2396,7 @@ ruleTester.run("indent", rule, {
                   a: 1
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2374,7 +2407,7 @@ ruleTester.run("indent", rule, {
                     a: 1
                   };
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2383,7 +2416,7 @@ ruleTester.run("indent", rule, {
                     bar: 1
                   }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2393,31 +2426,30 @@ ruleTester.run("indent", rule, {
                   1
                 ]
             `,
-            options: [2]
+            options: [2],
         },
         {
-
             // https://github.com/eslint/eslint/issues/7233
             code: unIndent`
                 var folder = filePath
                     .foo()
                     .bar;
             `,
-            options: [2, { MemberExpression: 2 }]
+            options: [2, { MemberExpression: 2 }],
         },
         {
             code: unIndent`
                 for (const foo of bar)
                   baz();
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
                 var x = () =>
                   5;
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             (
@@ -2441,22 +2473,20 @@ ruleTester.run("indent", rule, {
             )
         `,
         {
-
             // Don't lint the indentation of the first token after a :
             code: unIndent`
                 ({code:
                   "foo.bar();"})
             `,
-            options: [2]
+            options: [2],
         },
         {
-
             // Don't lint the indentation of the first token after a :
             code: unIndent`
                 ({code:
                 "foo.bar();"})
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             ({
@@ -2471,7 +2501,6 @@ ruleTester.run("indent", rule, {
             })
         `,
         {
-
             // Comments in switch cases
             code: unIndent`
                 switch (foo) {
@@ -2484,10 +2513,9 @@ ruleTester.run("indent", rule, {
                     */
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
-
             // Comments in switch cases
             code: unIndent`
                 switch (foo) {
@@ -2497,27 +2525,25 @@ ruleTester.run("indent", rule, {
                   case closed:
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
         {
-
             // BinaryExpressions with parens
             code: unIndent`
                 foo && (
                     bar
                 )
             `,
-            options: [4]
+            options: [4],
         },
         {
-
             // BinaryExpressions with parens
             code: unIndent`
                 foo && ((
                     bar
                 ))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -2526,7 +2552,7 @@ ruleTester.run("indent", rule, {
                         bar
                     )
             `,
-            options: [4]
+            options: [4],
         },
         unIndent`
             foo &&
@@ -2544,7 +2570,7 @@ ruleTester.run("indent", rule, {
                 foo =
                     bar;
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -2555,7 +2581,7 @@ ruleTester.run("indent", rule, {
                   };
                 }
             `,
-            options: [2, { FunctionExpression: { parameters: 3 } }]
+            options: [2, { FunctionExpression: { parameters: 3 } }],
         },
         unIndent`
             function foo() {
@@ -2576,7 +2602,7 @@ ruleTester.run("indent", rule, {
                     ))
                 }
             `,
-            options: [4]
+            options: [4],
         },
         unIndent`
             if (
@@ -2591,7 +2617,7 @@ ruleTester.run("indent", rule, {
                 foo =
                   (bar + baz);
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2600,7 +2626,7 @@ ruleTester.run("indent", rule, {
                     (z === 3 || z === 4);
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2608,10 +2634,9 @@ ruleTester.run("indent", rule, {
                   bar();
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
-
             // Comments at the end of if blocks that have `else` blocks can either refer to the lines above or below them
             code: unIndent`
                 if (foo) {
@@ -2622,7 +2647,7 @@ ruleTester.run("indent", rule, {
                   baz();
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2631,7 +2656,7 @@ ruleTester.run("indent", rule, {
                     (z === 3 || z === 4));
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2641,7 +2666,7 @@ ruleTester.run("indent", rule, {
                   qux
                 );
             `,
-            options: [2, { CallExpression: { arguments: 1 } }]
+            options: [2, { CallExpression: { arguments: 1 } }],
         },
         {
             code: unIndent`
@@ -2651,7 +2676,7 @@ ruleTester.run("indent", rule, {
                 \tqux
                 );
             `,
-            options: ["tab", { CallExpression: { arguments: 1 } }]
+            options: ["tab", { CallExpression: { arguments: 1 } }],
         },
         {
             code: unIndent`
@@ -2659,7 +2684,7 @@ ruleTester.run("indent", rule, {
                         baz,
                         qux);
             `,
-            options: [4, { CallExpression: { arguments: 2 } }]
+            options: [4, { CallExpression: { arguments: 2 } }],
         },
         {
             code: unIndent`
@@ -2669,7 +2694,7 @@ ruleTester.run("indent", rule, {
                 qux
                 );
             `,
-            options: [2, { CallExpression: { arguments: 0 } }]
+            options: [2, { CallExpression: { arguments: 0 } }],
         },
         {
             code: unIndent`
@@ -2678,7 +2703,7 @@ ruleTester.run("indent", rule, {
                     qux
                 );
             `,
-            options: [2, { CallExpression: { arguments: "first" } }]
+            options: [2, { CallExpression: { arguments: "first" } }],
         },
         {
             code: unIndent`
@@ -2686,7 +2711,7 @@ ruleTester.run("indent", rule, {
                     qux, barbaz,
                     barqux, bazqux);
             `,
-            options: [2, { CallExpression: { arguments: "first" } }]
+            options: [2, { CallExpression: { arguments: "first" } }],
         },
         {
             code: unIndent`
@@ -2696,7 +2721,7 @@ ruleTester.run("indent", rule, {
                         new Car('!')
                 );
             `,
-            options: [2, { CallExpression: { arguments: 4 } }]
+            options: [2, { CallExpression: { arguments: 4 } }],
         },
         unIndent`
             foo(
@@ -2709,7 +2734,7 @@ ruleTester.run("indent", rule, {
                     (bar)
                 );
             `,
-            options: [4, { CallExpression: { arguments: 1 } }]
+            options: [4, { CallExpression: { arguments: 1 } }],
         },
 
         // https://github.com/eslint/eslint/issues/7484
@@ -2722,7 +2747,7 @@ ruleTester.run("indent", rule, {
                   );
                 };
             `,
-            options: [2]
+            options: [2],
         },
 
         // https://github.com/eslint/eslint/issues/7573
@@ -2732,7 +2757,9 @@ ruleTester.run("indent", rule, {
                     foo
                 );
             `,
-            languageOptions: { parserOptions: { ecmaFeatures: { globalReturn: true } } }
+            languageOptions: {
+                parserOptions: { ecmaFeatures: { globalReturn: true } },
+            },
         },
         {
             code: unIndent`
@@ -2740,7 +2767,9 @@ ruleTester.run("indent", rule, {
                     foo
                 )
             `,
-            languageOptions: { parserOptions: { ecmaFeatures: { globalReturn: true } } }
+            languageOptions: {
+                parserOptions: { ecmaFeatures: { globalReturn: true } },
+            },
         },
         unIndent`
             var foo = [
@@ -2761,7 +2790,7 @@ ruleTester.run("indent", rule, {
                 qux
                 ]
             `,
-            options: [2, { ArrayExpression: 0 }]
+            options: [2, { ArrayExpression: 0 }],
         },
         {
             code: unIndent`
@@ -2770,7 +2799,7 @@ ruleTester.run("indent", rule, {
                                 qux
                 ]
             `,
-            options: [2, { ArrayExpression: 8 }]
+            options: [2, { ArrayExpression: 8 }],
         },
         {
             code: unIndent`
@@ -2779,7 +2808,7 @@ ruleTester.run("indent", rule, {
                            qux
                 ]
             `,
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2787,7 +2816,7 @@ ruleTester.run("indent", rule, {
                            baz, qux
                 ]
             `,
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2798,7 +2827,7 @@ ruleTester.run("indent", rule, {
                           baz: 4 }
                 ]
             `,
-            options: [4, { ArrayExpression: 2, ObjectExpression: "first" }]
+            options: [4, { ArrayExpression: 2, ObjectExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2807,14 +2836,14 @@ ruleTester.run("indent", rule, {
                 baz: 2
                 };
             `,
-            options: [2, { ObjectExpression: 0 }]
+            options: [2, { ObjectExpression: 0 }],
         },
         {
             code: unIndent`
                 var foo = { foo: 1, bar: 2,
                             baz: 3 }
             `,
-            options: [2, { ObjectExpression: "first" }]
+            options: [2, { ObjectExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2824,7 +2853,7 @@ ruleTester.run("indent", rule, {
                         }
                 ]
             `,
-            options: [4, { ArrayExpression: 2 }]
+            options: [4, { ArrayExpression: 2 }],
         },
         {
             code: unIndent`
@@ -2834,23 +2863,23 @@ ruleTester.run("indent", rule, {
                   ]
                 }
             `,
-            options: [2, { ArrayExpression: 4 }]
+            options: [2, { ArrayExpression: 4 }],
         },
         {
             code: "[\n]",
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: "[\n]",
-            options: [2, { ArrayExpression: 1 }]
+            options: [2, { ArrayExpression: 1 }],
         },
         {
             code: "{\n}",
-            options: [2, { ObjectExpression: "first" }]
+            options: [2, { ObjectExpression: "first" }],
         },
         {
             code: "{\n}",
-            options: [2, { ObjectExpression: 1 }]
+            options: [2, { ObjectExpression: 1 }],
         },
         {
             code: unIndent`
@@ -2860,7 +2889,7 @@ ruleTester.run("indent", rule, {
                   ]
                 ]
             `,
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2870,7 +2899,7 @@ ruleTester.run("indent", rule, {
                             ]
                 ];
             `,
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: unIndent`
@@ -2880,7 +2909,13 @@ ruleTester.run("indent", rule, {
                               ]
                 );
             `,
-            options: [4, { ArrayExpression: "first", CallExpression: { arguments: "first" } }]
+            options: [
+                4,
+                {
+                    ArrayExpression: "first",
+                    CallExpression: { arguments: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -2888,7 +2923,13 @@ ruleTester.run("indent", rule, {
                     [
                     ]()
             `,
-            options: [4, { CallExpression: { arguments: "first" }, ArrayExpression: "first" }]
+            options: [
+                4,
+                {
+                    CallExpression: { arguments: "first" },
+                    ArrayExpression: "first",
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/issues/7732
@@ -2903,7 +2944,7 @@ ruleTester.run("indent", rule, {
                   );
                 }
             `,
-            options: [2, { ObjectExpression: 1 }]
+            options: [2, { ObjectExpression: 1 }],
         },
         {
             code: unIndent`
@@ -2916,7 +2957,7 @@ ruleTester.run("indent", rule, {
                   );
                 }
             `,
-            options: [2, { ObjectExpression: "first" }]
+            options: [2, { ObjectExpression: "first" }],
         },
 
         // https://github.com/eslint/eslint/issues/7733
@@ -2933,7 +2974,7 @@ ruleTester.run("indent", rule, {
                 \t);
                 }
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -2941,7 +2982,13 @@ ruleTester.run("indent", rule, {
                              ['foo', 'bar',
                               'baz']);
             `,
-            options: [2, { ArrayExpression: "first", CallExpression: { arguments: "first" } }]
+            options: [
+                2,
+                {
+                    ArrayExpression: "first",
+                    CallExpression: { arguments: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -2953,7 +3000,7 @@ ruleTester.run("indent", rule, {
                   baz();
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -2964,7 +3011,7 @@ ruleTester.run("indent", rule, {
                     qux();
                 }
             `,
-            options: [4]
+            options: [4],
         },
         unIndent`
             [
@@ -3009,7 +3056,7 @@ ruleTester.run("indent", rule, {
                 var foo =
                         1;
             `,
-            options: [4, { VariableDeclarator: 2 }]
+            options: [4, { VariableDeclarator: 2 }],
         },
         {
             code: unIndent`
@@ -3017,7 +3064,7 @@ ruleTester.run("indent", rule, {
                     bar =
                     2;
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -3028,7 +3075,7 @@ ruleTester.run("indent", rule, {
                   }
                 }
             `,
-            options: [2, { SwitchCase: 1 }]
+            options: [2, { SwitchCase: 1 }],
         },
 
         // Template curlies
@@ -3037,7 +3084,7 @@ ruleTester.run("indent", rule, {
                 \`foo\${
                   bar}\`
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -3045,7 +3092,7 @@ ruleTester.run("indent", rule, {
                   \`bar\${
                     baz}\`}\`
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -3055,7 +3102,7 @@ ruleTester.run("indent", rule, {
                   }\`
                 }\`
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -3065,7 +3112,7 @@ ruleTester.run("indent", rule, {
                   )
                 }\`
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             foo(\`
@@ -3115,7 +3162,6 @@ ruleTester.run("indent", rule, {
                 }
             `,
         {
-
             // https://github.com/eslint/eslint/issues/7320
             code: unIndent`
                 JSON
@@ -3125,7 +3171,7 @@ ruleTester.run("indent", rule, {
                         }
                     );
             `,
-            options: [4, { CallExpression: { arguments: 1 } }]
+            options: [4, { CallExpression: { arguments: 1 } }],
         },
         unIndent`
             [
@@ -3163,7 +3209,6 @@ ruleTester.run("indent", rule, {
             ) {}
         `,
         {
-
             // https://github.com/eslint/eslint/issues/6007
             code: unIndent`
                 var abc = [
@@ -3173,7 +3218,7 @@ ruleTester.run("indent", rule, {
                   def,
                 ]
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -3186,7 +3231,7 @@ ruleTester.run("indent", rule, {
                   )
                 ]
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             function f() {
@@ -3202,7 +3247,6 @@ ruleTester.run("indent", rule, {
             }
         `,
         {
-
             // https://github.com/eslint/eslint/issues/6670
             code: unIndent`
                 function f() {
@@ -3217,7 +3261,7 @@ ruleTester.run("indent", rule, {
                         );
                 }
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
 
         // https://github.com/eslint/eslint/issues/7242
@@ -3238,7 +3282,6 @@ ruleTester.run("indent", rule, {
             )
         `,
         {
-
             // https://github.com/eslint/eslint/issues/7616
             code: unIndent`
                 foo(
@@ -3248,7 +3291,7 @@ ruleTester.run("indent", rule, {
                     }
                 )
             `,
-            options: [4, { CallExpression: { arguments: "first" } }]
+            options: [4, { CallExpression: { arguments: "first" } }],
         },
         "new Foo",
         "new (Foo)",
@@ -3266,7 +3309,7 @@ ruleTester.run("indent", rule, {
                     baz
                 }
             `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -3274,7 +3317,7 @@ ruleTester.run("indent", rule, {
                     ? bar
                     : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3282,7 +3325,7 @@ ruleTester.run("indent", rule, {
                     bar :
                     baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3290,7 +3333,7 @@ ruleTester.run("indent", rule, {
                     bar
                     : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3298,7 +3341,7 @@ ruleTester.run("indent", rule, {
                     ? bar :
                     baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3310,7 +3353,7 @@ ruleTester.run("indent", rule, {
                             ? boop
                             : beep
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3322,7 +3365,7 @@ ruleTester.run("indent", rule, {
                             boop :
                             beep
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3332,7 +3375,7 @@ ruleTester.run("indent", rule, {
                     foobar ? boop :
                     /*else*/ beep
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3340,7 +3383,7 @@ ruleTester.run("indent", rule, {
                     ? bar
                     : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3349,7 +3392,7 @@ ruleTester.run("indent", rule, {
                         ? bar
                         : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3359,7 +3402,7 @@ ruleTester.run("indent", rule, {
                     foobar ? boop :
                     /*else*/ beep
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3367,7 +3410,7 @@ ruleTester.run("indent", rule, {
                     ? bar
                     : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3376,7 +3419,7 @@ ruleTester.run("indent", rule, {
                         ? bar
                         : baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3387,7 +3430,7 @@ ruleTester.run("indent", rule, {
                     /*else*/ beep
                 )
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3400,7 +3443,7 @@ ruleTester.run("indent", rule, {
                     )
                 }
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3410,7 +3453,7 @@ ruleTester.run("indent", rule, {
                         : baz
                 }
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3422,7 +3465,7 @@ ruleTester.run("indent", rule, {
                     )
                 }
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3432,7 +3475,7 @@ ruleTester.run("indent", rule, {
                         : baz
                 )
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3441,7 +3484,7 @@ ruleTester.run("indent", rule, {
                     : baz
                 )
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3453,7 +3496,7 @@ ruleTester.run("indent", rule, {
                             ? boop
                             : beep
             `,
-            options: [4, { flatTernaryExpressions: false }]
+            options: [4, { flatTernaryExpressions: false }],
         },
         {
             code: unIndent`
@@ -3465,15 +3508,15 @@ ruleTester.run("indent", rule, {
                             boop :
                             beep
             `,
-            options: [4, { flatTernaryExpressions: false }]
+            options: [4, { flatTernaryExpressions: false }],
         },
         {
             code: "[,]",
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: "[,]",
-            options: [2, { ArrayExpression: "off" }]
+            options: [2, { ArrayExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3482,11 +3525,11 @@ ruleTester.run("indent", rule, {
                     foo
                 ]
             `,
-            options: [4, { ArrayExpression: "first" }]
+            options: [4, { ArrayExpression: "first" }],
         },
         {
             code: "[sparse, , array];",
-            options: [2, { ArrayExpression: "first" }]
+            options: [2, { ArrayExpression: "first" }],
         },
         {
             code: unIndent`
@@ -3494,7 +3537,7 @@ ruleTester.run("indent", rule, {
                   qux;
                 });
             `,
-            options: [2, { CallExpression: { arguments: "first" } }]
+            options: [2, { CallExpression: { arguments: "first" } }],
         },
         {
             code: unIndent`
@@ -3504,7 +3547,7 @@ ruleTester.run("indent", rule, {
                   cookies;
                 });
             `,
-            options: [2, { MemberExpression: 1 }]
+            options: [2, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -3514,7 +3557,7 @@ ruleTester.run("indent", rule, {
                   cookies;
                 });
             `,
-            options: [2, { MemberExpression: 1 }]
+            options: [2, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -3525,7 +3568,7 @@ ruleTester.run("indent", rule, {
                   }
                 );
             `,
-            options: [2, { ObjectExpression: "first" }]
+            options: [2, { ObjectExpression: "first" }],
         },
         {
             code: unIndent`
@@ -3535,7 +3578,7 @@ ruleTester.run("indent", rule, {
                     baz;
                 })
             `,
-            options: [4, { CallExpression: { arguments: "first" } }]
+            options: [4, { CallExpression: { arguments: "first" } }],
         },
         {
             code: unIndent`
@@ -3544,7 +3587,7 @@ ruleTester.run("indent", rule, {
                   baz;
                 })
             `,
-            options: [2, { ArrayExpression: "first", MemberExpression: 1 }]
+            options: [2, { ArrayExpression: "first", MemberExpression: 1 }],
         },
         unIndent`
             foo = bar[
@@ -3557,7 +3600,7 @@ ruleTester.run("indent", rule, {
                     bar
                 ];
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         {
             code: unIndent`
@@ -3567,7 +3610,7 @@ ruleTester.run("indent", rule, {
                     )
                 ];
             `,
-            options: [4, { MemberExpression: 1 }]
+            options: [4, { MemberExpression: 1 }],
         },
         unIndent`
             if (foo)
@@ -3590,11 +3633,11 @@ ruleTester.run("indent", rule, {
                 import {foo}
                     from 'bar';
             `,
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: "import 'foo'",
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -3604,7 +3647,7 @@ ruleTester.run("indent", rule, {
                 } from 'qux';
             `,
             options: [4, { ImportDeclaration: 1 }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -3615,7 +3658,7 @@ ruleTester.run("indent", rule, {
                 } from 'qux';
             `,
             options: [4, { ImportDeclaration: 1 }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -3624,7 +3667,7 @@ ruleTester.run("indent", rule, {
                 import { cat } from 'animals';
             `,
             options: [4, { ImportDeclaration: "first" }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -3634,7 +3677,7 @@ ruleTester.run("indent", rule, {
                               turned } from 'off';
             `,
             options: [4, { ImportDeclaration: "off" }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
 
         // https://github.com/eslint/eslint/issues/8455
@@ -3760,7 +3803,7 @@ ruleTester.run("indent", rule, {
                         bar();
                 }
             `,
-            options: [4, { SwitchCase: 1 }]
+            options: [4, { SwitchCase: 1 }],
         },
         unIndent`
             foo
@@ -3775,7 +3818,7 @@ ruleTester.run("indent", rule, {
                             baz
                         })
             `,
-            options: [4, { MemberExpression: 2 }]
+            options: [4, { MemberExpression: 2 }],
         },
         unIndent`
             foo
@@ -3795,7 +3838,7 @@ ruleTester.run("indent", rule, {
                         baz
                     })
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3804,7 +3847,7 @@ ruleTester.run("indent", rule, {
                                     baz
                                 })
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3813,7 +3856,7 @@ ruleTester.run("indent", rule, {
                                     baz
                                 })
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3821,7 +3864,7 @@ ruleTester.run("indent", rule, {
                           bar.
                                       baz
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3829,7 +3872,7 @@ ruleTester.run("indent", rule, {
                   ).baz(
                   )
             `,
-            options: [4, { MemberExpression: "off" }]
+            options: [4, { MemberExpression: "off" }],
         },
         {
             code: unIndent`
@@ -3838,7 +3881,7 @@ ruleTester.run("indent", rule, {
                     qux
                 ]
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3847,14 +3890,14 @@ ruleTester.run("indent", rule, {
                         baz
                 }
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
                 throw foo ? bar :
                     baz
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         {
             code: unIndent`
@@ -3863,7 +3906,7 @@ ruleTester.run("indent", rule, {
                 ) ? baz :
                     qux
             `,
-            options: [4, { flatTernaryExpressions: true }]
+            options: [4, { flatTernaryExpressions: true }],
         },
         unIndent`
                 foo
@@ -4002,7 +4045,6 @@ ruleTester.run("indent", rule, {
                 );
         `,
 
-
         //----------------------------------------------------------------------
         // Ignore Unknown Nodes
         //----------------------------------------------------------------------
@@ -4014,7 +4056,9 @@ ruleTester.run("indent", rule, {
                     baz: number;
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/interface")) }
+            languageOptions: {
+                parser: require(parser("unknown-nodes/interface")),
+            },
         },
         {
             code: unIndent`
@@ -4027,7 +4071,9 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/namespace-valid")) }
+            languageOptions: {
+                parser: require(parser("unknown-nodes/namespace-valid")),
+            },
         },
         {
             code: unIndent`
@@ -4044,7 +4090,9 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/abstract-class-valid")) }
+            languageOptions: {
+                parser: require(parser("unknown-nodes/abstract-class-valid")),
+            },
         },
         {
             code: unIndent`
@@ -4060,7 +4108,11 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/functions-with-abstract-class-valid")) }
+            languageOptions: {
+                parser: require(
+                    parser("unknown-nodes/functions-with-abstract-class-valid"),
+                ),
+            },
         },
         {
             code: unIndent`
@@ -4078,7 +4130,13 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/namespace-with-functions-with-abstract-class-valid")) }
+            languageOptions: {
+                parser: require(
+                    parser(
+                        "unknown-nodes/namespace-with-functions-with-abstract-class-valid",
+                    ),
+                ),
+            },
         },
         {
             code: unIndent`
@@ -4087,7 +4145,13 @@ ruleTester.run("indent", rule, {
                   | 'PUT';
             `,
             options: [2, { VariableDeclarator: 0 }],
-            languageOptions: { parser: require(parser("unknown-nodes/variable-declarator-type-indent-two-spaces")) }
+            languageOptions: {
+                parser: require(
+                    parser(
+                        "unknown-nodes/variable-declarator-type-indent-two-spaces",
+                    ),
+                ),
+            },
         },
         {
             code: unIndent`
@@ -4096,7 +4160,11 @@ ruleTester.run("indent", rule, {
                 | 'PUT';
             `,
             options: [2, { VariableDeclarator: 1 }],
-            languageOptions: { parser: require(parser("unknown-nodes/variable-declarator-type-no-indent")) }
+            languageOptions: {
+                parser: require(
+                    parser("unknown-nodes/variable-declarator-type-no-indent"),
+                ),
+            },
         },
         unIndent`
             foo(\`foo
@@ -4176,14 +4244,14 @@ ruleTester.run("indent", rule, {
         // License: https://github.com/yannickcr/eslint-plugin-react/blob/7ca9841f22d599f447a27ef5b2a97def9229d6c8/LICENSE
         //----------------------------------------------------------------------
 
-        "<Foo a=\"b\" c=\"d\"/>;",
+        '<Foo a="b" c="d"/>;',
         unIndent`
             <Foo
                 a="b"
                 c="d"
             />;
         `,
-        "var foo = <Bar a=\"b\" c=\"d\"/>;",
+        'var foo = <Bar a="b" c="d"/>;',
         unIndent`
             var foo = <Bar
                 a="b"
@@ -4222,7 +4290,7 @@ ruleTester.run("indent", rule, {
                 a="b"
                 c="d"/>;
         `,
-        "<a href=\"foo\">bar</a>;",
+        '<a href="foo">bar</a>;',
         unIndent`
             <a href="foo">
                 bar
@@ -4327,7 +4395,7 @@ ruleTester.run("indent", rule, {
                 </a>
             );
         `,
-        "var foo = <a href=\"bar\">baz</a>;",
+        'var foo = <a href="bar">baz</a>;',
         unIndent`
             <a>
                 {
@@ -4368,7 +4436,7 @@ ruleTester.run("indent", rule, {
                   <Foo />
                 </App>
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4376,7 +4444,7 @@ ruleTester.run("indent", rule, {
                 <Foo />
                 </App>
             `,
-            options: [0]
+            options: [0],
         },
         {
             code: unIndent`
@@ -4384,7 +4452,7 @@ ruleTester.run("indent", rule, {
                 \t<Foo />
                 </App>
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -4394,7 +4462,7 @@ ruleTester.run("indent", rule, {
                   </App>;
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4404,7 +4472,7 @@ ruleTester.run("indent", rule, {
                   </App>);
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4416,7 +4484,7 @@ ruleTester.run("indent", rule, {
                   );
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4428,7 +4496,7 @@ ruleTester.run("indent", rule, {
                   )
                 )
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4440,7 +4508,7 @@ ruleTester.run("indent", rule, {
                   </div>)
                 )
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4450,7 +4518,7 @@ ruleTester.run("indent", rule, {
                   </div>
                 )
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4461,7 +4529,7 @@ ruleTester.run("indent", rule, {
                   </h1>
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4472,7 +4540,7 @@ ruleTester.run("indent", rule, {
                     </h1>
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4483,7 +4551,7 @@ ruleTester.run("indent", rule, {
                     </h1>)
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4495,7 +4563,7 @@ ruleTester.run("indent", rule, {
                   )
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4504,7 +4572,7 @@ ruleTester.run("indent", rule, {
                   <div />
                 ]
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
             <div>
@@ -4574,7 +4642,7 @@ ruleTester.run("indent", rule, {
                   }
                 </span>
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4587,7 +4655,7 @@ ruleTester.run("indent", rule, {
                   }
                 </span>
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4602,7 +4670,7 @@ ruleTester.run("indent", rule, {
                   </span>
                 }
             `,
-            options: [2]
+            options: [2],
         },
         unIndent`
               <App foo
@@ -4614,7 +4682,7 @@ ruleTester.run("indent", rule, {
                 foo
               />
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4622,7 +4690,7 @@ ruleTester.run("indent", rule, {
               foo
               />
             `,
-            options: [0]
+            options: [0],
         },
         unIndent`
                 <App
@@ -4642,7 +4710,7 @@ ruleTester.run("indent", rule, {
                   }}
                 />
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4651,7 +4719,7 @@ ruleTester.run("indent", rule, {
                 }}
                 />
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4663,7 +4731,7 @@ ruleTester.run("indent", rule, {
                   />
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4673,7 +4741,7 @@ ruleTester.run("indent", rule, {
                   }}
                 />
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4687,7 +4755,7 @@ ruleTester.run("indent", rule, {
                   />
                 </Provider>
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4701,7 +4769,7 @@ ruleTester.run("indent", rule, {
                   />}
                 </Provider>
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -4709,7 +4777,7 @@ ruleTester.run("indent", rule, {
                 \tfoo
                 />
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -4717,7 +4785,7 @@ ruleTester.run("indent", rule, {
                 \tfoo
                 ></App>
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -4726,7 +4794,7 @@ ruleTester.run("indent", rule, {
                 }}
                 />
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -4736,7 +4804,7 @@ ruleTester.run("indent", rule, {
                 \t}}
                 />
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         unIndent`
                 <App
@@ -5069,7 +5137,7 @@ ruleTester.run("indent", rule, {
                   , c
                 )
             `,
-            options: [2, { CallExpression: { arguments: "off" } }]
+            options: [2, { CallExpression: { arguments: "off" } }],
         },
         {
             code: unIndent`
@@ -5079,7 +5147,7 @@ ruleTester.run("indent", rule, {
                   })
                 );
             `,
-            options: [2, { CallExpression: { arguments: "off" } }]
+            options: [2, { CallExpression: { arguments: "off" } }],
         },
         {
             code: unIndent`
@@ -5087,7 +5155,7 @@ ruleTester.run("indent", rule, {
                 ? bar
                             : baz
             `,
-            options: [4, { ignoredNodes: ["ConditionalExpression"] }]
+            options: [4, { ignoredNodes: ["ConditionalExpression"] }],
         },
         {
             code: unIndent`
@@ -5097,7 +5165,7 @@ ruleTester.run("indent", rule, {
                 }
                 }
             `,
-            options: [4, { ignoredNodes: ["ClassBody"] }]
+            options: [4, { ignoredNodes: ["ClassBody"] }],
         },
         {
             code: unIndent`
@@ -5107,7 +5175,7 @@ ruleTester.run("indent", rule, {
                 }
                 }
             `,
-            options: [4, { ignoredNodes: ["ClassBody", "BlockStatement"] }]
+            options: [4, { ignoredNodes: ["ClassBody", "BlockStatement"] }],
         },
         {
             code: unIndent`
@@ -5121,14 +5189,17 @@ ruleTester.run("indent", rule, {
                         qux: 3
                 })
             `,
-            options: [4, { ignoredNodes: ["CallExpression > ObjectExpression"] }]
+            options: [
+                4,
+                { ignoredNodes: ["CallExpression > ObjectExpression"] },
+            ],
         },
         {
             code: unIndent`
                 foo
                                             .bar
             `,
-            options: [4, { ignoredNodes: ["MemberExpression"] }]
+            options: [4, { ignoredNodes: ["MemberExpression"] }],
         },
         {
             code: unIndent`
@@ -5139,16 +5210,21 @@ ruleTester.run("indent", rule, {
 
                 });
             `,
-            options: [4, {
-                ignoredNodes: ["Program > ExpressionStatement > CallExpression[callee.name='$'] > FunctionExpression > BlockStatement"]
-            }]
+            options: [
+                4,
+                {
+                    ignoredNodes: [
+                        "Program > ExpressionStatement > CallExpression[callee.name='$'] > FunctionExpression > BlockStatement",
+                    ],
+                },
+            ],
         },
         {
             code: unIndent`
                 <Foo
                             bar="1" />
             `,
-            options: [4, { ignoredNodes: ["JSXOpeningElement"] }]
+            options: [4, { ignoredNodes: ["JSXOpeningElement"] }],
         },
         {
             code: unIndent`
@@ -5157,7 +5233,7 @@ ruleTester.run("indent", rule, {
                 >
                 </Bar>
             `,
-            options: [4, { ignoredNodes: ["JSXElement", "JSXOpeningElement"] }]
+            options: [4, { ignoredNodes: ["JSXElement", "JSXOpeningElement"] }],
         },
         {
             code: unIndent`
@@ -5167,7 +5243,14 @@ ruleTester.run("indent", rule, {
                 });
                 }())
             `,
-            options: [4, { ignoredNodes: ["ExpressionStatement > CallExpression > FunctionExpression.callee > BlockStatement"] }]
+            options: [
+                4,
+                {
+                    ignoredNodes: [
+                        "ExpressionStatement > CallExpression > FunctionExpression.callee > BlockStatement",
+                    ],
+                },
+            ],
         },
         {
             code: unIndent`
@@ -5177,7 +5260,7 @@ ruleTester.run("indent", rule, {
                     valueIfFalse
                 );
             `,
-            options: [4, { ignoredNodes: ["ConditionalExpression"] }]
+            options: [4, { ignoredNodes: ["ConditionalExpression"] }],
         },
         {
             code: unIndent`
@@ -5189,8 +5272,15 @@ ruleTester.run("indent", rule, {
                     }
                 )
             `,
-            options: [4, { ignoredNodes: ["ExportDefaultDeclaration > CallExpression > ObjectExpression"] }],
-            languageOptions: { ecmaVersion: 6, sourceType: "module" }
+            options: [
+                4,
+                {
+                    ignoredNodes: [
+                        "ExportDefaultDeclaration > CallExpression > ObjectExpression",
+                    ],
+                },
+            ],
+            languageOptions: { ecmaVersion: 6, sourceType: "module" },
         },
         {
             code: unIndent`
@@ -5198,7 +5288,7 @@ ruleTester.run("indent", rule, {
                        ? qux
                        : boop
             `,
-            options: [4, { ignoredNodes: ["ConditionalExpression"] }]
+            options: [4, { ignoredNodes: ["ConditionalExpression"] }],
         },
         {
             code: unIndent`
@@ -5209,7 +5299,7 @@ ruleTester.run("indent", rule, {
                         } FROM THE_DATABASE
                 \`
             `,
-            options: [4, { ignoredNodes: ["TemplateLiteral"] }]
+            options: [4, { ignoredNodes: ["TemplateLiteral"] }],
         },
         {
             code: unIndent`
@@ -5219,7 +5309,7 @@ ruleTester.run("indent", rule, {
                     Text
                 </foo>
             `,
-            options: [4, { ignoredNodes: ["JSXOpeningElement"] }]
+            options: [4, { ignoredNodes: ["JSXOpeningElement"] }],
         },
         {
             code: unIndent`
@@ -5228,7 +5318,7 @@ ruleTester.run("indent", rule, {
                 \t    y = 2;
                 }
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -5236,7 +5326,7 @@ ruleTester.run("indent", rule, {
                     y = 2;
                 var z;
             `,
-            options: ["tab", { ignoredNodes: ["VariableDeclarator"] }]
+            options: ["tab", { ignoredNodes: ["VariableDeclarator"] }],
         },
         {
             code: unIndent`
@@ -5245,7 +5335,10 @@ ruleTester.run("indent", rule, {
                     bar
                 ]
             `,
-            options: ["tab", { ArrayExpression: "first", ignoredNodes: ["CallExpression"] }]
+            options: [
+                "tab",
+                { ArrayExpression: "first", ignoredNodes: ["CallExpression"] },
+            ],
         },
         {
             code: unIndent`
@@ -5256,7 +5349,7 @@ ruleTester.run("indent", rule, {
                     doSomethingElse();
                 }
             `,
-            options: [4, { ignoreComments: true }]
+            options: [4, { ignoreComments: true }],
         },
         {
             code: unIndent`
@@ -5267,7 +5360,7 @@ ruleTester.run("indent", rule, {
                     doSomethingElse();
                 }
             `,
-            options: [4, { ignoreComments: true }]
+            options: [4, { ignoreComments: true }],
         },
         unIndent`
             const obj = {
@@ -5544,7 +5637,7 @@ ruleTester.run("indent", rule, {
                     // after
                 )
             `,
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // https://github.com/eslint/eslint/issues/12122
@@ -5560,7 +5653,7 @@ ruleTester.run("indent", rule, {
                     });
                 });
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5575,7 +5668,7 @@ ruleTester.run("indent", rule, {
                     });
                 }
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5598,7 +5691,7 @@ ruleTester.run("indent", rule, {
                     });
                 });
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5621,7 +5714,7 @@ ruleTester.run("indent", rule, {
                     });
                 };
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5641,7 +5734,7 @@ ruleTester.run("indent", rule, {
                     });
                 });
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5658,7 +5751,7 @@ ruleTester.run("indent", rule, {
                     })
                 });
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5666,7 +5759,7 @@ ruleTester.run("indent", rule, {
                     baz();
                 })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5674,7 +5767,7 @@ ruleTester.run("indent", rule, {
                     baz();
                 })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5684,7 +5777,7 @@ ruleTester.run("indent", rule, {
                         baz();
                     })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5695,7 +5788,7 @@ ruleTester.run("indent", rule, {
                         baz();
                     })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5705,7 +5798,7 @@ ruleTester.run("indent", rule, {
                     baz();
                 })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5715,7 +5808,7 @@ ruleTester.run("indent", rule, {
                     baz();
                 })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5727,7 +5820,7 @@ ruleTester.run("indent", rule, {
                         baz();
                     })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5738,7 +5831,7 @@ ruleTester.run("indent", rule, {
                         baz();
                     })
             `,
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5750,7 +5843,7 @@ ruleTester.run("indent", rule, {
                 })
             `,
             options: [4, { MemberExpression: 0 }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5762,7 +5855,7 @@ ruleTester.run("indent", rule, {
                         })
             `,
             options: [4, { MemberExpression: 2 }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: unIndent`
@@ -5772,7 +5865,13 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -5782,14 +5881,20 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
                 const a = async
                 b => {}
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -5800,7 +5905,13 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -5810,7 +5921,7 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -5820,7 +5931,7 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2]
+            options: [2],
         },
         {
             code: unIndent`
@@ -5830,7 +5941,13 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: 4 }, FunctionExpression: { parameters: 4 } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: 4 },
+                    FunctionExpression: { parameters: 4 },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -5840,28 +5957,52 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: 4 }, FunctionExpression: { parameters: 4 } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: 4 },
+                    FunctionExpression: { parameters: 4 },
+                },
+            ],
         },
         {
             code: unIndent`
                 async function fn(ar1,
                                   ar2){}
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
                 async function /* some comments */ fn(ar1,
                                                       ar2){}
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
                 async  /* some comments */  function fn(ar1,
                                                         ar2){}
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }]
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
         },
         {
             code: unIndent`
@@ -5873,7 +6014,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5885,7 +6026,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5897,7 +6038,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { StaticBlock: { body: 2 } }],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5909,7 +6050,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { StaticBlock: { body: 0 } }],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5921,7 +6062,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: ["tab"],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5933,7 +6074,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: ["tab", { StaticBlock: { body: 2 } }],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5946,7 +6087,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5958,7 +6099,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5971,7 +6112,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5984,7 +6125,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -5997,7 +6138,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6013,7 +6154,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6030,7 +6171,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6047,7 +6188,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6068,7 +6209,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6082,7 +6223,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: unIndent`
@@ -6095,8 +6236,11 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            options: [4, { FunctionExpression: { body: 2 }, StaticBlock: { body: 2 } }],
-            languageOptions: { ecmaVersion: 2022 }
+            options: [
+                4,
+                { FunctionExpression: { body: 2 }, StaticBlock: { body: 2 } },
+            ],
+            languageOptions: { ecmaVersion: 2022 },
         },
 
         // https://github.com/eslint/eslint/issues/15930
@@ -6106,7 +6250,7 @@ ruleTester.run("indent", rule, {
                 \tconsole.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         {
             code: unIndent`
@@ -6114,21 +6258,21 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 if (foo) bar();
                 baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 if (foo) bar()
                 ;baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6136,7 +6280,7 @@ ruleTester.run("indent", rule, {
                     bar();
                 baz();
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6144,7 +6288,7 @@ ruleTester.run("indent", rule, {
                     bar()
                 ; baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6153,7 +6297,7 @@ ruleTester.run("indent", rule, {
                 ;baz()
                 qux()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6162,7 +6306,7 @@ ruleTester.run("indent", rule, {
                 ;else
                     baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6172,7 +6316,7 @@ ruleTester.run("indent", rule, {
                     baz()
                 ;qux()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6181,7 +6325,7 @@ ruleTester.run("indent", rule, {
                         baz()
                 ;qux()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6191,7 +6335,7 @@ ruleTester.run("indent", rule, {
                     qux()
                 ;quux()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6202,7 +6346,7 @@ ruleTester.run("indent", rule, {
                         qux()
                 ;quux()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6211,7 +6355,7 @@ ruleTester.run("indent", rule, {
                     ;
                 baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6219,14 +6363,14 @@ ruleTester.run("indent", rule, {
                     ;
                 baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 if (foo)
                 ;baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6234,7 +6378,7 @@ ruleTester.run("indent", rule, {
                 else
                     baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6243,7 +6387,7 @@ ruleTester.run("indent", rule, {
                 else
                     baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6251,21 +6395,21 @@ ruleTester.run("indent", rule, {
                 ;else
                     baz()
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 do foo();
                 while (bar)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 do foo()
                 ;while (bar)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6273,7 +6417,7 @@ ruleTester.run("indent", rule, {
                     foo();
                 while (bar)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6281,14 +6425,14 @@ ruleTester.run("indent", rule, {
                     foo()
                 ;while (bar)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 do;
                 while (foo)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6296,14 +6440,14 @@ ruleTester.run("indent", rule, {
                     ;
                 while (foo)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
                 do
                 ;while (foo)
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6311,7 +6455,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6319,7 +6463,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6327,7 +6471,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6335,7 +6479,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6343,7 +6487,7 @@ ruleTester.run("indent", rule, {
                     console.log(b)
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6351,7 +6495,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
         {
             code: unIndent`
@@ -6360,7 +6504,7 @@ ruleTester.run("indent", rule, {
                     console.log('a')
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
-            options: [4]
+            options: [4],
         },
 
         // https://github.com/eslint/eslint/issues/17316
@@ -6373,7 +6517,7 @@ ruleTester.run("indent", rule, {
                 \tif (bar) doSomething();
                 \telse doSomething();
             `,
-            options: ["tab"]
+            options: ["tab"],
         },
         unIndent`
             if (foo)
@@ -6510,7 +6654,7 @@ ruleTester.run("indent", rule, {
                 {
                     doSomething();
                 }
-        `
+        `,
     ],
 
     invalid: [
@@ -6528,7 +6672,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[3, 2, 0, "Identifier"]])
+            errors: expectedErrors([[3, 2, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -6544,7 +6688,11 @@ ruleTester.run("indent", rule, {
                 });
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 18, "Identifier"], [3, 2, 4, "Identifier"], [4, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 18, "Identifier"],
+                [3, 2, 4, "Identifier"],
+                [4, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -6566,7 +6714,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[4, 2, 0, "Identifier"], [6, 2, 4, "Identifier"]])
+            errors: expectedErrors([
+                [4, 2, 0, "Identifier"],
+                [6, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -6584,7 +6735,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: ["tab"],
-            errors: expectedErrors("tab", [[3, 1, 2, "Identifier"], [4, 1, 0, "Identifier"]])
+            errors: expectedErrors("tab", [
+                [3, 1, 2, "Identifier"],
+                [4, 1, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -6602,12 +6756,22 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            errors: expectedErrors([[3, 4, 6, "Identifier"], [4, 4, 1, "Identifier"]])
+            errors: expectedErrors([
+                [3, 4, 6, "Identifier"],
+                [4, 4, 1, "Identifier"],
+            ]),
         },
         {
             code: fixture,
             output: fixedFixture,
-            options: [2, { SwitchCase: 1, MemberExpression: 1, CallExpression: { arguments: "off" } }],
+            options: [
+                2,
+                {
+                    SwitchCase: 1,
+                    MemberExpression: 1,
+                    CallExpression: { arguments: "off" },
+                },
+            ],
             errors: expectedErrors([
                 [5, 2, 4, "Keyword"],
                 [6, 2, 0, "Line"],
@@ -6715,8 +6879,8 @@ ruleTester.run("indent", rule, {
                 [500, 8, 6, "Identifier"],
                 [504, 4, 6, "Punctuator"],
                 [505, 6, 8, "Identifier"],
-                [506, 4, 8, "Punctuator"]
-            ])
+                [506, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -6746,7 +6910,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { SwitchCase: 1 }],
-            errors: expectedErrors([[4, 8, 4, "Keyword"], [7, 8, 4, "Keyword"]])
+            errors: expectedErrors([
+                [4, 8, 4, "Keyword"],
+                [7, 8, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -6764,7 +6931,10 @@ ruleTester.run("indent", rule, {
                     };
             `,
             options: [4],
-            errors: expectedErrors([[3, 8, 7, "Identifier"], [4, 8, 10, "Identifier"]])
+            errors: expectedErrors([
+                [3, 8, 7, "Identifier"],
+                [4, 8, 10, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -6792,7 +6962,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { SwitchCase: 1 }],
-            errors: expectedErrors([9, 8, 4, "Keyword"])
+            errors: expectedErrors([9, 8, 4, "Keyword"]),
         },
         {
             code: unIndent`
@@ -6836,7 +7006,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { SwitchCase: 1 }],
-            errors: expectedErrors([[11, 8, 4, "Keyword"], [14, 8, 4, "Keyword"], [17, 8, 4, "Keyword"]])
+            errors: expectedErrors([
+                [11, 8, 4, "Keyword"],
+                [14, 8, 4, "Keyword"],
+                [17, 8, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -6868,8 +7042,8 @@ ruleTester.run("indent", rule, {
                 [5, 0, 4, "Keyword"],
                 [6, 4, 8, "Keyword"],
                 [7, 0, 4, "Keyword"],
-                [8, 4, 8, "Keyword"]
-            ])
+                [8, 4, 8, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -6884,7 +7058,7 @@ ruleTester.run("indent", rule, {
                     console.log(foo + bar);
                 }
             `,
-            errors: expectedErrors([3, 4, 0, "Identifier"])
+            errors: expectedErrors([3, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -6914,8 +7088,8 @@ ruleTester.run("indent", rule, {
                 [4, 8, 0, "Keyword"],
                 [5, 4, 0, "Keyword"],
                 [6, 8, 0, "Identifier"],
-                [7, 8, 0, "Keyword"]
-            ])
+                [7, 8, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -6931,9 +7105,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors(
-                [3, 8, 10, "Punctuator"]
-            )
+            errors: expectedErrors([3, 8, 10, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -6948,7 +7120,7 @@ ruleTester.run("indent", rule, {
                         .bar
                 )
             `,
-            errors: expectedErrors([3, 8, 4, "Punctuator"])
+            errors: expectedErrors([3, 8, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -6964,9 +7136,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { MemberExpression: 2 }],
-            errors: expectedErrors(
-                [3, 12, 13, "Punctuator"]
-            )
+            errors: expectedErrors([3, 12, 13, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -6982,9 +7152,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { MemberExpression: 2 }],
-            errors: expectedErrors(
-                [3, 12, 13, "Punctuator"]
-            )
+            errors: expectedErrors([3, 12, 13, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -7004,7 +7172,7 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [2, { MemberExpression: 1 }],
-            errors: expectedErrors([3, 4, 6, "Punctuator"])
+            errors: expectedErrors([3, 4, 6, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -7016,9 +7184,7 @@ ruleTester.run("indent", rule, {
                     b();
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7050,8 +7216,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 8, "Identifier"],
                 [6, 0, 4, "Punctuator"],
                 [7, 0, 4, "Punctuator"],
-                [8, 4, 8, "Identifier"]
-            ])
+                [8, 4, 8, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7064,7 +7230,10 @@ ruleTester.run("indent", rule, {
                     foo < 10;
                     foo++) {}
             `,
-            errors: expectedErrors([[2, 4, 0, "Identifier"], [3, 4, 0, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 0, "Identifier"],
+                [3, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7081,7 +7250,12 @@ ruleTester.run("indent", rule, {
                     foo++
                 ) {}
             `,
-            errors: expectedErrors([[2, 4, 0, "Keyword"], [3, 4, 0, "Identifier"], [4, 4, 0, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 0, "Keyword"],
+                [3, 4, 0, "Identifier"],
+                [4, 4, 0, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7093,9 +7267,7 @@ ruleTester.run("indent", rule, {
                     b();
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7107,9 +7279,7 @@ ruleTester.run("indent", rule, {
                     b();
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7123,9 +7293,7 @@ ruleTester.run("indent", rule, {
                 while(true)
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7137,9 +7305,7 @@ ruleTester.run("indent", rule, {
                     b();
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7151,9 +7317,7 @@ ruleTester.run("indent", rule, {
                     b();
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7172,8 +7336,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 2, 6, "Identifier"],
                 [3, 2, 4, "Identifier"],
-                [4, 0, 4, "Punctuator"]
-            ])
+                [4, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7196,8 +7360,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 8, 6, "Identifier"],
                 [3, 8, 4, "Identifier"],
-                [4, 8, 10, "Identifier"]
-            ])
+                [4, 8, 10, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7213,8 +7377,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
-                [3, 4, 0, "Identifier"]
-            ])
+                [3, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7232,8 +7396,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [3, 4, 8, "Identifier"],
-                [4, 0, 4, "Punctuator"]
-            ])
+                [4, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7251,8 +7415,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
-                [3, 4, 2, "Keyword"]
-            ])
+                [3, 4, 2, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -7266,9 +7430,7 @@ ruleTester.run("indent", rule, {
                 });
             `,
             options: [4],
-            errors: expectedErrors([
-                [2, 4, 2, "Keyword"]
-            ])
+            errors: expectedErrors([[2, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -7284,7 +7446,10 @@ ruleTester.run("indent", rule, {
                     ]);
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors([[3, 8, 4, "Identifier"], [4, 4, 0, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 8, 4, "Identifier"],
+                [4, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7302,8 +7467,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [2, 4, 9, "String"],
-                [3, 4, 9, "String"]
-            ])
+                [3, 4, 9, "String"],
+            ]),
         },
         {
             code: unIndent`
@@ -7324,8 +7489,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 4, 9, "String"],
                 [3, 4, 9, "String"],
-                [4, 4, 9, "String"]
-            ])
+                [4, 4, 9, "String"],
+            ]),
         },
         {
             code: unIndent`
@@ -7347,8 +7512,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 9, "String"],
                 [3, 4, 9, "String"],
                 [4, 4, 9, "String"],
-                [5, 4, 0, "String"]
-            ])
+                [5, 4, 0, "String"],
+            ]),
         },
         {
             code: unIndent`
@@ -7370,8 +7535,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 9, "String"],
                 [3, 4, 9, "String"],
                 [4, 4, 9, "String"],
-                [5, 0, 2, "Punctuator"]
-            ])
+                [5, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7388,7 +7553,10 @@ ruleTester.run("indent", rule, {
                 ) {}
                 ]
             `,
-            errors: expectedErrors([[3, 4, 8, "Identifier"], [4, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 4, 8, "Identifier"],
+                [4, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7411,7 +7579,10 @@ ruleTester.run("indent", rule, {
                 }
                 )
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7427,8 +7598,8 @@ ruleTester.run("indent", rule, {
             options: [2],
             errors: expectedErrors([
                 [2, 2, 0, "Identifier"],
-                [3, 0, 2, "Identifier"]
-            ])
+                [3, 0, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7448,9 +7619,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { SwitchCase: 1 }],
-            errors: expectedErrors([
-                [3, 4, 2, "Keyword"]
-            ])
+            errors: expectedErrors([[3, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -7462,9 +7631,7 @@ ruleTester.run("indent", rule, {
                   height, rotate;
             `,
             options: [2, { SwitchCase: 1 }],
-            errors: expectedErrors([
-                [2, 2, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 2, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7494,8 +7661,8 @@ ruleTester.run("indent", rule, {
                 [4, 12, 0, "Keyword"],
                 [5, 8, 0, "Keyword"],
                 [6, 12, 0, "Identifier"],
-                [7, 12, 0, "Keyword"]
-            ])
+                [7, 12, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -7507,9 +7674,7 @@ ruleTester.run("indent", rule, {
                   rotate;
             `,
             options: [2, { VariableDeclarator: 1 }],
-            errors: expectedErrors([
-                [2, 2, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 2, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7521,9 +7686,7 @@ ruleTester.run("indent", rule, {
                     rotate;
             `,
             options: [2, { VariableDeclarator: 2 }],
-            errors: expectedErrors([
-                [2, 4, 2, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 2, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7535,9 +7698,7 @@ ruleTester.run("indent", rule, {
                 \t\trotate;
             `,
             options: ["tab", { VariableDeclarator: 2 }],
-            errors: expectedErrors("tab", [
-                [2, 2, 1, "Identifier"]
-            ])
+            errors: expectedErrors("tab", [[2, 2, 1, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7549,9 +7710,7 @@ ruleTester.run("indent", rule, {
                     rotate;
             `,
             options: [2, { VariableDeclarator: 2 }],
-            errors: expectedErrors([
-                [2, 4, 2, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 2, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7569,8 +7728,8 @@ ruleTester.run("indent", rule, {
             options: [2, { VariableDeclarator: "first" }],
             errors: expectedErrors([
                 [2, 4, 2, "Identifier"],
-                [4, 6, 2, "Identifier"]
-            ])
+                [4, 6, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7582,9 +7741,7 @@ ruleTester.run("indent", rule, {
                     bar = bar;
             `,
             options: [2, { VariableDeclarator: { var: "first" } }],
-            errors: expectedErrors([
-                [2, 4, 2, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 2, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7600,9 +7757,7 @@ ruleTester.run("indent", rule, {
                       console.log(val);
             `,
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
-            errors: expectedErrors([
-                [4, 6, 4, "Identifier"]
-            ])
+            errors: expectedErrors([[4, 6, 4, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7620,8 +7775,8 @@ ruleTester.run("indent", rule, {
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
             errors: expectedErrors([
                 [2, 2, 4, "Identifier"],
-                [3, 2, 4, "Identifier"]
-            ])
+                [3, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7639,8 +7794,8 @@ ruleTester.run("indent", rule, {
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
             errors: expectedErrors([
                 [2, 2, 4, "Identifier"],
-                [3, 2, 4, "Identifier"]
-            ])
+                [3, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7658,8 +7813,8 @@ ruleTester.run("indent", rule, {
             options: [2, { VariableDeclarator: { let: 2 }, SwitchCase: 1 }],
             errors: expectedErrors([
                 [2, 2, 4, "Identifier"],
-                [3, 2, 4, "Identifier"]
-            ])
+                [3, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7677,8 +7832,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [2, 8, 6, "Identifier"],
-                [3, 4, 2, "Punctuator"]
-            ])
+                [3, 4, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7705,8 +7860,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [6, 4, 6, "Identifier"],
                 [7, 2, 4, "Punctuator"],
-                [8, 2, 4, "Identifier"]
-            ])
+                [8, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7728,7 +7883,7 @@ ruleTester.run("indent", rule, {
                     };
             `,
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
-            errors: expectedErrors([6, 6, 7, "Identifier"])
+            errors: expectedErrors([6, 6, 7, "Identifier"]),
         },
         {
             code: unIndent`
@@ -7746,7 +7901,7 @@ ruleTester.run("indent", rule, {
                      };
             `,
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
-            errors: expectedErrors([4, 7, 8, "Identifier"])
+            errors: expectedErrors([4, 7, 8, "Identifier"]),
         },
         {
             code: unIndent`
@@ -7768,7 +7923,10 @@ ruleTester.run("indent", rule, {
                   bar = 1;
             `,
             options: [2],
-            errors: expectedErrors([[4, 6, 8, "Identifier"], [5, 4, 6, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 6, 8, "Identifier"],
+                [5, 4, 6, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7782,9 +7940,7 @@ ruleTester.run("indent", rule, {
                 ;
             `,
             options: [2],
-            errors: expectedErrors([
-                [2, 2, 1, "Punctuator"]
-            ])
+            errors: expectedErrors([[2, 2, 1, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -7797,9 +7953,7 @@ ruleTester.run("indent", rule, {
                     ,b = 2
                 ;
             `,
-            errors: expectedErrors([
-                [2, 4, 3, "Punctuator"]
-            ])
+            errors: expectedErrors([[2, 4, 3, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -7817,7 +7971,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
-            errors: expectedErrors([[2, 4, 2, "Identifier"]])
+            errors: expectedErrors([[2, 4, 2, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7835,7 +7989,10 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [4, { VariableDeclarator: 1, SwitchCase: 1 }],
-            errors: expectedErrors([[2, 4, 2, "Identifier"], [4, 4, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 2, "Identifier"],
+                [4, 4, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -7855,7 +8012,7 @@ ruleTester.run("indent", rule, {
                     };
             `,
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
-            errors: expectedErrors([[3, 6, 4, "Identifier"]])
+            errors: expectedErrors([[3, 6, 4, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7879,7 +8036,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            errors: expectedErrors([[5, 4, 2, "Keyword"]])
+            errors: expectedErrors([[5, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -7903,7 +8060,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            errors: expectedErrors([[5, 4, 2, "Keyword"]])
+            errors: expectedErrors([[5, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -7923,7 +8080,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4],
-            errors: expectedErrors([[4, 4, 2, "Keyword"]])
+            errors: expectedErrors([[4, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -7941,7 +8098,11 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [2, { outerIIFEBody: 0 }],
-            errors: expectedErrors([[2, 0, 2, "Keyword"], [3, 2, 4, "Keyword"], [4, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 0, 2, "Keyword"],
+                [3, 2, 4, "Keyword"],
+                [4, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7959,7 +8120,11 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [4, { outerIIFEBody: 2 }],
-            errors: expectedErrors([[2, 8, 4, "Keyword"], [3, 12, 8, "Keyword"], [4, 8, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 8, 4, "Keyword"],
+                [3, 12, 8, "Keyword"],
+                [4, 8, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -7973,7 +8138,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { outerIIFEBody: 0 }],
-            errors: expectedErrors([[2, 2, 0, "Identifier"]])
+            errors: expectedErrors([[2, 2, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -7991,7 +8156,11 @@ ruleTester.run("indent", rule, {
                 }(x);
             `,
             options: [4, { outerIIFEBody: 2 }],
-            errors: expectedErrors([[2, 8, 4, "Keyword"], [3, 12, 8, "Keyword"], [4, 8, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 8, 4, "Keyword"],
+                [3, 12, 8, "Keyword"],
+                [4, 8, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8009,7 +8178,7 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [2, { outerIIFEBody: 0 }],
-            errors: expectedErrors([[3, 4, 2, "Keyword"]])
+            errors: expectedErrors([[3, 4, 2, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8027,7 +8196,11 @@ ruleTester.run("indent", rule, {
                 }();
             `,
             options: [2, { outerIIFEBody: 2 }],
-            errors: expectedErrors([[2, 2, 4, "Keyword"], [3, 4, 6, "Keyword"], [4, 2, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Keyword"],
+                [3, 4, 6, "Keyword"],
+                [4, 2, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8045,7 +8218,7 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: ["tab", { outerIIFEBody: 3 }],
-            errors: expectedErrors("tab", [[3, 2, 4, "Keyword"]])
+            errors: expectedErrors("tab", [[3, 2, 4, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8063,7 +8236,7 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [4, { outerIIFEBody: "off" }],
-            errors: expectedErrors([[3, 8, 4, "Keyword"]])
+            errors: expectedErrors([[3, 8, 4, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8081,7 +8254,7 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [4, { outerIIFEBody: "off" }],
-            errors: expectedErrors([[3, 4, 0, "Keyword"]])
+            errors: expectedErrors([[3, 4, 0, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8099,7 +8272,7 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [4, { outerIIFEBody: "off" }],
-            errors: expectedErrors([[3, 8, 4, "Keyword"]])
+            errors: expectedErrors([[3, 8, 4, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8117,7 +8290,7 @@ ruleTester.run("indent", rule, {
                 })();
             `,
             options: [4, { outerIIFEBody: "off" }],
-            errors: expectedErrors([[3, 4, 0, "Keyword"]])
+            errors: expectedErrors([[3, 4, 0, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8129,7 +8302,7 @@ ruleTester.run("indent", rule, {
                     .toString()
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors([[2, 4, 0, "Punctuator"]])
+            errors: expectedErrors([[2, 4, 0, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -8143,7 +8316,7 @@ ruleTester.run("indent", rule, {
                     .toString()
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors([[3, 4, 0, "Punctuator"]])
+            errors: expectedErrors([[3, 4, 0, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -8155,7 +8328,7 @@ ruleTester.run("indent", rule, {
                     length
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors([[2, 4, 0, "Identifier"]])
+            errors: expectedErrors([[2, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -8167,7 +8340,7 @@ ruleTester.run("indent", rule, {
                 \tlength
             `,
             options: ["tab", { MemberExpression: 1 }],
-            errors: expectedErrors("tab", [[2, 1, 2, "Identifier"]])
+            errors: expectedErrors("tab", [[2, 1, 2, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -8181,7 +8354,10 @@ ruleTester.run("indent", rule, {
                     .bar
             `,
             options: [2, { MemberExpression: 2 }],
-            errors: expectedErrors([[2, 4, 2, "Punctuator"], [3, 4, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 2, "Punctuator"],
+                [3, 4, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8196,7 +8372,7 @@ ruleTester.run("indent", rule, {
                         .target
                 }
             `,
-            errors: expectedErrors([3, 8, 4, "Punctuator"])
+            errors: expectedErrors([3, 8, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -8211,10 +8387,9 @@ ruleTester.run("indent", rule, {
                         target
                 }
             `,
-            errors: expectedErrors([3, 8, 4, "Identifier"])
+            errors: expectedErrors([3, 8, 4, "Identifier"]),
         },
         {
-
             // Indentation with multiple else statements: https://github.com/eslint/eslint/issues/6956
 
             code: unIndent`
@@ -8228,7 +8403,7 @@ ruleTester.run("indent", rule, {
                 else if (qux) qux();
             `,
             options: [2],
-            errors: expectedErrors([3, 0, 2, "Keyword"])
+            errors: expectedErrors([3, 0, 2, "Keyword"]),
         },
         {
             code: unIndent`
@@ -8242,7 +8417,7 @@ ruleTester.run("indent", rule, {
                 else qux();
             `,
             options: [2],
-            errors: expectedErrors([3, 0, 2, "Keyword"])
+            errors: expectedErrors([3, 0, 2, "Keyword"]),
         },
         {
             code: unIndent`
@@ -8256,7 +8431,10 @@ ruleTester.run("indent", rule, {
                 else qux();
             `,
             options: [2],
-            errors: expectedErrors([[2, 0, 2, "Keyword"], [3, 0, 2, "Keyword"]])
+            errors: expectedErrors([
+                [2, 0, 2, "Keyword"],
+                [3, 0, 2, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -8274,7 +8452,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[3, 0, 5, "Keyword"], [4, 2, 7, "Identifier"], [5, 0, 5, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 0, 5, "Keyword"],
+                [4, 2, 7, "Identifier"],
+                [5, 0, 5, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8294,7 +8476,12 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[3, 2, 4, "Identifier"], [4, 0, 5, "Punctuator"], [5, 2, 7, "Identifier"], [6, 0, 5, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 2, 4, "Identifier"],
+                [4, 0, 5, "Punctuator"],
+                [5, 2, 7, "Identifier"],
+                [6, 0, 5, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8310,7 +8497,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { parameters: 1, body: 2 } }],
-            errors: expectedErrors([[2, 2, 4, "Identifier"], [3, 4, 6, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Identifier"],
+                [3, 4, 6, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8326,7 +8516,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { parameters: 3, body: 1 } }],
-            errors: expectedErrors([[2, 6, 2, "Identifier"], [3, 2, 0, "Identifier"]])
+            errors: expectedErrors([
+                [2, 6, 2, "Identifier"],
+                [3, 2, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8344,7 +8537,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { FunctionDeclaration: { parameters: 1, body: 3 } }],
-            errors: expectedErrors([[2, 4, 8, "Identifier"], [3, 4, 2, "Identifier"], [4, 12, 6, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 8, "Identifier"],
+                [3, 4, 2, "Identifier"],
+                [4, 12, 6, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8361,8 +8558,15 @@ ruleTester.run("indent", rule, {
                   bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first", body: 1 } }],
-            errors: expectedErrors([[2, 13, 2, "Identifier"], [3, 13, 19, "Identifier"], [4, 2, 3, "Identifier"]])
+            options: [
+                2,
+                { FunctionDeclaration: { parameters: "first", body: 1 } },
+            ],
+            errors: expectedErrors([
+                [2, 13, 2, "Identifier"],
+                [3, 13, 19, "Identifier"],
+                [4, 2, 3, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8378,7 +8582,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { body: 3 } }],
-            errors: expectedErrors([3, 6, 0, "Identifier"])
+            errors: expectedErrors([3, 6, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8395,8 +8599,15 @@ ruleTester.run("indent", rule, {
                     bar();
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first", body: 2 } }],
-            errors: expectedErrors([[2, 2, 0, "Identifier"], [3, 2, 4, "Identifier"], [4, 4, 0, "Identifier"]])
+            options: [
+                2,
+                { FunctionDeclaration: { parameters: "first", body: 2 } },
+            ],
+            errors: expectedErrors([
+                [2, 2, 0, "Identifier"],
+                [3, 2, 4, "Identifier"],
+                [4, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8416,7 +8627,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionExpression: { parameters: 2, body: 0 } }],
-            errors: expectedErrors([[2, 4, 2, "Identifier"], [4, 4, 6, "Identifier"], [5, 0, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 2, "Identifier"],
+                [4, 4, 6, "Identifier"],
+                [5, 0, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8434,7 +8649,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionExpression: { parameters: 1, body: 10 } }],
-            errors: expectedErrors([[2, 2, 3, "Identifier"], [3, 2, 1, "Identifier"], [4, 20, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 3, "Identifier"],
+                [3, 2, 1, "Identifier"],
+                [4, 20, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8451,8 +8670,15 @@ ruleTester.run("indent", rule, {
                     bar();
                 }
             `,
-            options: [4, { FunctionExpression: { parameters: "first", body: 1 } }],
-            errors: expectedErrors([[2, 19, 2, "Identifier"], [3, 19, 24, "Identifier"], [4, 4, 8, "Identifier"]])
+            options: [
+                4,
+                { FunctionExpression: { parameters: "first", body: 1 } },
+            ],
+            errors: expectedErrors([
+                [2, 19, 2, "Identifier"],
+                [3, 19, 24, "Identifier"],
+                [4, 4, 8, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8469,8 +8695,15 @@ ruleTester.run("indent", rule, {
                       bar();
                 }
             `,
-            options: [2, { FunctionExpression: { parameters: "first", body: 3 } }],
-            errors: expectedErrors([[2, 2, 0, "Identifier"], [3, 2, 4, "Identifier"], [4, 6, 2, "Identifier"]])
+            options: [
+                2,
+                { FunctionExpression: { parameters: "first", body: 3 } },
+            ],
+            errors: expectedErrors([
+                [2, 2, 0, "Identifier"],
+                [3, 2, 4, "Identifier"],
+                [4, 6, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8482,7 +8715,7 @@ ruleTester.run("indent", rule, {
                 var baz = qux;
             `,
             options: [2],
-            errors: expectedErrors([2, "0 spaces", "3 tabs", "Keyword"])
+            errors: expectedErrors([2, "0 spaces", "3 tabs", "Keyword"]),
         },
         {
             code: unIndent`
@@ -8500,7 +8733,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: ["tab"],
-            errors: expectedErrors("tab", [[3, "1 tab", "2 spaces", "Identifier"], [4, "1 tab", "14 spaces", "Identifier"]])
+            errors: expectedErrors("tab", [
+                [3, "1 tab", "2 spaces", "Identifier"],
+                [4, "1 tab", "14 spaces", "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8514,7 +8750,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[3, "0 spaces", "2 tabs", "Punctuator"]])
+            errors: expectedErrors([[3, "0 spaces", "2 tabs", "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -8532,7 +8768,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { body: 1 } }],
-            errors: expectedErrors([3, 4, 8, "Identifier"])
+            errors: expectedErrors([3, 4, 8, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8552,7 +8788,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionDeclaration: { body: 1, parameters: 2 } }],
-            errors: expectedErrors([3, 6, 4, "Identifier"])
+            errors: expectedErrors([3, 6, 4, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8572,7 +8808,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { FunctionExpression: { parameters: 3 } }],
-            errors: expectedErrors([3, 8, 10, "Identifier"])
+            errors: expectedErrors([3, 8, 10, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8589,8 +8825,14 @@ ruleTester.run("indent", rule, {
                       }
                 );
             `,
-            options: [2, { FunctionExpression: { body: 3 }, CallExpression: { arguments: 3 } }],
-            errors: expectedErrors([3, 12, 8, "Identifier"])
+            options: [
+                2,
+                {
+                    FunctionExpression: { body: 3 },
+                    CallExpression: { arguments: 3 },
+                },
+            ],
+            errors: expectedErrors([3, 12, 8, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8615,8 +8857,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [4, 4, 0, "Keyword"],
-                [6, 4, 0, "Keyword"]
-            ])
+                [6, 4, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -8633,7 +8875,7 @@ ruleTester.run("indent", rule, {
                     while (true)
                 }
             `,
-            errors: expectedErrors([4, 4, 0, "Keyword"])
+            errors: expectedErrors([4, 4, 0, "Keyword"]),
         },
         {
             code: unIndent`
@@ -8651,7 +8893,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[4, 2, 4, "Punctuator"]])
+            errors: expectedErrors([[4, 2, 4, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -8669,7 +8911,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[4, 2, 4, "Punctuator"]])
+            errors: expectedErrors([[4, 2, 4, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -8691,7 +8933,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { VariableDeclarator: 2, SwitchCase: 1 }],
-            errors: expectedErrors([[4, 6, 4, "Keyword"]])
+            errors: expectedErrors([[4, 6, 4, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8705,7 +8947,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 3, "Keyword"]])
+            errors: expectedErrors([[2, 2, 3, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -8721,7 +8963,10 @@ ruleTester.run("indent", rule, {
                   qux);
             `,
             options: [2, { CallExpression: { arguments: 1 } }],
-            errors: expectedErrors([[2, 2, 0, "Identifier"], [4, 2, 4, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 0, "Identifier"],
+                [4, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8735,7 +8980,10 @@ ruleTester.run("indent", rule, {
                     baz);
             `,
             options: [2, { CallExpression: { arguments: 2 } }],
-            errors: expectedErrors([[2, "4 spaces", "1 tab", "Identifier"], [3, "4 spaces", "1 tab", "Identifier"]])
+            errors: expectedErrors([
+                [2, "4 spaces", "1 tab", "Identifier"],
+                [3, "4 spaces", "1 tab", "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8749,7 +8997,10 @@ ruleTester.run("indent", rule, {
                 \tqux);
             `,
             options: ["tab", { CallExpression: { arguments: 1 } }],
-            errors: expectedErrors("tab", [[2, 1, 2, "Identifier"], [3, 1, 2, "Identifier"]])
+            errors: expectedErrors("tab", [
+                [2, 1, 2, "Identifier"],
+                [3, 1, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8761,7 +9012,7 @@ ruleTester.run("indent", rule, {
                     qux);
             `,
             options: [2, { CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([2, 4, 9, "Identifier"])
+            errors: expectedErrors([2, 4, 9, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8775,7 +9026,10 @@ ruleTester.run("indent", rule, {
                   baz);
             `,
             options: [2, { CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([[2, 2, 10, "Identifier"], [3, 2, 4, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 10, "Identifier"],
+                [3, 2, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -8793,7 +9047,11 @@ ruleTester.run("indent", rule, {
                 );
             `,
             options: [2, { CallExpression: { arguments: 3 } }],
-            errors: expectedErrors([[2, 6, 2, "Numeric"], [3, 6, 14, "Punctuator"], [4, 6, 8, "Keyword"]])
+            errors: expectedErrors([
+                [2, 6, 2, "Numeric"],
+                [3, 6, 14, "Punctuator"],
+                [4, 6, 8, "Keyword"],
+            ]),
         },
 
         // https://github.com/eslint/eslint/issues/7573
@@ -8808,8 +9066,10 @@ ruleTester.run("indent", rule, {
                     foo
                 );
             `,
-            languageOptions: { parserOptions: { ecmaFeatures: { globalReturn: true } } },
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            languageOptions: {
+                parserOptions: { ecmaFeatures: { globalReturn: true } },
+            },
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -8822,8 +9082,10 @@ ruleTester.run("indent", rule, {
                     foo
                 )
             `,
-            languageOptions: { parserOptions: { ecmaFeatures: { globalReturn: true } } },
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            languageOptions: {
+                parserOptions: { ecmaFeatures: { globalReturn: true } },
+            },
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
 
         // https://github.com/eslint/eslint/issues/7604
@@ -8838,7 +9100,7 @@ ruleTester.run("indent", rule, {
                     /* comment */bar();
                 }
             `,
-            errors: expectedErrors([2, 4, 8, "Block"])
+            errors: expectedErrors([2, 4, 8, "Block"]),
         },
         {
             code: unIndent`
@@ -8853,7 +9115,7 @@ ruleTester.run("indent", rule, {
                         ok: true
                     });
             `,
-            errors: expectedErrors([2, 4, 8, "Block"])
+            errors: expectedErrors([2, 4, 8, "Block"]),
         },
         {
             code: unIndent`
@@ -8867,7 +9129,7 @@ ruleTester.run("indent", rule, {
                 );
             `,
             options: [4, { CallExpression: { arguments: 1 } }],
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -8881,7 +9143,7 @@ ruleTester.run("indent", rule, {
                 ))
             `,
             options: [4],
-            errors: expectedErrors([2, 4, 0, "Identifier"])
+            errors: expectedErrors([2, 4, 0, "Identifier"]),
         },
 
         // ternary expressions (https://github.com/eslint/eslint/issues/7420)
@@ -8897,7 +9159,10 @@ ruleTester.run("indent", rule, {
                   : baz
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 0, "Punctuator"], [3, 2, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 0, "Punctuator"],
+                [3, 2, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8916,7 +9181,7 @@ ruleTester.run("indent", rule, {
                     qux
                 ]
             `,
-            errors: expectedErrors([5, 4, 8, "Identifier"])
+            errors: expectedErrors([5, 4, 8, "Identifier"]),
         },
         {
             code: unIndent`
@@ -8956,8 +9221,8 @@ ruleTester.run("indent", rule, {
                 [8, 6, 0, "Punctuator"],
                 [9, 4, 0, "Punctuator"],
                 [10, 8, 0, "Keyword"],
-                [11, 6, 0, "Punctuator"]
-            ])
+                [11, 6, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -8997,11 +9262,10 @@ ruleTester.run("indent", rule, {
                 [8, 4, 0, "Punctuator"],
                 [9, 4, 0, "Punctuator"],
                 [10, 6, 0, "Keyword"],
-                [11, 4, 0, "Punctuator"]
-            ])
+                [11, 4, 0, "Punctuator"],
+            ]),
         },
         {
-
             /*
              * Checking comments:
              * https://github.com/eslint/eslint/issues/6571
@@ -9023,12 +9287,16 @@ ruleTester.run("indent", rule, {
                 // trailing comment
             `,
             options: [2],
-            errors: expectedErrors([[2, 0, 2, "Line"], [3, 0, 4, "Block"], [6, 0, 1, "Line"]])
+            errors: expectedErrors([
+                [2, 0, 2, "Line"],
+                [3, 0, 4, "Block"],
+                [6, 0, 1, "Line"],
+            ]),
         },
         {
             code: "  // comment",
             output: "// comment",
-            errors: expectedErrors([1, 0, 2, "Line"])
+            errors: expectedErrors([1, 0, 2, "Line"]),
         },
         {
             code: unIndent`
@@ -9039,7 +9307,7 @@ ruleTester.run("indent", rule, {
                 foo
                 // comment
             `,
-            errors: expectedErrors([2, 0, 2, "Line"])
+            errors: expectedErrors([2, 0, 2, "Line"]),
         },
         {
             code: unIndent`
@@ -9050,7 +9318,7 @@ ruleTester.run("indent", rule, {
                 // comment
                 foo
             `,
-            errors: expectedErrors([1, 0, 2, "Line"])
+            errors: expectedErrors([1, 0, 2, "Line"]),
         },
         {
             code: unIndent`
@@ -9063,10 +9331,9 @@ ruleTester.run("indent", rule, {
                     // no elements
                 ]
             `,
-            errors: expectedErrors([2, 4, 8, "Line"])
+            errors: expectedErrors([2, 4, 8, "Line"]),
         },
         {
-
             /*
              * Destructuring assignments:
              * https://github.com/eslint/eslint/issues/6813
@@ -9088,7 +9355,12 @@ ruleTester.run("indent", rule, {
                 } = qux;
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 0, "Identifier"], [4, 2, 4, "Identifier"], [5, 2, 6, "Identifier"], [6, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 0, "Identifier"],
+                [4, 2, 4, "Identifier"],
+                [5, 2, 6, "Identifier"],
+                [6, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9106,7 +9378,10 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[4, 2, 4, "Identifier"], [5, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 2, 4, "Identifier"],
+                [5, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9121,7 +9396,11 @@ ruleTester.run("indent", rule, {
                     baz
                 ]
             `,
-            errors: expectedErrors([[2, 4, 11, "Identifier"], [3, 4, 2, "Identifier"], [4, 0, 10, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 11, "Identifier"],
+                [3, 4, 2, "Identifier"],
+                [4, 0, 10, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9136,7 +9415,7 @@ ruleTester.run("indent", rule, {
                     qux
                 ]
             `,
-            errors: expectedErrors([2, 4, 0, "Identifier"])
+            errors: expectedErrors([2, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9152,7 +9431,10 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [2, { ArrayExpression: 0 }],
-            errors: expectedErrors([[2, 0, 2, "Identifier"], [3, 0, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 0, 2, "Identifier"],
+                [3, 0, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9168,7 +9450,10 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [2, { ArrayExpression: 8 }],
-            errors: expectedErrors([[2, 16, 2, "Identifier"], [3, 16, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 16, 2, "Identifier"],
+                [3, 16, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9184,7 +9469,10 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [2, { ArrayExpression: "first" }],
-            errors: expectedErrors([[2, 11, 4, "Identifier"], [3, 11, 4, "Identifier"]])
+            errors: expectedErrors([
+                [2, 11, 4, "Identifier"],
+                [3, 11, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9198,7 +9486,7 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [2, { ArrayExpression: "first" }],
-            errors: expectedErrors([2, 11, 4, "Identifier"])
+            errors: expectedErrors([2, 11, 4, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9218,7 +9506,10 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [4, { ArrayExpression: 2, ObjectExpression: "first" }],
-            errors: expectedErrors([[3, 10, 12, "Identifier"], [5, 10, 12, "Identifier"]])
+            errors: expectedErrors([
+                [3, 10, 12, "Identifier"],
+                [5, 10, 12, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9234,7 +9525,10 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [2, { ObjectExpression: 0 }],
-            errors: expectedErrors([[2, 0, 2, "Identifier"], [3, 0, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 0, 2, "Identifier"],
+                [3, 0, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9246,7 +9540,7 @@ ruleTester.run("indent", rule, {
                              baz: 3 }
             `,
             options: [2, { ObjectExpression: "first" }],
-            errors: expectedErrors([2, 13, 0, "Identifier"])
+            errors: expectedErrors([2, 13, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9264,7 +9558,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2, { ArrayExpression: 4 }],
-            errors: expectedErrors([[2, 2, 4, "Punctuator"], [3, 10, 12, "Identifier"], [4, 2, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Punctuator"],
+                [3, 10, 12, "Identifier"],
+                [4, 2, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9284,7 +9582,12 @@ ruleTester.run("indent", rule, {
                 ] = qux;
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 0, "Identifier"], [4, 2, 4, "Identifier"], [5, 2, 6, "Identifier"], [6, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 0, "Identifier"],
+                [4, 2, 4, "Identifier"],
+                [5, 2, 6, "Identifier"],
+                [6, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9302,7 +9605,10 @@ ruleTester.run("indent", rule, {
                 } from 'qux';
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[2, 4, 0, "Identifier"], [3, 4, 2, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 0, "Identifier"],
+                [3, 4, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9319,7 +9625,7 @@ ruleTester.run("indent", rule, {
             `,
             options: [4, { ImportDeclaration: "first" }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[3, 9, 10, "Identifier"]])
+            errors: expectedErrors([[3, 9, 10, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -9336,7 +9642,7 @@ ruleTester.run("indent", rule, {
             `,
             options: [2, { ImportDeclaration: 2 }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[3, 4, 5, "Identifier"]])
+            errors: expectedErrors([[3, 4, 5, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -9356,7 +9662,10 @@ ruleTester.run("indent", rule, {
                 };
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[3, 4, 0, "Identifier"], [4, 4, 2, "Identifier"]])
+            errors: expectedErrors([
+                [3, 4, 0, "Identifier"],
+                [4, 4, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9376,10 +9685,12 @@ ruleTester.run("indent", rule, {
                 } from 'qux';
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[3, 4, 0, "Identifier"], [4, 4, 2, "Identifier"]])
+            errors: expectedErrors([
+                [3, 4, 0, "Identifier"],
+                [4, 4, 2, "Identifier"],
+            ]),
         },
         {
-
             // https://github.com/eslint/eslint/issues/7233
             code: unIndent`
                 var folder = filePath
@@ -9392,7 +9703,10 @@ ruleTester.run("indent", rule, {
                     .bar;
             `,
             options: [2, { MemberExpression: 2 }],
-            errors: expectedErrors([[2, 4, 2, "Punctuator"], [3, 4, 6, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 2, "Punctuator"],
+                [3, 4, 6, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9404,7 +9718,7 @@ ruleTester.run("indent", rule, {
                   baz();
             `,
             options: [2],
-            errors: expectedErrors([2, 2, 4, "Identifier"])
+            errors: expectedErrors([2, 2, 4, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9416,10 +9730,9 @@ ruleTester.run("indent", rule, {
                   5;
             `,
             options: [2],
-            errors: expectedErrors([2, 2, 4, "Numeric"])
+            errors: expectedErrors([2, 2, 4, "Numeric"]),
         },
         {
-
             // BinaryExpressions with parens
             code: unIndent`
                 foo && (
@@ -9432,7 +9745,7 @@ ruleTester.run("indent", rule, {
                 )
             `,
             options: [4],
-            errors: expectedErrors([2, 4, 8, "Identifier"])
+            errors: expectedErrors([2, 4, 8, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9445,7 +9758,7 @@ ruleTester.run("indent", rule, {
                     !bar(
                     )
             `,
-            errors: expectedErrors([3, 4, 0, "Punctuator"])
+            errors: expectedErrors([3, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -9460,7 +9773,10 @@ ruleTester.run("indent", rule, {
                         bar();
                     })
             `,
-            errors: expectedErrors([[3, 8, 4, "Identifier"], [4, 4, 0, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 8, 4, "Identifier"],
+                [4, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9473,7 +9789,7 @@ ruleTester.run("indent", rule, {
                 ] || [
                 ]
             `,
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -9488,7 +9804,10 @@ ruleTester.run("indent", rule, {
                             bar
                         )
             `,
-            errors: expectedErrors([[3, 12, 16, "Identifier"], [4, 8, 12, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 12, 16, "Identifier"],
+                [4, 8, 12, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9503,7 +9822,10 @@ ruleTester.run("indent", rule, {
                     1
                 )
             `,
-            errors: expectedErrors([[3, 4, 8, "Numeric"], [4, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 4, 8, "Numeric"],
+                [4, 0, 4, "Punctuator"],
+            ]),
         },
 
         // Template curlies
@@ -9517,7 +9839,7 @@ ruleTester.run("indent", rule, {
                   bar}\`
             `,
             options: [2],
-            errors: expectedErrors([2, 2, 0, "Identifier"])
+            errors: expectedErrors([2, 2, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9531,7 +9853,10 @@ ruleTester.run("indent", rule, {
                     baz}\`}\`
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 4, "Template"], [3, 4, 0, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Template"],
+                [3, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9549,7 +9874,12 @@ ruleTester.run("indent", rule, {
                 }\`
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 4, "Template"], [3, 4, 2, "Identifier"], [4, 2, 4, "Template"], [5, 0, 2, "Template"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Template"],
+                [3, 4, 2, "Identifier"],
+                [4, 2, 4, "Template"],
+                [5, 0, 2, "Template"],
+            ]),
         },
         {
             code: unIndent`
@@ -9567,7 +9897,11 @@ ruleTester.run("indent", rule, {
                 }\`
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 0, "Punctuator"], [3, 4, 2, "Identifier"], [4, 2, 0, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 2, 0, "Punctuator"],
+                [3, 4, 2, "Identifier"],
+                [4, 2, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9584,7 +9918,10 @@ ruleTester.run("indent", rule, {
                         bar}baz\`
                 }
             `,
-            errors: expectedErrors([[3, 8, 0, "Identifier"], [4, 8, 2, "Identifier"]])
+            errors: expectedErrors([
+                [3, 8, 0, "Identifier"],
+                [4, 8, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9603,7 +9940,10 @@ ruleTester.run("indent", rule, {
                 } node is checked.\`;
                 }
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Template"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Template"],
+            ]),
         },
         {
             code: unIndent`
@@ -9622,10 +9962,9 @@ ruleTester.run("indent", rule, {
                         so the spaces before this line aren't removed.\`;
                 }
             `,
-            errors: expectedErrors([4, 4, 12, "Identifier"])
+            errors: expectedErrors([4, 4, 12, "Identifier"]),
         },
         {
-
             /*
              * https://github.com/eslint/eslint/issues/1801
              * Note: This issue also mentioned checking the indentation for the 2 below. However,
@@ -9646,10 +9985,9 @@ ruleTester.run("indent", rule, {
                         2);
                 }
             `,
-            errors: expectedErrors([3, 8, 0, "Numeric"])
+            errors: expectedErrors([3, 8, 0, "Numeric"]),
         },
         {
-
             // https://github.com/eslint/eslint/issues/3737
             code: unIndent`
                 if (true) {
@@ -9666,10 +10004,12 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[2, 2, 4, "Keyword"], [3, 4, 6, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 4, "Keyword"],
+                [3, 4, 6, "Identifier"],
+            ]),
         },
         {
-
             // https://github.com/eslint/eslint/issues/6670
             code: unIndent`
                 function f() {
@@ -9697,7 +10037,10 @@ ruleTester.run("indent", rule, {
                         );
                 }
             `,
-            options: [4, { MemberExpression: 1, CallExpression: { arguments: 1 } }],
+            options: [
+                4,
+                { MemberExpression: 1, CallExpression: { arguments: 1 } },
+            ],
             errors: expectedErrors([
                 [3, 8, 4, "Punctuator"],
                 [4, 12, 15, "String"],
@@ -9707,8 +10050,8 @@ ruleTester.run("indent", rule, {
                 [8, 16, 35, "Numeric"],
                 [9, 12, 22, "Punctuator"],
                 [10, 8, 0, "Punctuator"],
-                [11, 0, 1, "Punctuator"]
-            ])
+                [11, 0, 1, "Punctuator"],
+            ]),
         },
 
         // https://github.com/eslint/eslint/issues/7242
@@ -9725,7 +10068,10 @@ ruleTester.run("indent", rule, {
                     [2]
                 ]
             `,
-            errors: expectedErrors([[2, 4, 6, "Punctuator"], [3, 4, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 6, "Punctuator"],
+                [3, 4, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9740,7 +10086,10 @@ ruleTester.run("indent", rule, {
                     {b: 2}
                 ]
             `,
-            errors: expectedErrors([[2, 4, 6, "Punctuator"], [3, 4, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [2, 4, 6, "Punctuator"],
+                [3, 4, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9753,11 +10102,19 @@ ruleTester.run("indent", rule, {
                              ['foo', 'bar',
                               'baz']);
             `,
-            options: [2, { ArrayExpression: "first", CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([[2, 13, 12, "Punctuator"], [3, 14, 13, "String"]])
+            options: [
+                2,
+                {
+                    ArrayExpression: "first",
+                    CallExpression: { arguments: "first" },
+                },
+            ],
+            errors: expectedErrors([
+                [2, 13, 12, "Punctuator"],
+                [3, 14, 13, "String"],
+            ]),
         },
         {
-
             // https://github.com/eslint/eslint/issues/7522
             code: unIndent`
                 foo(
@@ -9767,10 +10124,9 @@ ruleTester.run("indent", rule, {
                 foo(
                 )
             `,
-            errors: expectedErrors([2, 0, 2, "Punctuator"])
+            errors: expectedErrors([2, 0, 2, "Punctuator"]),
         },
         {
-
             // https://github.com/eslint/eslint/issues/7616
             code: unIndent`
                 foo(
@@ -9789,12 +10145,12 @@ ruleTester.run("indent", rule, {
                 )
             `,
             options: [4, { CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([[2, 4, 8, "Identifier"]])
+            errors: expectedErrors([[2, 4, 8, "Identifier"]]),
         },
         {
             code: "  new Foo",
             output: "new Foo",
-            errors: expectedErrors([1, 0, 2, "Keyword"])
+            errors: expectedErrors([1, 0, 2, "Keyword"]),
         },
         {
             code: unIndent`
@@ -9814,7 +10170,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([[3, 4, 0, "Identifier"], [4, 4, 8, "Identifier"], [5, 4, 2, "Identifier"]])
+            errors: expectedErrors([
+                [3, 4, 0, "Identifier"],
+                [4, 4, 8, "Identifier"],
+                [5, 4, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9828,7 +10188,7 @@ ruleTester.run("indent", rule, {
                     : baz
             `,
             options: [4, { flatTernaryExpressions: true }],
-            errors: expectedErrors([3, 4, 0, "Punctuator"])
+            errors: expectedErrors([3, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -9842,7 +10202,7 @@ ruleTester.run("indent", rule, {
                     baz
             `,
             options: [4, { flatTernaryExpressions: true }],
-            errors: expectedErrors([3, 4, 0, "Identifier"])
+            errors: expectedErrors([3, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9856,7 +10216,7 @@ ruleTester.run("indent", rule, {
                     : baz
             `,
             options: [4, { flatTernaryExpressions: true }],
-            errors: expectedErrors([3, 4, 2, "Punctuator"])
+            errors: expectedErrors([3, 4, 2, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -9870,7 +10230,7 @@ ruleTester.run("indent", rule, {
                     baz
             `,
             options: [4, { flatTernaryExpressions: true }],
-            errors: expectedErrors([3, 4, 0, "Identifier"])
+            errors: expectedErrors([3, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -9888,8 +10248,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: true }],
             errors: expectedErrors([
                 [3, 4, 8, "Punctuator"],
-                [4, 4, 12, "Punctuator"]
-            ])
+                [4, 4, 12, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9907,8 +10267,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: true }],
             errors: expectedErrors([
                 [3, 4, 8, "Identifier"],
-                [4, 4, 12, "Identifier"]
-            ])
+                [4, 4, 12, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9928,8 +10288,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: true }],
             errors: expectedErrors([
                 [3, 4, 6, "Identifier"],
-                [4, 4, 2, "Identifier"]
-            ])
+                [4, 4, 2, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -9947,8 +10307,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: true }],
             errors: expectedErrors([
                 [3, 8, 4, "Punctuator"],
-                [4, 8, 4, "Punctuator"]
-            ])
+                [4, 8, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9966,8 +10326,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: false }],
             errors: expectedErrors([
                 [3, 8, 4, "Punctuator"],
-                [4, 12, 4, "Punctuator"]
-            ])
+                [4, 12, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -9985,8 +10345,8 @@ ruleTester.run("indent", rule, {
             options: [4, { flatTernaryExpressions: false }],
             errors: expectedErrors([
                 [3, 8, 4, "Identifier"],
-                [4, 12, 4, "Identifier"]
-            ])
+                [4, 12, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10012,8 +10372,8 @@ ruleTester.run("indent", rule, {
                 [4, 8, 4, "Punctuator"],
                 [5, 8, 4, "Punctuator"],
                 [6, 12, 4, "Punctuator"],
-                [7, 12, 4, "Punctuator"]
-            ])
+                [7, 12, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10039,8 +10399,8 @@ ruleTester.run("indent", rule, {
                 [4, 8, 4, "Identifier"],
                 [5, 8, 4, "Identifier"],
                 [6, 12, 4, "Identifier"],
-                [7, 12, 4, "Identifier"]
-            ])
+                [7, 12, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10054,7 +10414,7 @@ ruleTester.run("indent", rule, {
                 });
             `,
             options: [2, { CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([2, 2, 10, "Identifier"])
+            errors: expectedErrors([2, 2, 10, "Identifier"]),
         },
         {
             code: unIndent`
@@ -10072,7 +10432,10 @@ ruleTester.run("indent", rule, {
                 });
             `,
             options: [2, { MemberExpression: 1 }],
-            errors: expectedErrors([[4, 2, 4, "Identifier"], [5, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 2, 4, "Identifier"],
+                [5, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10090,7 +10453,10 @@ ruleTester.run("indent", rule, {
                 });
             `,
             options: [2, { MemberExpression: 1 }],
-            errors: expectedErrors([[4, 2, 4, "Identifier"], [5, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 2, 4, "Identifier"],
+                [5, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10106,7 +10472,10 @@ ruleTester.run("indent", rule, {
                 })
             `,
             options: [2, { ArrayExpression: "first", MemberExpression: 1 }],
-            errors: expectedErrors([[3, 2, 4, "Identifier"], [4, 0, 2, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 2, 4, "Identifier"],
+                [4, 0, 2, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10120,7 +10489,7 @@ ruleTester.run("indent", rule, {
                 ];
             `,
             options: [4, { MemberExpression: 1 }],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10136,7 +10505,10 @@ ruleTester.run("indent", rule, {
                 })
             `,
             options: [4, { ObjectExpression: "first" }],
-            errors: expectedErrors([[2, 4, 0, "Identifier"], [3, 4, 0, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 0, "Identifier"],
+                [3, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10150,7 +10522,10 @@ ruleTester.run("indent", rule, {
                   qux);
             `,
             options: [2, { CallExpression: { arguments: "first" } }],
-            errors: expectedErrors([[2, 2, 24, "Identifier"], [3, 2, 24, "Identifier"]])
+            errors: expectedErrors([
+                [2, 2, 24, "Identifier"],
+                [3, 2, 24, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10163,7 +10538,7 @@ ruleTester.run("indent", rule, {
 
                 ; [1, 2, 3].map(baz)
             `,
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10174,7 +10549,7 @@ ruleTester.run("indent", rule, {
                 if (foo)
                     ;
             `,
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10186,7 +10561,7 @@ ruleTester.run("indent", rule, {
                     from 'bar';
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([2, 4, 0, "Identifier"])
+            errors: expectedErrors([2, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -10198,7 +10573,7 @@ ruleTester.run("indent", rule, {
                     from 'bar';
             `,
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
-            errors: expectedErrors([2, 4, 0, "Identifier"])
+            errors: expectedErrors([2, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -10215,7 +10590,10 @@ ruleTester.run("indent", rule, {
                     c
                 }
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10232,7 +10610,10 @@ ruleTester.run("indent", rule, {
                     e
                 }
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10249,7 +10630,10 @@ ruleTester.run("indent", rule, {
                     baz
                 );
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10266,7 +10650,10 @@ ruleTester.run("indent", rule, {
                     bar
                 )
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10283,7 +10670,10 @@ ruleTester.run("indent", rule, {
                     bar
                 )
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10300,7 +10690,10 @@ ruleTester.run("indent", rule, {
                     bar
                 )
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10313,7 +10706,10 @@ ruleTester.run("indent", rule, {
                     bar.
                     baz
             `,
-            errors: expectedErrors([[2, 4, 2, "Identifier"], [3, 4, 6, "Identifier"]])
+            errors: expectedErrors([
+                [2, 4, 2, "Identifier"],
+                [3, 4, 6, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10332,7 +10728,11 @@ ruleTester.run("indent", rule, {
                         'bar'
                     ));
             `,
-            errors: expectedErrors([[4, 8, 12, "String"], [5, 8, 12, "String"], [6, 4, 8, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 8, 12, "String"],
+                [5, 8, 12, "String"],
+                [6, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10351,7 +10751,11 @@ ruleTester.run("indent", rule, {
                         'bar'
                     ));
             `,
-            errors: expectedErrors([[4, 8, 12, "String"], [5, 8, 12, "String"], [6, 4, 8, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 8, 12, "String"],
+                [5, 8, 12, "String"],
+                [6, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10370,7 +10774,7 @@ ruleTester.run("indent", rule, {
                             'bar'
                         );
             `,
-            errors: expectedErrors([[6, 8, 4, "Punctuator"]])
+            errors: expectedErrors([[6, 8, 4, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -10387,7 +10791,7 @@ ruleTester.run("indent", rule, {
                             'fff'
                         );
             `,
-            errors: expectedErrors([[4, 12, 8, "String"]])
+            errors: expectedErrors([[4, 12, 8, "String"]]),
         },
 
         //----------------------------------------------------------------------
@@ -10415,8 +10819,13 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/namespace-invalid")) },
-            errors: expectedErrors([[3, 8, 4, "Identifier"], [6, 8, 4, "Keyword"]])
+            languageOptions: {
+                parser: require(parser("unknown-nodes/namespace-invalid")),
+            },
+            errors: expectedErrors([
+                [3, 8, 4, "Identifier"],
+                [6, 8, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -10447,8 +10856,14 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/abstract-class-invalid")) },
-            errors: expectedErrors([[4, 12, 8, "Identifier"], [7, 12, 8, "Identifier"], [10, 8, 4, "Identifier"]])
+            languageOptions: {
+                parser: require(parser("unknown-nodes/abstract-class-invalid")),
+            },
+            errors: expectedErrors([
+                [4, 12, 8, "Identifier"],
+                [7, 12, 8, "Identifier"],
+                [10, 8, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10477,14 +10892,20 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/functions-with-abstract-class-invalid")) },
+            languageOptions: {
+                parser: require(
+                    parser(
+                        "unknown-nodes/functions-with-abstract-class-invalid",
+                    ),
+                ),
+            },
             errors: expectedErrors([
                 [4, 12, 8, "Keyword"],
                 [5, 16, 8, "Keyword"],
                 [6, 20, 8, "Identifier"],
                 [7, 16, 8, "Punctuator"],
-                [8, 12, 8, "Punctuator"]
-            ])
+                [8, 12, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10517,11 +10938,17 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            languageOptions: { parser: require(parser("unknown-nodes/namespace-with-functions-with-abstract-class-invalid")) },
+            languageOptions: {
+                parser: require(
+                    parser(
+                        "unknown-nodes/namespace-with-functions-with-abstract-class-invalid",
+                    ),
+                ),
+            },
             errors: expectedErrors([
                 [3, 8, 4, "Keyword"],
-                [7, 24, 20, "Identifier"]
-            ])
+                [7, 24, 20, "Identifier"],
+            ]),
         },
 
         //----------------------------------------------------------------------
@@ -10541,7 +10968,7 @@ ruleTester.run("indent", rule, {
                     <Foo />
                 </App>
             `,
-            errors: expectedErrors([2, 4, 2, "Punctuator"])
+            errors: expectedErrors([2, 4, 2, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10555,7 +10982,7 @@ ruleTester.run("indent", rule, {
                 </App>
             `,
             options: [2],
-            errors: expectedErrors([2, 2, 4, "Punctuator"])
+            errors: expectedErrors([2, 2, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10569,7 +10996,7 @@ ruleTester.run("indent", rule, {
                 </App>
             `,
             options: ["tab"],
-            errors: expectedErrors([2, "1 tab", "4 spaces", "Punctuator"])
+            errors: expectedErrors([2, "1 tab", "4 spaces", "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10587,7 +11014,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([4, 2, 9, "Punctuator"])
+            errors: expectedErrors([4, 2, 9, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10605,7 +11032,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([4, 2, 4, "Punctuator"])
+            errors: expectedErrors([4, 2, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10627,7 +11054,11 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([[3, 4, 0, "Punctuator"], [4, 6, 2, "Punctuator"], [5, 4, 0, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 4, 0, "Punctuator"],
+                [4, 6, 2, "Punctuator"],
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -10640,7 +11071,7 @@ ruleTester.run("indent", rule, {
                     {test}
                 </App>
             `,
-            errors: expectedErrors([2, 4, 1, "Punctuator"])
+            errors: expectedErrors([2, 4, 1, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10661,7 +11092,7 @@ ruleTester.run("indent", rule, {
                     ))}
                 </App>
             `,
-            errors: expectedErrors([4, 12, 11, "Punctuator"])
+            errors: expectedErrors([4, 12, 11, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10677,7 +11108,7 @@ ruleTester.run("indent", rule, {
                 ]
             `,
             options: [2],
-            errors: expectedErrors([3, 2, 4, "Punctuator"])
+            errors: expectedErrors([3, 2, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10695,10 +11126,9 @@ ruleTester.run("indent", rule, {
                 </App>
             `,
             options: ["tab"],
-            errors: expectedErrors([3, "1 tab", "1 space", "Punctuator"])
+            errors: expectedErrors([3, "1 tab", "1 space", "Punctuator"]),
         },
         {
-
             /*
              * Multiline ternary
              * (colon at the end of the first expression)
@@ -10713,10 +11143,9 @@ ruleTester.run("indent", rule, {
                     <Foo /> :
                     <Bar />
             `,
-            errors: expectedErrors([3, 4, 0, "Punctuator"])
+            errors: expectedErrors([3, 4, 0, "Punctuator"]),
         },
         {
-
             /*
              * Multiline ternary
              * (colon on its own line)
@@ -10733,10 +11162,12 @@ ruleTester.run("indent", rule, {
                     :
                     <Bar />
             `,
-            errors: expectedErrors([[3, 4, 0, "Punctuator"], [4, 4, 0, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 4, 0, "Punctuator"],
+                [4, 4, 0, "Punctuator"],
+            ]),
         },
         {
-
             /*
              * Multiline ternary
              * (colon at the end of the first expression, parenthesized first expression)
@@ -10753,7 +11184,7 @@ ruleTester.run("indent", rule, {
                 ) :
                     <Bar />
             `,
-            errors: expectedErrors([4, 4, 0, "Punctuator"])
+            errors: expectedErrors([4, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10766,7 +11197,7 @@ ruleTester.run("indent", rule, {
                     foo
                 />
             `,
-            errors: expectedErrors([2, 4, 2, "JSXIdentifier"])
+            errors: expectedErrors([2, 4, 2, "JSXIdentifier"]),
         },
         {
             code: unIndent`
@@ -10780,7 +11211,7 @@ ruleTester.run("indent", rule, {
                 />
             `,
             options: [2],
-            errors: expectedErrors([3, 0, 2, "Punctuator"])
+            errors: expectedErrors([3, 0, 2, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10794,7 +11225,7 @@ ruleTester.run("indent", rule, {
                 ></App>
             `,
             options: [2],
-            errors: expectedErrors([3, 0, 2, "Punctuator"])
+            errors: expectedErrors([3, 0, 2, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10822,7 +11253,7 @@ ruleTester.run("indent", rule, {
                 };
             `,
             options: [2],
-            errors: expectedErrors([6, 4, 36, "Punctuator"])
+            errors: expectedErrors([6, 4, 36, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10840,7 +11271,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [2],
-            errors: expectedErrors([4, 2, 9, "Punctuator"])
+            errors: expectedErrors([4, 2, 9, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10854,7 +11285,7 @@ ruleTester.run("indent", rule, {
                 />
             `,
             options: [2],
-            errors: expectedErrors([3, 0, 8, "Punctuator"])
+            errors: expectedErrors([3, 0, 8, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10870,7 +11301,7 @@ ruleTester.run("indent", rule, {
                 )
             `,
             options: [2],
-            errors: expectedErrors([3, 2, 4, "Punctuator"])
+            errors: expectedErrors([3, 2, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10884,7 +11315,7 @@ ruleTester.run("indent", rule, {
                 />
             `,
             options: ["tab"],
-            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"])
+            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10898,7 +11329,7 @@ ruleTester.run("indent", rule, {
                 ></App>
             `,
             options: ["tab"],
-            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"])
+            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10931,8 +11362,8 @@ ruleTester.run("indent", rule, {
                 [3, 8, 4, "Punctuator"],
                 [4, 8, 4, "Punctuator"],
                 [9, 8, 4, "JSXIdentifier"],
-                [10, 8, 4, "JSXIdentifier"]
-            ])
+                [10, 8, 4, "JSXIdentifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -10949,7 +11380,7 @@ ruleTester.run("indent", rule, {
                         "number"
                 />
             `,
-            errors: expectedErrors([4, 8, 4, "JSXText"])
+            errors: expectedErrors([4, 8, 4, "JSXText"]),
         },
         {
             code: unIndent`
@@ -10966,7 +11397,7 @@ ruleTester.run("indent", rule, {
                         {'number'}
                 />
             `,
-            errors: expectedErrors([4, 8, 4, "Punctuator"])
+            errors: expectedErrors([4, 8, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -10983,7 +11414,7 @@ ruleTester.run("indent", rule, {
                         ="number"
                 />
             `,
-            errors: expectedErrors([4, 8, 4, "Punctuator"])
+            errors: expectedErrors([4, 8, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11000,7 +11431,10 @@ ruleTester.run("indent", rule, {
                     baz
                 )
             `,
-            errors: expectedErrors([[4, 4, 8, "Identifier"], [5, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [4, 4, 8, "Identifier"],
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11021,7 +11455,11 @@ ruleTester.run("indent", rule, {
                     </span>
                 )
             `,
-            errors: expectedErrors([[5, 4, 8, "Punctuator"], [6, 4, 8, "Punctuator"], [7, 0, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [5, 4, 8, "Punctuator"],
+                [6, 4, 8, "Punctuator"],
+                [7, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11042,7 +11480,11 @@ ruleTester.run("indent", rule, {
                     }
                 </div>
             `,
-            errors: expectedErrors([[3, 8, 4, "Punctuator"], [4, 12, 8, "Numeric"], [5, 8, 4, "Punctuator"]])
+            errors: expectedErrors([
+                [3, 8, 4, "Punctuator"],
+                [4, 12, 8, "Numeric"],
+                [5, 8, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11059,7 +11501,7 @@ ruleTester.run("indent", rule, {
                     }
                 </div>
             `,
-            errors: expectedErrors([3, 8, 6, "Block"])
+            errors: expectedErrors([3, 8, 6, "Block"]),
         },
         {
             code: unIndent`
@@ -11072,7 +11514,7 @@ ruleTester.run("indent", rule, {
                     {...props}
                 />
             `,
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11089,7 +11531,7 @@ ruleTester.run("indent", rule, {
                     }
                 />
             `,
-            errors: expectedErrors([3, 8, 6, "Punctuator"])
+            errors: expectedErrors([3, 8, 6, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11102,7 +11544,7 @@ ruleTester.run("indent", rule, {
                     <div>bar</div>
                 </div>
             `,
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11115,7 +11557,7 @@ ruleTester.run("indent", rule, {
                     <a>baz qux</a>.
                 </small>
             `,
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
 
         /*
@@ -11133,7 +11575,7 @@ ruleTester.run("indent", rule, {
                     <A />
                 </>
             `,
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11148,7 +11590,7 @@ ruleTester.run("indent", rule, {
                     <A />
                 </>
             `,
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11163,7 +11605,7 @@ ruleTester.run("indent", rule, {
                 <
                 />
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11178,7 +11620,7 @@ ruleTester.run("indent", rule, {
                 </
                 >
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11197,8 +11639,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [2, 0, 4, "Punctuator"],
-                [5, 0, 4, "Punctuator"]
-            ])
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11217,8 +11659,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [2, 0, 4, "Punctuator"],
-                [5, 0, 4, "Punctuator"]
-            ])
+                [5, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11233,7 +11675,7 @@ ruleTester.run("indent", rule, {
                     <A />
                 </>
             `,
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11248,7 +11690,7 @@ ruleTester.run("indent", rule, {
                 < // Comment
                 />
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11263,7 +11705,7 @@ ruleTester.run("indent", rule, {
                 </ // Comment
                 >
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11278,7 +11720,7 @@ ruleTester.run("indent", rule, {
                     <A />
                 </>
             `,
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11293,7 +11735,7 @@ ruleTester.run("indent", rule, {
                 < /* Comment */
                 />
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11308,7 +11750,7 @@ ruleTester.run("indent", rule, {
                 </ /* Comment */
                 >
             `,
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
 
         {
@@ -11322,8 +11764,10 @@ ruleTester.run("indent", rule, {
                     foo
                 }: bar) => baz
             `,
-            languageOptions: { parser: require("../../fixtures/parsers/babel-eslint7/object-pattern-with-annotation") },
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            languageOptions: {
+                parser: require("../../fixtures/parsers/babel-eslint7/object-pattern-with-annotation"),
+            },
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11336,8 +11780,10 @@ ruleTester.run("indent", rule, {
                     foo
                 ]: bar) => baz
             `,
-            languageOptions: { parser: require("../../fixtures/parsers/babel-eslint7/array-pattern-with-annotation") },
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            languageOptions: {
+                parser: require("../../fixtures/parsers/babel-eslint7/array-pattern-with-annotation"),
+            },
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11350,8 +11796,10 @@ ruleTester.run("indent", rule, {
                     foo
                 }: {}) => baz
             `,
-            languageOptions: { parser: require("../../fixtures/parsers/babel-eslint7/object-pattern-with-object-annotation") },
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            languageOptions: {
+                parser: require("../../fixtures/parsers/babel-eslint7/object-pattern-with-object-annotation"),
+            },
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -11369,7 +11817,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { ignoredNodes: ["ClassBody"] }],
-            errors: expectedErrors([3, 4, 0, "Identifier"])
+            errors: expectedErrors([3, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -11396,10 +11844,15 @@ ruleTester.run("indent", rule, {
 
                 });
             `,
-            options: [4, {
-                ignoredNodes: ["ExpressionStatement > CallExpression[callee.name='$'] > FunctionExpression > BlockStatement"]
-            }],
-            errors: expectedErrors([7, 4, 0, "Identifier"])
+            options: [
+                4,
+                {
+                    ignoredNodes: [
+                        "ExpressionStatement > CallExpression[callee.name='$'] > FunctionExpression > BlockStatement",
+                    ],
+                },
+            ],
+            errors: expectedErrors([7, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -11416,10 +11869,15 @@ ruleTester.run("indent", rule, {
                 });
                 })()
             `,
-            options: [4, {
-                ignoredNodes: ["ExpressionStatement > CallExpression > FunctionExpression.callee > BlockStatement"]
-            }],
-            errors: expectedErrors([3, 4, 0, "Identifier"])
+            options: [
+                4,
+                {
+                    ignoredNodes: [
+                        "ExpressionStatement > CallExpression > FunctionExpression.callee > BlockStatement",
+                    ],
+                },
+            ],
+            errors: expectedErrors([3, 4, 0, "Identifier"]),
         },
         {
             code: unIndent`
@@ -11439,7 +11897,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { ignoreComments: false }],
-            errors: expectedErrors([4, 4, 0, "Line"])
+            errors: expectedErrors([4, 4, 0, "Line"]),
         },
         {
             code: unIndent`
@@ -11459,7 +11917,7 @@ ruleTester.run("indent", rule, {
                 }
             `,
             options: [4, { ignoreComments: false }],
-            errors: expectedErrors([4, 4, 0, "Block"])
+            errors: expectedErrors([4, 4, 0, "Block"]),
         },
         {
             code: unIndent`
@@ -11480,7 +11938,7 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            errors: expectedErrors([4, 12, 8, "Numeric"])
+            errors: expectedErrors([4, 12, 8, "Numeric"]),
         },
 
         //----------------------------------------------------------------------
@@ -11501,7 +11959,7 @@ ruleTester.run("indent", rule, {
                     doSomething();
                 }
             `,
-            errors: expectedErrors([3, 4, 0, "Line"])
+            errors: expectedErrors([3, 4, 0, "Line"]),
         },
         {
             code: unIndent`
@@ -11520,7 +11978,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([4, 4, 0, "Line"])
+            errors: expectedErrors([4, 4, 0, "Line"]),
         },
         {
             code: unIndent`
@@ -11545,7 +12003,7 @@ ruleTester.run("indent", rule, {
                     bar
                 }];
             `,
-            errors: expectedErrors([5, 0, 4, "Line"])
+            errors: expectedErrors([5, 0, 4, "Line"]),
         },
         {
             code: unIndent`
@@ -11562,7 +12020,7 @@ ruleTester.run("indent", rule, {
 
                 ;(async () => {})()
             `,
-            errors: expectedErrors([3, 0, 4, "Line"])
+            errors: expectedErrors([3, 0, 4, "Line"]),
         },
         {
             code: unIndent`
@@ -11575,7 +12033,7 @@ ruleTester.run("indent", rule, {
                 // comment
                 ;(async () => {})()
             `,
-            errors: expectedErrors([2, 0, 4, "Line"])
+            errors: expectedErrors([2, 0, 4, "Line"]),
         },
         {
             code: unIndent`
@@ -11592,7 +12050,7 @@ ruleTester.run("indent", rule, {
 
                 (async () => {})()
             `,
-            errors: expectedErrors([3, 4, 0, "Block"])
+            errors: expectedErrors([3, 4, 0, "Block"]),
         },
         {
             code: unIndent`
@@ -11605,7 +12063,7 @@ ruleTester.run("indent", rule, {
 
                 ;(async () => {})()
             `,
-            errors: expectedErrors([1, 0, 4, "Line"])
+            errors: expectedErrors([1, 0, 4, "Line"]),
         },
         {
             code: unIndent`
@@ -11616,7 +12074,7 @@ ruleTester.run("indent", rule, {
                 // comment
                 ;(async () => {})()
             `,
-            errors: expectedErrors([1, 0, 4, "Line"])
+            errors: expectedErrors([1, 0, 4, "Line"]),
         },
         {
             code: unIndent`
@@ -11639,7 +12097,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([4, 4, 8, "Line"])
+            errors: expectedErrors([4, 4, 8, "Line"]),
         },
         {
             code: unIndent`
@@ -11658,7 +12116,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([3, 4, 8, "Line"])
+            errors: expectedErrors([3, 4, 8, "Line"]),
         },
         {
             code: unIndent`
@@ -11681,7 +12139,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([4, 8, 4, "Block"])
+            errors: expectedErrors([4, 8, 4, "Block"]),
         },
         {
             code: unIndent`
@@ -11700,7 +12158,7 @@ ruleTester.run("indent", rule, {
 
                 ;[1, 2, 3].forEach(() => {})
             `,
-            errors: expectedErrors([4, 0, 4, "Block"])
+            errors: expectedErrors([4, 0, 4, "Block"]),
         },
         {
             code: unIndent`
@@ -11715,7 +12173,7 @@ ruleTester.run("indent", rule, {
                 /* comment */
                 ;[1, 2, 3].forEach(() => {})
             `,
-            errors: expectedErrors([3, 0, 4, "Block"])
+            errors: expectedErrors([3, 0, 4, "Block"]),
         },
         {
             code: unIndent`
@@ -11734,7 +12192,7 @@ ruleTester.run("indent", rule, {
 
                 [1, 2, 3].forEach(() => {})
             `,
-            errors: expectedErrors([4, 4, 0, "Block"])
+            errors: expectedErrors([4, 4, 0, "Block"]),
         },
         {
             code: unIndent`
@@ -11747,7 +12205,7 @@ ruleTester.run("indent", rule, {
 
                 ;[1, 2, 3].forEach(() => {})
             `,
-            errors: expectedErrors([1, 0, 4, "Block"])
+            errors: expectedErrors([1, 0, 4, "Block"]),
         },
         {
             code: unIndent`
@@ -11758,7 +12216,7 @@ ruleTester.run("indent", rule, {
                 /* comment */
                 ;[1, 2, 3].forEach(() => {})
             `,
-            errors: expectedErrors([1, 0, 4, "Block"])
+            errors: expectedErrors([1, 0, 4, "Block"]),
         },
         {
             code: unIndent`
@@ -11783,7 +12241,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([5, 4, 8, "Block"])
+            errors: expectedErrors([5, 4, 8, "Block"]),
         },
         {
             code: unIndent`
@@ -11804,7 +12262,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([4, 4, 8, "Block"])
+            errors: expectedErrors([4, 4, 8, "Block"]),
         },
         {
             code: unIndent`
@@ -11829,7 +12287,7 @@ ruleTester.run("indent", rule, {
 
                 }
             `,
-            errors: expectedErrors([5, 8, 4, "Block"])
+            errors: expectedErrors([5, 8, 4, "Block"]),
         },
 
         // import expressions
@@ -11847,8 +12305,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2020 },
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
-                [3, 0, 4, "Punctuator"]
-            ])
+                [3, 0, 4, "Punctuator"],
+            ]),
         },
 
         // https://github.com/eslint/eslint/issues/12122
@@ -11876,9 +12334,7 @@ ruleTester.run("indent", rule, {
                 });
             `,
             languageOptions: { ecmaVersion: 2015 },
-            errors: expectedErrors([
-                [7, 8, 4, "Identifier"]
-            ])
+            errors: expectedErrors([[7, 8, 4, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -11907,8 +12363,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 4, 8, "Identifier"],
                 [7, 8, 12, "Identifier"],
-                [8, 4, 8, "Punctuator"]
-            ])
+                [8, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11953,8 +12409,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [7, 8, 12, "Identifier"],
                 [15, 8, 12, "Identifier"],
-                [16, 4, 0, "Punctuator"]
-            ])
+                [16, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -11999,8 +12455,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [7, 8, 12, "Identifier"],
                 [15, 8, 12, "Identifier"],
-                [16, 4, 0, "Punctuator"]
-            ])
+                [16, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12038,8 +12494,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2015 },
             errors: expectedErrors([
                 [5, 4, 0, "Identifier"],
-                [11, 8, 4, "Identifier"]
-            ])
+                [11, 8, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -12072,8 +12528,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [4, 4, 8, "Identifier"],
                 [5, 4, 0, "Identifier"],
-                [9, 8, 0, "Identifier"]
-            ])
+                [9, 8, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -12087,9 +12543,7 @@ ruleTester.run("indent", rule, {
                 })
             `,
             languageOptions: { ecmaVersion: 2015 },
-            errors: expectedErrors([
-                [2, 4, 8, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 4, 8, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -12105,8 +12559,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2015 },
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
-                [3, 0, 4, "Punctuator"]
-            ])
+                [3, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12124,9 +12578,7 @@ ruleTester.run("indent", rule, {
                     })
             `,
             languageOptions: { ecmaVersion: 2015 },
-            errors: expectedErrors([
-                [5, 4, 0, "Punctuator"]
-            ])
+            errors: expectedErrors([[5, 4, 0, "Punctuator"]]),
         },
         {
             code: unIndent`
@@ -12146,9 +12598,7 @@ ruleTester.run("indent", rule, {
                     })
             `,
             languageOptions: { ecmaVersion: 2015 },
-            errors: expectedErrors([
-                [5, 8, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[5, 8, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -12172,8 +12622,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 0, 4, "Punctuator"],
                 [5, 4, 0, "Identifier"],
-                [6, 0, 4, "Punctuator"]
-            ])
+                [6, 0, 4, "Punctuator"],
+            ]),
         },
 
         // Optional chaining
@@ -12198,8 +12648,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "Punctuator"],
                 [3, 4, 0, "Punctuator"],
                 [4, 4, 0, "Punctuator"],
-                [5, 8, 0, "Punctuator"]
-            ])
+                [5, 8, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12224,8 +12674,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2020 },
             errors: expectedErrors([
                 [6, 4, 0, "Punctuator"],
-                [7, 4, 0, "Punctuator"]
-            ])
+                [7, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12245,8 +12695,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 4, 0, "Punctuator"],
                 [3, 4, 0, "Punctuator"],
-                [4, 4, 0, "Punctuator"]
-            ])
+                [4, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12271,8 +12721,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2020 },
             errors: expectedErrors([
                 [6, 4, 0, "Punctuator"],
-                [7, 4, 0, "Punctuator"]
-            ])
+                [7, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12289,11 +12739,15 @@ ruleTester.run("indent", rule, {
                   return arg1 + arg2;
                 }
             `,
-            options: [2, { FunctionDeclaration: { parameters: "first" }, FunctionExpression: { parameters: "first" } }],
+            options: [
+                2,
+                {
+                    FunctionDeclaration: { parameters: "first" },
+                    FunctionExpression: { parameters: "first" },
+                },
+            ],
             languageOptions: { ecmaVersion: 2020 },
-            errors: expectedErrors([
-                [2, 19, 20, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 19, 20, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -12305,9 +12759,7 @@ ruleTester.run("indent", rule, {
                 b => {}
             `,
             options: [2],
-            errors: expectedErrors([
-                [2, 0, 1, "Identifier"]
-            ])
+            errors: expectedErrors([[2, 0, 1, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -12326,8 +12778,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2022 },
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
-                [3, 4, 0, "Keyword"]
-            ])
+                [3, 4, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -12367,8 +12819,8 @@ ruleTester.run("indent", rule, {
                 [7, 8, 0, "Identifier"],
                 [8, 12, 0, "Punctuator"],
                 [9, 16, 0, "Numeric"],
-                [10, 16, 0, "Punctuator"]
-            ])
+                [10, 16, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12438,8 +12890,8 @@ ruleTester.run("indent", rule, {
                 [17, 4, 0, "Punctuator"],
                 [18, 8, 0, "Numeric"],
                 [19, 4, 0, "Punctuator"],
-                [20, 8, 0, "Numeric"]
-            ])
+                [20, 8, 0, "Numeric"],
+            ]),
         },
         {
             code: unIndent`
@@ -12463,8 +12915,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
                 [3, 8, 0, "Identifier"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12489,8 +12941,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "PrivateIdentifier"],
                 [3, 4, 0, "Identifier"],
                 [4, 8, 0, "Keyword"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12515,8 +12967,8 @@ ruleTester.run("indent", rule, {
                 [2, 2, 0, "Keyword"],
                 [3, 4, 0, "Identifier"],
                 [4, 4, 0, "Identifier"],
-                [5, 2, 0, "Punctuator"]
-            ])
+                [5, 2, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12541,8 +12993,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "Keyword"],
                 [3, 8, 0, "Identifier"],
                 [4, 8, 0, "Identifier"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12567,8 +13019,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 8, "Keyword"],
                 [3, 8, 4, "Identifier"],
                 [4, 8, 0, "Identifier"],
-                [5, 4, 8, "Punctuator"]
-            ])
+                [5, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12593,8 +13045,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "Keyword"],
                 [3, 12, 0, "Identifier"],
                 [4, 12, 0, "Identifier"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12619,8 +13071,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "Keyword"],
                 [3, 4, 0, "Identifier"],
                 [4, 4, 0, "Identifier"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12645,8 +13097,8 @@ ruleTester.run("indent", rule, {
                 [2, 1, 0, "Keyword"],
                 [3, 2, 0, "Identifier"],
                 [4, 2, 0, "Identifier"],
-                [5, 1, 0, "Punctuator"]
-            ])
+                [5, 1, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12671,8 +13123,8 @@ ruleTester.run("indent", rule, {
                 [2, 1, 0, "Keyword"],
                 [3, 3, 0, "Identifier"],
                 [4, 3, 0, "Identifier"],
-                [5, 1, 0, "Punctuator"]
-            ])
+                [5, 1, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12700,8 +13152,8 @@ ruleTester.run("indent", rule, {
                 [3, 4, 0, "Punctuator"],
                 [4, 8, 0, "Identifier"],
                 [5, 8, 0, "Identifier"],
-                [6, 4, 0, "Punctuator"]
-            ])
+                [6, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12726,8 +13178,8 @@ ruleTester.run("indent", rule, {
             languageOptions: { ecmaVersion: 2022 },
             errors: expectedErrors([
                 [3, 4, 8, "Punctuator"],
-                [6, 4, 8, "Punctuator"]
-            ])
+                [6, 4, 8, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12752,8 +13204,8 @@ ruleTester.run("indent", rule, {
                 [2, 4, 0, "Keyword"],
                 [3, 8, 0, "Keyword"],
                 [4, 12, 0, "Identifier"],
-                [5, 4, 0, "Punctuator"]
-            ])
+                [5, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12781,8 +13233,8 @@ ruleTester.run("indent", rule, {
                 [3, 4, 0, "Punctuator"],
                 [4, 8, 0, "Keyword"],
                 [5, 12, 0, "Identifier"],
-                [6, 4, 0, "Punctuator"]
-            ])
+                [6, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12810,8 +13262,8 @@ ruleTester.run("indent", rule, {
                 [3, 8, 0, "Keyword"],
                 [4, 12, 0, "Identifier"],
                 [5, 8, 0, "Punctuator"],
-                [6, 4, 0, "Punctuator"]
-            ])
+                [6, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12839,8 +13291,8 @@ ruleTester.run("indent", rule, {
                 [3, 8, 0, "Punctuator"],
                 [4, 12, 0, "Identifier"],
                 [5, 8, 0, "Punctuator"],
-                [6, 4, 0, "Punctuator"]
-            ])
+                [6, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12875,8 +13327,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 0, "Punctuator"],
                 [7, 4, 0, "Keyword"],
                 [8, 4, 0, "Punctuator"],
-                [9, 4, 0, "Punctuator"]
-            ])
+                [9, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12913,8 +13365,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 0, "Punctuator"],
                 [7, 4, 0, "Keyword"],
                 [8, 8, 4, "Identifier"],
-                [9, 4, 0, "Punctuator"]
-            ])
+                [9, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -12950,8 +13402,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 0, "Keyword"],
                 [6, 8, 4, "Identifier"],
                 [7, 4, 0, "Punctuator"],
-                [9, 4, 0, "Identifier"]
-            ])
+                [9, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -12999,8 +13451,8 @@ ruleTester.run("indent", rule, {
                 [9, 4, 0, "Punctuator"],
                 [11, 4, 0, "Identifier"],
                 [12, 8, 4, "Identifier"],
-                [13, 4, 0, "Punctuator"]
-            ])
+                [13, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -13031,8 +13483,8 @@ ruleTester.run("indent", rule, {
                 [4, 12, 0, "Identifier"],
                 [5, 12, 0, "Identifier"],
                 [6, 8, 0, "Punctuator"],
-                [7, 4, 0, "Punctuator"]
-            ])
+                [7, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -13055,7 +13507,10 @@ ruleTester.run("indent", rule, {
                     }
                 }
             `,
-            options: [4, { FunctionExpression: { body: 2 }, StaticBlock: { body: 2 } }],
+            options: [
+                4,
+                { FunctionExpression: { body: 2 }, StaticBlock: { body: 2 } },
+            ],
             languageOptions: { ecmaVersion: 2022 },
             errors: expectedErrors([
                 [2, 4, 0, "Identifier"],
@@ -13063,8 +13518,8 @@ ruleTester.run("indent", rule, {
                 [4, 4, 0, "Punctuator"],
                 [5, 4, 0, "Keyword"],
                 [6, 12, 0, "Identifier"],
-                [7, 4, 0, "Punctuator"]
-            ])
+                [7, 4, 0, "Punctuator"],
+            ]),
         },
 
         // https://github.com/eslint/eslint/issues/15930
@@ -13080,7 +13535,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: ["tab"],
-            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"])
+            errors: expectedErrors("tab", [3, 0, 1, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13094,7 +13549,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13106,7 +13561,7 @@ ruleTester.run("indent", rule, {
                 baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Identifier"])
+            errors: expectedErrors([2, 0, 4, "Identifier"]),
         },
         {
             code: unIndent`
@@ -13118,7 +13573,7 @@ ruleTester.run("indent", rule, {
                 ;baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13132,7 +13587,7 @@ ruleTester.run("indent", rule, {
                 baz();
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Identifier"])
+            errors: expectedErrors([3, 0, 4, "Identifier"]),
         },
         {
             code: unIndent`
@@ -13146,7 +13601,7 @@ ruleTester.run("indent", rule, {
                 ; baz()
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13164,8 +13619,8 @@ ruleTester.run("indent", rule, {
             options: [4],
             errors: expectedErrors([
                 [3, 0, 4, "Punctuator"],
-                [4, 0, 4, "Identifier"]
-            ])
+                [4, 0, 4, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -13181,7 +13636,7 @@ ruleTester.run("indent", rule, {
                     baz()
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13199,7 +13654,7 @@ ruleTester.run("indent", rule, {
                 ;qux()
             `,
             options: [4],
-            errors: expectedErrors([5, 0, 4, "Punctuator"])
+            errors: expectedErrors([5, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13215,7 +13670,7 @@ ruleTester.run("indent", rule, {
                 ;qux()
             `,
             options: [4],
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13233,7 +13688,7 @@ ruleTester.run("indent", rule, {
                 ;quux()
             `,
             options: [4],
-            errors: expectedErrors([5, 0, 4, "Punctuator"])
+            errors: expectedErrors([5, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13253,7 +13708,7 @@ ruleTester.run("indent", rule, {
                 ;quux()
             `,
             options: [4],
-            errors: expectedErrors([6, 0, 4, "Punctuator"])
+            errors: expectedErrors([6, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13269,7 +13724,7 @@ ruleTester.run("indent", rule, {
                 baz()
             `,
             options: [4],
-            errors: expectedErrors([3, 4, 0, "Punctuator"])
+            errors: expectedErrors([3, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13283,7 +13738,7 @@ ruleTester.run("indent", rule, {
                 baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13295,7 +13750,7 @@ ruleTester.run("indent", rule, {
                 ;baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13309,7 +13764,7 @@ ruleTester.run("indent", rule, {
                     baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Keyword"])
+            errors: expectedErrors([2, 0, 4, "Keyword"]),
         },
         {
             code: unIndent`
@@ -13325,7 +13780,7 @@ ruleTester.run("indent", rule, {
                     baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13339,7 +13794,7 @@ ruleTester.run("indent", rule, {
                     baz()
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13351,7 +13806,7 @@ ruleTester.run("indent", rule, {
                 while (bar)
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Keyword"])
+            errors: expectedErrors([2, 0, 4, "Keyword"]),
         },
         {
             code: unIndent`
@@ -13363,7 +13818,7 @@ ruleTester.run("indent", rule, {
                 ;while (bar)
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13377,7 +13832,7 @@ ruleTester.run("indent", rule, {
                 while (bar)
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Keyword"])
+            errors: expectedErrors([3, 0, 4, "Keyword"]),
         },
         {
             code: unIndent`
@@ -13391,7 +13846,7 @@ ruleTester.run("indent", rule, {
             ;while (bar)
         `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13403,7 +13858,7 @@ ruleTester.run("indent", rule, {
                 while (foo)
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Keyword"])
+            errors: expectedErrors([2, 0, 4, "Keyword"]),
         },
         {
             code: unIndent`
@@ -13417,7 +13872,7 @@ ruleTester.run("indent", rule, {
                 while (foo)
             `,
             options: [4],
-            errors: expectedErrors([2, 4, 0, "Punctuator"])
+            errors: expectedErrors([2, 4, 0, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13429,7 +13884,7 @@ ruleTester.run("indent", rule, {
                 ;while (foo)
             `,
             options: [4],
-            errors: expectedErrors([2, 0, 4, "Punctuator"])
+            errors: expectedErrors([2, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13443,7 +13898,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13457,7 +13912,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13471,7 +13926,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13485,7 +13940,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13499,7 +13954,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13513,7 +13968,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([3, 0, 4, "Punctuator"])
+            errors: expectedErrors([3, 0, 4, "Punctuator"]),
         },
         {
             code: unIndent`
@@ -13529,7 +13984,7 @@ ruleTester.run("indent", rule, {
                 ;[1, 2, 3].forEach(x=>console.log(x))
             `,
             options: [4],
-            errors: expectedErrors([4, 0, 4, "Punctuator"])
+            errors: expectedErrors([4, 0, 4, "Punctuator"]),
         },
 
         // https://github.com/eslint/eslint/issues/17316
@@ -13553,8 +14008,8 @@ ruleTester.run("indent", rule, {
             options: ["tab"],
             errors: expectedErrors("tab", [
                 [5, 1, 0, "Keyword"],
-                [6, 1, 0, "Keyword"]
-            ])
+                [6, 1, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13576,8 +14031,8 @@ ruleTester.run("indent", rule, {
             options: ["tab"],
             errors: expectedErrors("tab", [
                 [5, 1, 2, "Keyword"],
-                [6, 1, 2, "Keyword"]
-            ])
+                [6, 1, 2, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13598,8 +14053,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [5, 4, 0, "Keyword"],
-                [6, 4, 0, "Keyword"]
-            ])
+                [6, 4, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13623,8 +14078,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [5, 4, 0, "Keyword"],
                 [6, 8, 0, "Identifier"],
-                [7, 4, 0, "Keyword"]
-            ])
+                [7, 4, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13648,8 +14103,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [5, 4, 0, "Keyword"],
                 [6, 4, 0, "Keyword"],
-                [7, 8, 0, "Identifier"]
-            ])
+                [7, 8, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -13676,8 +14131,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 0, "Keyword"],
                 [6, 8, 4, "Identifier"],
                 [7, 4, 0, "Keyword"],
-                [8, 8, 0, "Identifier"]
-            ])
+                [8, 8, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -13694,9 +14149,7 @@ ruleTester.run("indent", rule, {
                 else if (bar) doSomething();
                 else doSomething();
             `,
-            errors: expectedErrors([
-                [5, 0, 4, "Keyword"]
-            ])
+            errors: expectedErrors([[5, 0, 4, "Keyword"]]),
         },
         {
             code: unIndent`
@@ -13718,8 +14171,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [4, 0, 4, "Keyword"],
                 [5, 4, 8, "Identifier"],
-                [6, 0, 4, "Keyword"]
-            ])
+                [6, 0, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13740,8 +14193,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [5, 0, 5, "Keyword"],
-                [6, 4, 9, "Identifier"]
-            ])
+                [6, 4, 9, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -13764,8 +14217,8 @@ ruleTester.run("indent", rule, {
             `,
             errors: expectedErrors([
                 [5, 4, 0, "Identifier"],
-                [7, 4, 0, "Identifier"]
-            ])
+                [7, 4, 0, "Identifier"],
+            ]),
         },
         {
             code: unIndent`
@@ -13800,8 +14253,8 @@ ruleTester.run("indent", rule, {
                 [7, 8, 4, "Keyword"],
                 [8, 4, 0, "Keyword"],
                 [9, 8, 4, "Keyword"],
-                [10, 8, 4, "Keyword"]
-            ])
+                [10, 8, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13834,8 +14287,8 @@ ruleTester.run("indent", rule, {
                 [7, 8, 0, "Keyword"],
                 [8, 12, 0, "Keyword"],
                 [9, 12, 0, "Keyword"],
-                [10, 4, 0, "Keyword"]
-            ])
+                [10, 4, 0, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13855,8 +14308,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [2, 4, 0, "Keyword"],
                 [3, 4, 0, "Keyword"],
-                [5, 0, 4, "Keyword"]
-            ])
+                [5, 0, 4, "Keyword"],
+            ]),
         },
         {
             code: unIndent`
@@ -13875,9 +14328,7 @@ ruleTester.run("indent", rule, {
                     doSomething();
                 }
             `,
-            errors: expectedErrors([
-                [5, 4, 0, "Identifier"]
-            ])
+            errors: expectedErrors([[5, 4, 0, "Identifier"]]),
         },
         {
             code: unIndent`
@@ -13901,8 +14352,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [5, 0, 4, "Punctuator"],
                 [6, 4, 8, "Identifier"],
-                [7, 0, 4, "Punctuator"]
-            ])
+                [7, 0, 4, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -13926,8 +14377,8 @@ ruleTester.run("indent", rule, {
             errors: expectedErrors([
                 [5, 4, 0, "Keyword"],
                 [6, 8, 4, "Identifier"],
-                [7, 4, 0, "Punctuator"]
-            ])
+                [7, 4, 0, "Punctuator"],
+            ]),
         },
         {
             code: unIndent`
@@ -13954,8 +14405,8 @@ ruleTester.run("indent", rule, {
                 [5, 4, 0, "Keyword"],
                 [6, 4, 0, "Punctuator"],
                 [7, 8, 4, "Identifier"],
-                [8, 4, 0, "Punctuator"]
-            ])
-        }
-    ]
+                [8, 4, 0, "Punctuator"],
+            ]),
+        },
+    ],
 });

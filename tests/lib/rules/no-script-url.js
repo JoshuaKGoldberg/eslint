@@ -25,43 +25,39 @@ ruleTester.run("no-script-url", rule, {
         "var url = 'xjavascript:'",
         {
             code: "var url = `xjavascript:`",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var url = `${foo}javascript:`",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var a = foo`javaScript:`;",
-            languageOptions: { ecmaVersion: 6 }
-        }
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
     invalid: [
         {
             code: "var a = 'javascript:void(0);';",
-            errors: [
-                { messageId: "unexpectedScriptURL", type: "Literal" }
-            ]
+            errors: [{ messageId: "unexpectedScriptURL", type: "Literal" }],
         },
         {
             code: "var a = 'javascript:';",
-            errors: [
-                { messageId: "unexpectedScriptURL", type: "Literal" }
-            ]
+            errors: [{ messageId: "unexpectedScriptURL", type: "Literal" }],
         },
         {
             code: "var a = `javascript:`;",
             languageOptions: { ecmaVersion: 6 },
             errors: [
-                { messageId: "unexpectedScriptURL", type: "TemplateLiteral" }
-            ]
+                { messageId: "unexpectedScriptURL", type: "TemplateLiteral" },
+            ],
         },
         {
             code: "var a = `JavaScript:`;",
             languageOptions: { ecmaVersion: 6 },
             errors: [
-                { messageId: "unexpectedScriptURL", type: "TemplateLiteral" }
-            ]
-        }
-    ]
+                { messageId: "unexpectedScriptURL", type: "TemplateLiteral" },
+            ],
+        },
+    ],
 });

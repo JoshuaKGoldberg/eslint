@@ -33,20 +33,56 @@ ruleTester.run("no-catch-shadow", rule, {
                 "  }",
                 "}",
                 "",
-                "module.exports = broken;"
+                "module.exports = broken;",
             ].join("\n"),
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         "try {} catch (error) {}",
         {
             code: "try {} catch {}",
-            languageOptions: { ecmaVersion: 2019 }
-        }
+            languageOptions: { ecmaVersion: 2019 },
+        },
     ],
     invalid: [
-        { code: "var foo = 1; try { bar(); } catch(foo) { }", errors: [{ messageId: "mutable", data: { name: "foo" }, type: "CatchClause" }] },
-        { code: "function foo(){} try { bar(); } catch(foo) { }", errors: [{ messageId: "mutable", data: { name: "foo" }, type: "CatchClause" }] },
-        { code: "function foo(){ try { bar(); } catch(foo) { } }", errors: [{ messageId: "mutable", data: { name: "foo" }, type: "CatchClause" }] },
-        { code: "var foo = function(){ try { bar(); } catch(foo) { } };", errors: [{ messageId: "mutable", data: { name: "foo" }, type: "CatchClause" }] }
-    ]
+        {
+            code: "var foo = 1; try { bar(); } catch(foo) { }",
+            errors: [
+                {
+                    messageId: "mutable",
+                    data: { name: "foo" },
+                    type: "CatchClause",
+                },
+            ],
+        },
+        {
+            code: "function foo(){} try { bar(); } catch(foo) { }",
+            errors: [
+                {
+                    messageId: "mutable",
+                    data: { name: "foo" },
+                    type: "CatchClause",
+                },
+            ],
+        },
+        {
+            code: "function foo(){ try { bar(); } catch(foo) { } }",
+            errors: [
+                {
+                    messageId: "mutable",
+                    data: { name: "foo" },
+                    type: "CatchClause",
+                },
+            ],
+        },
+        {
+            code: "var foo = function(){ try { bar(); } catch(foo) { } };",
+            errors: [
+                {
+                    messageId: "mutable",
+                    data: { name: "foo" },
+                    type: "CatchClause",
+                },
+            ],
+        },
+    ],
 });

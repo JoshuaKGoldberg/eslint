@@ -19,7 +19,6 @@ const ruleTester = new RuleTester();
 
 ruleTester.run("yoda", rule, {
     valid: [
-
         // "never" mode
         { code: 'if (value === "red") {}', options: ["never"] },
         { code: "if (value === value) {}", options: ["never"] },
@@ -29,37 +28,37 @@ ruleTester.run("yoda", rule, {
         {
             code: "if (value === `red`) {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`red` === `red`) {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`${foo}` === `red`) {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (`${""}` === `red`) {}',
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (`${"red"}` === foo) {}',
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (b > `a` && b > `a`) {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (`b` > `a` && "b" > "a") {}',
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
 
         // "always" mode
@@ -71,252 +70,251 @@ ruleTester.run("yoda", rule, {
         {
             code: "if (`red` === value) {}",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`red` === `red`) {}",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`red` === `${foo}`) {}",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (`red` === `${""}`) {}',
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (foo === `${"red"}`) {}',
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`a` > b && `a` > b) {}",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (`b` > `a` && "b" > "a") {}',
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
 
         // Range exception
         {
             code: 'if ("a" < x && x < MAX ) {}',
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (1 < x && x < MAX ) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if ('a' < x && x < MAX ) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (x < `x` || `x` <= x) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (0 < x && x <= 1) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= x && x < 1) {}",
-            options: ["always", { exceptRange: true }]
+            options: ["always", { exceptRange: true }],
         },
         {
             code: "if ('blue' < x.y && x.y < 'green') {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 < x[``] && x[``] < 100) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (0 < x[''] && x[``] < 100) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
-            code:
-                "if (a < 4 || (b[c[0]].d['e'] < 0 || 1 <= b[c[0]].d['e'])) {}",
-            options: ["never", { exceptRange: true }]
+            code: "if (a < 4 || (b[c[0]].d['e'] < 0 || 1 <= b[c[0]].d['e'])) {}",
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= x['y'] && x['y'] <= 100) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (a < 0 && (0 < b && b < 1)) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if ((0 < a && a < 1) && b < 0) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (-1 < x && x < 0) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= this.prop && this.prop <= 1) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= index && index < list.length) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (ZERO <= index && index < 100) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (value <= MIN || 10 < value) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (value <= 0 || MAX < value) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: 'if (0 <= a.b && a["b"] <= 100) {}',
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= a.b && a[`b`] <= 100) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (-1n < x && x <= 1n) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "if (-1n <= x && x < 1n) {}",
             options: ["always", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "if (x < `1` || `1` < x) {}",
             options: ["always", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "if (1 <= a['/(?<zero>0)/'] && a[/(?<zero>0)/] <= 100) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "if (x <= `bar` || `foo` < x) {}",
             options: ["always", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if ('a' < x && x < MAX ) {}",
             options: ["always", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if ('a' < x && x < MAX ) {}",
             options: ["always"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (MIN < x && x < 'a' ) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (MIN < x && x < 'a' ) {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (`blue` < x.y && x.y < `green`) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (0 <= x[`y`] && x[`y`] <= 100) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: 'if (0 <= x[`y`] && x["y"] <= 100) {}',
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if ('a' <= x && x < 'b') {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (x < -1n || 1n <= x) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "if (x < -1n || 1n <= x) {}",
             options: ["always", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "if (1 < a && a <= 2) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (x < -1 || 1 < x) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (x <= 'bar' || 'foo' < x) {}",
-            options: ["always", { exceptRange: true }]
+            options: ["always", { exceptRange: true }],
         },
         {
             code: "if (x < 0 || 1 <= x) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if('a' <= x && x < MAX) {}",
-            options: ["never", { exceptRange: true }]
+            options: ["never", { exceptRange: true }],
         },
         {
             code: "if (0 <= obj?.a && obj?.a < 1) {}",
             options: ["never", { exceptRange: true }],
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
         // onlyEquality
         {
             code: "if (0 < x && x <= 1) {}",
-            options: ["never", { onlyEquality: true }]
+            options: ["never", { onlyEquality: true }],
         },
         {
             code: "if (x !== 'foo' && 'foo' !== x) {}",
-            options: ["never", { onlyEquality: true }]
+            options: ["never", { onlyEquality: true }],
         },
         {
             code: "if (x < 2 && x !== -3) {}",
-            options: ["always", { onlyEquality: true }]
+            options: ["always", { onlyEquality: true }],
         },
         {
             code: "if (x !== `foo` && `foo` !== x) {}",
             options: ["never", { onlyEquality: true }],
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "if (x < `2` && x !== `-3`) {}",
             options: ["always", { onlyEquality: true }],
-            languageOptions: { ecmaVersion: 2015 }
-        }
+            languageOptions: { ecmaVersion: 2015 },
+        },
     ],
     invalid: [
         {
@@ -327,9 +325,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: 'if ("red" == value) {}',
@@ -339,9 +337,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "==" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (true === value) {}",
@@ -351,9 +349,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (5 != value) {}",
@@ -363,9 +361,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "!=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (5n != value) {}",
@@ -376,9 +374,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "!=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (null !== value) {}",
@@ -388,9 +386,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "!==" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: 'if ("red" <= value) {}',
@@ -400,9 +398,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (`red` <= value) {}",
@@ -413,9 +411,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (`red` <= `${foo}`) {}",
@@ -426,9 +424,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: 'if (`red` <= `${"red"}`) {}',
@@ -439,9 +437,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (true >= value) {}",
@@ -451,9 +449,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "var foo = (5 < value) ? true : false",
@@ -463,9 +461,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function foo() { return (null > value); }",
@@ -475,9 +473,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: ">" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (-1 < str.indexOf(substr)) {}",
@@ -487,9 +485,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: 'if (value == "red") {}',
@@ -499,9 +497,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "==" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (value == `red`) {}",
@@ -512,9 +510,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "==" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (value === true) {}",
@@ -524,9 +522,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (value === 5n) {}",
@@ -537,9 +535,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: 'if (`${"red"}` <= `red`) {}',
@@ -550,9 +548,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (a < 0 && 0 <= b && b < 1) {}",
@@ -562,9 +560,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a && a < 1 && b < 1) {}",
@@ -574,9 +572,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (1 < a && a < 0) {}",
@@ -586,9 +584,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "0 < a && a < 1",
@@ -598,9 +596,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "var a = b < 0 || 1 <= b;",
@@ -610,9 +608,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= x && x < -1) {}",
@@ -622,9 +620,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "var a = (b < 0 && 0 <= b);",
@@ -634,9 +632,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "var a = (b < `0` && `0` <= b);",
@@ -647,9 +645,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (`green` < x.y && x.y < `blue`) {}",
@@ -660,9 +658,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[b] && a['b'] < 1) {}",
@@ -672,9 +670,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[b] && a[`b`] < 1) {}",
@@ -685,9 +683,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (`0` <= a[b] && a[`b`] < `1`) {}",
@@ -698,9 +696,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[b] && a.b < 1) {}",
@@ -710,9 +708,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[''] && a.b < 1) {}",
@@ -722,9 +720,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[''] && a[' '] < 1) {}",
@@ -734,9 +732,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[''] && a[null] < 1) {}",
@@ -746,9 +744,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[``] && a[null] < 1) {}",
@@ -759,9 +757,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[''] && a[b] < 1) {}",
@@ -771,9 +769,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[''] && a[b()] < 1) {}",
@@ -783,9 +781,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[``] && a[b()] < 1) {}",
@@ -796,9 +794,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a[b()] && a[b()] < 1) {}",
@@ -808,9 +806,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= a.null && a[/(?<zero>0)/] <= 1) {}",
@@ -821,9 +819,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (3 == a) {}",
@@ -833,9 +831,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "==" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "foo(3 === a);",
@@ -845,9 +843,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "foo(a === 3);",
@@ -857,9 +855,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "foo(a === `3`);",
@@ -870,9 +868,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 <= x && x < 1) {}",
@@ -881,9 +879,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if ( /* a */ 0 /* b */ < /* c */ foo /* d */ ) {}",
@@ -893,9 +891,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if ( /* a */ foo /* b */ > /* c */ 0 /* d */ ) {}",
@@ -905,9 +903,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (foo()===1) {}",
@@ -917,9 +915,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (foo()     === 1) {}",
@@ -929,9 +927,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/issues/7326
@@ -943,9 +941,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "while (0 === (a = b));",
@@ -955,9 +953,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "while ((a) === 0);",
@@ -967,9 +965,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "while ((a = b) === 0);",
@@ -979,9 +977,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (((((((((((foo)))))))))) === ((((((5)))))));",
@@ -991,9 +989,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "===" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
 
         // Adjacent tokens tests
@@ -1006,9 +1004,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield((1)) < a }",
@@ -1019,9 +1017,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield 1 < a }",
@@ -1032,9 +1030,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield/**/1 < a }",
@@ -1045,9 +1043,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield(1) < ++a }",
@@ -1058,9 +1056,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield(1) < (a) }",
@@ -1071,9 +1069,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x=1 < a",
@@ -1083,9 +1081,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield++a < 1 }",
@@ -1096,9 +1094,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield(a) < 1 }",
@@ -1109,9 +1107,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield a < 1 }",
@@ -1122,9 +1120,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield/**/a < 1 }",
@@ -1135,9 +1133,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "function *foo() { yield++a < (1) }",
@@ -1148,9 +1146,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x=a < 1",
@@ -1160,9 +1158,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "0 < f()in obj",
@@ -1171,9 +1169,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "1 > x++instanceof foo",
@@ -1183,9 +1181,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: ">" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x < ('foo')in bar",
@@ -1195,9 +1193,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "false <= ((x))in foo",
@@ -1207,9 +1205,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x >= (1)instanceof foo",
@@ -1219,9 +1217,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "false <= ((x)) in foo",
@@ -1231,9 +1229,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x >= 1 instanceof foo",
@@ -1243,9 +1241,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "x >= 1/**/instanceof foo",
@@ -1255,9 +1253,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "(x >= 1)instanceof foo",
@@ -1267,9 +1265,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "(x) >= (1)instanceof foo",
@@ -1279,9 +1277,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: ">=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "1 > x===foo",
@@ -1291,9 +1289,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: ">" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "1 > x",
@@ -1303,9 +1301,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: ">" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
 
         {
@@ -1317,9 +1315,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if('a' <= x && x < 'b') {}",
@@ -1329,9 +1327,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "left", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if ('b' <= x && x < 'a') {}",
@@ -1341,9 +1339,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if('a' <= x && x < 1) {}",
@@ -1353,9 +1351,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<=" },
-                    type: "BinaryExpression"
-                }
-            ]
+                    type: "BinaryExpression",
+                },
+            ],
         },
         {
             code: "if (0 < a && b < max) {}",
@@ -1365,9 +1363,9 @@ ruleTester.run("yoda", rule, {
                 {
                     messageId: "expected",
                     data: { expectedSide: "right", operator: "<" },
-                    type: "BinaryExpression"
-                }
-            ]
-        }
-    ]
+                    type: "BinaryExpression",
+                },
+            ],
+        },
+    ],
 });

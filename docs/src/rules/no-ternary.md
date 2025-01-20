@@ -2,10 +2,9 @@
 title: no-ternary
 rule_type: suggestion
 related_rules:
-- no-nested-ternary
-- no-unneeded-ternary
+    - no-nested-ternary
+    - no-unneeded-ternary
 ---
-
 
 The ternary operator is used to conditionally assign a value to a variable. Some believe that the use of ternary operators leads to unclear code.
 
@@ -27,7 +26,7 @@ Examples of **incorrect** code for this rule:
 var foo = isBar ? baz : qux;
 
 function quux() {
-  return foo ? bar() : baz();
+    return foo ? bar() : baz();
 }
 ```
 

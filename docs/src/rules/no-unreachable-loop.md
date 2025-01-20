@@ -2,12 +2,11 @@
 title: no-unreachable-loop
 rule_type: problem
 related_rules:
-- no-unreachable
-- no-constant-condition
-- no-unmodified-loop-condition
-- for-direction
+    - no-unreachable
+    - no-constant-condition
+    - no-unmodified-loop-condition
+    - for-direction
 ---
-
 
 A loop that can never reach the second iteration is a possible error in the code.
 
@@ -148,7 +147,7 @@ Examples of additional **correct** code for this rule:
 
 do {
     doSomething();
-} while (false)
+} while (false);
 
 for (let i = 0; i < 1; i++) {
     doSomething(i);
@@ -165,17 +164,17 @@ for (const a of [1]) {
 
 This rule has an object option, with one option:
 
-* `"ignore"` - an optional array of loop types that will be ignored by this rule.
+- `"ignore"` - an optional array of loop types that will be ignored by this rule.
 
 ### ignore
 
 You can specify up to 5 different elements in the `"ignore"` array:
 
-* `"WhileStatement"` - to ignore all `while` loops.
-* `"DoWhileStatement"` - to ignore all `do-while` loops.
-* `"ForStatement"` - to ignore all `for` loops (does not apply to `for-in` and `for-of` loops).
-* `"ForInStatement"` - to ignore all `for-in` loops.
-* `"ForOfStatement"` - to ignore all `for-of` loops.
+- `"WhileStatement"` - to ignore all `while` loops.
+- `"DoWhileStatement"` - to ignore all `do-while` loops.
+- `"ForStatement"` - to ignore all `for` loops (does not apply to `for-in` and `for-of` loops).
+- `"ForInStatement"` - to ignore all `for-in` loops.
+- `"ForOfStatement"` - to ignore all `for-of` loops.
 
 Examples of **correct** code for this rule with the `"ignore"` option:
 
@@ -185,8 +184,8 @@ Examples of **correct** code for this rule with the `"ignore"` option:
 /*eslint no-unreachable-loop: ["error", { "ignore": ["ForInStatement", "ForOfStatement"] }]*/
 
 for (var key in obj) {
-  hasEnumerableProperties = true;
-  break;
+    hasEnumerableProperties = true;
+    break;
 }
 
 for (const a of b) break;

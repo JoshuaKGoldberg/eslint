@@ -3,7 +3,6 @@ title: no-caller
 rule_type: suggestion
 ---
 
-
 The use of `arguments.caller` and `arguments.callee` make several code optimizations impossible. They have been deprecated in future versions of JavaScript and their use is forbidden in ECMAScript 5 while in strict mode.
 
 ```js
@@ -31,7 +30,7 @@ function foo(n) {
     arguments.callee(n - 1);
 }
 
-[1,2,3,4,5].map(function(n) {
+[1, 2, 3, 4, 5].map(function (n) {
     return !(n > 1) ? 1 : arguments.callee(n - 1) * n;
 });
 ```
@@ -53,7 +52,7 @@ function foo(n) {
     foo(n - 1);
 }
 
-[1,2,3,4,5].map(function factorial(n) {
+[1, 2, 3, 4, 5].map(function factorial(n) {
     return !(n > 1) ? 1 : factorial(n - 1) * n;
 });
 ```

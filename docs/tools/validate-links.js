@@ -20,7 +20,7 @@ const skipPatterns = [
     "/docs/latest",
     "/docs/next",
     "/docs/v8.x",
-    'src="null"'
+    'src="null"',
 ];
 
 /**
@@ -30,8 +30,9 @@ const skipPatterns = [
  * @returns {boolean} `true` if the report contains any of `skipPatterns`.
  */
 function skipFilter(report) {
-    return Object.values(report).some(value =>
-        skipPatterns.some(pattern => String(value).includes(pattern)));
+    return Object.values(report).some((value) =>
+        skipPatterns.some((pattern) => String(value).includes(pattern)),
+    );
 }
 
 (async () => {
@@ -45,9 +46,9 @@ function skipFilter(report) {
                 internalOnly: true,
                 pretty: true,
                 concurrency: 25,
-                skipFilter
+                skipFilter,
             },
-            tapRenderInstance
+            tapRenderInstance,
         );
     } catch (err) {
         console.log(err.stack);

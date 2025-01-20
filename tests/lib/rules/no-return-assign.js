@@ -23,35 +23,35 @@ ruleTester.run("no-return-assign", rule, {
         {
             code: "module.exports = {'a': 1};",
             languageOptions: {
-                sourceType: "module"
-            }
+                sourceType: "module",
+            },
         },
         "var result = a * b;",
         "function x() { var result = a * b; return result; }",
         "function x() { return (result = a * b); }",
         {
             code: "function x() { var result = a * b; return result; }",
-            options: ["except-parens"]
+            options: ["except-parens"],
         },
         {
             code: "function x() { return (result = a * b); }",
-            options: ["except-parens"]
+            options: ["except-parens"],
         },
         {
             code: "function x() { var result = a * b; return result; }",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: "function x() { return function y() { result = a * b }; }",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: "() => { return (result = a * b); }",
-            options: ["except-parens"]
+            options: ["except-parens"],
         },
         {
             code: "() => (result = a * b)",
-            options: ["except-parens"]
+            options: ["except-parens"],
         },
         "const foo = (a,b,c) => ((a = b), c)",
         `function foo(){
@@ -64,67 +64,87 @@ ruleTester.run("no-return-assign", rule, {
         }`,
         {
             code: "const foo = (a) => (b) => (a = b)",
-            languageOptions: { ecmaVersion: 6 }
-        }
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
     invalid: [
         {
             code: "function x() { return result = a * b; };",
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "function x() { return (result) = (a * b); };",
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "function x() { return result = a * b; };",
             options: ["except-parens"],
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "function x() { return (result) = (a * b); };",
             options: ["except-parens"],
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "() => { return result = a * b; }",
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "() => result = a * b",
             errors: [
                 {
                     messageId: "arrowAssignment",
-                    type: "ArrowFunctionExpression"
-                }
-            ]
+                    type: "ArrowFunctionExpression",
+                },
+            ],
         },
         {
             code: "function x() { return result = a * b; };",
             options: ["always"],
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "function x() { return (result = a * b); };",
             options: ["always"],
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "function x() { return result || (result = a * b); };",
             options: ["always"],
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: `function foo(){
                 return a = b
             }`,
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: `function doSomething() {
                 return foo = bar && foo > 0;
             }`,
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: `function doSomething() {
@@ -132,7 +152,9 @@ ruleTester.run("no-return-assign", rule, {
                     return (bar = bar1)
                 }
             }`,
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: `function doSomething() {
@@ -142,9 +164,9 @@ ruleTester.run("no-return-assign", rule, {
             errors: [
                 {
                     messageId: "returnAssignment",
-                    type: "ReturnStatement"
-                }
-            ]
+                    type: "ReturnStatement",
+                },
+            ],
         },
         {
             code: `function doSomething() {
@@ -154,9 +176,9 @@ ruleTester.run("no-return-assign", rule, {
             errors: [
                 {
                     messageId: "arrowAssignment",
-                    type: "ArrowFunctionExpression"
-                }
-            ]
+                    type: "ArrowFunctionExpression",
+                },
+            ],
         },
         {
             code: `function foo(a){
@@ -164,7 +186,9 @@ ruleTester.run("no-return-assign", rule, {
                     return a = b
                 }
             }`,
-            errors: [{ messageId: "returnAssignment", type: "ReturnStatement" }]
+            errors: [
+                { messageId: "returnAssignment", type: "ReturnStatement" },
+            ],
         },
         {
             code: "const foo = (a) => (b) => a = b",
@@ -172,9 +196,9 @@ ruleTester.run("no-return-assign", rule, {
             errors: [
                 {
                     messageId: "arrowAssignment",
-                    type: "ArrowFunctionExpression"
-                }
-            ]
-        }
-    ]
+                    type: "ArrowFunctionExpression",
+                },
+            ],
+        },
+    ],
 });

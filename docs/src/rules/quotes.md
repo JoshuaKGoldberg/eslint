@@ -9,8 +9,8 @@ JavaScript allows you to define strings in one of three ways: double quotes, sin
 
 ```js
 var double = "double";
-var single = 'single';
-var backtick = `backtick`;    // ES6 only
+var single = "single";
+var backtick = `backtick`; // ES6 only
 ```
 
 Each of these lines creates a string and, in some cases, can be used interchangeably. The choice of how to define strings in a codebase is a stylistic one outside of template literals (which allow embedded expressions to be interpreted).
@@ -29,14 +29,14 @@ This rule has two options, a string option and an object option.
 
 String option:
 
-* `"double"` (default) requires the use of double quotes wherever possible
-* `"single"` requires the use of single quotes wherever possible
-* `"backtick"` requires the use of backticks wherever possible
+- `"double"` (default) requires the use of double quotes wherever possible
+- `"single"` requires the use of single quotes wherever possible
+- `"backtick"` requires the use of backticks wherever possible
 
 Object option:
 
-* `"avoidEscape": true` allows strings to use single-quotes or double-quotes so long as the string contains a quote that would have to be escaped otherwise
-* `"allowTemplateLiterals": true` allows strings to use backticks
+- `"avoidEscape": true` allows strings to use single-quotes or double-quotes so long as the string contains a quote that would have to be escaped otherwise
+- `"allowTemplateLiterals": true` allows strings to use backticks
 
 **Deprecated**: The object property `avoid-escape` is deprecated; please use the object property `avoidEscape` instead.
 
@@ -49,7 +49,7 @@ Examples of **incorrect** code for this rule with the default `"double"` option:
 ```js
 /*eslint quotes: ["error", "double"]*/
 
-var single = 'single';
+var single = "single";
 var unescaped = 'a string containing "double" quotes';
 var backtick = `back\ntick`; // you can use \n in single or double quoted strings
 ```
@@ -65,7 +65,7 @@ Examples of **correct** code for this rule with the default `"double"` option:
 
 var double = "double";
 var backtick = `back
-tick`;  // backticks are allowed due to newline
+tick`; // backticks are allowed due to newline
 var backtick = tag`backtick`; // backticks are allowed due to tag
 ```
 
@@ -93,7 +93,7 @@ Examples of **correct** code for this rule with the `"single"` option:
 ```js
 /*eslint quotes: ["error", "single"]*/
 
-var single = 'single';
+var single = "single";
 var backtick = `back${x}tick`; // backticks are allowed due to substitution
 ```
 
@@ -108,9 +108,9 @@ Examples of **incorrect** code for this rule with the `"backtick"` option:
 ```js
 /*eslint quotes: ["error", "backtick"]*/
 
-var single = 'single';
+var single = "single";
 var double = "double";
-var unescaped = 'a string containing `backticks`';
+var unescaped = "a string containing `backticks`";
 ```
 
 :::
@@ -124,7 +124,7 @@ Examples of **correct** code for this rule with the `"backtick"` option:
 
 "use strict"; // directives must use single or double quotes
 var backtick = `backtick`;
-var obj = { 'prop-name': `value` }; // backticks not allowed for property names
+var obj = { "prop-name": `value` }; // backticks not allowed for property names
 ```
 
 :::
@@ -162,7 +162,7 @@ Examples of additional **correct** code for this rule with the `"backtick", { "a
 ```js
 /*eslint quotes: ["error", "backtick", { "avoidEscape": true }]*/
 
-var double = "a string containing `backtick` quotes"
+var double = "a string containing `backtick` quotes";
 ```
 
 :::
@@ -189,7 +189,7 @@ Examples of additional **correct** code for this rule with the `"single", { "all
 ```js
 /*eslint quotes: ["error", "single", { "allowTemplateLiterals": true }]*/
 
-var single = 'single';
+var single = "single";
 var single = `single`;
 ```
 

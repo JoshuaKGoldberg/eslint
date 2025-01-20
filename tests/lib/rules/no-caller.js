@@ -23,10 +23,28 @@ ruleTester.run("no-caller", rule, {
         "var x = arguments.length",
         "var x = arguments",
         "var x = arguments[0]",
-        "var x = arguments[caller]"
+        "var x = arguments[caller]",
     ],
     invalid: [
-        { code: "var x = arguments.callee", errors: [{ messageId: "unexpected", data: { prop: "callee" }, type: "MemberExpression" }] },
-        { code: "var x = arguments.caller", errors: [{ messageId: "unexpected", data: { prop: "caller" }, type: "MemberExpression" }] }
-    ]
+        {
+            code: "var x = arguments.callee",
+            errors: [
+                {
+                    messageId: "unexpected",
+                    data: { prop: "callee" },
+                    type: "MemberExpression",
+                },
+            ],
+        },
+        {
+            code: "var x = arguments.caller",
+            errors: [
+                {
+                    messageId: "unexpected",
+                    data: { prop: "caller" },
+                    type: "MemberExpression",
+                },
+            ],
+        },
+    ],
 });

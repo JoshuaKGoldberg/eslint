@@ -10,7 +10,7 @@ function createESLintInstance(overrideConfig) {
     return new ESLint({
         overrideConfigFile: true,
         overrideConfig,
-        fix: true
+        fix: true,
     });
 }
 
@@ -27,7 +27,10 @@ async function lintAndFix(eslint, filePaths) {
 // Log results to console if there are any problems
 function outputLintingResults(results) {
     // Identify the number of problems found
-    const problems = results.reduce((acc, result) => acc + result.errorCount + result.warningCount, 0);
+    const problems = results.reduce(
+        (acc, result) => acc + result.errorCount + result.warningCount,
+        0,
+    );
 
     if (problems > 0) {
         console.log("Linting errors found!");
@@ -40,13 +43,12 @@ function outputLintingResults(results) {
 
 // Put previous functions all together
 async function lintFiles(filePaths) {
-
     // The ESLint configuration. Alternatively, you could load the configuration
     // from an eslint.config.js file or just use the default config.
     const overrideConfig = {
         languageOptions: {
             ecmaVersion: 2018,
-            sourceType: "commonjs"
+            sourceType: "commonjs",
         },
         rules: {
             "no-console": "error",
@@ -60,4 +62,4 @@ async function lintFiles(filePaths) {
 }
 
 // Export integration
-module.exports = { lintFiles }
+module.exports = { lintFiles };

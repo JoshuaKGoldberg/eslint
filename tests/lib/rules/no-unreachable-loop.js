@@ -19,14 +19,8 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2018 } });
 
 const loopTemplates = {
-    WhileStatement: [
-        "while (a) <body>",
-        "while (a && b) <body>"
-    ],
-    DoWhileStatement: [
-        "do <body> while (a)",
-        "do <body> while (a && b)"
-    ],
+    WhileStatement: ["while (a) <body>", "while (a && b) <body>"],
+    DoWhileStatement: ["do <body> while (a)", "do <body> while (a && b)"],
     ForStatement: [
         "for (a; b; c) <body>",
         "for (var i = 0; i < a.length; i++) <body>",
@@ -42,21 +36,21 @@ const loopTemplates = {
         "for (; b < foo; ) <body>",
         "for (a; ;) <body>",
         "for (a = 0; ;) <body>",
-        "for (;;) <body>"
+        "for (;;) <body>",
     ],
     ForInStatement: [
         "for (a in b) <body>",
         "for (a in f(b)) <body>",
         "for (var a in b) <body>",
-        "for (let a in f(b)) <body>"
+        "for (let a in f(b)) <body>",
     ],
     ForOfStatement: [
         "for (a of b) <body>",
         "for (a of f(b)) <body>",
         "for ({ a, b } of c) <body>",
         "for (var a of f(b)) <body>",
-        "async function foo() { for await (const a of b) <body> }"
-    ]
+        "async function foo() { for await (const a of b) <body> }",
+    ],
 };
 
 const validLoopBodies = [
@@ -93,7 +87,7 @@ const validLoopBodies = [
     "while (true) if (foo) break;",
     "while (foo) if (bar) return;",
     "for (a in b);",
-    "for (a of b);"
+    "for (a of b);",
 ];
 
 const invalidLoopBodies = [
@@ -138,7 +132,7 @@ const invalidLoopBodies = [
      */
     "for (;;);",
     "{ for (var i = 0; ; i< 10) { foo(); } }",
-    "while (true);"
+    "while (true);",
 ];
 
 /**
@@ -150,17 +144,19 @@ const invalidLoopBodies = [
 function getSourceCode(template, body) {
     const loop = template.replace("<body>", body);
 
-    return body.includes("return") && !template.includes("function") ? `function someFunc() { ${loop} }` : loop;
+    return body.includes("return") && !template.includes("function")
+        ? `function someFunc() { ${loop} }`
+        : loop;
 }
 
 /**
  * Generates basic valid tests from `loopTemplates` and `validLoopBodies`
  * @returns {IterableIterator<string>} The list of source code strings.
  */
-function *getBasicValidTests() {
+function* getBasicValidTests() {
     for (const templates of Object.values(loopTemplates)) {
         for (const template of templates) {
-            yield* validLoopBodies.map(body => getSourceCode(template, body));
+            yield* validLoopBodies.map((body) => getSourceCode(template, body));
         }
     }
 }
@@ -169,22 +165,19 @@ function *getBasicValidTests() {
  * Generates basic invalid tests from `loopTemplates` and `invalidLoopBodies`
  * @returns {IterableIterator<Object>} The list of objects for the invalid[] array.
  */
-function *getBasicInvalidTests() {
+function* getBasicInvalidTests() {
     for (const [type, templates] of Object.entries(loopTemplates)) {
         for (const template of templates) {
-            yield* invalidLoopBodies.map(
-                body => ({
-                    code: getSourceCode(template, body),
-                    errors: [{ type, messageId: "invalid" }]
-                })
-            );
+            yield* invalidLoopBodies.map((body) => ({
+                code: getSourceCode(template, body),
+                errors: [{ type, messageId: "invalid" }],
+            }));
         }
     }
 }
 
 ruleTester.run("no-unreachable-loop", rule, {
     valid: [
-
         ...getBasicValidTests(),
 
         // out of scope for the code path analysis and consequently out of scope for this rule
@@ -204,32 +197,31 @@ ruleTester.run("no-unreachable-loop", rule, {
         // "ignore"
         {
             code: "while (a) break;",
-            options: [{ ignore: ["WhileStatement"] }]
+            options: [{ ignore: ["WhileStatement"] }],
         },
         {
             code: "do break; while (a)",
-            options: [{ ignore: ["DoWhileStatement"] }]
+            options: [{ ignore: ["DoWhileStatement"] }],
         },
         {
             code: "for (a; b; c) break;",
-            options: [{ ignore: ["ForStatement"] }]
+            options: [{ ignore: ["ForStatement"] }],
         },
         {
             code: "for (a in b) break;",
-            options: [{ ignore: ["ForInStatement"] }]
+            options: [{ ignore: ["ForInStatement"] }],
         },
         {
             code: "for (a of b) break;",
-            options: [{ ignore: ["ForOfStatement"] }]
+            options: [{ ignore: ["ForOfStatement"] }],
         },
         {
             code: "for (var key in obj) { hasEnumerableProperties = true; break; } for (const a of b) break;",
-            options: [{ ignore: ["ForInStatement", "ForOfStatement"] }]
-        }
+            options: [{ ignore: ["ForInStatement", "ForOfStatement"] }],
+        },
     ],
 
     invalid: [
-
         ...getBasicInvalidTests(),
 
         // invalid loop nested in a valid loop (valid in valid, and valid in invalid are covered by basic tests)
@@ -238,18 +230,18 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForOfStatement"
-                }
-            ]
+                    type: "ForOfStatement",
+                },
+            ],
         },
         {
             code: "lbl: for (var i = 0; i < 10; i++) { while (foo) break lbl; } /* outer is valid because inner can have 0 iterations */",
             errors: [
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
-                }
-            ]
+                    type: "WhileStatement",
+                },
+            ],
         },
 
         // invalid loop nested in another invalid loop
@@ -258,13 +250,13 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForInStatement"
+                    type: "ForInStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
-                }
-            ]
+                    type: "WhileStatement",
+                },
+            ],
         },
 
         // loop and nested loop both invalid because of the same exit statement
@@ -273,26 +265,26 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForStatement"
+                    type: "ForStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "DoWhileStatement"
-                }
-            ]
+                    type: "DoWhileStatement",
+                },
+            ],
         },
         {
             code: "lbl: while(foo) { do { break lbl; } while(baz) }",
             errors: [
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
+                    type: "WhileStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "DoWhileStatement"
-                }
-            ]
+                    type: "DoWhileStatement",
+                },
+            ],
         },
 
         // inner loop has continue, but to an outer loop
@@ -301,9 +293,9 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
-                }
-            ]
+                    type: "WhileStatement",
+                },
+            ],
         },
 
         // edge cases - inner loop has only one exit path, but at the same time it exits the outer loop in the first iteration
@@ -312,18 +304,18 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForOfStatement"
-                }
-            ]
+                    type: "ForOfStatement",
+                },
+            ],
         },
         {
             code: "function foo () { for (a in b) { while (true) { if (bar) { return; } } } }",
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForInStatement"
-                }
-            ]
+                    type: "ForInStatement",
+                },
+            ],
         },
 
         // edge cases where parts of the loops belong to the same code path segment, tests for false negatives
@@ -332,18 +324,18 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForStatement"
-                }
-            ]
+                    type: "ForStatement",
+                },
+            ],
         },
         {
             code: "do { for (var i = 1; i < 10; i++) continue; break; } while(foo)",
             errors: [
                 {
                     messageId: "invalid",
-                    type: "DoWhileStatement"
-                }
-            ]
+                    type: "DoWhileStatement",
+                },
+            ],
         },
         {
             code: "for (;;) { for (var i = 1; i < 10; i ++) break; if (foo) break; continue; }",
@@ -351,9 +343,9 @@ ruleTester.run("no-unreachable-loop", rule, {
                 {
                     messageId: "invalid",
                     type: "ForStatement",
-                    column: 12
-                }
-            ]
+                    column: 12,
+                },
+            ],
         },
 
         // "ignore"
@@ -363,25 +355,25 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
+                    type: "WhileStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "DoWhileStatement"
+                    type: "DoWhileStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "ForStatement"
+                    type: "ForStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "ForInStatement"
+                    type: "ForInStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "ForOfStatement"
-                }
-            ]
+                    type: "ForOfStatement",
+                },
+            ],
         },
         {
             code: "while (a) break;",
@@ -389,9 +381,9 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "WhileStatement"
-                }
-            ]
+                    type: "WhileStatement",
+                },
+            ],
         },
         {
             code: "do break; while (a)",
@@ -399,9 +391,9 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "DoWhileStatement"
-                }
-            ]
+                    type: "DoWhileStatement",
+                },
+            ],
         },
         {
             code: "for (a in b) break; for (c of d) break;",
@@ -409,13 +401,13 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForInStatement"
+                    type: "ForInStatement",
                 },
                 {
                     messageId: "invalid",
-                    type: "ForOfStatement"
-                }
-            ]
+                    type: "ForOfStatement",
+                },
+            ],
         },
         {
             code: "for (a in b) break; for (;;) break; for (c of d) break;",
@@ -423,9 +415,9 @@ ruleTester.run("no-unreachable-loop", rule, {
             errors: [
                 {
                     messageId: "invalid",
-                    type: "ForStatement"
-                }
-            ]
-        }
-    ]
+                    type: "ForStatement",
+                },
+            ],
+        },
+    ],
 });

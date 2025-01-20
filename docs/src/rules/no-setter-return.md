@@ -3,12 +3,10 @@ title: no-setter-return
 rule_type: problem
 handled_by_typescript: true
 related_rules:
-- getter-return
+    - getter-return
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
 ---
-
-
 
 Setters cannot return values.
 
@@ -22,9 +20,9 @@ Only `return` without a value is allowed, as it's a control flow statement.
 
 This rule checks setters in:
 
-* Object literals.
-* Class declarations and class expressions.
-* Property descriptors in `Object.create`, `Object.defineProperty`, `Object.defineProperties`, and `Reflect.defineProperty` methods of the global objects.
+- Object literals.
+- Class declarations and class expressions.
+- Property descriptors in `Object.create`, `Object.defineProperty`, `Object.defineProperties`, and `Reflect.defineProperty` methods of the global objects.
 
 Examples of **incorrect** code for this rule:
 
@@ -37,7 +35,7 @@ const foo = {
     set a(value) {
         this.val = value;
         return value;
-    }
+    },
 };
 
 class Foo {
@@ -63,7 +61,7 @@ Object.defineProperty(foo, "bar", {
             return false;
         }
         this.val = value;
-    }
+    },
 });
 ```
 
@@ -79,7 +77,7 @@ Examples of **correct** code for this rule:
 const foo = {
     set a(value) {
         this.val = value;
-    }
+    },
 };
 
 class Foo {
@@ -104,7 +102,7 @@ Object.defineProperty(foo, "bar", {
             throw new Error("Negative value.");
         }
         this.val = value;
-    }
+    },
 });
 ```
 

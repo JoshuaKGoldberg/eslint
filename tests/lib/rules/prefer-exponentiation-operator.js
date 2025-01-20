@@ -31,9 +31,9 @@ function invalid(code, output) {
         errors: [
             {
                 messageId: "useExponentiation",
-                type: "CallExpression"
-            }
-        ]
+                type: "CallExpression",
+            },
+        ],
     };
 }
 
@@ -45,7 +45,6 @@ const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2022 } });
 
 ruleTester.run("prefer-exponentiation-operator", rule, {
     valid: [
-
         // not Math.pow()
         "Object.pow(a, b)",
         "Math.max(a, b)",
@@ -59,8 +58,14 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         "foo.Math.pow(a, b)",
         "new Math.pow(a, b)",
         "Math[pow](a, b)",
-        { code: "globalThis.Object.pow(a, b)", languageOptions: { ecmaVersion: 2020 } },
-        { code: "globalThis.Math.max(a, b)", languageOptions: { ecmaVersion: 2020 } },
+        {
+            code: "globalThis.Object.pow(a, b)",
+            languageOptions: { ecmaVersion: 2020 },
+        },
+        {
+            code: "globalThis.Math.max(a, b)",
+            languageOptions: { ecmaVersion: 2020 },
+        },
 
         // not the global Math
         "/* globals Math:off*/ Math.pow(a, b)",
@@ -70,22 +75,30 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         "function foo(Math) { Math.pow(a, b); }",
         "function foo() { Math.pow(a, b); var Math; }",
 
-        { code: "globalThis.Math.pow(a, b)", languageOptions: { ecmaVersion: 2019 } },
-        { code: "globalThis.Math.pow(a, b)", languageOptions: { ecmaVersion: 6 } },
-        { code: "globalThis.Math.pow(a, b)", languageOptions: { ecmaVersion: 2017 } },
+        {
+            code: "globalThis.Math.pow(a, b)",
+            languageOptions: { ecmaVersion: 2019 },
+        },
+        {
+            code: "globalThis.Math.pow(a, b)",
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "globalThis.Math.pow(a, b)",
+            languageOptions: { ecmaVersion: 2017 },
+        },
         {
             code: `
                 var globalThis = bar;
                 globalThis.Math.pow(a, b)
             `,
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
 
-        "class C { #pow; foo() { Math.#pow(a, b); } }"
+        "class C { #pow; foo() { Math.#pow(a, b); } }",
     ],
 
     invalid: [
-
         invalid("Math.pow(a, b)", "a**b"),
         invalid("(Math).pow(a, b)", "a**b"),
         invalid("Math['pow'](a, b)", "a**b"),
@@ -102,9 +115,9 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 26
-                }
-            ]
+                    endColumn: 26,
+                },
+            ],
         },
         {
             code: "globalThis.Math['pow'](a, b)",
@@ -117,9 +130,9 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 29
-                }
-            ]
+                    endColumn: 29,
+                },
+            ],
         },
 
         // able to catch some workarounds
@@ -131,13 +144,22 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         invalid("var x = Math.pow(a, b);", "var x = a**b;"),
         invalid("if(Math.pow(a, b)){}", "if(a**b){}"),
         invalid("for(;Math.pow(a, b);){}", "for(;a**b;){}"),
-        invalid("switch(foo){ case Math.pow(a, b): break; }", "switch(foo){ case a**b: break; }"),
+        invalid(
+            "switch(foo){ case Math.pow(a, b): break; }",
+            "switch(foo){ case a**b: break; }",
+        ),
         invalid("{ foo: Math.pow(a, b) }", "{ foo: a**b }"),
-        invalid("function foo(bar, baz = Math.pow(a, b), quux){}", "function foo(bar, baz = a**b, quux){}"),
+        invalid(
+            "function foo(bar, baz = Math.pow(a, b), quux){}",
+            "function foo(bar, baz = a**b, quux){}",
+        ),
         invalid("`${Math.pow(a, b)}`", "`${a**b}`"),
 
         // non-expression parents that do require parens
-        invalid("class C extends Math.pow(a, b) {}", "class C extends (a**b) {}"),
+        invalid(
+            "class C extends Math.pow(a, b) {}",
+            "class C extends (a**b) {}",
+        ),
 
         // parents with a higher precedence
         invalid("+ Math.pow(a, b)", "+ (a**b)"),
@@ -148,13 +170,22 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         invalid("Math.pow(a, b) .toString()", "(a**b) .toString()"),
         invalid("Math.pow(a, b) ()", "(a**b) ()"),
         invalid("Math.pow(a, b) ``", "(a**b) ``"),
-        invalid("(class extends Math.pow(a, b) {})", "(class extends (a**b) {})"),
+        invalid(
+            "(class extends Math.pow(a, b) {})",
+            "(class extends (a**b) {})",
+        ),
 
         // already parenthesised, shouldn't insert extra parens
         invalid("+(Math.pow(a, b))", "+(a**b)"),
         invalid("(Math.pow(a, b)).toString()", "(a**b).toString()"),
-        invalid("(class extends (Math.pow(a, b)) {})", "(class extends (a**b) {})"),
-        invalid("class C extends (Math.pow(a, b)) {}", "class C extends (a**b) {}"),
+        invalid(
+            "(class extends (Math.pow(a, b)) {})",
+            "(class extends (a**b) {})",
+        ),
+        invalid(
+            "class C extends (Math.pow(a, b)) {}",
+            "class C extends (a**b) {}",
+        ),
 
         // parents with a higher precedence, but the expression's role doesn't require parens
         invalid("f(Math.pow(a, b))", "f(a**b)"),
@@ -179,7 +210,10 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         invalid("a ? Math.pow(b, c) : d", "a ? b**c : d"),
         invalid("a = Math.pow(b, c)", "a = b**c"),
         invalid("a += Math.pow(b, c)", "a += b**c"),
-        invalid("function *f() { yield Math.pow(a, b) }", "function *f() { yield a**b }"),
+        invalid(
+            "function *f() { yield Math.pow(a, b) }",
+            "function *f() { yield a**b }",
+        ),
         invalid("a, Math.pow(b, c), d", "a, b**c, d"),
 
         // '**' is right-associative, that applies to both parent and child nodes
@@ -187,7 +221,10 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         invalid("Math.pow(a, b) ** c", "(a**b) ** c"),
         invalid("Math.pow(a, b ** c)", "a**b ** c"),
         invalid("Math.pow(a ** b, c)", "(a ** b)**c"),
-        invalid("a ** Math.pow(b ** c, d ** e) ** f", "a ** ((b ** c)**d ** e) ** f"),
+        invalid(
+            "a ** Math.pow(b ** c, d ** e) ** f",
+            "a ** ((b ** c)**d ** e) ** f",
+        ),
 
         // doesn't remove already existing unnecessary parens around the whole expression
         invalid("(Math.pow(a, b))", "(a**b)"),
@@ -235,7 +272,10 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
         invalid("Math.pow(a = b, c = d)", "(a = b)**(c = d)"),
         invalid("Math.pow(a += b, c -= d)", "(a += b)**(c -= d)"),
         invalid("Math.pow((a, b), (c, d))", "(a, b)**(c, d)"),
-        invalid("function *f() { Math.pow(yield, yield) }", "function *f() { (yield)**(yield) }"),
+        invalid(
+            "function *f() { Math.pow(yield, yield) }",
+            "function *f() { (yield)**(yield) }",
+        ),
 
         // doesn't put extra parens
         invalid("Math.pow((a + b), (c + d))", "(a + b)**(c + d)"),
@@ -270,7 +310,7 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "useExponentiation",
@@ -278,9 +318,9 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     line: 1,
                     column: 18,
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "Math.pow(Math.pow(a, b), Math.pow(c, d))",
@@ -290,21 +330,21 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     messageId: "useExponentiation",
                     type: "CallExpression",
                     column: 1,
-                    endColumn: 41
+                    endColumn: 41,
                 },
                 {
                     messageId: "useExponentiation",
                     type: "CallExpression",
                     column: 10,
-                    endColumn: 24
+                    endColumn: 24,
                 },
                 {
                     messageId: "useExponentiation",
                     type: "CallExpression",
                     column: 26,
-                    endColumn: 40
-                }
-            ]
+                    endColumn: 40,
+                },
+            ],
         },
         {
             code: "Math.pow(a, b)**Math.pow(c, d)",
@@ -314,15 +354,15 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
                     messageId: "useExponentiation",
                     type: "CallExpression",
                     column: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "useExponentiation",
                     type: "CallExpression",
                     column: 17,
-                    endColumn: 31
-                }
-            ]
+                    endColumn: 31,
+                },
+            ],
         },
 
         // shouldn't autofix if the call doesn't have exactly two arguments
@@ -365,40 +405,52 @@ ruleTester.run("prefer-exponentiation-operator", rule, {
             code: "Math.pow(a, b as any)",
             output: "a**(b as any)",
             languageOptions: {
-                parser: require(parser("typescript-parsers/exponentiation-with-assertion-1"))
+                parser: require(
+                    parser(
+                        "typescript-parsers/exponentiation-with-assertion-1",
+                    ),
+                ),
             },
             errors: [
                 {
                     messageId: "useExponentiation",
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "Math.pow(a as any, b)",
             output: "(a as any)**b",
             languageOptions: {
-                parser: require(parser("typescript-parsers/exponentiation-with-assertion-2"))
+                parser: require(
+                    parser(
+                        "typescript-parsers/exponentiation-with-assertion-2",
+                    ),
+                ),
             },
             errors: [
                 {
                     messageId: "useExponentiation",
-                    type: "CallExpression"
-                }
-            ]
+                    type: "CallExpression",
+                },
+            ],
         },
         {
             code: "Math.pow(a, b) as any",
             output: "(a**b) as any",
             languageOptions: {
-                parser: require(parser("typescript-parsers/exponentiation-with-assertion-3"))
+                parser: require(
+                    parser(
+                        "typescript-parsers/exponentiation-with-assertion-3",
+                    ),
+                ),
             },
             errors: [
                 {
                     messageId: "useExponentiation",
-                    type: "CallExpression"
-                }
-            ]
-        }
-    ]
+                    type: "CallExpression",
+                },
+            ],
+        },
+    ],
 });

@@ -18,22 +18,21 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const CALL_ERROR = {
     messageId: "deprecated",
     data: {
-        expr: "Buffer()"
+        expr: "Buffer()",
     },
-    type: "CallExpression"
+    type: "CallExpression",
 };
 const CONSTRUCT_ERROR = {
     messageId: "deprecated",
     data: {
-        expr: "new Buffer()"
+        expr: "new Buffer()",
     },
-    type: "NewExpression"
+    type: "NewExpression",
 };
 
 const ruleTester = new RuleTester();
 
 ruleTester.run("no-buffer-constructor", rule, {
-
     valid: [
         "Buffer.alloc(5)",
         "Buffer.allocUnsafe(5)",
@@ -41,33 +40,33 @@ ruleTester.run("no-buffer-constructor", rule, {
         "Buffer.from([1, 2, 3])",
         "foo(Buffer)",
         "Buffer.alloc(res.body.amount)",
-        "Buffer.from(res.body.values)"
+        "Buffer.from(res.body.values)",
     ],
 
     invalid: [
         {
             code: "Buffer(5)",
-            errors: [CALL_ERROR]
+            errors: [CALL_ERROR],
         },
         {
             code: "new Buffer(5)",
-            errors: [CONSTRUCT_ERROR]
+            errors: [CONSTRUCT_ERROR],
         },
         {
             code: "Buffer([1, 2, 3])",
-            errors: [CALL_ERROR]
+            errors: [CALL_ERROR],
         },
         {
             code: "new Buffer([1, 2, 3])",
-            errors: [CONSTRUCT_ERROR]
+            errors: [CONSTRUCT_ERROR],
         },
         {
             code: "new Buffer(res.body.amount)",
-            errors: [CONSTRUCT_ERROR]
+            errors: [CONSTRUCT_ERROR],
         },
         {
             code: "new Buffer(res.body.values)",
-            errors: [CONSTRUCT_ERROR]
-        }
-    ]
+            errors: [CONSTRUCT_ERROR],
+        },
+    ],
 });

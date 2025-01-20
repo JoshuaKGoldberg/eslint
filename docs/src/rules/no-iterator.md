@@ -2,18 +2,17 @@
 title: no-iterator
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
-- https://kangax.github.io/es5-compat-table/es6/#Iterators
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features#Object_methods
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+    - https://kangax.github.io/es5-compat-table/es6/#Iterators
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features#Object_methods
 ---
-
 
 The `__iterator__` property was a SpiderMonkey extension to JavaScript that could be used to create custom iterators that are compatible with JavaScript's `for in` and `for each` constructs. However, this property is now obsolete, so it should not be used. Here's an example of how this used to work:
 
 ```js
-Foo.prototype.__iterator__ = function() {
+Foo.prototype.__iterator__ = function () {
     return new FooIterator(this);
-}
+};
 ```
 
 You should use ECMAScript 6 iterators and generators instead.
@@ -29,14 +28,13 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-iterator: "error"*/
 
-Foo.prototype.__iterator__ = function() {
+Foo.prototype.__iterator__ = function () {
     return new FooIterator(this);
 };
 
 foo.__iterator__ = function () {};
 
 foo["__iterator__"] = function () {};
-
 ```
 
 :::

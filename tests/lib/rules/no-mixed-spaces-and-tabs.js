@@ -18,7 +18,6 @@ const rule = require("../../../lib/rules/no-mixed-spaces-and-tabs"),
 const ruleTester = new RuleTester();
 
 ruleTester.run("no-mixed-spaces-and-tabs", rule, {
-
     valid: [
         "foo",
         "foo \t",
@@ -40,98 +39,98 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
         "/* \t\n\t \n \t\n\t */ \t",
         {
             code: "\tvar x = 5,\n\t    y = 2;",
-            options: [true]
+            options: [true],
         },
         {
             code: "/*\n\t */`\n\t   `;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "/*\n\t */var a = `\n\t   `, b = `\n\t   `/*\t \n\t \n*/;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "/*\t `template inside comment` */",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var foo = `\t /* comment inside template\t */`;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "`\n\t   `;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "`\n\t   \n`;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "`\t   `;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "const foo = `${console}\n\t foo`;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "`\t   `;`   \t`",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "`foo${ 5 }\t    `;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         "' \t\\\n\t multiline string';",
         "'\t \\\n \tmultiline string';",
         {
             code: "\tvar x = 5,\n\t    y = 2;",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "\t\t\t   foo",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "foo",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "foo \t",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "foo\t ",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "\tfoo \t",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "\tvar x = 5;",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "\t\tvar x = 5;",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: " var x = 5;",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "    var x = 5;",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: " foo\t",
-            options: ["smart-tabs"]
+            options: ["smart-tabs"],
         },
         {
             code: "\tfoo ",
-            options: ["smart-tabs"]
-        }
+            options: ["smart-tabs"],
+        },
     ],
 
     invalid: [
@@ -144,9 +143,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "\t ;\n/*\n\t * Hello\n\t */",
@@ -157,9 +156,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: " \t/* comment */",
@@ -170,9 +169,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "\t // comment",
@@ -183,9 +182,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "\t var a /* comment */ = 1;",
@@ -196,9 +195,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: " \tvar b = 1; // comment",
@@ -209,9 +208,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "/**/\n \t/*\n \t*/",
@@ -222,9 +221,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "\t var x = 5, y = 2, z = 5;\n\n\t \tvar j =\t x + y;\nz *= j;",
@@ -235,7 +234,7 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 3
+                    endColumn: 3,
                 },
                 {
                     messageId: "mixedSpacesAndTabs",
@@ -243,9 +242,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "\tvar x = 5,\n  \t  y = 2;",
@@ -257,9 +256,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "\tvar x = 5,\n  \t  y = 2;",
@@ -271,9 +270,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "`foo${\n \t  5 }bar`;",
@@ -286,9 +285,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "`foo${\n\t  5 }bar`;",
@@ -300,9 +299,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "  \t'';",
@@ -313,9 +312,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 2,
                     endLine: 1,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "''\n\t ",
@@ -326,9 +325,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "   \tfoo",
@@ -339,9 +338,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 3,
                     endLine: 1,
-                    endColumn: 5
-                }
-            ]
+                    endColumn: 5,
+                },
+            ],
         },
         {
             code: "\t\t\t foo",
@@ -352,9 +351,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 3,
                     endLine: 1,
-                    endColumn: 5
-                }
-            ]
+                    endColumn: 5,
+                },
+            ],
         },
         {
             code: "\t \tfoo",
@@ -366,9 +365,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 2,
                     endLine: 1,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "\t\t\t   \tfoo",
@@ -380,9 +379,9 @@ ruleTester.run("no-mixed-spaces-and-tabs", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 8
-                }
-            ]
-        }
-    ]
+                    endColumn: 8,
+                },
+            ],
+        },
+    ],
 });

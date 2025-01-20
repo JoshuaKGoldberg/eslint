@@ -2,10 +2,8 @@
 title: prefer-arrow-callback
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 ---
-
-
 
 Arrow functions can be an attractive alternative to function expressions for callbacks or function arguments.
 
@@ -13,9 +11,9 @@ For example, arrow functions are automatically bound to their surrounding scope/
 
 Additionally, arrow functions are:
 
-* less verbose, and easier to reason about.
+- less verbose, and easier to reason about.
 
-* bound lexically regardless of where or when they are invoked.
+- bound lexically regardless of where or when they are invoked.
 
 ## Rule Details
 
@@ -28,10 +26,16 @@ The following examples **will** be flagged:
 ```js
 /* eslint prefer-arrow-callback: "error" */
 
-foo(function(a) { return a; }); // ERROR
+foo(function (a) {
+    return a;
+}); // ERROR
 // prefer: foo(a => a)
 
-foo(function() { return this.a; }.bind(this)); // ERROR
+foo(
+    function () {
+        return this.a;
+    }.bind(this),
+); // ERROR
 // prefer: foo(() => this.a)
 ```
 
@@ -47,19 +51,27 @@ The following examples **will not** be flagged:
 /* eslint prefer-arrow-callback: "error" */
 
 // arrow function callback
-foo(a => a); // OK
+foo((a) => a); // OK
 
 // generator as callback
-foo(function*() { yield; }); // OK
+foo(function* () {
+    yield;
+}); // OK
 
 // function expression not used as callback or function argument
-var foo = function foo(a) { return a; }; // OK
+var foo = function foo(a) {
+    return a;
+}; // OK
 
 // unbound function expression callback
-foo(function() { return this.a; }); // OK
+foo(function () {
+    return this.a;
+}); // OK
 
 // recursive named function callback
-foo(function bar(n) { return n && n + bar(n - 1); }); // OK
+foo(function bar(n) {
+    return n && n + bar(n - 1);
+}); // OK
 ```
 
 :::
@@ -101,17 +113,23 @@ When set to `false` this option prohibits the use of function expressions as cal
 ```js
 /* eslint prefer-arrow-callback: [ "error", { "allowUnboundThis": false } ] */
 
-foo(function() { this.a; });
+foo(function () {
+    this.a;
+});
 
-foo(function() { (() => this); });
+foo(function () {
+    () => this;
+});
 
-someArray.map(function(item) { return this.doSomething(item); }, someObject);
+someArray.map(function (item) {
+    return this.doSomething(item);
+}, someObject);
 ```
 
 :::
 
 ## When Not To Use It
 
-* In environments that have not yet adopted ES6 language features (ES3/5).
+- In environments that have not yet adopted ES6 language features (ES3/5).
 
-* In ES6+ environments that allow the use of function expressions when describing callbacks or function arguments.
+- In ES6+ environments that allow the use of function expressions when describing callbacks or function arguments.

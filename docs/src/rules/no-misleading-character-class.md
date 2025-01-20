@@ -3,10 +3,6 @@ title: no-misleading-character-class
 rule_type: problem
 ---
 
-
-
-
-
 Unicode includes characters which are made by multiple code points.
 RegExp character class syntax (`/[abc]/`) cannot handle characters which are made by multiple code points as a character; those characters will be dissolved to each code point. For example, `❇️` is made by `❇` (`U+2747`) and VARIATION SELECTOR-16 (`U+FE0F`). If this character is in a RegExp character class, it will match either `❇` (`U+2747`) or VARIATION SELECTOR-16 (`U+FE0F`) rather than `❇️`.
 
@@ -91,7 +87,7 @@ new RegExp(`[Á-${z}]`, "u"); // variable pattern
 
 This rule has an object option:
 
-* `"allowEscape"`: When set to `true`, the rule allows any grouping of code points inside a character class as long as they are written using escape sequences. This option only has effect on regular expression literals and on regular expressions created with the `RegExp` constructor with a literal argument as a pattern.
+- `"allowEscape"`: When set to `true`, the rule allows any grouping of code points inside a character class as long as they are written using escape sequences. This option only has effect on regular expression literals and on regular expressions created with the `RegExp` constructor with a literal argument as a pattern.
 
 ### allowEscape
 

@@ -2,18 +2,16 @@
 title: no-undef-init
 rule_type: suggestion
 related_rules:
-- no-undefined
-- no-void
+    - no-undefined
+    - no-void
 ---
-
-
 
 In JavaScript, a variable that is declared and not initialized to any value automatically gets the value of `undefined`. For example:
 
 ```js
 var foo;
 
-console.log(foo === undefined);     // true
+console.log(foo === undefined); // true
 ```
 
 It's therefore unnecessary to initialize a variable to `undefined`, such as:

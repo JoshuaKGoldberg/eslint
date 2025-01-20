@@ -20,7 +20,6 @@ const ruleTester = new RuleTester();
 
 ruleTester.run("no-invalid-meta", rule, {
     valid: [
-
         // context.report() call with no fix
         [
             "module.exports = {",
@@ -41,7 +40,7 @@ ruleTester.run("no-invalid-meta", rule, {
             "            }",
             "        };",
             "    }",
-            "};"
+            "};",
         ].join("\n"),
 
         // context.report() call in old style
@@ -62,7 +61,7 @@ ruleTester.run("no-invalid-meta", rule, {
             "            }",
             "        };",
             "    }",
-            "};"
+            "};",
         ].join("\n"),
 
         // context.report() call with a fix property
@@ -89,8 +88,8 @@ ruleTester.run("no-invalid-meta", rule, {
             "            }",
             "        };",
             "    }",
-            "};"
-        ].join("\n")
+            "};",
+        ].join("\n"),
     ],
     invalid: [
         {
@@ -101,13 +100,15 @@ ruleTester.run("no-invalid-meta", rule, {
                 "            Program: function(node) {}",
                 "        };",
                 "    }",
-                "};"
+                "};",
             ].join("\n"),
-            errors: [{
-                messageId: "missingMeta",
-                line: 1,
-                column: 18
-            }]
+            errors: [
+                {
+                    messageId: "missingMeta",
+                    line: 1,
+                    column: 18,
+                },
+            ],
         },
         {
             code: [
@@ -119,13 +120,15 @@ ruleTester.run("no-invalid-meta", rule, {
                 "            Program: function(node) {}",
                 "        };",
                 "    }",
-                "};"
+                "};",
             ].join("\n"),
-            errors: [{
-                messageId: "missingMetaDocs",
-                line: 2,
-                column: 5
-            }]
+            errors: [
+                {
+                    messageId: "missingMetaDocs",
+                    line: 2,
+                    column: 5,
+                },
+            ],
         },
         {
             code: [
@@ -139,13 +142,15 @@ ruleTester.run("no-invalid-meta", rule, {
                 "            Program: function(node) {}",
                 "        };",
                 "    }",
-                "};"
+                "};",
             ].join("\n"),
-            errors: [{
-                messageId: "missingMetaDocs",
-                line: 2,
-                column: 5
-            }]
+            errors: [
+                {
+                    messageId: "missingMetaDocs",
+                    line: 2,
+                    column: 5,
+                },
+            ],
         },
         {
             code: [
@@ -162,37 +167,45 @@ ruleTester.run("no-invalid-meta", rule, {
                 "            Program: function(node) {}",
                 "        };",
                 "    }",
-                "};"
+                "};",
             ].join("\n"),
-            errors: [{
-                messageId: "missingMetaDocsRecommended",
-                line: 2,
-                column: 5
-            }]
+            errors: [
+                {
+                    messageId: "missingMetaDocsRecommended",
+                    line: 2,
+                    column: 5,
+                },
+            ],
         },
         {
             code: "",
-            errors: [{
-                messageId: "noExport",
-                line: 1,
-                column: 1
-            }]
+            errors: [
+                {
+                    messageId: "noExport",
+                    line: 1,
+                    column: 1,
+                },
+            ],
         },
         {
             code: "foo();",
-            errors: [{
-                messageId: "noExport",
-                line: 1,
-                column: 1
-            }]
+            errors: [
+                {
+                    messageId: "noExport",
+                    line: 1,
+                    column: 1,
+                },
+            ],
         },
         {
             code: "foo = bar;",
-            errors: [{
-                messageId: "noExport",
-                line: 1,
-                column: 1
-            }]
-        }
-    ]
+            errors: [
+                {
+                    messageId: "noExport",
+                    line: 1,
+                    column: 1,
+                },
+            ],
+        },
+    ],
 });

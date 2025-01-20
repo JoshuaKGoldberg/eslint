@@ -34,59 +34,62 @@ ruleTester.run("no-extra-label", rule, {
         "A: for (;;) { while (b) { break A; } }",
         "A: do { switch (b) { case 0: break A; break; } } while (a);",
         "A: for (a in obj) { while (b) { break A; } }",
-        { code: "A: for (a of ary) { switch (b) { case 0: break A; } }", languageOptions: { ecmaVersion: 6 } }
+        {
+            code: "A: for (a of ary) { switch (b) { case 0: break A; } }",
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
     invalid: [
         {
             code: "A: while (a) break A;",
             output: "A: while (a) break;",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while (a) { B: { continue A; } }",
             output: "A: while (a) { B: { continue; } }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "X: while (x) { A: while (a) { B: { break A; break B; continue X; } } }",
             output: "X: while (x) { A: while (a) { B: { break; break B; continue X; } } }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: do { break A; } while (a);",
             output: "A: do { break; } while (a);",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: for (;;) { break A; }",
             output: "A: for (;;) { break; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: for (a in obj) { break A; }",
             output: "A: for (a in obj) { break; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: for (a of ary) { break A; }",
             output: "A: for (a of ary) { break; }",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: switch (a) { case 0: break A; }",
             output: "A: switch (a) { case 0: break; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "X: while (x) { A: switch (a) { case 0: break A; } }",
             output: "X: while (x) { A: switch (a) { case 0: break; } }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "X: switch (a) { case 0: A: while (b) break A; }",
             output: "X: switch (a) { case 0: A: while (b) break; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: `\
@@ -105,49 +108,56 @@ ruleTester.run("no-extra-label", rule, {
                     }
                 }
             `,
-            errors: [{ messageId: "unexpected", data: { name: "A" }, type: "Identifier", line: 2 }]
+            errors: [
+                {
+                    messageId: "unexpected",
+                    data: { name: "A" },
+                    type: "Identifier",
+                    line: 2,
+                },
+            ],
         },
 
         // Should not autofix if it would remove comments
         {
             code: "A: while(true) { /*comment*/break A; }",
             output: "A: while(true) { /*comment*/break; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { break/**/ A; }",
             output: null,
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { continue /**/ A; }",
             output: null,
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { break /**/A; }",
             output: null,
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { continue/**/A; }",
             output: null,
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { continue A/*comment*/; }",
             output: "A: while(true) { continue/*comment*/; }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { break A//comment\n }",
             output: "A: while(true) { break//comment\n }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
         },
         {
             code: "A: while(true) { break A/*comment*/\nfoo() }",
             output: "A: while(true) { break/*comment*/\nfoo() }",
-            errors: [{ messageId: "unexpected", data: { name: "A" } }]
-        }
-    ]
+            errors: [{ messageId: "unexpected", data: { name: "A" } }],
+        },
+    ],
 });

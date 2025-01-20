@@ -9,12 +9,11 @@
 // Exports
 //-----------------------------------------------------------------------------
 
-module.exports = function() {
-
+module.exports = function () {
     const { activeFlags, inactiveFlags } = require("../../../lib/shared/flags");
 
     return {
         active: Object.fromEntries([...activeFlags]),
-        inactive: Object.fromEntries([...inactiveFlags])
+        inactive: Object.fromEntries([...inactiveFlags]),
     };
 };

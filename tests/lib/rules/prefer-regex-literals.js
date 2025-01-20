@@ -19,15 +19,14 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 2022,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("prefer-regex-literals", rule, {
     valid: [
         "/abc/",
         "/abc/g",
-
 
         // considered as dynamic
         "new RegExp(pattern)",
@@ -56,21 +55,21 @@ ruleTester.run("prefer-regex-literals", rule, {
         "new RegExp('\\\\[' + \"b\\\\]\")",
         {
             code: "new RegExp(/a/, flags);",
-            options: [{ disallowRedundantWrapping: true }]
+            options: [{ disallowRedundantWrapping: true }],
         },
         {
             code: "new RegExp(/a/, `u${flags}`);",
-            options: [{ disallowRedundantWrapping: true }]
+            options: [{ disallowRedundantWrapping: true }],
         },
 
         // redundant wrapping is allowed
         {
             code: "new RegExp(/a/);",
-            options: [{}]
+            options: [{}],
         },
         {
             code: "new RegExp(/a/);",
-            options: [{ disallowRedundantWrapping: false }]
+            options: [{ disallowRedundantWrapping: false }],
         },
 
         // invalid number of arguments
@@ -85,7 +84,7 @@ ruleTester.run("prefer-regex-literals", rule, {
         "RegExp(String.raw`a`, String.raw`g`, String.raw`b`);",
         {
             code: "new RegExp(/a/, 'u', 'foo');",
-            options: [{ disallowRedundantWrapping: true }]
+            options: [{ disallowRedundantWrapping: true }],
         },
 
         // not String.raw``
@@ -109,8 +108,8 @@ ruleTester.run("prefer-regex-literals", rule, {
         {
             code: "RegExp('a', String.raw`g`);",
             languageOptions: {
-                globals: { String: "off" }
-            }
+                globals: { String: "off" },
+            },
         },
 
         // not RegExp
@@ -127,25 +126,25 @@ ruleTester.run("prefer-regex-literals", rule, {
         {
             code: "RegExp('a');",
             languageOptions: {
-                globals: { RegExp: "off" }
-            }
+                globals: { RegExp: "off" },
+            },
         },
         {
             code: "new globalThis.RegExp('a');",
-            languageOptions: { ecmaVersion: 5 }
+            languageOptions: { ecmaVersion: 5 },
         },
         {
             code: "new globalThis.RegExp('a');",
-            languageOptions: { ecmaVersion: 2015 }
+            languageOptions: { ecmaVersion: 2015 },
         },
         {
             code: "new globalThis.RegExp('a');",
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         "class C { #RegExp; foo() { globalThis.#RegExp('a'); } }",
 
         // ES2024
-        "new RegExp('[[A--B]]' + a, 'v')"
+        "new RegExp('[[A--B]]' + a, 'v')",
     ],
 
     invalid: [
@@ -158,11 +157,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('abc');",
@@ -173,11 +172,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('abc', 'g');",
@@ -188,11 +187,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('abc', 'g');",
@@ -203,11 +202,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(`abc`);",
@@ -218,11 +217,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(`abc`);",
@@ -233,11 +232,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(`abc`, `g`);",
@@ -248,11 +247,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(`abc`, `g`);",
@@ -263,11 +262,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`abc`);",
@@ -278,11 +277,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`abc\nabc`);",
@@ -293,11 +292,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc\\nabc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc\\nabc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`\tabc\nabc`);",
@@ -308,11 +307,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\tabc\\nabc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\tabc\\nabc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(String.raw`abc`);",
@@ -323,11 +322,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`abc`, String.raw`g`);",
@@ -338,11 +337,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(String.raw`abc`, String.raw`g`);",
@@ -353,11 +352,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String['raw']`a`);",
@@ -368,11 +367,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('');",
@@ -383,11 +382,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/(?:)/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/(?:)/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('', '');",
@@ -398,11 +397,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/(?:)/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/(?:)/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw``);",
@@ -413,11 +412,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/(?:)/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/(?:)/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('a', `g`);",
@@ -428,11 +427,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(`a`, 'g');",
@@ -443,11 +442,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(String.raw`a`, 'g');",
@@ -458,11 +457,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`\\d`, `g`);",
@@ -473,11 +472,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\d/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\d/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String.raw`\\\\d`, `g`);",
@@ -488,11 +487,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\\\d/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\\\d/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(String['raw']`\\\\d`, `g`);",
@@ -503,14 +502,14 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\\\d/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\\\d/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(String[\"raw\"]`\\\\d`, `g`);",
+            code: 'new RegExp(String["raw"]`\\\\d`, `g`);',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
@@ -518,11 +517,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\\\d/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\\\d/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('a', String.raw`g`);",
@@ -533,11 +532,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/g;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/g;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new globalThis.RegExp('a');",
@@ -549,11 +548,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "globalThis.RegExp('a');",
@@ -565,18 +564,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/);",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -587,18 +586,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, 'u');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -611,19 +610,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/u;",
                             data: {
-                                flags: "u"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "u",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/g, '');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -636,26 +635,26 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/;",
                             data: {
-                                flags: ""
-                            }
+                                flags: "",
+                            },
                         },
                         {
                             messageId: "replaceWithIntendedLiteralAndFlags",
                             output: "/a/g;",
                             data: {
-                                flags: "g"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "g",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/g, 'g');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -668,19 +667,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/g;",
                             data: {
-                                flags: "g"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "g",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/ig, 'g');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -693,26 +692,26 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/g;",
                             data: {
-                                flags: "g"
-                            }
+                                flags: "g",
+                            },
                         },
                         {
                             messageId: "replaceWithIntendedLiteralAndFlags",
                             output: "/a/ig;",
                             data: {
-                                flags: "ig"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "ig",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/g, 'ig');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -725,19 +724,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/ig;",
                             data: {
-                                flags: "ig"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "ig",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/i, 'g');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -750,26 +749,26 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/g;",
                             data: {
-                                flags: "g"
-                            }
+                                flags: "g",
+                            },
                         },
                         {
                             messageId: "replaceWithIntendedLiteralAndFlags",
                             output: "/a/ig;",
                             data: {
-                                flags: "ig"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "ig",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/i, 'i');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -782,19 +781,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/i;",
                             data: {
-                                flags: "i"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "i",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, `u`);",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -807,19 +806,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/u;",
                             data: {
-                                flags: "u"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "u",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, `gi`);",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -832,19 +831,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/gi;",
                             data: {
-                                flags: "gi"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "gi",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('a');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -855,18 +854,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, String.raw`u`);",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -879,19 +878,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/u;",
                             data: {
-                                flags: "u"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "u",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/ /* comment */);",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             errors: [
                 {
@@ -899,19 +898,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                     type: "NewExpression",
                     line: 1,
                     column: 1,
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, 'd');",
             options: [
                 {
-                    disallowRedundantWrapping: true
-                }
+                    disallowRedundantWrapping: true,
+                },
             ],
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -919,45 +918,51 @@ ruleTester.run("prefer-regex-literals", rule, {
                     type: "NewExpression",
                     line: 1,
                     column: 1,
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "(a)\nnew RegExp(/b/);",
-            options: [{
-                disallowRedundantWrapping: true
-            }],
+            options: [
+                {
+                    disallowRedundantWrapping: true,
+                },
+            ],
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExp",
                     type: "NewExpression",
                     line: 2,
                     column: 1,
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "(a)\nnew RegExp(/b/, 'g');",
-            options: [{
-                disallowRedundantWrapping: true
-            }],
+            options: [
+                {
+                    disallowRedundantWrapping: true,
+                },
+            ],
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExpWithFlags",
                     type: "NewExpression",
                     line: 2,
                     column: 1,
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "a/RegExp(/foo/);",
-            options: [{
-                disallowRedundantWrapping: true
-            }],
+            options: [
+                {
+                    disallowRedundantWrapping: true,
+                },
+            ],
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExp",
@@ -967,17 +972,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "a/ /foo/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "a/ /foo/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(/foo/)in a;",
-            options: [{
-                disallowRedundantWrapping: true
-            }],
+            options: [
+                {
+                    disallowRedundantWrapping: true,
+                },
+            ],
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExp",
@@ -987,11 +994,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/foo/ in a;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/foo/ in a;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp((String?.raw)`a`);",
@@ -1001,113 +1008,113 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('+');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('*');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('+');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('*');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('+', 'g');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('*', 'g');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('+', 'g');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('*', 'g');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('abc', 'u');",
             languageOptions: {
                 ecmaVersion: 3,
-                sourceType: "script"
+                sourceType: "script",
             },
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('abc', 'd');",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('abc', 'd');",
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
             errors: [
                 {
@@ -1115,11 +1122,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/abc/d;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/abc/d;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\\\\\', '');",
@@ -1129,16 +1136,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\\\/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\\\/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\n', '');",
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
             errors: [
                 {
@@ -1146,11 +1153,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\n\\n', '');",
@@ -1160,11 +1167,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n\\n/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n\\n/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\t', '');",
@@ -1174,11 +1181,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\t/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\t/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\t\\t', '');",
@@ -1188,11 +1195,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\t\\t/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\t\\t/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\r\\n', '');",
@@ -1202,38 +1209,38 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\r\\n/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\r\\n/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\u1234', 'g')",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('\\u{1234}', 'g')",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('\\u{11111}', 'g')",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('\\v', '');",
@@ -1243,11 +1250,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\v/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\v/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\v\\v', '');",
@@ -1257,11 +1264,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\v\\v/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\v\\v/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\f', '');",
@@ -1271,11 +1278,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\f/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\f/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\f\\f', '');",
@@ -1285,11 +1292,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\f\\f/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\f\\f/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\b', '');",
@@ -1299,11 +1306,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\b/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\b/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\b\\\\b', '');",
@@ -1313,11 +1320,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\b\\b/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\b\\b/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('\\\\B\\\\b', '');",
@@ -1327,11 +1334,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\B\\b/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\B\\b/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\w', '');",
@@ -1341,18 +1348,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\w/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\w/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new globalThis.RegExp('\\\\W', '');",
             languageOptions: {
                 globals: {
-                    globalThis: "readonly"
-                }
+                    globalThis: "readonly",
+                },
             },
             errors: [
                 {
@@ -1360,11 +1367,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\W/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\W/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\s', '');",
@@ -1374,11 +1381,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\s/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\s/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('\\\\S', '')",
@@ -1388,18 +1395,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\S/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\S/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "globalThis.RegExp('\\\\d', '');",
             languageOptions: {
                 globals: {
-                    globalThis: "readonly"
-                }
+                    globalThis: "readonly",
+                },
             },
             errors: [
                 {
@@ -1407,18 +1414,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\d/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\d/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "globalThis.RegExp('\\\\D', '')",
             languageOptions: {
                 globals: {
-                    globalThis: "readonly"
-                }
+                    globalThis: "readonly",
+                },
             },
             errors: [
                 {
@@ -1426,18 +1433,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\D/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\D/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "globalThis.RegExp('\\\\\\\\\\\\D', '')",
             languageOptions: {
                 globals: {
-                    globalThis: "readonly"
-                }
+                    globalThis: "readonly",
+                },
             },
             errors: [
                 {
@@ -1445,11 +1452,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\\\\\D/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\\\\\D/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('\\\\D\\\\D', '')",
@@ -1459,18 +1466,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\D\\D/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\D\\D/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new globalThis.RegExp('\\\\0\\\\0', '');",
             languageOptions: {
                 globals: {
-                    globalThis: "writable"
-                }
+                    globalThis: "writable",
+                },
             },
             errors: [
                 {
@@ -1478,11 +1485,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\0\\0/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\0\\0/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('\\\\0\\\\0', '');",
@@ -1492,20 +1499,20 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\0\\0/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\0\\0/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('\\0\\0', 'g');",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "RegExp('\\\\0\\\\0\\\\0', '')",
@@ -1515,16 +1522,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\0\\0\\0/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\0\\0\\0/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp('\\\\78\\\\126\\\\5934', '')",
             languageOptions: {
-                ecmaVersion: 2022
+                ecmaVersion: 2022,
             },
             errors: [
                 {
@@ -1532,18 +1539,18 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\78\\126\\5934/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\78\\126\\5934/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new window['RegExp']('\\\\x56\\\\x78\\\\x45', '');",
             languageOptions: {
                 globals: {
-                    window: "readonly"
-                }
+                    window: "readonly",
+                },
             },
             errors: [
                 {
@@ -1551,11 +1558,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\x56\\x78\\x45/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\x56\\x78\\x45/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "a in(RegExp('abc'))",
@@ -1565,61 +1572,61 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "a in(/abc/)"
-                        }
-                    ]
-                }
-            ]
+                            output: "a in(/abc/)",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "x = y\n            RegExp(\"foo\").test(x) ? bar() : baz()",
+            code: 'x = y\n            RegExp("foo").test(x) ? bar() : baz()',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "func(new RegExp(String.raw`\\w{1, 2`, 'u'),new RegExp(String.raw`\\w{1, 2`, 'u'))",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
+                    suggestions: null,
                 },
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
-            code: "x = y;\n            RegExp(\"foo\").test(x) ? bar() : baz()",
+            code: 'x = y;\n            RegExp("foo").test(x) ? bar() : baz()',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "x = y;\n            /foo/.test(x) ? bar() : baz()"
-                        }
-                    ]
-                }
-            ]
+                            output: "x = y;\n            /foo/.test(x) ? bar() : baz()",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "typeof RegExp(\"foo\")",
+            code: 'typeof RegExp("foo")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "typeof /foo/"
-                        }
-                    ]
-                }
-            ]
+                            output: "typeof /foo/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "RegExp(\"foo\") instanceof RegExp(String.raw`blahblah`, 'g') ? typeof new RegExp('(\\\\p{Emoji_Presentation})\\\\1', `ug`) : false",
@@ -1629,29 +1636,29 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/foo/ instanceof RegExp(String.raw`blahblah`, 'g') ? typeof new RegExp('(\\\\p{Emoji_Presentation})\\\\1', `ug`) : false"
-                        }
-                    ]
+                            output: "/foo/ instanceof RegExp(String.raw`blahblah`, 'g') ? typeof new RegExp('(\\\\p{Emoji_Presentation})\\\\1', `ug`) : false",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "RegExp(\"foo\") instanceof /blahblah/g ? typeof new RegExp('(\\\\p{Emoji_Presentation})\\\\1', `ug`) : false"
-                        }
-                    ]
+                            output: "RegExp(\"foo\") instanceof /blahblah/g ? typeof new RegExp('(\\\\p{Emoji_Presentation})\\\\1', `ug`) : false",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "RegExp(\"foo\") instanceof RegExp(String.raw`blahblah`, 'g') ? typeof /(\\p{Emoji_Presentation})\\1/ug : false"
-                        }
-                    ]
-                }
-            ]
+                            output: "RegExp(\"foo\") instanceof RegExp(String.raw`blahblah`, 'g') ? typeof /(\\p{Emoji_Presentation})\\1/ug : false",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "[   new RegExp(`someregular`)]",
@@ -1661,11 +1668,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "[   /someregular/]"
-                        }
-                    ]
-                }
-            ]
+                            output: "[   /someregular/]",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "const totallyValidatesEmails = new RegExp(\"\\\\S+@(\\\\S+\\\\.)+\\\\S+\")\n            if (typeof totallyValidatesEmails === 'object') {\n                runSomethingThatExists(Regexp('stuff'))\n            }",
@@ -1675,11 +1682,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "const totallyValidatesEmails = /\\S+@(\\S+\\.)+\\S+/\n            if (typeof totallyValidatesEmails === 'object') {\n                runSomethingThatExists(Regexp('stuff'))\n            }"
-                        }
-                    ]
-                }
-            ]
+                            output: "const totallyValidatesEmails = /\\S+@(\\S+\\.)+\\S+/\n            if (typeof totallyValidatesEmails === 'object') {\n                runSomethingThatExists(Regexp('stuff'))\n            }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
@@ -1689,115 +1696,115 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!/^Hey, /u && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!/^Hey, /u && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && /jk$/ && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!new RegExp('^Hey, ', 'u') && /jk$/ && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~/^Sup, / || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~/^Sup, / || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || /hi/ + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || /hi/ + new RegExp('person') === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + /person/ === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + /person/ === -new RegExp('hi again') ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -/hi again/ ? 5 * new RegExp('abc') : 'notregbutstring'"
-                        }
-                    ]
+                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -/hi again/ ? 5 * new RegExp('abc') : 'notregbutstring'",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * /abc/ : 'notregbutstring'"
-                        }
-                    ]
-                }
-            ]
+                            output: "!new RegExp('^Hey, ', 'u') && new RegExp('jk$') && ~new RegExp('^Sup, ') || new RegExp('hi') + new RegExp('person') === -new RegExp('hi again') ? 5 * /abc/ : 'notregbutstring'",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "#!/usr/bin/sh\n            RegExp(\"foo\")",
+            code: '#!/usr/bin/sh\n            RegExp("foo")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "#!/usr/bin/sh\n            /foo/"
-                        }
-                    ]
-                }
-            ]
+                            output: "#!/usr/bin/sh\n            /foo/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "async function abc(){await new RegExp(\"foo\")}",
+            code: 'async function abc(){await new RegExp("foo")}',
             languageOptions: {
                 ecmaVersion: 8,
-                sourceType: "module"
+                sourceType: "module",
             },
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
-            code: "function* abc(){yield new RegExp(\"foo\")}",
+            code: 'function* abc(){yield new RegExp("foo")}',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
-            code: "function* abc(){yield* new RegExp(\"foo\")}",
+            code: 'function* abc(){yield* new RegExp("foo")}',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "function* abc(){yield* /foo/}"
-                        }
-                    ]
-                }
-            ]
+                            output: "function* abc(){yield* /foo/}",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "console.log({ ...new RegExp('a') })",
@@ -1807,11 +1814,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "console.log({ .../a/ })"
-                        }
-                    ]
-                }
-            ]
+                            output: "console.log({ .../a/ })",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "delete RegExp('a');",
@@ -1821,11 +1828,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "delete /a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "delete /a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "void RegExp('a');",
@@ -1835,11 +1842,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "void /a/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "void /a/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(\"\\\\S+@(\\\\S+\\\\.)+\\\\S+\")**RegExp('a')",
@@ -1849,20 +1856,20 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\S+@(\\S+\\.)+\\S+/**RegExp('a')"
-                        }
-                    ]
+                            output: "/\\S+@(\\S+\\.)+\\S+/**RegExp('a')",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "new RegExp(\"\\\\S+@(\\\\S+\\\\.)+\\\\S+\")**/a/"
-                        }
-                    ]
-                }
-            ]
+                            output: 'new RegExp("\\\\S+@(\\\\S+\\\\.)+\\\\S+")**/a/',
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(\"\\\\S+@(\\\\S+\\\\.)+\\\\S+\")%RegExp('a')",
@@ -1872,20 +1879,20 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\S+@(\\S+\\.)+\\S+/%RegExp('a')"
-                        }
-                    ]
+                            output: "/\\S+@(\\S+\\.)+\\S+/%RegExp('a')",
+                        },
+                    ],
                 },
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "new RegExp(\"\\\\S+@(\\\\S+\\\\.)+\\\\S+\")%/a/"
-                        }
-                    ]
-                }
-            ]
+                            output: 'new RegExp("\\\\S+@(\\\\S+\\\\.)+\\\\S+")%/a/',
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "a in RegExp('abc')",
@@ -1895,16 +1902,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "a in /abc/"
-                        }
-                    ]
-                }
-            ]
+                            output: "a in /abc/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ == new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1912,16 +1919,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ == /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ == /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ === new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1929,16 +1936,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ === /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ === /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ != new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1946,16 +1953,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ != /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ != /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ !== new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1963,16 +1970,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ !== /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ !== /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ > new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1980,16 +1987,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ > /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ > /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ < new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -1997,16 +2004,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ < /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ < /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ >= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2014,16 +2021,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ >= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ >= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ <= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2031,16 +2038,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ <= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ <= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ << new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2048,16 +2055,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ << /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ << /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ >> new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2065,16 +2072,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ >> /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ >> /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ >>> new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2082,16 +2089,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ >>> /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ >>> /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ ^ new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2099,16 +2106,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ ^ /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ ^ /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ & new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2116,16 +2123,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ & /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ & /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            /abc/ | new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2133,16 +2140,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            /abc/ | /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            /abc/ | /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            null ?? new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2150,16 +2157,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            null ?? /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            null ?? /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc *= new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2167,16 +2174,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc *= /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc *= /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            console.log({a: new RegExp('sup')})\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2184,16 +2191,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            console.log({a: /sup/})\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            console.log({a: /sup/})\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            console.log(() => {new RegExp('sup')})\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2201,16 +2208,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            console.log(() => {/sup/})\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            console.log(() => {/sup/})\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            function abc() {new RegExp('sup')}\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2218,16 +2225,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            function abc() {/sup/}\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            function abc() {/sup/}\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            function abc() {return new RegExp('sup')}\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2235,16 +2242,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            function abc() {return /sup/}\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            function abc() {return /sup/}\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc <<= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2252,16 +2259,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc <<= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc <<= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc >>= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2269,16 +2276,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc >>= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc >>= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc >>>= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2286,16 +2293,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc >>>= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc >>>= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc ^= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2303,16 +2310,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc ^= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc ^= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc &= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2320,16 +2327,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc &= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc &= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc |= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2337,16 +2344,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc |= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc |= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc ??= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2354,16 +2361,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc ??= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc ??= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc &&= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2371,16 +2378,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc &&= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc &&= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc ||= new RegExp('cba');\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2388,16 +2395,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc ||= /cba/;\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc ||= /cba/;\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc **= new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2405,16 +2412,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc **= /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc **= /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc /= new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2422,16 +2429,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc /= /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc /= /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc += new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2439,16 +2446,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc += /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc += /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc -= new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2456,16 +2463,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc -= /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc -= /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            abc %= new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2473,16 +2480,16 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            abc %= /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            abc %= /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            () => new RegExp('blah')\n            ",
             languageOptions: {
-                ecmaVersion: 2021
+                ecmaVersion: 2021,
             },
             errors: [
                 {
@@ -2490,53 +2497,53 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            () => /blah/\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            () => /blah/\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "a/RegExp(\"foo\")in b",
+            code: 'a/RegExp("foo")in b',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "a/ /foo/ in b"
-                        }
-                    ]
-                }
-            ]
+                            output: "a/ /foo/ in b",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "a/RegExp(\"foo\")instanceof b",
+            code: 'a/RegExp("foo")instanceof b',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "a/ /foo/ instanceof b"
-                        }
-                    ]
-                }
-            ]
+                            output: "a/ /foo/ instanceof b",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "do RegExp(\"foo\")\nwhile (true);",
+            code: 'do RegExp("foo")\nwhile (true);',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "do /foo/\nwhile (true);"
-                        }
-                    ]
-                }
-            ]
+                            output: "do /foo/\nwhile (true);",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "for(let i;i<5;i++) { break\nnew RegExp('search')}",
@@ -2546,11 +2553,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "for(let i;i<5;i++) { break\n/search/}"
-                        }
-                    ]
-                }
-            ]
+                            output: "for(let i;i<5;i++) { break\n/search/}",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "for(let i;i<5;i++) { continue\nnew RegExp('search')}",
@@ -2560,11 +2567,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "for(let i;i<5;i++) { continue\n/search/}"
-                        }
-                    ]
-                }
-            ]
+                            output: "for(let i;i<5;i++) { continue\n/search/}",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "\n            switch (value) {\n                case \"possibility\":\n                    console.log('possibility matched')\n                case RegExp('myReg').toString():\n                    console.log('matches a regexp\\' toString value')\n                    break;\n            }\n            ",
@@ -2574,11 +2581,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "\n            switch (value) {\n                case \"possibility\":\n                    console.log('possibility matched')\n                case /myReg/.toString():\n                    console.log('matches a regexp\\' toString value')\n                    break;\n            }\n            "
-                        }
-                    ]
-                }
-            ]
+                            output: "\n            switch (value) {\n                case \"possibility\":\n                    console.log('possibility matched')\n                case /myReg/.toString():\n                    console.log('matches a regexp\\' toString value')\n                    break;\n            }\n            ",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "throw new RegExp('abcdefg') // fail with a regular expression",
@@ -2588,32 +2595,32 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "throw /abcdefg/ // fail with a regular expression"
-                        }
-                    ]
-                }
-            ]
+                            output: "throw /abcdefg/ // fail with a regular expression",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "for (value of new RegExp('something being searched')) { console.log(value) }",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "(async function(){for await (value of new RegExp('something being searched')) { console.log(value) }})()",
             languageOptions: {
-                ecmaVersion: 2018
+                ecmaVersion: 2018,
             },
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "for (value in new RegExp('something being searched')) { console.log(value) }",
@@ -2623,20 +2630,20 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "for (value in /something being searched/) { console.log(value) }"
-                        }
-                    ]
-                }
-            ]
+                            output: "for (value in /something being searched/) { console.log(value) }",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "if (condition1 && condition2) new RegExp('avalue').test(str);",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "debugger\nnew RegExp('myReg')",
@@ -2646,188 +2653,188 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "debugger\n/myReg/"
-                        }
-                    ]
-                }
-            ]
+                            output: "debugger\n/myReg/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "RegExp(\"\\\\\\n\")",
+            code: 'RegExp("\\\\\\n")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "RegExp(\"\\\\\\t\")",
+            code: 'RegExp("\\\\\\t")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\t/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\t/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "RegExp(\"\\\\\\f\")",
+            code: 'RegExp("\\\\\\f")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\f/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\f/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "RegExp(\"\\\\\\v\")",
+            code: 'RegExp("\\\\\\v")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\v/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\v/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "RegExp(\"\\\\\\r\")",
+            code: 'RegExp("\\\\\\r")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\r/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\r/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\t\")",
+            code: 'new RegExp("\t")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\t/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\t/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"/\")",
+            code: 'new RegExp("/")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\//"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\//",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\\.\")",
+            code: 'new RegExp("\\.")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/./"
-                        }
-                    ]
-                }
-            ]
+                            output: "/./",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\\\\.\")",
+            code: 'new RegExp("\\\\.")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\./"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\./",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\\\\\\n\\\\\\n\")",
+            code: 'new RegExp("\\\\\\n\\\\\\n")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n\\n/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n\\n/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\\\\\\n\\\\\\f\\\\\\n\")",
+            code: 'new RegExp("\\\\\\n\\\\\\f\\\\\\n")',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n\\f\\n/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n\\f\\n/",
+                        },
+                    ],
+                },
+            ],
         },
         {
-            code: "new RegExp(\"\\u000A\\u000A\");",
+            code: 'new RegExp("\\u000A\\u000A");',
             errors: [
                 {
                     messageId: "unexpectedRegExp",
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/\\n\\n/;"
-                        }
-                    ]
-                }
-            ]
+                            output: "/\\n\\n/;",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('mysafereg' /* comment explaining its safety */)",
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
 
         // ES2024
@@ -2840,11 +2847,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/[[A--B]]/v"
-                        }
-                    ]
-                }
-            ]
+                            output: "/[[A--B]]/v",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('[[A--B]]', 'v')",
@@ -2852,9 +2859,9 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('[[A&&&]]', 'v')",
@@ -2862,9 +2869,9 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp('a', 'uv')",
@@ -2872,9 +2879,9 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, 'v')",
@@ -2888,12 +2895,12 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/v",
                             data: {
-                                flags: "v"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "v",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/, 'v')",
@@ -2902,9 +2909,9 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExpWithFlags",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
         {
             code: "new RegExp(/a/g, 'v')",
@@ -2918,19 +2925,19 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/v",
                             data: {
-                                flags: "v"
-                            }
+                                flags: "v",
+                            },
                         },
                         {
                             messageId: "replaceWithIntendedLiteralAndFlags",
                             output: "/a/gv",
                             data: {
-                                flags: "gv"
-                            }
-                        }
-                    ]
-                }
-            ]
+                                flags: "gv",
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/[[A--B]]/v, 'g')",
@@ -2944,14 +2951,14 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithIntendedLiteralAndFlags",
                             output: "/[[A--B]]/vg",
                             data: {
-                                flags: "vg"
-                            }
-                        }
+                                flags: "vg",
+                            },
+                        },
 
                         // suggestion with flags `g` would be invalid
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/u, 'v')",
@@ -2965,14 +2972,14 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/v",
                             data: {
-                                flags: "v"
-                            }
-                        }
+                                flags: "v",
+                            },
+                        },
 
                         // suggestion with merged flags `uv` would be invalid
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/a/v, 'u')",
@@ -2986,14 +2993,14 @@ ruleTester.run("prefer-regex-literals", rule, {
                             messageId: "replaceWithLiteralAndFlags",
                             output: "/a/u",
                             data: {
-                                flags: "u"
-                            }
-                        }
+                                flags: "u",
+                            },
+                        },
 
                         // suggestion with merged flags `vu` would be invalid
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp(/[[A--B]]/v, 'u')",
@@ -3002,9 +3009,9 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRedundantRegExpWithFlags",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
 
         // ES2025
@@ -3017,11 +3024,11 @@ ruleTester.run("prefer-regex-literals", rule, {
                     suggestions: [
                         {
                             messageId: "replaceWithLiteral",
-                            output: "/(?i:foo)bar/"
-                        }
-                    ]
-                }
-            ]
+                            output: "/(?i:foo)bar/",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new RegExp('(?i:foo)bar')",
@@ -3029,26 +3036,27 @@ ruleTester.run("prefer-regex-literals", rule, {
             errors: [
                 {
                     messageId: "unexpectedRegExp",
-                    suggestions: null
-                }
-            ]
+                    suggestions: null,
+                },
+            ],
         },
 
         {
             code: "var regex = new RegExp('foo', 'u');",
             languageOptions: {
-                ecmaVersion: 2015
+                ecmaVersion: 2015,
             },
-            errors: [{
-                messageId: "unexpectedRegExp",
-                suggestions: [
-                    {
-                        messageId: "replaceWithLiteral",
-                        output: "var regex = /foo/u;"
-                    }
-                ]
-            }]
-        }
-
-    ]
+            errors: [
+                {
+                    messageId: "unexpectedRegExp",
+                    suggestions: [
+                        {
+                            messageId: "replaceWithLiteral",
+                            output: "var regex = /foo/u;",
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 });

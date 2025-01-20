@@ -22,22 +22,26 @@ ruleTester.run("no-new-require", rule, {
     valid: [
         "var appHeader = require('app-header')",
         "var AppHeader = new (require('app-header'))",
-        "var AppHeader = new (require('headers').appHeader)"
+        "var AppHeader = new (require('headers').appHeader)",
     ],
     invalid: [
         {
             code: "var appHeader = new require('app-header')",
-            errors: [{
-                messageId: "noNewRequire",
-                type: "NewExpression"
-            }]
+            errors: [
+                {
+                    messageId: "noNewRequire",
+                    type: "NewExpression",
+                },
+            ],
         },
         {
             code: "var appHeader = new require('headers').appHeader",
-            errors: [{
-                messageId: "noNewRequire",
-                type: "NewExpression"
-            }]
-        }
-    ]
+            errors: [
+                {
+                    messageId: "noNewRequire",
+                    type: "NewExpression",
+                },
+            ],
+        },
+    ],
 });

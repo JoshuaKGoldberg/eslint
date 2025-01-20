@@ -3,8 +3,6 @@ title: prefer-numeric-literals
 rule_type: suggestion
 ---
 
-
-
 The `parseInt()` and `Number.parseInt()` functions can be used to turn binary, octal, and hexadecimal strings into integers. As binary, octal, and hexadecimal literals are supported in ES6, this rule encourages use of those numeric literals instead of `parseInt()` or `Number.parseInt()`.
 
 ```js
@@ -48,9 +46,9 @@ Number.parseInt(1, 3);
 
 0b111110111 === 503;
 0o767 === 503;
-0x1F7 === 503;
+0x1f7 === 503;
 
-a[parseInt](1,2);
+a[parseInt](1, 2);
 
 parseInt(foo);
 parseInt(foo, 2);
@@ -66,4 +64,4 @@ If you want to allow use of `parseInt()` or `Number.parseInt()` for binary, octa
 
 ## Compatibility
 
-* **JSCS**: [requireNumericLiterals](https://jscs-dev.github.io/rule/requireNumericLiterals)
+- **JSCS**: [requireNumericLiterals](https://jscs-dev.github.io/rule/requireNumericLiterals)

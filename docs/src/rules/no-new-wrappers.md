@@ -2,12 +2,11 @@
 title: no-new-wrappers
 rule_type: suggestion
 related_rules:
-- no-array-constructor
-- no-object-constructor
+    - no-array-constructor
+    - no-object-constructor
 further_reading:
-- https://www.inkling.com/read/javascript-definitive-guide-david-flanagan-6th/chapter-3/wrapper-objects
+    - https://www.inkling.com/read/javascript-definitive-guide-david-flanagan-6th/chapter-3/wrapper-objects
 ---
-
 
 There are three primitive types in JavaScript that have wrapper objects: string, number, and boolean. These are represented by the constructors `String`, `Number`, and `Boolean`, respectively. The primitive wrapper types are used whenever one of these primitive values is read, providing them with object-like capabilities such as methods. Behind the scenes, an object of the associated wrapper type is created and then destroyed, which is why you can call methods on primitive values, such as:
 
@@ -29,13 +28,14 @@ Although possible, there aren't any good reasons to use these primitive wrappers
 
 ```js
 var stringObject = new String("Hello world");
-console.log(typeof stringObject);       // "object"
+console.log(typeof stringObject); // "object"
 
 var text = "Hello world";
-console.log(typeof text);               // "string"
+console.log(typeof text); // "string"
 
 var booleanObject = new Boolean(false);
-if (booleanObject) {    // all objects are truthy!
+if (booleanObject) {
+    // all objects are truthy!
     console.log("This executes");
 }
 ```
@@ -59,9 +59,9 @@ var stringObject = new String("Hello world");
 var numberObject = new Number(33);
 var booleanObject = new Boolean(false);
 
-var stringObject = new String;
-var numberObject = new Number;
-var booleanObject = new Boolean;
+var stringObject = new String();
+var numberObject = new Number();
+var booleanObject = new Boolean();
 ```
 
 :::

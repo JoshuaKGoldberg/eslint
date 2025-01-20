@@ -19,7 +19,6 @@ const baseParser = require("../../fixtures/fixture-parser");
 const ruleTester = new RuleTester();
 
 ruleTester.run("space-before-function-paren", rule, {
-
     valid: [
         "function foo () {}",
         "var foo = function () {}",
@@ -32,10 +31,13 @@ ruleTester.run("space-before-function-paren", rule, {
         "var obj = { get foo () {}, set foo (val) {} };",
         {
             code: "var obj = { foo () {} };",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         { code: "function* foo () {}", languageOptions: { ecmaVersion: 6 } },
-        { code: "var foo = function *() {};", languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var foo = function *() {};",
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         { code: "function foo() {}", options: ["never"] },
         { code: "var foo = function() {}", options: ["never"] },
@@ -43,21 +45,24 @@ ruleTester.run("space-before-function-paren", rule, {
         { code: "var foo = function/* */() {}", options: ["never"] },
         { code: "var foo = function/* *//*  */() {}", options: ["never"] },
         { code: "var bar = function foo() {}", options: ["never"] },
-        { code: "var obj = { get foo() {}, set foo(val) {} };", options: ["never"] },
+        {
+            code: "var obj = { get foo() {}, set foo(val) {} };",
+            options: ["never"],
+        },
         {
             code: "var obj = { foo() {} };",
             options: ["never"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "function* foo() {}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var foo = function*() {};",
             options: ["never"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
 
         {
@@ -66,10 +71,10 @@ ruleTester.run("space-before-function-paren", rule, {
                 "var bar = function () {}",
                 "function* baz() {}",
                 "var bat = function*() {};",
-                "var obj = { get foo() {}, set foo(val) {}, bar() {} };"
+                "var obj = { get foo() {}, set foo(val) {}, bar() {} };",
             ].join("\n"),
             options: [{ named: "never", anonymous: "always" }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: [
@@ -77,56 +82,90 @@ ruleTester.run("space-before-function-paren", rule, {
                 "var bar = function() {}",
                 "function* baz () {}",
                 "var bat = function* () {};",
-                "var obj = { get foo () {}, set foo (val) {}, bar () {} };"
+                "var obj = { get foo () {}, set foo (val) {}, bar () {} };",
             ].join("\n"),
             options: [{ named: "always", anonymous: "never" }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "class Foo { constructor() {} *method() {} }",
             options: [{ named: "never", anonymous: "always" }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "class Foo { constructor () {} *method () {} }",
             options: [{ named: "always", anonymous: "never" }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var foo = function() {}",
-            options: [{ named: "always", anonymous: "ignore" }]
+            options: [{ named: "always", anonymous: "ignore" }],
         },
         {
             code: "var foo = function () {}",
-            options: [{ named: "always", anonymous: "ignore" }]
+            options: [{ named: "always", anonymous: "ignore" }],
         },
         {
             code: "var bar = function foo() {}",
-            options: [{ named: "ignore", anonymous: "always" }]
+            options: [{ named: "ignore", anonymous: "always" }],
         },
         {
             code: "var bar = function foo () {}",
-            options: [{ named: "ignore", anonymous: "always" }]
+            options: [{ named: "ignore", anonymous: "always" }],
         },
         {
             code: "type TransformFunction = (el: ASTElement, code: string) => string;",
             languageOptions: {
-                parser: require(baseParser("babel-eslint7", "function-type-annotation"))
-            }
+                parser: require(
+                    baseParser("babel-eslint7", "function-type-annotation"),
+                ),
+            },
         },
 
         // Async arrow functions
         { code: "() => 1", languageOptions: { ecmaVersion: 6 } },
         { code: "async a => a", languageOptions: { ecmaVersion: 8 } },
-        { code: "async a => a", options: [{ asyncArrow: "always" }], languageOptions: { ecmaVersion: 8 } },
-        { code: "async a => a", options: [{ asyncArrow: "never" }], languageOptions: { ecmaVersion: 8 } },
-        { code: "async () => 1", options: [{ asyncArrow: "always" }], languageOptions: { ecmaVersion: 8 } },
-        { code: "async() => 1", options: [{ asyncArrow: "never" }], languageOptions: { ecmaVersion: 8 } },
-        { code: "async () => 1", options: [{ asyncArrow: "ignore" }], languageOptions: { ecmaVersion: 8 } },
-        { code: "async() => 1", options: [{ asyncArrow: "ignore" }], languageOptions: { ecmaVersion: 8 } },
+        {
+            code: "async a => a",
+            options: [{ asyncArrow: "always" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async a => a",
+            options: [{ asyncArrow: "never" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async () => 1",
+            options: [{ asyncArrow: "always" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async() => 1",
+            options: [{ asyncArrow: "never" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async () => 1",
+            options: [{ asyncArrow: "ignore" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async() => 1",
+            options: [{ asyncArrow: "ignore" }],
+            languageOptions: { ecmaVersion: 8 },
+        },
         { code: "async () => 1", languageOptions: { ecmaVersion: 8 } },
-        { code: "async () => 1", options: ["always"], languageOptions: { ecmaVersion: 8 } },
-        { code: "async() => 1", options: ["never"], languageOptions: { ecmaVersion: 8 } }
+        {
+            code: "async () => 1",
+            options: ["always"],
+            languageOptions: { ecmaVersion: 8 },
+        },
+        {
+            code: "async() => 1",
+            options: ["never"],
+            languageOptions: { ecmaVersion: 8 },
+        },
     ],
 
     invalid: [
@@ -139,9 +178,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     messageId: "missingSpace",
                     line: 1,
                     column: 13,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "function foo/* */() {}",
@@ -152,9 +191,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     messageId: "missingSpace",
                     line: 1,
                     column: 18,
-                    endColumn: 19
-                }
-            ]
+                    endColumn: 19,
+                },
+            ],
         },
         {
             code: "var foo = function() {}",
@@ -164,9 +203,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 19
-                }
-            ]
+                    column: 19,
+                },
+            ],
         },
         {
             code: "var bar = function foo() {}",
@@ -176,9 +215,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 23
-                }
-            ]
+                    column: 23,
+                },
+            ],
         },
         {
             code: "var obj = { get foo() {}, set foo(val) {} };",
@@ -188,15 +227,15 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 20
+                    column: 20,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 34
-                }
-            ]
+                    column: 34,
+                },
+            ],
         },
         {
             code: "var obj = { foo() {} };",
@@ -207,9 +246,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: "function* foo() {}",
@@ -220,9 +259,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
 
         {
@@ -235,9 +274,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     messageId: "unexpectedSpace",
                     line: 1,
                     column: 13,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "function foo /* */ () {}",
@@ -248,9 +287,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "function foo/* block comment */ () {}",
@@ -261,9 +300,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "function foo/* 1 */ /* 2 */ \n /* 3 */\n/* 4 */ () {}",
@@ -274,9 +313,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "function foo  () {}",
@@ -288,9 +327,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     messageId: "unexpectedSpace",
                     line: 1,
                     column: 13,
-                    endColumn: 15
-                }
-            ]
+                    endColumn: 15,
+                },
+            ],
         },
         {
             code: "function foo//\n() {}",
@@ -303,9 +342,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     line: 1,
                     column: 13,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "function foo // line comment \n () {}",
@@ -316,9 +355,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "function foo\n//\n() {}",
@@ -329,9 +368,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "var foo = function () {}",
@@ -343,9 +382,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     messageId: "unexpectedSpace",
                     line: 1,
                     column: 19,
-                    endColumn: 20
-                }
-            ]
+                    endColumn: 20,
+                },
+            ],
         },
         {
             code: "var bar = function foo () {}",
@@ -356,9 +395,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 23
-                }
-            ]
+                    column: 23,
+                },
+            ],
         },
         {
             code: "var obj = { get foo () {}, set foo (val) {} };",
@@ -369,15 +408,15 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 20
+                    column: 20,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 35
-                }
-            ]
+                    column: 35,
+                },
+            ],
         },
         {
             code: "var obj = { foo () {} };",
@@ -389,9 +428,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: "function* foo () {}",
@@ -403,21 +442,21 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
 
         {
             code: [
                 "function foo () {}",
                 "var bar = function() {}",
-                "var obj = { get foo () {}, set foo (val) {}, bar () {} };"
+                "var obj = { get foo () {}, set foo (val) {}, bar () {} };",
             ].join("\n"),
             output: [
                 "function foo() {}",
                 "var bar = function () {}",
-                "var obj = { get foo() {}, set foo(val) {}, bar() {} };"
+                "var obj = { get foo() {}, set foo(val) {}, bar() {} };",
             ].join("\n"),
             options: [{ named: "never", anonymous: "always" }],
             languageOptions: { ecmaVersion: 6 },
@@ -426,33 +465,33 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 13
+                    column: 13,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 2,
-                    column: 19
+                    column: 19,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 3,
-                    column: 20
+                    column: 20,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 3,
-                    column: 35
+                    column: 35,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 3,
-                    column: 49
-                }
-            ]
+                    column: 49,
+                },
+            ],
         },
         {
             code: "class Foo { constructor () {} *method () {} }",
@@ -464,15 +503,15 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 24
+                    column: 24,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 38
-                }
-            ]
+                    column: 38,
+                },
+            ],
         },
         {
             code: "var foo = { bar () {} }",
@@ -484,20 +523,20 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: [
                 "function foo() {}",
                 "var bar = function () {}",
-                "var obj = { get foo() {}, set foo(val) {}, bar() {} };"
+                "var obj = { get foo() {}, set foo(val) {}, bar() {} };",
             ].join("\n"),
             output: [
                 "function foo () {}",
                 "var bar = function() {}",
-                "var obj = { get foo () {}, set foo (val) {}, bar () {} };"
+                "var obj = { get foo () {}, set foo (val) {}, bar () {} };",
             ].join("\n"),
             options: [{ named: "always", anonymous: "never" }],
             languageOptions: { ecmaVersion: 6 },
@@ -506,33 +545,33 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionDeclaration",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 13
+                    column: 13,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 2,
-                    column: 19
+                    column: 19,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 3,
-                    column: 20
+                    column: 20,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 3,
-                    column: 34
+                    column: 34,
                 },
                 {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 3,
-                    column: 47
-                }
-            ]
+                    column: 47,
+                },
+            ],
         },
         {
             code: "var foo = function() {}",
@@ -543,9 +582,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 19
-                }
-            ]
+                    column: 19,
+                },
+            ],
         },
         {
             code: "var foo = function () {}",
@@ -556,9 +595,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 19
-                }
-            ]
+                    column: 19,
+                },
+            ],
         },
         {
             code: "var bar = function foo() {}",
@@ -569,9 +608,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "missingSpace",
                     line: 1,
-                    column: 23
-                }
-            ]
+                    column: 23,
+                },
+            ],
         },
         {
             code: "var bar = function foo () {}",
@@ -582,9 +621,9 @@ ruleTester.run("space-before-function-paren", rule, {
                     type: "FunctionExpression",
                     messageId: "unexpectedSpace",
                     line: 1,
-                    column: 23
-                }
-            ]
+                    column: 23,
+                },
+            ],
         },
 
         // Async arrow functions
@@ -593,34 +632,43 @@ ruleTester.run("space-before-function-paren", rule, {
             output: "async () => 1",
             options: [{ asyncArrow: "always" }],
             languageOptions: { ecmaVersion: 8 },
-            errors: ["Missing space before function parentheses."]
+            errors: ["Missing space before function parentheses."],
         },
         {
             code: "async () => 1",
             output: "async() => 1",
             options: [{ asyncArrow: "never" }],
             languageOptions: { ecmaVersion: 8 },
-            errors: ["Unexpected space before function parentheses."]
+            errors: ["Unexpected space before function parentheses."],
         },
         {
             code: "async() => 1",
             output: "async () => 1",
             languageOptions: { ecmaVersion: 8 },
-            errors: [{ messageId: "missingSpace", type: "ArrowFunctionExpression" }]
+            errors: [
+                { messageId: "missingSpace", type: "ArrowFunctionExpression" },
+            ],
         },
         {
             code: "async() => 1",
             output: "async () => 1",
             options: ["always"],
             languageOptions: { ecmaVersion: 8 },
-            errors: [{ messageId: "missingSpace", type: "ArrowFunctionExpression" }]
+            errors: [
+                { messageId: "missingSpace", type: "ArrowFunctionExpression" },
+            ],
         },
         {
             code: "async () => 1",
             output: "async() => 1",
             options: ["never"],
             languageOptions: { ecmaVersion: 8 },
-            errors: [{ messageId: "unexpectedSpace", type: "ArrowFunctionExpression" }]
-        }
-    ]
+            errors: [
+                {
+                    messageId: "unexpectedSpace",
+                    type: "ArrowFunctionExpression",
+                },
+            ],
+        },
+    ],
 });

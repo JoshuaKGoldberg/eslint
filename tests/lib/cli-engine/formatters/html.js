@@ -25,7 +25,11 @@ const cheerio = require("cheerio");
  */
 function checkOverview($, args) {
     assert($("#overview").hasClass(args.bgColor), "Check if color is correct");
-    assert.strictEqual($("#overview span").text(), args.problems, "Check if correct problem totals");
+    assert.strictEqual(
+        $("#overview span").text(),
+        args.problems,
+        "Check if correct problem totals",
+    );
 }
 
 /**
@@ -38,10 +42,30 @@ function checkOverview($, args) {
 function checkHeaderRow($, rowObject, args) {
     const row = $(rowObject);
 
-    assert(row.hasClass(args.bgColor), "Check that background color is correct");
-    assert.strictEqual(row.attr("data-group"), args.group, "Check that header group is correct");
-    assert.strictEqual(row.find("th span").text(), args.problems, "Check if correct totals");
-    assert.strictEqual(row.find("th").html().trim().match(/ [^<]*/u)[0].trim(), args.file, "Check if correctly displays filePath");
+    assert(
+        row.hasClass(args.bgColor),
+        "Check that background color is correct",
+    );
+    assert.strictEqual(
+        row.attr("data-group"),
+        args.group,
+        "Check that header group is correct",
+    );
+    assert.strictEqual(
+        row.find("th span").text(),
+        args.problems,
+        "Check if correct totals",
+    );
+    assert.strictEqual(
+        row
+            .find("th")
+            .html()
+            .trim()
+            .match(/ [^<]*/u)[0]
+            .trim(),
+        args.file,
+        "Check if correctly displays filePath",
+    );
 }
 
 /**
@@ -55,10 +79,25 @@ function checkContentRow($, rowObject, args) {
     const row = $(rowObject);
 
     assert(row.hasClass(args.group), "Check that linked to correct header");
-    assert.strictEqual($(row.find("td")[0]).text(), args.lineCol, "Check that line:column is correct");
-    assert($(row.find("td")[1]).hasClass(args.color), "Check that severity color is correct");
-    assert.strictEqual($(row.find("td")[2]).html(), args.message, "Check that message is correct");
-    assert.strictEqual($(row.find("td")[3]).find("a").text(), args.ruleId, "Check that ruleId is correct");
+    assert.strictEqual(
+        $(row.find("td")[0]).text(),
+        args.lineCol,
+        "Check that line:column is correct",
+    );
+    assert(
+        $(row.find("td")[1]).hasClass(args.color),
+        "Check that severity color is correct",
+    );
+    assert.strictEqual(
+        $(row.find("td")[2]).html(),
+        args.message,
+        "Check that message is correct",
+    );
+    assert.strictEqual(
+        $(row.find("td")[3]).find("a").text(),
+        args.ruleId,
+        "Check that ruleId is correct",
+    );
 }
 
 //------------------------------------------------------------------------------
@@ -75,31 +114,35 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
-            }
+                    message1: "This is a message for rule 'foo'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 0,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 2,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 0,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 2,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 1 issue in 1 file and styled accordingly", () => {
@@ -107,13 +150,35 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-2", problems: "1 problem (1 error, 0 warnings)" });
+            checkOverview($, {
+                bgColor: "bg-2",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 2, "Check that there are two (1 header, 1 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 1, "Check that is 1 header row (implying 1 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-2", group: "f-0", file: "foo.js", problems: "1 problem (1 error, 0 warnings)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
+            assert.strictEqual(
+                $("tr").length,
+                2,
+                "Check that there are two (1 header, 1 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                1,
+                "Check that is 1 header row (implying 1 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-2",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
         });
 
         it("should not fail if metadata is not available", () => {
@@ -122,13 +187,35 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-2", problems: "1 problem (1 error, 0 warnings)" });
+            checkOverview($, {
+                bgColor: "bg-2",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 2, "Check that there are two (1 header, 1 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 1, "Check that is 1 header row (implying 1 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-2", group: "f-0", file: "foo.js", problems: "1 problem (1 error, 0 warnings)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
+            assert.strictEqual(
+                $("tr").length,
+                2,
+                "Check that there are two (1 header, 1 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                1,
+                "Check that is 1 header row (implying 1 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-2",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
         });
     });
 
@@ -141,31 +228,35 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
-            }
+                    message1: "This is a message for rule 'foo'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 0,
-                warningCount: 1,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 1,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 0,
+                    warningCount: 1,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 1,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 1 issue in 1 file and styled accordingly", () => {
@@ -173,13 +264,35 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-1", problems: "1 problem (0 errors, 1 warning)" });
+            checkOverview($, {
+                bgColor: "bg-1",
+                problems: "1 problem (0 errors, 1 warning)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 2, "Check that there are two (1 header, 1 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 1, "Check that is 1 header row (implying 1 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-1", group: "f-0", file: "foo.js", problems: "1 problem (0 errors, 1 warning)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-1", message: "Unexpected foo.", ruleId: "foo" });
+            assert.strictEqual(
+                $("tr").length,
+                2,
+                "Check that there are two (1 header, 1 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                1,
+                "Check that is 1 header row (implying 1 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-1",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (0 errors, 1 warning)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-1",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
         });
     });
 
@@ -192,31 +305,35 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
-            }
+                    message1: "This is a message for rule 'foo'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 0,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 2,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 0,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 2,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 1 issue in 1 file and styled accordingly", () => {
@@ -224,24 +341,48 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-2", problems: "1 problem (1 error, 0 warnings)" });
+            checkOverview($, {
+                bgColor: "bg-2",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 2, "Check that there are two (1 header, 1 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 1, "Check that is 1 header row (implying 1 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-2", group: "f-0", file: "foo.js", problems: "1 problem (1 error, 0 warnings)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
+            assert.strictEqual(
+                $("tr").length,
+                2,
+                "Check that there are two (1 header, 1 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                1,
+                "Check that is 1 header row (implying 1 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-2",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
         });
     });
 
     describe("when passed no error/warning messages", () => {
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 0,
-                warningCount: 0,
-                messages: []
-            }]
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 0,
+                    warningCount: 0,
+                    messages: [],
+                },
+            ],
         };
 
         it("should return a string in HTML format with 0 issues in 1 file and styled accordingly", () => {
@@ -252,8 +393,17 @@ describe("formatter:html", () => {
             checkOverview($, { bgColor: "bg-0", problems: "0 problems" });
 
             // Check rows
-            assert.strictEqual($("tr").length, 1, "Check that there is 1 row (header)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-0", group: "f-0", file: "foo.js", problems: "0 problems" });
+            assert.strictEqual(
+                $("tr").length,
+                1,
+                "Check that there is 1 row (header)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-0",
+                group: "f-0",
+                file: "foo.js",
+                problems: "0 problems",
+            });
         });
     });
 
@@ -266,14 +416,14 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
+                    message1: "This is a message for rule 'foo'.",
+                },
             },
             bar: {
                 type: "suggestion",
@@ -281,36 +431,41 @@ describe("formatter:html", () => {
                 docs: {
                     description: "This is rule 'bar'",
                     category: "error",
-                    recommended: false
+                    recommended: false,
                 },
 
                 messages: {
-                    message1: "This is a message for rule 'bar'."
-                }
-            }
+                    message1: "This is a message for rule 'bar'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 1,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 2,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }, {
-                    message: "Unexpected bar.",
-                    severity: 1,
-                    line: 6,
-                    column: 11,
-                    ruleId: "bar",
-                    source: "bar"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 1,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 2,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                        {
+                            message: "Unexpected bar.",
+                            severity: 1,
+                            line: 6,
+                            column: 11,
+                            ruleId: "bar",
+                            source: "bar",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 2 issues in 1 file and styled accordingly", () => {
@@ -318,14 +473,42 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-2", problems: "2 problems (1 error, 1 warning)" });
+            checkOverview($, {
+                bgColor: "bg-2",
+                problems: "2 problems (1 error, 1 warning)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 3, "Check that there are two (1 header, 2 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 1, "Check that is 1 header row (implying 2 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-2", group: "f-0", file: "foo.js", problems: "2 problems (1 error, 1 warning)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
-            checkContentRow($, $("tr")[2], { group: "f-0", lineCol: "6:11", color: "clr-1", message: "Unexpected bar.", ruleId: "bar" });
+            assert.strictEqual(
+                $("tr").length,
+                3,
+                "Check that there are two (1 header, 2 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                1,
+                "Check that is 1 header row (implying 2 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-2",
+                group: "f-0",
+                file: "foo.js",
+                problems: "2 problems (1 error, 1 warning)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
+            checkContentRow($, $("tr")[2], {
+                group: "f-0",
+                lineCol: "6:11",
+                color: "clr-1",
+                message: "Unexpected bar.",
+                ruleId: "bar",
+            });
         });
     });
 
@@ -338,14 +521,14 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
+                    message1: "This is a message for rule 'foo'.",
+                },
             },
             bar: {
                 type: "suggestion",
@@ -353,41 +536,48 @@ describe("formatter:html", () => {
                 docs: {
                     description: "This is rule 'bar'",
                     category: "error",
-                    recommended: false
+                    recommended: false,
                 },
 
                 messages: {
-                    message1: "This is a message for rule 'bar'."
-                }
-            }
+                    message1: "This is a message for rule 'bar'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 0,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 2,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }, {
-                filePath: "bar.js",
-                errorCount: 0,
-                warningCount: 1,
-                messages: [{
-                    message: "Unexpected bar.",
-                    severity: 1,
-                    line: 6,
-                    column: 11,
-                    ruleId: "bar",
-                    source: "bar"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 0,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 2,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+                {
+                    filePath: "bar.js",
+                    errorCount: 0,
+                    warningCount: 1,
+                    messages: [
+                        {
+                            message: "Unexpected bar.",
+                            severity: 1,
+                            line: 6,
+                            column: 11,
+                            ruleId: "bar",
+                            source: "bar",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 2 issues in 2 files and styled accordingly", () => {
@@ -395,15 +585,48 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-2", problems: "2 problems (1 error, 1 warning)" });
+            checkOverview($, {
+                bgColor: "bg-2",
+                problems: "2 problems (1 error, 1 warning)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 4, "Check that there are two (2 header, 2 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 2, "Check that is 2 header row (implying 2 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-2", group: "f-0", file: "foo.js", problems: "1 problem (1 error, 0 warnings)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
-            checkHeaderRow($, $("tr")[2], { bgColor: "bg-1", group: "f-1", file: "bar.js", problems: "1 problem (0 errors, 1 warning)" });
-            checkContentRow($, $("tr")[3], { group: "f-1", lineCol: "6:11", color: "clr-1", message: "Unexpected bar.", ruleId: "bar" });
+            assert.strictEqual(
+                $("tr").length,
+                4,
+                "Check that there are two (2 header, 2 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                2,
+                "Check that is 2 header row (implying 2 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-2",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (1 error, 0 warnings)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
+            checkHeaderRow($, $("tr")[2], {
+                bgColor: "bg-1",
+                group: "f-1",
+                file: "bar.js",
+                problems: "1 problem (0 errors, 1 warning)",
+            });
+            checkContentRow($, $("tr")[3], {
+                group: "f-1",
+                lineCol: "6:11",
+                color: "clr-1",
+                message: "Unexpected bar.",
+                ruleId: "bar",
+            });
         });
     });
 
@@ -416,14 +639,14 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
+                    message1: "This is a message for rule 'foo'.",
+                },
             },
             bar: {
                 type: "suggestion",
@@ -431,41 +654,48 @@ describe("formatter:html", () => {
                 docs: {
                     description: "This is rule 'bar'",
                     category: "error",
-                    recommended: false
+                    recommended: false,
                 },
 
                 messages: {
-                    message1: "This is a message for rule 'bar'."
-                }
-            }
+                    message1: "This is a message for rule 'bar'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 0,
-                warningCount: 1,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 1,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }, {
-                filePath: "bar.js",
-                errorCount: 0,
-                warningCount: 1,
-                messages: [{
-                    message: "Unexpected bar.",
-                    severity: 1,
-                    line: 6,
-                    column: 11,
-                    ruleId: "bar",
-                    source: "bar"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 0,
+                    warningCount: 1,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 1,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+                {
+                    filePath: "bar.js",
+                    errorCount: 0,
+                    warningCount: 1,
+                    messages: [
+                        {
+                            message: "Unexpected bar.",
+                            severity: 1,
+                            line: 6,
+                            column: 11,
+                            ruleId: "bar",
+                            source: "bar",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 2 issues in 2 files and styled accordingly", () => {
@@ -473,15 +703,48 @@ describe("formatter:html", () => {
             const $ = cheerio.load(result);
 
             // Check overview
-            checkOverview($, { bgColor: "bg-1", problems: "2 problems (0 errors, 2 warnings)" });
+            checkOverview($, {
+                bgColor: "bg-1",
+                problems: "2 problems (0 errors, 2 warnings)",
+            });
 
             // Check rows
-            assert.strictEqual($("tr").length, 4, "Check that there are two (2 header, 2 content)");
-            assert.strictEqual($("tr[data-group|=\"f\"]").length, 2, "Check that is 2 header row (implying 2 content row)");
-            checkHeaderRow($, $("tr")[0], { bgColor: "bg-1", group: "f-0", file: "foo.js", problems: "1 problem (0 errors, 1 warning)" });
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-1", message: "Unexpected foo.", ruleId: "foo" });
-            checkHeaderRow($, $("tr")[2], { bgColor: "bg-1", group: "f-1", file: "bar.js", problems: "1 problem (0 errors, 1 warning)" });
-            checkContentRow($, $("tr")[3], { group: "f-1", lineCol: "6:11", color: "clr-1", message: "Unexpected bar.", ruleId: "bar" });
+            assert.strictEqual(
+                $("tr").length,
+                4,
+                "Check that there are two (2 header, 2 content)",
+            );
+            assert.strictEqual(
+                $('tr[data-group|="f"]').length,
+                2,
+                "Check that is 2 header row (implying 2 content row)",
+            );
+            checkHeaderRow($, $("tr")[0], {
+                bgColor: "bg-1",
+                group: "f-0",
+                file: "foo.js",
+                problems: "1 problem (0 errors, 1 warning)",
+            });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-1",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
+            checkHeaderRow($, $("tr")[2], {
+                bgColor: "bg-1",
+                group: "f-1",
+                file: "bar.js",
+                problems: "1 problem (0 errors, 1 warning)",
+            });
+            checkContentRow($, $("tr")[3], {
+                group: "f-1",
+                lineCol: "6:11",
+                color: "clr-1",
+                message: "Unexpected bar.",
+                ruleId: "bar",
+            });
         });
     });
 
@@ -494,58 +757,78 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
-            }
+                    message1: "This is a message for rule 'foo'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 0,
-                messages: [{
-                    message: "Unexpected <&\"'> foo.",
-                    severity: 2,
-                    line: 5,
-                    column: 10,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 0,
+                    messages: [
+                        {
+                            message: "Unexpected <&\"'> foo.",
+                            severity: 2,
+                            line: 5,
+                            column: 10,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 1 issue in 1 file", () => {
             const result = formatter(code.results, { rulesMeta });
             const $ = cheerio.load(result);
 
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "Unexpected &lt;&amp;&quot;&apos;&gt; foo.", ruleId: "foo" });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "Unexpected &lt;&amp;&quot;&apos;&gt; foo.",
+                ruleId: "foo",
+            });
         });
     });
 
     describe("when passing a single message with no rule id or message", () => {
-        const code = [{
-            filePath: "foo.js",
-            errorCount: 1,
-            warningCount: 0,
-            messages: [{
-                severity: 2,
-                line: 5,
-                column: 10
-            }]
-        }];
+        const code = [
+            {
+                filePath: "foo.js",
+                errorCount: 1,
+                warningCount: 0,
+                messages: [
+                    {
+                        severity: 2,
+                        line: 5,
+                        column: 10,
+                    },
+                ],
+            },
+        ];
 
         it("should return a string in HTML format with 1 issue in 1 file", () => {
             const result = formatter(code, {});
             const $ = cheerio.load(result);
 
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "5:10", color: "clr-2", message: "", ruleId: "" });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "5:10",
+                color: "clr-2",
+                message: "",
+                ruleId: "",
+            });
         });
     });
 
@@ -558,36 +841,46 @@ describe("formatter:html", () => {
                     description: "This is rule 'foo'",
                     category: "error",
                     recommended: true,
-                    url: "https://eslint.org/docs/rules/foo"
+                    url: "https://eslint.org/docs/rules/foo",
                 },
 
                 fixable: "code",
 
                 messages: {
-                    message1: "This is a message for rule 'foo'."
-                }
-            }
+                    message1: "This is a message for rule 'foo'.",
+                },
+            },
         };
         const code = {
-            results: [{
-                filePath: "foo.js",
-                errorCount: 1,
-                warningCount: 0,
-                messages: [{
-                    message: "Unexpected foo.",
-                    severity: 2,
-                    ruleId: "foo",
-                    source: "foo"
-                }]
-            }],
-            rulesMeta
+            results: [
+                {
+                    filePath: "foo.js",
+                    errorCount: 1,
+                    warningCount: 0,
+                    messages: [
+                        {
+                            message: "Unexpected foo.",
+                            severity: 2,
+                            ruleId: "foo",
+                            source: "foo",
+                        },
+                    ],
+                },
+            ],
+            rulesMeta,
         };
 
         it("should return a string in HTML format with 1 issue in 1 file and styled accordingly", () => {
             const result = formatter(code.results, { rulesMeta });
             const $ = cheerio.load(result);
 
-            checkContentRow($, $("tr")[1], { group: "f-0", lineCol: "0:0", color: "clr-2", message: "Unexpected foo.", ruleId: "foo" });
+            checkContentRow($, $("tr")[1], {
+                group: "f-0",
+                lineCol: "0:0",
+                color: "clr-2",
+                message: "Unexpected foo.",
+                ruleId: "foo",
+            });
         });
     });
 });

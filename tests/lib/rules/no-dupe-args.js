@@ -19,26 +19,62 @@ const rule = require("../../../lib/rules/no-dupe-args"),
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 5,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("no-dupe-args", rule, {
     valid: [
         "function a(a, b, c){}",
         "var a = function(a, b, c){}",
-        { code: "function a({a, b}, {c, d}){}", languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "function a({a, b}, {c, d}){}",
+            languageOptions: { ecmaVersion: 6 },
+        },
         { code: "function a([ , a]) {}", languageOptions: { ecmaVersion: 6 } },
-        { code: "function foo([[a, b], [c, d]]) {}", languageOptions: { ecmaVersion: 6 } }
+        {
+            code: "function foo([[a, b], [c, d]]) {}",
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
     invalid: [
-        { code: "function a(a, b, b) {}", errors: [{ messageId: "unexpected", data: { name: "b" } }] },
-        { code: "function a(a, a, a) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }] },
-        { code: "function a(a, b, a) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }] },
-        { code: "function a(a, b, a, b) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }, { messageId: "unexpected", data: { name: "b" } }] },
-        { code: "var a = function(a, b, b) {}", errors: [{ messageId: "unexpected", data: { name: "b" } }] },
-        { code: "var a = function(a, a, a) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }] },
-        { code: "var a = function(a, b, a) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }] },
-        { code: "var a = function(a, b, a, b) {}", errors: [{ messageId: "unexpected", data: { name: "a" } }, { messageId: "unexpected", data: { name: "b" } }] }
-    ]
+        {
+            code: "function a(a, b, b) {}",
+            errors: [{ messageId: "unexpected", data: { name: "b" } }],
+        },
+        {
+            code: "function a(a, a, a) {}",
+            errors: [{ messageId: "unexpected", data: { name: "a" } }],
+        },
+        {
+            code: "function a(a, b, a) {}",
+            errors: [{ messageId: "unexpected", data: { name: "a" } }],
+        },
+        {
+            code: "function a(a, b, a, b) {}",
+            errors: [
+                { messageId: "unexpected", data: { name: "a" } },
+                { messageId: "unexpected", data: { name: "b" } },
+            ],
+        },
+        {
+            code: "var a = function(a, b, b) {}",
+            errors: [{ messageId: "unexpected", data: { name: "b" } }],
+        },
+        {
+            code: "var a = function(a, a, a) {}",
+            errors: [{ messageId: "unexpected", data: { name: "a" } }],
+        },
+        {
+            code: "var a = function(a, b, a) {}",
+            errors: [{ messageId: "unexpected", data: { name: "a" } }],
+        },
+        {
+            code: "var a = function(a, b, a, b) {}",
+            errors: [
+                { messageId: "unexpected", data: { name: "a" } },
+                { messageId: "unexpected", data: { name: "b" } },
+            ],
+        },
+    ],
 });

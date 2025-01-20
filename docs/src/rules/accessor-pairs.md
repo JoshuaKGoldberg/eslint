@@ -2,14 +2,13 @@
 title: accessor-pairs
 rule_type: suggestion
 related_rules:
-- no-dupe-keys
-- no-dupe-class-members
+    - no-dupe-keys
+    - no-dupe-class-members
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
 ---
-
 
 It's a common mistake in JavaScript to create an object with just a setter for a property but never have a corresponding getter defined for it. Without a getter, you cannot read the property, so it ends up not being used.
 
@@ -20,9 +19,8 @@ Here are some examples:
 const o = {
     set a(value) {
         this.val = value;
-    }
+    },
 };
-
 
 // Good
 const p = {
@@ -31,9 +29,8 @@ const p = {
     },
     get a() {
         return this.val;
-    }
+    },
 };
-
 ```
 
 This rule warns if setters are defined without getters. Using an option `getWithoutSet`, it will warn if you have a getter without a setter also.
@@ -48,9 +45,9 @@ This rule always checks object literals and property descriptors. By default, it
 
 ## Options
 
-* `setWithoutGet` set to `true` will warn for setters without getters (Default `true`).
-* `getWithoutSet` set to `true` will warn for getters without setters (Default `false`).
-* `enforceForClassMembers` set to `true` additionally applies this rule to class getters/setters (Default `true`). Set `enforceForClassMembers` to `false` if you want this rule to ignore class declarations and class expressions.
+- `setWithoutGet` set to `true` will warn for setters without getters (Default `true`).
+- `getWithoutSet` set to `true` will warn for getters without setters (Default `false`).
+- `enforceForClassMembers` set to `true` additionally applies this rule to class getters/setters (Default `true`). Set `enforceForClassMembers` to `false` if you want this rule to ignore class declarations and class expressions.
 
 ### setWithoutGet
 
@@ -64,15 +61,14 @@ Examples of **incorrect** code for the default `{ "setWithoutGet": true }` optio
 const q = {
     set a(value) {
         this.val = value;
-    }
+    },
 };
 
-
-const r = {d: 1};
-Object.defineProperty(r, 'c', {
-    set: function(value) {
+const r = { d: 1 };
+Object.defineProperty(r, "c", {
+    set: function (value) {
         this.val = value;
-    }
+    },
 });
 ```
 
@@ -91,19 +87,18 @@ const s = {
     },
     get a() {
         return this.val;
-    }
+    },
 };
 
-const t = {d: 1};
-Object.defineProperty(t, 'c', {
-    set: function(value) {
+const t = { d: 1 };
+Object.defineProperty(t, "c", {
+    set: function (value) {
         this.val = value;
     },
-    get: function() {
+    get: function () {
         return this.val;
-    }
+    },
 });
-
 ```
 
 :::
@@ -120,27 +115,27 @@ Examples of **incorrect** code for the `{ "getWithoutSet": true }` option:
 const u = {
     set a(value) {
         this.val = value;
-    }
+    },
 };
 
 const v = {
     get a() {
         return this.val;
-    }
+    },
 };
 
-const w = {d: 1};
-Object.defineProperty(w, 'c', {
-    set: function(value) {
+const w = { d: 1 };
+Object.defineProperty(w, "c", {
+    set: function (value) {
         this.val = value;
-    }
+    },
 });
 
-const x = {d: 1};
-Object.defineProperty(x, 'c', {
-    get: function() {
+const x = { d: 1 };
+Object.defineProperty(x, "c", {
+    get: function () {
         return this.val;
-    }
+    },
 });
 ```
 
@@ -158,19 +153,18 @@ const y = {
     },
     get a() {
         return this.val;
-    }
+    },
 };
 
-const z = {d: 1};
-Object.defineProperty(z, 'c', {
-    set: function(value) {
+const z = { d: 1 };
+Object.defineProperty(z, "c", {
+    set: function (value) {
         this.val = value;
     },
-    get: function() {
+    get: function () {
         return this.val;
-    }
+    },
 });
-
 ```
 
 :::
@@ -179,8 +173,8 @@ Object.defineProperty(z, 'c', {
 
 When `enforceForClassMembers` is set to `true` (default):
 
-* `"getWithoutSet": true` will also warn for getters without setters in classes.
-* `"setWithoutGet": true` will also warn for setters without getters in classes.
+- `"getWithoutSet": true` will also warn for getters without setters in classes.
+- `"setWithoutGet": true` will also warn for setters without getters in classes.
 
 Examples of **incorrect** code for `{ "getWithoutSet": true, "enforceForClassMembers": true }`:
 
@@ -208,7 +202,7 @@ const Baz = class {
     static set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -230,7 +224,7 @@ const Bar = class {
     static set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -262,13 +256,13 @@ const Baz = class {
     static get a() {
         return this.val;
     }
-}
+};
 
 const Quux = class {
     set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -290,7 +284,7 @@ const a = {
     },
     set [z++](value) {
         this.val = value;
-    }
+    },
 };
 ```
 
@@ -308,7 +302,7 @@ const b = {
     a: 1,
     set a(value) {
         this.val = value;
-    }
+    },
 };
 ```
 

@@ -18,12 +18,12 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const SHOULD_BE_LAST = "shouldBeLast";
 
 const ruleTester = new RuleTester({
-    languageOptions: { ecmaVersion: 8 }
+    languageOptions: { ecmaVersion: 8 },
 });
 
 const cannedError = {
     messageId: SHOULD_BE_LAST,
-    type: "AssignmentPattern"
+    type: "AssignmentPattern",
 };
 
 ruleTester.run("default-param-last", rule, {
@@ -40,7 +40,7 @@ ruleTester.run("default-param-last", rule, {
         "const f = (a = 5) => {}",
         "const f = function f() {}",
         "const f = function f(a) {}",
-        "const f = function f(a = 5) {}"
+        "const f = function f(a = 5) {}",
     ],
     invalid: [
         {
@@ -49,9 +49,9 @@ ruleTester.run("default-param-last", rule, {
                 {
                     messageId: SHOULD_BE_LAST,
                     column: 12,
-                    endColumn: 17
-                }
-            ]
+                    endColumn: 17,
+                },
+            ],
         },
         {
             code: "function f(a = 5, b = 6, c) {}",
@@ -59,18 +59,18 @@ ruleTester.run("default-param-last", rule, {
                 {
                     messageId: SHOULD_BE_LAST,
                     column: 12,
-                    endColumn: 17
+                    endColumn: 17,
                 },
                 {
                     messageId: SHOULD_BE_LAST,
                     column: 19,
-                    endColumn: 24
-                }
-            ]
+                    endColumn: 24,
+                },
+            ],
         },
         {
             code: "function f (a = 5, b, c = 6, d) {}",
-            errors: [cannedError, cannedError]
+            errors: [cannedError, cannedError],
         },
         {
             code: "function f(a = 5, b, c = 5) {}",
@@ -78,37 +78,37 @@ ruleTester.run("default-param-last", rule, {
                 {
                     messageId: SHOULD_BE_LAST,
                     column: 12,
-                    endColumn: 17
-                }
-            ]
+                    endColumn: 17,
+                },
+            ],
         },
         {
             code: "const f = (a = 5, b, ...c) => {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = function f (a, b = 5, c) {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = (a = 5, { b }) => {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = ({ a } = {}, b) => {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = ({ a, b } = { a: 1, b: 2 }, c) => {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = ([a] = [], b) => {}",
-            errors: [cannedError]
+            errors: [cannedError],
         },
         {
             code: "const f = ([a, b] = [1, 2], c) => {}",
-            errors: [cannedError]
-        }
-    ]
+            errors: [cannedError],
+        },
+    ],
 });

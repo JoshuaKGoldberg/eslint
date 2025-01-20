@@ -24,7 +24,7 @@ const DEFAULT_CONFIG = {
     comment: true,
     tokens: true,
     range: true,
-    loc: true
+    loc: true,
 };
 
 /**
@@ -39,7 +39,7 @@ function createSourceCode(text) {
     Traverser.traverse(ast, {
         enter(node, parent) {
             node.parent = parent;
-        }
+        },
     });
 
     return new SourceCode(text, ast);
@@ -60,7 +60,7 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [4, 14],
-                text: "foo = -bar"
+                text: "foo = -bar",
             });
         });
 
@@ -73,19 +73,21 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [4, 8],
-                text: "123"
+                text: "123",
             });
         });
 
         it("allows an unspecified retained range", () => {
             const sourceCode = createSourceCode("abcdefghij");
             const ruleFixer = new RuleFixer({ sourceCode });
-            const result = new FixTracker(ruleFixer, sourceCode)
-                .replaceTextRange([4, 8], "123");
+            const result = new FixTracker(
+                ruleFixer,
+                sourceCode,
+            ).replaceTextRange([4, 8], "123");
 
             assert.deepStrictEqual(result, {
                 range: [4, 8],
-                text: "123"
+                text: "123",
             });
         });
     });
@@ -100,7 +102,7 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [4, 10],
-                text: "b + c"
+                text: "b + c",
             });
         });
     });
@@ -108,7 +110,8 @@ describe("FixTracker", () => {
     describe("retainEnclosingFunction", () => {
         it("handles a normal enclosing function", () => {
             const sourceCode = createSourceCode("f = function() { return x; }");
-            const xNode = sourceCode.ast.body[0].expression.right.body.body[0].argument;
+            const xNode =
+                sourceCode.ast.body[0].expression.right.body.body[0].argument;
             const ruleFixer = new RuleFixer({ sourceCode });
             const result = new FixTracker(ruleFixer, sourceCode)
                 .retainEnclosingFunction(xNode)
@@ -116,7 +119,7 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [4, 28],
-                text: "function() { return y; }"
+                text: "function() { return y; }",
             });
         });
 
@@ -130,7 +133,7 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [0, 12],
-                text: "const a = c;"
+                text: "const a = c;",
             });
         });
     });
@@ -146,7 +149,7 @@ describe("FixTracker", () => {
 
             assert.deepStrictEqual(result, {
                 range: [10, 15],
-                text: "j * k"
+                text: "j * k",
             });
         });
     });

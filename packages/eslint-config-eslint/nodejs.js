@@ -3,8 +3,8 @@
 const {
     configs: {
         "flat/recommended-script": recommendedScriptConfig,
-        "flat/recommended-module": recommendedModuleConfig
-    }
+        "flat/recommended-module": recommendedModuleConfig,
+    },
 } = require("eslint-plugin-n");
 
 /**
@@ -13,7 +13,7 @@ const {
 const sharedRules = {
     "n/callback-return": ["error", ["cb", "callback", "next"]],
     "n/handle-callback-err": ["error", "err"],
-    "n/prefer-node-protocol": "error"
+    "n/prefer-node-protocol": "error",
 };
 
 /**
@@ -27,9 +27,9 @@ const cjsConfigs = [
             ...sharedRules,
             "n/no-mixed-requires": "error",
             "n/no-new-require": "error",
-            "n/no-path-concat": "error"
-        }
-    }
+            "n/no-path-concat": "error",
+        },
+    },
 ];
 
 /**
@@ -39,11 +39,11 @@ const esmConfigs = [
     recommendedModuleConfig,
     {
         name: "eslint-config-eslint/esm",
-        rules: sharedRules
-    }
+        rules: sharedRules,
+    },
 ];
 
 module.exports = {
     cjsConfigs,
-    esmConfigs
+    esmConfigs,
 };

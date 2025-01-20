@@ -3,14 +3,13 @@ title: no-restricted-imports
 rule_type: suggestion
 ---
 
-
 Imports are an ES6/ES2015 standard for making the functionality of other modules available in your current module. In CommonJS this is implemented through the `require()` call which makes this ESLint rule roughly equivalent to its CommonJS counterpart `no-restricted-modules`.
 
 Why would you want to restrict imports?
 
-* Some imports might not make sense in a particular environment. For example, Node.js' `fs` module would not make sense in an environment that didn't have a file system.
+- Some imports might not make sense in a particular environment. For example, Node.js' `fs` module would not make sense in an environment that didn't have a file system.
 
-* Some modules provide similar or identical functionality, think `lodash` and `underscore`. Your project may have standardized on a module. You want to make sure that the other alternatives are not being used as this would unnecessarily bloat the project and provide a higher maintenance cost of two dependencies when one would suffice.
+- Some modules provide similar or identical functionality, think `lodash` and `underscore`. Your project may have standardized on a module. You want to make sure that the other alternatives are not being used as this would unnecessarily bloat the project and provide a higher maintenance cost of two dependencies when one would suffice.
 
 ## Rule Details
 
@@ -22,7 +21,7 @@ It applies to static imports only, not dynamic ones.
 
 This rule has both string and object options to specify the imported modules to restrict.
 
-Using string option, you can specify  the name of a module that you want to restrict from being imported as a value in the rule options array:
+Using string option, you can specify the name of a module that you want to restrict from being imported as a value in the rule options array:
 
 ```json
 "no-restricted-imports": ["error", "import1", "import2"]
@@ -35,7 +34,7 @@ Examples of **incorrect** code for string option:
 ```js
 /*eslint no-restricted-imports: ["error", "fs"]*/
 
-import fs from 'fs';
+import fs from "fs";
 ```
 
 :::
@@ -47,7 +46,7 @@ String options also restrict the module from being exported, as in this example:
 ```js
 /*eslint no-restricted-imports: ["error", "fs"]*/
 
-export { fs } from 'fs';
+export { fs } from "fs";
 ```
 
 :::
@@ -57,7 +56,7 @@ export { fs } from 'fs';
 ```js
 /*eslint no-restricted-imports: ["error", "fs"]*/
 
-export * from 'fs';
+export * from "fs";
 ```
 
 :::
@@ -69,7 +68,7 @@ Examples of **correct** code for string option:
 ```js
 /*eslint no-restricted-imports: ["error", "fs"]*/
 
-import crypto from 'crypto';
+import crypto from "crypto";
 export { foo } from "bar";
 ```
 
@@ -97,7 +96,7 @@ Examples of **incorrect** code for string option:
     "message": "Please use 'allowed-import' instead"
 }]*/
 
-import foo from 'disallowed-import';
+import foo from "disallowed-import";
 ```
 
 :::
@@ -117,7 +116,7 @@ Examples of **incorrect** code for `paths`:
 ```js
 /*eslint no-restricted-imports: ["error", { "paths": ["cluster"] }]*/
 
-import cluster from 'cluster';
+import cluster from "cluster";
 ```
 
 :::
@@ -211,7 +210,7 @@ If the local name assigned to a default export is the same as a string in `impor
 ```js
 /*eslint no-restricted-imports: ["error", { paths: [{ name: "foo", importNames: ["DisallowedObject"] }] }]*/
 
-import DisallowedObject from "foo"
+import DisallowedObject from "foo";
 ```
 
 :::
@@ -328,7 +327,7 @@ Examples of **incorrect** code for `patterns` option:
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*"] }]*/
 
-import pick from 'lodash/pick';
+import pick from "lodash/pick";
 ```
 
 :::
@@ -338,7 +337,7 @@ import pick from 'lodash/pick';
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*", "!lodash/pick"] }]*/
 
-import pick from 'lodash/map';
+import pick from "lodash/map";
 ```
 
 :::
@@ -348,7 +347,7 @@ import pick from 'lodash/map';
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["import1/*", "!import1/private/*"] }]*/
 
-import pick from 'import1/private/someModule';
+import pick from "import1/private/someModule";
 ```
 
 :::
@@ -362,7 +361,7 @@ Examples of **correct** code for `patterns` option:
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["crypto/*"] }]*/
 
-import crypto from 'crypto';
+import crypto from "crypto";
 ```
 
 :::
@@ -372,7 +371,7 @@ import crypto from 'crypto';
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*", "!lodash/pick"] }]*/
 
-import pick from 'lodash/pick';
+import pick from "lodash/pick";
 ```
 
 :::
@@ -382,7 +381,7 @@ import pick from 'lodash/pick';
 ```js
 /*eslint no-restricted-imports: ["error", { "patterns": ["import1/*", "!import1/private"] }]*/
 
-import pick from 'import1/private/someModule';
+import pick from "import1/private/someModule";
 ```
 
 :::
@@ -415,7 +414,7 @@ Examples of **incorrect** code for `group` option:
     message: "Please use the default import from 'lodash' instead."
 }]}]*/
 
-import pick from 'lodash/pick';
+import pick from "lodash/pick";
 ```
 
 :::
@@ -430,7 +429,7 @@ Examples of **correct** code for this `group` option:
     message: "Please use the default import from 'lodash' instead."
 }]}]*/
 
-import lodash from 'lodash';
+import lodash from "lodash";
 ```
 
 :::
@@ -462,10 +461,10 @@ Examples of **incorrect** code for `regex` option:
     regex: "@app/(?!(api/enums$)).*",
 }]}]*/
 
-import Foo from '@app/api';
-import Bar from '@app/api/bar';
-import Baz from '@app/api/baz';
-import Bux from '@app/api/enums/foo';
+import Foo from "@app/api";
+import Bar from "@app/api/bar";
+import Baz from "@app/api/baz";
+import Bux from "@app/api/enums/foo";
 ```
 
 :::
@@ -479,7 +478,7 @@ Examples of **correct** code for `regex` option:
     regex: "@app/(?!(api/enums$)).*",
 }]}]*/
 
-import Foo from '@app/api/enums';
+import Foo from "@app/api/enums";
 ```
 
 :::
@@ -507,7 +506,7 @@ Examples of **incorrect** code for `caseSensitive: true` option:
     caseSensitive: true
 }]}]*/
 
-import pick from 'fooBar';
+import pick from "fooBar";
 ```
 
 :::
@@ -522,7 +521,7 @@ Examples of **correct** code for `caseSensitive: true` option:
     caseSensitive: true
 }]}]*/
 
-import pick from 'food';
+import pick from "food";
 ```
 
 :::
@@ -552,7 +551,7 @@ Examples of **incorrect** code for `importNames` in `patterns`:
     message: "Use 'isEmpty' from lodash instead."
 }]}]*/
 
-import { isEmpty } from 'utils/collection-utils';
+import { isEmpty } from "utils/collection-utils";
 ```
 
 :::
@@ -568,7 +567,7 @@ Examples of **correct** code for `importNames` in `patterns`:
     message: "Use 'isEmpty' from lodash instead."
 }]}]*/
 
-import { hasValues } from 'utils/collection-utils';
+import { hasValues } from "utils/collection-utils";
 ```
 
 :::
@@ -600,7 +599,7 @@ Examples of **incorrect** code for `allowImportNames` in `patterns`:
     message: "Please use only 'isEmpty' from utils."
 }]}]*/
 
-import { hasValues } from 'utils/collection-utils';
+import { hasValues } from "utils/collection-utils";
 ```
 
 :::
@@ -616,7 +615,7 @@ Examples of **correct** code for `allowImportNames` in `patterns`:
     message: "Please use only 'isEmpty' from utils."
 }]}]*/
 
-import { isEmpty } from 'utils/collection-utils';
+import { isEmpty } from "utils/collection-utils";
 ```
 
 :::
@@ -645,7 +644,7 @@ Examples of **incorrect** code for `importNamePattern` option:
     message: "Use 'is*' functions from lodash instead."
 }]}]*/
 
-import { isEmpty } from 'utils/collection-utils';
+import { isEmpty } from "utils/collection-utils";
 ```
 
 :::
@@ -659,7 +658,7 @@ import { isEmpty } from 'utils/collection-utils';
     message: "Use 'is*' and 'has*' functions from baz/bar instead"
 }]}]*/
 
-import { isSomething, hasSomething } from 'foo/bar';
+import { isSomething, hasSomething } from "foo/bar";
 ```
 
 :::
@@ -673,7 +672,7 @@ import { isSomething, hasSomething } from 'foo/bar';
     importNamePattern: '^baz',
 }]}]*/
 
-import { bar, bazQux } from 'foo/quux';
+import { bar, bazQux } from "foo/quux";
 ```
 
 :::
@@ -689,7 +688,7 @@ Examples of **correct** code for `importNamePattern` option:
     message: "Use 'is*' functions from lodash instead."
 }]}]*/
 
-import isEmpty, { hasValue } from 'utils/collection-utils';
+import isEmpty, { hasValue } from "utils/collection-utils";
 ```
 
 :::
@@ -706,9 +705,9 @@ Examples of **incorrect** code for `importNamePattern` option:
     importNamePattern: "^"
 }]}]*/
 
-import isEmpty, { hasValue } from 'utils/collection-utils';
+import isEmpty, { hasValue } from "utils/collection-utils";
 
-import * as file from 'utils/file-utils';
+import * as file from "utils/file-utils";
 ```
 
 :::
@@ -723,7 +722,7 @@ Examples of **correct** code for `importNamePattern` option:
     importNamePattern: "^"
 }]}]*/
 
-import 'utils/init-utils';
+import "utils/init-utils";
 ```
 
 :::
@@ -753,7 +752,7 @@ Examples of **incorrect** code for `allowImportNamePattern` option:
     allowImportNamePattern: '^has'
 }]}]*/
 
-import { isEmpty } from 'utils/collection-utils';
+import { isEmpty } from "utils/collection-utils";
 ```
 
 :::
@@ -768,7 +767,7 @@ Examples of **correct** code for `allowImportNamePattern` option:
     allowImportNamePattern: '^is'
 }]}]*/
 
-import { isEmpty } from 'utils/collection-utils';
+import { isEmpty } from "utils/collection-utils";
 ```
 
 :::

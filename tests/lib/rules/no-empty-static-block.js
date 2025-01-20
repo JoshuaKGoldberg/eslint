@@ -16,7 +16,7 @@ const rule = require("../../../lib/rules/no-empty-static-block"),
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-    languageOptions: { ecmaVersion: 2022 }
+    languageOptions: { ecmaVersion: 2022 },
 });
 
 ruleTester.run("no-empty-static-block", rule, {
@@ -24,28 +24,28 @@ ruleTester.run("no-empty-static-block", rule, {
         "class Foo { static { bar(); } }",
         "class Foo { static { /* comments */ } }",
         "class Foo { static {\n// comment\n} }",
-        "class Foo { static { bar(); } static { bar(); } }"
+        "class Foo { static { bar(); } static { bar(); } }",
     ],
     invalid: [
         {
             code: "class Foo { static {} }",
-            errors: [{ messageId: "unexpected" }]
+            errors: [{ messageId: "unexpected" }],
         },
         {
             code: "class Foo { static { } }",
-            errors: [{ messageId: "unexpected" }]
+            errors: [{ messageId: "unexpected" }],
         },
         {
             code: "class Foo { static { \n\n } }",
-            errors: [{ messageId: "unexpected" }]
+            errors: [{ messageId: "unexpected" }],
         },
         {
             code: "class Foo { static { bar(); } static {} }",
-            errors: [{ messageId: "unexpected" }]
+            errors: [{ messageId: "unexpected" }],
         },
         {
             code: "class Foo { static // comment\n {} }",
-            errors: [{ messageId: "unexpected" }]
-        }
-    ]
+            errors: [{ messageId: "unexpected" }],
+        },
+    ],
 });

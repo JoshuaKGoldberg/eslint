@@ -17,13 +17,31 @@ const { unIndent } = require("../../_utils");
 // Tests
 //------------------------------------------------------------------------------
 
-const PROPERTY_ERROR = { messageId: "expectedPropertyShorthand", type: "Property" };
+const PROPERTY_ERROR = {
+    messageId: "expectedPropertyShorthand",
+    type: "Property",
+};
 const METHOD_ERROR = { messageId: "expectedMethodShorthand", type: "Property" };
-const LONGFORM_PROPERTY_ERROR = { messageId: "expectedPropertyLongform", type: "Property" };
-const LONGFORM_METHOD_ERROR = { messageId: "expectedMethodLongform", type: "Property" };
-const LONGFORM_METHOD_STRING_LITERAL_ERROR = { messageId: "expectedLiteralMethodLongform", type: "Property" };
-const ALL_SHORTHAND_ERROR = { messageId: "expectedAllPropertiesShorthanded", type: "ObjectExpression" };
-const MIXED_SHORTHAND_ERROR = { messageId: "unexpectedMix", type: "ObjectExpression" };
+const LONGFORM_PROPERTY_ERROR = {
+    messageId: "expectedPropertyLongform",
+    type: "Property",
+};
+const LONGFORM_METHOD_ERROR = {
+    messageId: "expectedMethodLongform",
+    type: "Property",
+};
+const LONGFORM_METHOD_STRING_LITERAL_ERROR = {
+    messageId: "expectedLiteralMethodLongform",
+    type: "Property",
+};
+const ALL_SHORTHAND_ERROR = {
+    messageId: "expectedAllPropertiesShorthanded",
+    type: "ObjectExpression",
+};
+const MIXED_SHORTHAND_ERROR = {
+    messageId: "unexpectedMix",
+    type: "ObjectExpression",
+};
 
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2018 } });
 
@@ -76,309 +94,315 @@ ruleTester.run("object-shorthand", rule, {
         // object literal computed properties
         {
             code: "var x = {[y]: y}",
-            options: ["properties"]
+            options: ["properties"],
         },
         {
             code: "var x = {['y']: 'y'}",
-            options: ["properties"]
+            options: ["properties"],
         },
         {
             code: "var x = {['y']: y}",
-            options: ["properties"]
+            options: ["properties"],
         },
 
         // object literal computed methods
         {
             code: "var x = {[y]() {}}",
-            options: ["methods"]
+            options: ["methods"],
         },
         {
             code: "var x = {[y]: function x() {}}",
-            options: ["methods"]
+            options: ["methods"],
         },
         {
             code: "var x = {[y]: y}",
-            options: ["methods"]
+            options: ["methods"],
         },
 
         // options
         {
             code: "var x = {y() {}}",
-            options: ["methods"]
+            options: ["methods"],
         },
         {
             code: "var x = {x, y() {}, a:b}",
-            options: ["methods"]
+            options: ["methods"],
         },
         {
             code: "var x = {y}",
-            options: ["properties"]
+            options: ["properties"],
         },
         {
             code: "var x = {y: {b}}",
-            options: ["properties"]
+            options: ["properties"],
         },
         {
             code: "var x = {a: n, c: d, f: g}",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "var x = {a: function(){}, b: {c: d}}",
-            options: ["never"]
+            options: ["never"],
         },
 
         // ignoreConstructors
         {
             code: "var x = {ConstructorFunction: function(){}, a: b}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {_ConstructorFunction: function(){}, a: b}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {$ConstructorFunction: function(){}, a: b}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {__ConstructorFunction: function(){}, a: b}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {_0ConstructorFunction: function(){}, a: b}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {notConstructorFunction(){}, b: c}",
-            options: ["always", { ignoreConstructors: true }]
+            options: ["always", { ignoreConstructors: true }],
         },
         {
             code: "var x = {ConstructorFunction: function(){}, a: b}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {_ConstructorFunction: function(){}, a: b}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {$ConstructorFunction: function(){}, a: b}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {__ConstructorFunction: function(){}, a: b}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {_0ConstructorFunction: function(){}, a: b}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {notConstructorFunction(){}, b: c}",
-            options: ["methods", { ignoreConstructors: true }]
+            options: ["methods", { ignoreConstructors: true }],
         },
         {
             code: "var x = {ConstructorFunction: function(){}, a: b}",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "var x = {notConstructorFunction: function(){}, b: c}",
-            options: ["never"]
+            options: ["never"],
         },
 
         // methodsIgnorePattern
         {
             code: "var x = { foo: function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^foo$" }]
+            options: ["always", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { foo: function() {}  }",
-            options: ["methods", { methodsIgnorePattern: "^foo$" }]
+            options: ["methods", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { foo: function*() {}  }",
-            options: ["always", { methodsIgnorePattern: "^foo$" }]
+            options: ["always", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { foo: async function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^foo$" }]
+            options: ["always", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { foo: () => { return 5; }  }",
-            options: ["always", { methodsIgnorePattern: "^foo$", avoidExplicitReturnArrows: true }]
+            options: [
+                "always",
+                {
+                    methodsIgnorePattern: "^foo$",
+                    avoidExplicitReturnArrows: true,
+                },
+            ],
         },
         {
             code: "var x = { 'foo': function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^foo$" }]
+            options: ["always", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { ['foo']: function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^foo$" }]
+            options: ["always", { methodsIgnorePattern: "^foo$" }],
         },
         {
             code: "var x = { 123: function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^123$" }]
+            options: ["always", { methodsIgnorePattern: "^123$" }],
         },
         {
             code: "var x = { afoob: function() {}  }",
-            options: ["always", { methodsIgnorePattern: "foo" }]
+            options: ["always", { methodsIgnorePattern: "foo" }],
         },
         {
             code: "var x = { afoob: function() {}  }",
-            options: ["always", { methodsIgnorePattern: "^.foo.$" }]
+            options: ["always", { methodsIgnorePattern: "^.foo.$" }],
         },
         {
             code: "var x = { '👍foo👍': function() {}  }", // this wouldn't pass without the "u" flag
-            options: ["always", { methodsIgnorePattern: "^.foo.$" }]
+            options: ["always", { methodsIgnorePattern: "^.foo.$" }],
         },
 
         // avoidQuotes
         {
             code: "var x = {'a': function(){}}",
-            options: ["always", { avoidQuotes: true }]
+            options: ["always", { avoidQuotes: true }],
         },
         {
             code: "var x = {['a']: function(){}}",
-            options: ["methods", { avoidQuotes: true }]
+            options: ["methods", { avoidQuotes: true }],
         },
         {
             code: "var x = {'y': y}",
-            options: ["properties", { avoidQuotes: true }]
+            options: ["properties", { avoidQuotes: true }],
         },
 
         // ignore object shorthand
         {
             code: "let {a, b} = o;",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "var x = {foo: foo, bar: bar, ...baz}",
             options: ["never"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
 
         // consistent
         {
             code: "var x = {a: a, b: b}",
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: "var x = {a: b, c: d, f: g}",
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: "var x = {a, b}",
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: "var x = {a, b, get test() { return 1; }}",
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: "var x = {...bar}",
             options: ["consistent-as-needed"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "var x = {foo, bar, ...baz}",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "var x = {bar: baz, ...qux}",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "var x = {...foo, bar: bar, baz: baz}",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
 
         // consistent-as-needed
         {
             code: "var x = {a, b}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {a, b, get test(){return 1;}}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {0: 'foo'}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {'key': 'baz'}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {foo: 'foo'}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {[foo]: foo}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {foo: function foo() {}}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {[foo]: 'foo'}",
-            options: ["consistent-as-needed"]
+            options: ["consistent-as-needed"],
         },
         {
             code: "var x = {bar, ...baz}",
             options: ["consistent-as-needed"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "var x = {bar: baz, ...qux}",
             options: ["consistent-as-needed"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: "var x = {...foo, bar, baz}",
             options: ["consistent-as-needed"],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
 
         // avoidExplicitReturnArrows
         {
             code: "({ x: () => foo })",
-            options: ["always", { avoidExplicitReturnArrows: false }]
+            options: ["always", { avoidExplicitReturnArrows: false }],
         },
         {
             code: "({ x: () => { return; } })",
-            options: ["always", { avoidExplicitReturnArrows: false }]
+            options: ["always", { avoidExplicitReturnArrows: false }],
         },
         {
             code: "({ x: () => foo })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ x() { return; } })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ x() { return; }, y() { return; } })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ x() { return; }, y: () => foo })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ x: () => foo, y() { return; } })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ x: () => { this; } })",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "function foo() { ({ x: () => { arguments; } }) }",
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -388,7 +412,7 @@ ruleTester.run("object-shorthand", rule, {
                   }
               }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -398,7 +422,7 @@ ruleTester.run("object-shorthand", rule, {
                     }
                 }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -406,7 +430,7 @@ ruleTester.run("object-shorthand", rule, {
                     var x = { x: () => { new.target; } };
                 }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -418,7 +442,7 @@ ruleTester.run("object-shorthand", rule, {
                     };
                 }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -431,7 +455,7 @@ ruleTester.run("object-shorthand", rule, {
                     };
                 }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: `
@@ -443,217 +467,217 @@ ruleTester.run("object-shorthand", rule, {
                     };
                 }
             `,
-            options: ["always", { avoidExplicitReturnArrows: true }]
+            options: ["always", { avoidExplicitReturnArrows: true }],
         },
         {
             code: "({ [foo.bar]: () => {} })",
-            options: ["always", { ignoreConstructors: true }]
-        }
+            options: ["always", { ignoreConstructors: true }],
+        },
     ],
     invalid: [
         {
             code: "var x = {x: x}",
             output: "var x = {x}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {'x': x}",
             output: "var x = {x}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {y: y, x: x}",
             output: "var x = {y, x}",
-            errors: [PROPERTY_ERROR, PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR, PROPERTY_ERROR],
         },
         {
             code: "var x = {y: z, x: x, a: b}",
             output: "var x = {y: z, x, a: b}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {y: z,\n x: x,\n a: b\n // comment \n}",
             output: "var x = {y: z,\n x,\n a: b\n // comment \n}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {y: z,\n a: b,\n // comment \nf: function() {}}",
             output: "var x = {y: z,\n a: b,\n // comment \nf() {}}",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {a: b,\n/* comment */\ny: y\n }",
             output: "var x = {a: b,\n/* comment */\ny\n }",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {\n  a: b,\n  /* comment */\n  y: y\n}",
             output: "var x = {\n  a: b,\n  /* comment */\n  y\n}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {\n  f: function() {\n    /* comment */\n    a(b);\n    }\n  }",
             output: "var x = {\n  f() {\n    /* comment */\n    a(b);\n    }\n  }",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {\n  [f]: function() {\n    /* comment */\n    a(b);\n    }\n  }",
             output: "var x = {\n  [f]() {\n    /* comment */\n    a(b);\n    }\n  }",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {\n  f: function*() {\n    /* comment */\n    a(b);\n    }\n  }",
             output: "var x = {\n  *f() {\n    /* comment */\n    a(b);\n    }\n  }",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {\n  f: /* comment */ function() {\n  }\n  }",
             output: null,
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {\n f /* comment */: function() {\n  }\n  }",
             output: null,
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {a: /* comment */ a}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {a /* comment */: a}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {a: (a /* comment */)}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {'a': /* comment */ a}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {'a': (a /* comment */)}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {'a' /* comment */: a}",
             output: null,
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {y: function() {}}",
             output: "var x = {y() {}}",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {y: function*() {}}",
             output: "var x = {*y() {}}",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {x: y, y: z, a: a}",
             output: "var x = {x: y, y: z, a}",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {ConstructorFunction: function(){}, a: b}",
             output: "var x = {ConstructorFunction(){}, a: b}",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {x: y, y: z, a: function(){}, b() {}}",
             output: "var x = {x: y, y: z, a(){}, b() {}}",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {x: x, y: function() {}}",
             output: "var x = {x, y() {}}",
-            errors: [PROPERTY_ERROR, METHOD_ERROR]
+            errors: [PROPERTY_ERROR, METHOD_ERROR],
         },
         {
             code: "doSomething({x: x})",
             output: "doSomething({x})",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "doSomething({'x': x})",
             output: "doSomething({x})",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "doSomething({a: 'a', 'x': x})",
             output: "doSomething({a: 'a', x})",
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "doSomething({y: function() {}})",
             output: "doSomething({y() {}})",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "doSomething({[y]: function() {}})",
             output: "doSomething({[y]() {}})",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "doSomething({['y']: function() {}})",
             output: "doSomething({['y']() {}})",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ foo: async function () {} })",
             output: "({ async foo () {} })",
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ 'foo': async function() {} })",
             output: "({ async 'foo'() {} })",
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [foo]: async function() {} })",
             output: "({ async [foo]() {} })",
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [foo.bar]: function*() {} })",
             output: "({ *[foo.bar]() {} })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [foo   ]: function() {} })",
             output: "({ [foo   ]() {} })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [ foo ]: async function() {} })",
             output: "({ async [ foo ]() {} })",
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ foo: function *() {} })",
             output: "({ *foo() {} })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [  foo   ]: function() {} })",
             output: "({ [  foo   ]() {} })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [  foo]: function() {} })",
             output: "({ [  foo]() {} })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
 
         // options
@@ -661,160 +685,160 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = {y: function() {}}",
             output: "var x = {y() {}}",
             options: ["methods"],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {x, y() {}, z: function() {}}",
             output: "var x = {x, y() {}, z() {}}",
             options: ["methods"],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {ConstructorFunction: function(){}, a: b}",
             output: "var x = {ConstructorFunction(){}, a: b}",
             options: ["methods"],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {[y]: function() {}}",
             output: "var x = {[y]() {}}",
             options: ["methods"],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [(foo)]: function() { return; } })",
             output: "({ [(foo)]() { return; } })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [(foo)]: async function() { return; } })",
             output: "({ async [(foo)]() { return; } })",
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [(((((((foo)))))))]: function() { return; } })",
             output: "({ [(((((((foo)))))))]() { return; } })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [(foo)]() { return; } })",
             output: "({ [(foo)]: function() { return; } })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ async [(foo)]() { return; } })",
             output: "({ [(foo)]: async function() { return; } })",
             options: ["never"],
             languageOptions: { ecmaVersion: 8 },
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ *[((foo))]() { return; } })",
             output: "({ [((foo))]: function*() { return; } })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ [(((((((foo)))))))]() { return; } })",
             output: "({ [(((((((foo)))))))]: function() { return; } })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ 'foo bar'() { return; } })",
             output: "({ 'foo bar': function() { return; } })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ *foo() { return; } })",
             output: "({ foo: function*() { return; } })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ async foo() { return; } })",
             output: "({ foo: async function() { return; } })",
             options: ["never"],
             languageOptions: { ecmaVersion: 8 },
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "({ *['foo bar']() { return; } })",
             output: "({ ['foo bar']: function*() { return; } })",
             options: ["never"],
             languageOptions: { ecmaVersion: 8 },
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {x: x}",
             output: "var x = {x}",
             options: ["properties"],
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {a, b, c(){}, x: x}",
             output: "var x = {a, b, c(){}, x}",
             options: ["properties"],
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {y() {}}",
             output: "var x = {y: function() {}}",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {*y() {}}",
             output: "var x = {y: function*() {}}",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {y}",
             output: "var x = {y: y}",
             options: ["never"],
-            errors: [LONGFORM_PROPERTY_ERROR]
+            errors: [LONGFORM_PROPERTY_ERROR],
         },
         {
             code: "var x = {y, a: b, *x(){}}",
             output: "var x = {y: y, a: b, x: function*(){}}",
             options: ["never"],
-            errors: [LONGFORM_PROPERTY_ERROR, LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_PROPERTY_ERROR, LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {y: {x}}",
             output: "var x = {y: {x: x}}",
             options: ["never"],
-            errors: [LONGFORM_PROPERTY_ERROR]
+            errors: [LONGFORM_PROPERTY_ERROR],
         },
         {
             code: "var x = {ConstructorFunction(){}, a: b}",
             output: "var x = {ConstructorFunction: function(){}, a: b}",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {notConstructorFunction(){}, b: c}",
             output: "var x = {notConstructorFunction: function(){}, b: c}",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
         {
             code: "var x = {foo: foo, bar: baz, ...qux}",
             output: "var x = {foo, bar: baz, ...qux}",
             options: ["always"],
             languageOptions: { ecmaVersion: 2018 },
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {foo, bar: baz, ...qux}",
             output: "var x = {foo: foo, bar: baz, ...qux}",
             options: ["never"],
             languageOptions: { ecmaVersion: 2018 },
-            errors: [LONGFORM_PROPERTY_ERROR]
+            errors: [LONGFORM_PROPERTY_ERROR],
         },
 
         // ignoreConstructors
@@ -822,39 +846,35 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = {y: function() {}}",
             output: "var x = {y() {}}",
             options: ["methods", { ignoreConstructors: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11595
             code: "var x = {_y: function() {}}",
             output: "var x = {_y() {}}",
             options: ["methods", { ignoreConstructors: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11595
             code: "var x = {$y: function() {}}",
             output: "var x = {$y() {}}",
             options: ["methods", { ignoreConstructors: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11595
             code: "var x = {__y: function() {}}",
             output: "var x = {__y() {}}",
             options: ["methods", { ignoreConstructors: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11595
             code: "var x = {_0y: function() {}}",
             output: "var x = {_0y() {}}",
             options: ["methods", { ignoreConstructors: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
 
         // methodsIgnorePattern
@@ -862,43 +882,43 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = { afoob: function() {} }",
             output: "var x = { afoob() {} }",
             options: ["always", { methodsIgnorePattern: "^foo$" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { afoob: function() {} }",
             output: "var x = { afoob() {} }",
             options: ["methods", { methodsIgnorePattern: "^foo$" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { 'afoob': function() {} }",
             output: "var x = { 'afoob'() {} }",
             options: ["always", { methodsIgnorePattern: "^foo$" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { 1234: function() {} }",
             output: "var x = { 1234() {} }",
             options: ["always", { methodsIgnorePattern: "^123$" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { bar: function() {} }",
             output: "var x = { bar() {} }",
             options: ["always", { methodsIgnorePattern: "foo" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { [foo]: function() {} }",
             output: "var x = { [foo]() {} }",
             options: ["always", { methodsIgnorePattern: "foo" }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = { foo: foo }", // does not apply to properties
             output: "var x = { foo }",
             options: ["always", { methodsIgnorePattern: "^foo$" }],
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
 
         // avoidQuotes
@@ -906,31 +926,31 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = {a: a}",
             output: "var x = {a}",
             options: ["always", { avoidQuotes: true }],
-            errors: [PROPERTY_ERROR]
+            errors: [PROPERTY_ERROR],
         },
         {
             code: "var x = {a: function(){}}",
             output: "var x = {a(){}}",
             options: ["methods", { avoidQuotes: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {[a]: function(){}}",
             output: "var x = {[a](){}}",
             options: ["methods", { avoidQuotes: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "var x = {'a'(){}}",
             output: "var x = {'a': function(){}}",
             options: ["always", { avoidQuotes: true }],
-            errors: [LONGFORM_METHOD_STRING_LITERAL_ERROR]
+            errors: [LONGFORM_METHOD_STRING_LITERAL_ERROR],
         },
         {
             code: "var x = {['a'](){}}",
             output: "var x = {['a']: function(){}}",
             options: ["methods", { avoidQuotes: true }],
-            errors: [LONGFORM_METHOD_STRING_LITERAL_ERROR]
+            errors: [LONGFORM_METHOD_STRING_LITERAL_ERROR],
         },
 
         // consistent
@@ -938,20 +958,20 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = {a: a, b}",
             output: null,
             options: ["consistent"],
-            errors: [MIXED_SHORTHAND_ERROR]
+            errors: [MIXED_SHORTHAND_ERROR],
         },
         {
             code: "var x = {b, c: d, f: g}",
             output: null,
             options: ["consistent"],
-            errors: [MIXED_SHORTHAND_ERROR]
+            errors: [MIXED_SHORTHAND_ERROR],
         },
         {
             code: "var x = {foo, bar: baz, ...qux}",
             output: null,
             options: ["consistent"],
             languageOptions: { ecmaVersion: 2018 },
-            errors: [MIXED_SHORTHAND_ERROR]
+            errors: [MIXED_SHORTHAND_ERROR],
         },
 
         // consistent-as-needed
@@ -959,34 +979,33 @@ ruleTester.run("object-shorthand", rule, {
             code: "var x = {a: a, b: b}",
             output: null,
             options: ["consistent-as-needed"],
-            errors: [ALL_SHORTHAND_ERROR]
+            errors: [ALL_SHORTHAND_ERROR],
         },
         {
             code: "var x = {a, z: function z(){}}",
             output: null,
             options: ["consistent-as-needed"],
-            errors: [MIXED_SHORTHAND_ERROR]
-
+            errors: [MIXED_SHORTHAND_ERROR],
         },
         {
             code: "var x = {foo: function() {}}",
             output: null,
             options: ["consistent-as-needed"],
-            errors: [ALL_SHORTHAND_ERROR]
+            errors: [ALL_SHORTHAND_ERROR],
         },
         {
             code: "var x = {a: a, b: b, ...baz}",
             output: null,
             options: ["consistent-as-needed"],
             languageOptions: { ecmaVersion: 2018 },
-            errors: [ALL_SHORTHAND_ERROR]
+            errors: [ALL_SHORTHAND_ERROR],
         },
         {
             code: "var x = {foo, bar: bar, ...qux}",
             output: null,
             options: ["consistent-as-needed"],
             languageOptions: { ecmaVersion: 2018 },
-            errors: [MIXED_SHORTHAND_ERROR]
+            errors: [MIXED_SHORTHAND_ERROR],
         },
 
         // avoidExplicitReturnArrows
@@ -994,67 +1013,67 @@ ruleTester.run("object-shorthand", rule, {
             code: "({ x: (arg => { return; }) })",
             output: "({ x(arg) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { return; } })",
             output: "({ x() { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x() { return; }, y: () => { return; } })",
             output: "({ x() { return; }, y() { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { return; }, y: () => foo })",
             output: "({ x() { return; }, y: () => foo })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { return; }, y: () => { return; } })",
             output: "({ x() { return; }, y() { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR, METHOD_ERROR]
+            errors: [METHOD_ERROR, METHOD_ERROR],
         },
         {
             code: "({ x: foo => { return; } })",
             output: "({ x(foo) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: (foo = 1) => { return; } })",
             output: "({ x(foo = 1) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: ({ foo: bar = 1 } = {}) => { return; } })",
             output: "({ x({ foo: bar = 1 } = {}) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { function foo() { this; } } })",
             output: "({ x() { function foo() { this; } } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { var foo = function() { arguments; } } })",
             output: "({ x() { var foo = function() { arguments; } } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ x: () => { function foo() { arguments; } } })",
             output: "({ x() { function foo() { arguments; } } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: `
@@ -1080,7 +1099,7 @@ ruleTester.run("object-shorthand", rule, {
                 })
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: `
@@ -1102,41 +1121,40 @@ ruleTester.run("object-shorthand", rule, {
                 })
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ 'foo bar': () => { return; } })",
             output: "({ 'foo bar'() { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [foo]: () => { return; } })",
             output: "({ [foo]() { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: 1, foo: async (bar = 1) => { return; } })",
             output: "({ a: 1, async foo(bar = 1) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ [ foo ]: async bar => { return; } })",
             output: "({ async [ foo ](bar) { return; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
             languageOptions: { ecmaVersion: 8 },
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
-
             // https://github.com/eslint/eslint/issues/11305
             code: "({ key: (arg = () => {}) => {} })",
             output: "({ key(arg = () => {}) {} })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: `
@@ -1160,7 +1178,7 @@ ruleTester.run("object-shorthand", rule, {
                 }
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: `
@@ -1184,48 +1202,48 @@ ruleTester.run("object-shorthand", rule, {
                 }
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: (function(){ return foo; }) })",
             output: "({ a(){ return foo; } })",
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: (() => { return foo; }) })",
             output: "({ a() { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: ((arg) => { return foo; }) })",
             output: "({ a(arg) { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: ((arg, arg2) => { return foo; }) })",
             output: "({ a(arg, arg2) { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: (async () => { return foo; }) })",
             output: "({ async a() { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: (async (arg) => { return foo; }) })",
             output: "({ async a(arg) { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ a: (async (arg, arg2) => { return foo; }) })",
             output: "({ async a(arg, arg2) { return foo; } })",
             options: ["always", { avoidExplicitReturnArrows: true }],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
 
         // async generators
@@ -1233,13 +1251,13 @@ ruleTester.run("object-shorthand", rule, {
             code: "({ a: async function*() {} })",
             output: "({ async *a() {} })",
             options: ["always"],
-            errors: [METHOD_ERROR]
+            errors: [METHOD_ERROR],
         },
         {
             code: "({ async* a() {} })",
             output: "({ a: async function*() {} })",
             options: ["never"],
-            errors: [LONGFORM_METHOD_ERROR]
+            errors: [LONGFORM_METHOD_ERROR],
         },
 
         // https://github.com/eslint/eslint/issues/18429
@@ -1264,9 +1282,9 @@ ruleTester.run("object-shorthand", rule, {
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
             languageOptions: {
-                parser: require("../../fixtures/parsers/typescript-parsers/object-with-generic-arrow-fn-props")
+                parser: require("../../fixtures/parsers/typescript-parsers/object-with-generic-arrow-fn-props"),
             },
-            errors: Array(4).fill(METHOD_ERROR)
+            errors: Array(4).fill(METHOD_ERROR),
         },
 
         // typescript: arrow function should preserve the return value
@@ -1327,9 +1345,9 @@ ruleTester.run("object-shorthand", rule, {
             `,
             options: ["always", { avoidExplicitReturnArrows: true }],
             languageOptions: {
-                parser: require("../../fixtures/parsers/typescript-parsers/object-with-arrow-fn-props")
+                parser: require("../../fixtures/parsers/typescript-parsers/object-with-arrow-fn-props"),
             },
-            errors: Array(18).fill(METHOD_ERROR)
-        }
-    ]
+            errors: Array(18).fill(METHOD_ERROR),
+        },
+    ],
 });

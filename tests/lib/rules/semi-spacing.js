@@ -36,45 +36,48 @@ ruleTester.run("semi-spacing", rule, {
         "for (;;) {}",
         {
             code: "var a = 'b' ;",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
         {
             code: "var a = 'b';c = 'd';",
-            options: [{ before: false, after: false }]
+            options: [{ before: false, after: false }],
         },
         {
             code: "for (var i = 0 ;i < 10 ;i++) {}",
-            options: [{ before: true, after: false }]
+            options: [{ before: true, after: false }],
         },
         {
             code: "for (var i = 0 ; i < 10 ; i++) {}",
-            options: [{ before: true, after: true }]
+            options: [{ before: true, after: true }],
         },
 
         // https://github.com/eslint/eslint/issues/3721
         "function foo(){return 2;}",
         "for(var i = 0; i < results.length;) {}",
         { code: "function foo() { return 2; }", options: [{ after: false }] },
-        { code: "for ( var i = 0;i < results.length; ) {}", options: [{ after: false }] },
+        {
+            code: "for ( var i = 0;i < results.length; ) {}",
+            options: [{ after: false }],
+        },
 
         "do {} while (true); foo",
 
         // Class fields
         {
             code: "class C { foo; bar; method() {} }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C { foo }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
 
         // Empty are ignored (`no-extra-semi` rule will remove those)
         "foo; ;;;;;;;;;",
         {
             code: "class C { foo; ;;;;;;;;;; }",
-            languageOptions: { ecmaVersion: 2022 }
-        }
+            languageOptions: { ecmaVersion: 2022 },
+        },
     ],
     invalid: [
         {
@@ -87,9 +90,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 12,
                     endLine: 1,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "var a = 'b' ;",
@@ -101,67 +104,147 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 12,
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var a = 'b',\nc = 'd' ;",
             output: "var a = 'b',\nc = 'd';",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "VariableDeclaration", line: 2, column: 8 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "VariableDeclaration",
+                    line: 2,
+                    column: 8,
+                },
+            ],
         },
         {
             code: "var a = function() {} ;",
             output: "var a = function() {};",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "VariableDeclaration", line: 1, column: 22 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "VariableDeclaration",
+                    line: 1,
+                    column: 22,
+                },
+            ],
         },
         {
             code: "var a = function() {\n} ;",
             output: "var a = function() {\n};",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "VariableDeclaration", line: 2, column: 2 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "VariableDeclaration",
+                    line: 2,
+                    column: 2,
+                },
+            ],
         },
         {
             code: "/^a$/.test('b') ;",
             output: "/^a$/.test('b');",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "ExpressionStatement", line: 1, column: 16 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ExpressionStatement",
+                    line: 1,
+                    column: 16,
+                },
+            ],
         },
         {
             code: ";(function(){}()) ;",
             output: ";(function(){}());",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "ExpressionStatement", line: 1, column: 18 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ExpressionStatement",
+                    line: 1,
+                    column: 18,
+                },
+            ],
         },
         {
             code: "while (true) { break ; }",
             output: "while (true) { break; }",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "BreakStatement", line: 1, column: 21 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "BreakStatement",
+                    line: 1,
+                    column: 21,
+                },
+            ],
         },
         {
             code: "while (true) { continue ; }",
             output: "while (true) { continue; }",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "ContinueStatement", line: 1, column: 24 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ContinueStatement",
+                    line: 1,
+                    column: 24,
+                },
+            ],
         },
         {
             code: "debugger ;",
             output: "debugger;",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "DebuggerStatement", line: 1, column: 9 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "DebuggerStatement",
+                    line: 1,
+                    column: 9,
+                },
+            ],
         },
         {
             code: "function foo() { return ; }",
             output: "function foo() { return; }",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "ReturnStatement", line: 1, column: 24 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ReturnStatement",
+                    line: 1,
+                    column: 24,
+                },
+            ],
         },
         {
             code: "throw new Error('foo') ;",
             output: "throw new Error('foo');",
-            errors: [{ messageId: "unexpectedWhitespaceBefore", type: "ThrowStatement", line: 1, column: 23 }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ThrowStatement",
+                    line: 1,
+                    column: 23,
+                },
+            ],
         },
         {
             code: "for (var i = 0 ; i < 10 ; i++) {}",
             output: "for (var i = 0; i < 10; i++) {}",
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ForStatement", line: 1, column: 15 },
-                { messageId: "unexpectedWhitespaceBefore", type: "ForStatement", line: 1, column: 24 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ForStatement",
+                    line: 1,
+                    column: 15,
+                },
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ForStatement",
+                    line: 1,
+                    column: 24,
+                },
+            ],
         },
         {
             code: "var a = 'b';c = 'd';",
@@ -173,9 +256,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 12,
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var a = 'b';",
@@ -188,9 +271,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 12,
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var a = 'b'; c = 'd';",
@@ -203,9 +286,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 13,
                     endLine: 1,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "var a = 'b';   c = 'd';",
@@ -218,9 +301,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 13,
                     endLine: 1,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
             code: "for (var i = 0;i < 10;i++) {}",
@@ -232,7 +315,7 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 15,
                     endLine: 1,
-                    endColumn: 16
+                    endColumn: 16,
                 },
                 {
                     messageId: "missingWhitespaceAfter",
@@ -240,9 +323,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 22,
                     endLine: 1,
-                    endColumn: 23
-                }
-            ]
+                    endColumn: 23,
+                },
+            ],
         },
         {
             code: "for (var i = 0; i < 10; i++) {}",
@@ -255,7 +338,7 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 15,
                     endLine: 1,
-                    endColumn: 16
+                    endColumn: 16,
                 },
                 {
                     messageId: "missingWhitespaceBefore",
@@ -263,18 +346,28 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 23,
                     endLine: 1,
-                    endColumn: 24
-                }
-            ]
+                    endColumn: 24,
+                },
+            ],
         },
         {
             code: "for (var i = 0; i < 10; i++) {}",
             output: "for (var i = 0;i < 10;i++) {}",
             options: [{ before: false, after: false }],
             errors: [
-                { messageId: "unexpectedWhitespaceAfter", type: "ForStatement", line: 1, column: 16 },
-                { messageId: "unexpectedWhitespaceAfter", type: "ForStatement", line: 1, column: 24 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceAfter",
+                    type: "ForStatement",
+                    line: 1,
+                    column: 16,
+                },
+                {
+                    messageId: "unexpectedWhitespaceAfter",
+                    type: "ForStatement",
+                    line: 1,
+                    column: 24,
+                },
+            ],
         },
         {
             code: "import Foo from 'bar' ;",
@@ -282,8 +375,13 @@ ruleTester.run("semi-spacing", rule, {
             options: [{ before: false, after: true }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ImportDeclaration", line: 1, column: 22 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ImportDeclaration",
+                    line: 1,
+                    column: 22,
+                },
+            ],
         },
         {
             code: "import * as foo from 'bar' ;",
@@ -291,8 +389,13 @@ ruleTester.run("semi-spacing", rule, {
             options: [{ before: false, after: true }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ImportDeclaration", line: 1, column: 27 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ImportDeclaration",
+                    line: 1,
+                    column: 27,
+                },
+            ],
         },
         {
             code: "var foo = 0; export {foo} ;",
@@ -300,8 +403,13 @@ ruleTester.run("semi-spacing", rule, {
             options: [{ before: false, after: true }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ExportNamedDeclaration", line: 1, column: 26 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ExportNamedDeclaration",
+                    line: 1,
+                    column: 26,
+                },
+            ],
         },
         {
             code: "export * from 'foo' ;",
@@ -309,8 +417,13 @@ ruleTester.run("semi-spacing", rule, {
             options: [{ before: false, after: true }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ExportAllDeclaration", line: 1, column: 20 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ExportAllDeclaration",
+                    line: 1,
+                    column: 20,
+                },
+            ],
         },
         {
             code: "export default foo ;",
@@ -318,8 +431,13 @@ ruleTester.run("semi-spacing", rule, {
             options: [{ before: false, after: true }],
             languageOptions: { ecmaVersion: 6, sourceType: "module" },
             errors: [
-                { messageId: "unexpectedWhitespaceBefore", type: "ExportDefaultDeclaration", line: 1, column: 19 }
-            ]
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "ExportDefaultDeclaration",
+                    line: 1,
+                    column: 19,
+                },
+            ],
         },
         {
             code: "while(foo) {continue   ;}",
@@ -333,9 +451,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 21,
                     endLine: 1,
-                    endColumn: 24
-                }
-            ]
+                    endColumn: 24,
+                },
+            ],
         },
         {
             code: "if(foo) {throw new Error()   ;  }",
@@ -349,91 +467,100 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 27,
                     endLine: 1,
-                    endColumn: 30
-                }
-            ]
+                    endColumn: 30,
+                },
+            ],
         },
         {
             code: "for(a ; ; );",
             output: "for(a;; );",
             options: [{ before: false, after: false }],
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                type: "ForStatement",
-                messageId: "unexpectedWhitespaceBefore",
-                line: 1,
-                column: 6,
-                endLine: 1,
-                endColumn: 7
-            },
-            {
-                type: "ForStatement",
-                messageId: "unexpectedWhitespaceAfter",
-                line: 1,
-                column: 8,
-                endLine: 1,
-                endColumn: 9
-            }]
+            errors: [
+                {
+                    type: "ForStatement",
+                    messageId: "unexpectedWhitespaceBefore",
+                    line: 1,
+                    column: 6,
+                    endLine: 1,
+                    endColumn: 7,
+                },
+                {
+                    type: "ForStatement",
+                    messageId: "unexpectedWhitespaceAfter",
+                    line: 1,
+                    column: 8,
+                    endLine: 1,
+                    endColumn: 9,
+                },
+            ],
         },
         {
             code: "for(a ; \n ; );",
             output: "for(a; \n ; );",
             options: [{ before: false, after: false }],
             languageOptions: { ecmaVersion: 6 },
-            errors: [{
-                type: "ForStatement",
-                messageId: "unexpectedWhitespaceBefore",
-                line: 1,
-                column: 6,
-                endLine: 1,
-                endColumn: 7
-            }
-            ]
+            errors: [
+                {
+                    type: "ForStatement",
+                    messageId: "unexpectedWhitespaceBefore",
+                    line: 1,
+                    column: 6,
+                    endLine: 1,
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: "do {} while (true) ;",
             output: "do {} while (true);",
-            errors: [{
-                messageId: "unexpectedWhitespaceBefore",
-                type: "DoWhileStatement",
-                line: 1,
-                column: 19,
-                endLine: 1,
-                endColumn: 20
-            }]
+            errors: [
+                {
+                    messageId: "unexpectedWhitespaceBefore",
+                    type: "DoWhileStatement",
+                    line: 1,
+                    column: 19,
+                    endLine: 1,
+                    endColumn: 20,
+                },
+            ],
         },
         {
             code: "do {} while (true);foo",
             output: "do {} while (true); foo",
-            errors: [{
-                messageId: "missingWhitespaceAfter",
-                type: "DoWhileStatement",
-                line: 1,
-                column: 19,
-                endLine: 1,
-                endColumn: 20
-            }]
+            errors: [
+                {
+                    messageId: "missingWhitespaceAfter",
+                    type: "DoWhileStatement",
+                    line: 1,
+                    column: 19,
+                    endLine: 1,
+                    endColumn: 20,
+                },
+            ],
         },
         {
             code: "do {} while (true);  foo",
             output: "do {} while (true) ;foo",
             options: [{ before: true, after: false }],
-            errors: [{
-                messageId: "missingWhitespaceBefore",
-                type: "DoWhileStatement",
-                line: 1,
-                column: 19,
-                endLine: 1,
-                endColumn: 20
-            },
-            {
-                messageId: "unexpectedWhitespaceAfter",
-                type: "DoWhileStatement",
-                line: 1,
-                column: 20,
-                endLine: 1,
-                endColumn: 22
-            }]
+            errors: [
+                {
+                    messageId: "missingWhitespaceBefore",
+                    type: "DoWhileStatement",
+                    line: 1,
+                    column: 19,
+                    endLine: 1,
+                    endColumn: 20,
+                },
+                {
+                    messageId: "unexpectedWhitespaceAfter",
+                    type: "DoWhileStatement",
+                    line: 1,
+                    column: 20,
+                    endLine: 1,
+                    endColumn: 22,
+                },
+            ],
         },
 
         // Class fields
@@ -448,7 +575,7 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "missingWhitespaceAfter",
@@ -456,9 +583,9 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 15,
                     endLine: 1,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
             code: "class C { foo; bar ; }",
@@ -472,7 +599,7 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 14,
                     endLine: 1,
-                    endColumn: 15
+                    endColumn: 15,
                 },
                 {
                     messageId: "unexpectedWhitespaceAfter",
@@ -480,22 +607,24 @@ ruleTester.run("semi-spacing", rule, {
                     line: 1,
                     column: 15,
                     endLine: 1,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
             code: "class C { foo;static {}}",
             output: "class C { foo; static {}}",
             languageOptions: { ecmaVersion: 2022 },
-            errors: [{
-                messageId: "missingWhitespaceAfter",
-                type: "PropertyDefinition",
-                line: 1,
-                column: 14,
-                endLine: 1,
-                endColumn: 15
-            }]
-        }
-    ]
+            errors: [
+                {
+                    messageId: "missingWhitespaceAfter",
+                    type: "PropertyDefinition",
+                    line: 1,
+                    column: 14,
+                    endLine: 1,
+                    endColumn: 15,
+                },
+            ],
+        },
+    ],
 });

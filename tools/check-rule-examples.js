@@ -32,7 +32,10 @@ const STANDARD_LANGUAGE_TAGS = new Set(["javascript", "js", "jsx"]);
 const VALID_ECMA_VERSIONS = new Set([
     3,
     5,
-    ...Array.from({ length: LATEST_ECMA_VERSION - 2015 + 1 }, (_, index) => index + 2015) // 2015, 2016, ..., LATEST_ECMA_VERSION
+    ...Array.from(
+        { length: LATEST_ECMA_VERSION - 2015 + 1 },
+        (_, index) => index + 2015,
+    ), // 2015, 2016, ..., LATEST_ECMA_VERSION
 ]);
 
 const commentParser = new ConfigCommentParser();
@@ -50,7 +53,7 @@ function tryParseForPlayground(code, languageOptions) {
             sourceType: languageOptions?.sourceType ?? "module",
             ...languageOptions?.parserOptions,
             comment: true,
-            loc: true
+            loc: true,
         });
 
         return { ast };
@@ -74,21 +77,22 @@ async function findProblems(filename) {
             const languageTag = codeBlockToken.info;
 
             if (!STANDARD_LANGUAGE_TAGS.has(languageTag)) {
-
                 /*
                  * Missing language tags are also reported by Markdownlint rule MD040 for all code blocks,
                  * but the message we output here is more specific.
                  */
-                const message = `${languageTag
-                    ? `Nonstandard language tag '${languageTag}'`
-                    : "Missing language tag"}: use one of 'javascript', 'js' or 'jsx'`;
+                const message = `${
+                    languageTag
+                        ? `Nonstandard language tag '${languageTag}'`
+                        : "Missing language tag"
+                }: use one of 'javascript', 'js' or 'jsx'`;
 
                 problems.push({
                     fatal: false,
                     severity: 2,
                     message,
                     line: codeBlockToken.map[0] + 1,
-                    column: codeBlockToken.markup.length + 1
+                    column: codeBlockToken.markup.length + 1,
                 });
             }
 
@@ -97,7 +101,8 @@ async function findProblems(filename) {
                 let ecmaVersionErrorMessage;
 
                 if (ecmaVersion === "latest") {
-                    ecmaVersionErrorMessage = 'Remove unnecessary "ecmaVersion":"latest".';
+                    ecmaVersionErrorMessage =
+                        'Remove unnecessary "ecmaVersion":"latest".';
                 } else if (typeof ecmaVersion !== "number") {
                     ecmaVersionErrorMessage = '"ecmaVersion" must be a number.';
                 } else if (!VALID_ECMA_VERSIONS.has(ecmaVersion)) {
@@ -110,7 +115,7 @@ async function findProblems(filename) {
                         severity: 2,
                         message: ecmaVersionErrorMessage,
                         line: codeBlockToken.map[0] - 1,
-                        column: 1
+                        column: 1,
                     });
                 }
             }
@@ -121,22 +126,34 @@ async function findProblems(filename) {
                 let hasRuleConfigComment = false;
 
                 for (const comment of ast.comments) {
-
-                    if (comment.type === "Block" && /^\s*eslint-env(?!\S)/u.test(comment.value)) {
+                    if (
+                        comment.type === "Block" &&
+                        /^\s*eslint-env(?!\S)/u.test(comment.value)
+                    ) {
                         problems.push({
                             fatal: false,
                             severity: 2,
-                            message: "/* eslint-env */ comments are no longer supported. Remove the comment.",
-                            line: codeBlockToken.map[0] + 1 + comment.loc.start.line,
-                            column: comment.loc.start.column + 1
+                            message:
+                                "/* eslint-env */ comments are no longer supported. Remove the comment.",
+                            line:
+                                codeBlockToken.map[0] +
+                                1 +
+                                comment.loc.start.line,
+                            column: comment.loc.start.column + 1,
                         });
                     }
 
-                    if (comment.type !== "Block" || !/^\s*eslint(?!\S)/u.test(comment.value)) {
+                    if (
+                        comment.type !== "Block" ||
+                        !/^\s*eslint(?!\S)/u.test(comment.value)
+                    ) {
                         continue;
                     }
-                    const { value } = commentParser.parseDirective(comment.value);
-                    const parseResult = commentParser.parseJSONLikeConfig(value);
+                    const { value } = commentParser.parseDirective(
+                        comment.value,
+                    );
+                    const parseResult =
+                        commentParser.parseJSONLikeConfig(value);
                     const parseError = parseResult.error;
 
                     if (parseError) {
@@ -144,8 +161,11 @@ async function findProblems(filename) {
                             fatal: true,
                             severity: 2,
                             message: parseError.message,
-                            line: comment.loc.start.line + codeBlockToken.map[0] + 1,
-                            column: comment.loc.start.column + 1
+                            line:
+                                comment.loc.start.line +
+                                codeBlockToken.map[0] +
+                                1,
+                            column: comment.loc.start.column + 1,
                         });
                     } else if (Object.hasOwn(parseResult.config, title)) {
                         if (hasRuleConfigComment) {
@@ -153,8 +173,11 @@ async function findProblems(filename) {
                                 fatal: false,
                                 severity: 2,
                                 message: `Duplicate /* eslint ${title} */ configuration comment. Each example should contain only one. Split this example into multiple examples.`,
-                                line: codeBlockToken.map[0] + 1 + comment.loc.start.line,
-                                column: comment.loc.start.column + 1
+                                line:
+                                    codeBlockToken.map[0] +
+                                    1 +
+                                    comment.loc.start.line,
+                                column: comment.loc.start.column + 1,
                             });
                         }
                         hasRuleConfigComment = true;
@@ -169,7 +192,7 @@ async function findProblems(filename) {
                         severity: 2,
                         message,
                         line: codeBlockToken.map[0] + 2,
-                        column: 1
+                        column: 1,
                     });
                 }
             }
@@ -184,10 +207,10 @@ async function findProblems(filename) {
                     severity: 2,
                     message,
                     line,
-                    column
+                    column,
                 });
             }
-        }
+        },
     });
 
     // Run `markdown-it` to check rule examples in the current file.
@@ -210,18 +233,20 @@ async function checkFile(filename) {
         problems = await findProblems(filename);
     } catch (error) {
         fatalErrorCount = 1;
-        problems = [{
-            fatal: true,
-            severity: 2,
-            message: `Error checking file: ${error.message}`
-        }];
+        problems = [
+            {
+                fatal: true,
+                severity: 2,
+                message: `Error checking file: ${error.message}`,
+            },
+        ];
     }
     return {
         filePath: filename,
         errorCount: problems.length,
         warningCount: 0,
         fatalErrorCount,
-        messages: problems
+        messages: problems,
     };
 }
 
@@ -231,8 +256,7 @@ async function checkFile(filename) {
 
 const patterns = process.argv.slice(2);
 
-(async function() {
-
+(async function () {
     // determine which files to check
     const filenames = await glob(patterns);
 
@@ -243,7 +267,7 @@ const patterns = process.argv.slice(2);
     }
     const results = await Promise.all(filenames.map(checkFile));
 
-    if (results.every(result => result.errorCount === 0)) {
+    if (results.every((result) => result.errorCount === 0)) {
         return;
     }
 
@@ -252,4 +276,4 @@ const patterns = process.argv.slice(2);
 
     console.error(output);
     process.exitCode = 1;
-}());
+})();

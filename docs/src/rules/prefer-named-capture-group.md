@@ -2,9 +2,8 @@
 title: prefer-named-capture-group
 rule_type: suggestion
 related_rules:
-- no-invalid-regexp
+    - no-invalid-regexp
 ---
-
 
 ## Rule Details
 
@@ -29,10 +28,10 @@ Examples of **incorrect** code for this rule:
 /*eslint prefer-named-capture-group: "error"*/
 
 const foo = /(ba[rz])/;
-const bar = new RegExp('(ba[rz])');
-const baz = RegExp('(ba[rz])');
+const bar = new RegExp("(ba[rz])");
+const baz = RegExp("(ba[rz])");
 
-foo.exec('bar')[1]; // Retrieve the group result.
+foo.exec("bar")[1]; // Retrieve the group result.
 ```
 
 :::
@@ -45,11 +44,11 @@ Examples of **correct** code for this rule:
 /*eslint prefer-named-capture-group: "error"*/
 
 const foo = /(?<id>ba[rz])/;
-const bar = new RegExp('(?<id>ba[rz])');
-const baz = RegExp('(?<id>ba[rz])');
+const bar = new RegExp("(?<id>ba[rz])");
+const baz = RegExp("(?<id>ba[rz])");
 const xyz = /xyz(?:zy|abc)/;
 
-foo.exec('bar').groups.id; // Retrieve the group result.
+foo.exec("bar").groups.id; // Retrieve the group result.
 ```
 
 :::

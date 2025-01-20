@@ -1,7 +1,7 @@
-/** 
+/**
  * @fileoverview Example ESLint config file that uses the custom rule from this tutorial.
  * @author Ben Perlmutter
-*/
+ */
 "use strict";
 
 // Import the ESLint plugin
@@ -15,9 +15,9 @@ module.exports = [
             ecmaVersion: "latest",
         },
         // Using the eslint-plugin-example plugin defined locally
-        plugins: {"example": eslintPluginExample},
+        plugins: { example: eslintPluginExample },
         rules: {
             "example/enforce-foo-bar": "error",
         },
-    }
-]
+    },
+];

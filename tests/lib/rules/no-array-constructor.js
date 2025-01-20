@@ -18,8 +18,8 @@ const rule = require("../../../lib/rules/no-array-constructor"),
 
 const ruleTester = new RuleTester({
     languageOptions: {
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("no-array-constructor", rule, {
@@ -39,67 +39,86 @@ ruleTester.run("no-array-constructor", rule, {
             code: "new Array()",
             languageOptions: {
                 globals: {
-                    Array: "off"
-                }
-            }
-        }
+                    Array: "off",
+                },
+            },
+        },
     ],
     invalid: [
         {
             code: "new Array()",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "[]"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "[]",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new Array",
-            errors:
-            [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "[]"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "[]",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new Array(x, y)",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "[x, y]"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "[x, y]",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "new Array(0, 1, 2)",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "[0, 1, 2]"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "[0, 1, 2]",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "const array = Array?.();",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "CallExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "const array = [];"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "CallExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "const array = [];",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: `
@@ -108,163 +127,188 @@ ruleTester.run("no-array-constructor", rule, {
                         b = c() // bar
                     );
                     `,
-            errors: [{
-                messageId: "preferLiteral",
-                type: "CallExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: `
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "CallExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: `
                     const array = [
                         /* foo */ a,
                         b = c() // bar
                     ];
-                    `
-                }]
-            }]
+                    `,
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "const array = Array(...args);",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "CallExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "const array = [...args];"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "CallExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "const array = [...args];",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "a = new (Array);",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "a = [];"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "a = [];",
+                        },
+                    ],
+                },
+            ],
         },
         {
             code: "a = new (Array) && (foo);",
-            errors: [{
-                messageId: "preferLiteral",
-                type: "NewExpression",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: "a = [] && (foo);"
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    type: "NewExpression",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: "a = [] && (foo);",
+                        },
+                    ],
+                },
+            ],
         },
 
         ...[
-
             // Semicolon required before array literal to compensate for ASI
             {
                 code: `
                 foo
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 foo()
                 Array(bar, baz)
-                `
+                `,
             },
             {
                 code: `
                 new foo
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 (a++)
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 ++a
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 const foo = function() {}
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 const foo = class {}
                 Array("a", "b", "c")
-                `
+                `,
             },
             {
                 code: `
                 foo = this.return
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 var yield = bar.yield
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 var foo = { bar: baz }
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 <foo />
                 Array()
                 `,
-                languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
+                languageOptions: {
+                    parserOptions: { ecmaFeatures: { jsx: true } },
+                },
             },
             {
                 code: `
                 <foo></foo>
                 Array()
                 `,
-                languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } }
-            }
-        ].map(props => ({
+                languageOptions: {
+                    parserOptions: { ecmaFeatures: { jsx: true } },
+                },
+            },
+        ].map((props) => ({
             ...props,
-            errors: [{
-                messageId: "preferLiteral",
-                suggestions: [{
-                    messageId: "useLiteralAfterSemicolon",
-                    output: props.code.replace(/(new )?Array\((?<args>.*?)\)/su, ";[$<args>]")
-                }]
-            }]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    suggestions: [
+                        {
+                            messageId: "useLiteralAfterSemicolon",
+                            output: props.code.replace(
+                                /(new )?Array\((?<args>.*?)\)/su,
+                                ";[$<args>]",
+                            ),
+                        },
+                    ],
+                },
+            ],
         })),
 
         ...[
-
             // No semicolon required before array literal because ASI does not occur
             { code: "Array()" },
             {
                 code: `
                 {}
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 function foo() {}
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 class Foo {}
                 Array()
-                `
+                `,
             },
             { code: "foo: Array();" },
             { code: "foo();Array();" },
@@ -276,31 +320,34 @@ ruleTester.run("no-array-constructor", rule, {
                 code: `
                 do Array();
                 while (a);
-                `
+                `,
             },
             { code: "for (let i = 0; i < 10; i++) Array();" },
             { code: "for (const prop in obj) Array();" },
             { code: "for (const element of iterable) Array();" },
-            { code: "with (obj) Array();", languageOptions: { sourceType: "script" } },
+            {
+                code: "with (obj) Array();",
+                languageOptions: { sourceType: "script" },
+            },
 
             // No semicolon required before array literal because ASI still occurs
             {
                 code: `
                 const foo = () => {}
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 a++
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 a--
                 Array()
-                `
+                `,
             },
             {
                 code: `
@@ -308,7 +355,7 @@ ruleTester.run("no-array-constructor", rule, {
                     return
                     Array();
                 }
-                `
+                `,
             },
             {
                 code: `
@@ -316,20 +363,20 @@ ruleTester.run("no-array-constructor", rule, {
                     yield
                     Array();
                 }
-                `
+                `,
             },
             {
                 code: `
                 do {}
                 while (a)
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 debugger
                 Array()
-                `
+                `,
             },
             {
                 code: `
@@ -337,7 +384,7 @@ ruleTester.run("no-array-constructor", rule, {
                     break
                     Array()
                 }
-                `
+                `,
             },
             {
                 code: `
@@ -345,19 +392,19 @@ ruleTester.run("no-array-constructor", rule, {
                     continue
                     Array()
                 }
-                `
+                `,
             },
             {
                 code: `
                 foo: break foo
                 Array()
-                `
+                `,
             },
             {
                 code: `
                 foo: while (true) continue foo
                 Array()
-                `
+                `,
             },
             {
                 code: `
@@ -365,49 +412,49 @@ ruleTester.run("no-array-constructor", rule, {
                 export { foo }
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 export { foo } from 'bar'
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 export { foo } from 'bar' with { type: "json" }
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 export * as foo from 'bar'
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 export * as foo from 'bar' with { type: "json" }
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 import foo from 'bar'
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
                 import foo from 'bar' with { type: "json" }
                 Array()
                 `,
-                languageOptions: { sourceType: "module" }
+                languageOptions: { sourceType: "module" },
             },
             {
                 code: `
@@ -418,17 +465,24 @@ ruleTester.run("no-array-constructor", rule, {
                         break yield
                     new Array();
                 }
-                `
-            }
-        ].map(props => ({
+                `,
+            },
+        ].map((props) => ({
             ...props,
-            errors: [{
-                messageId: "preferLiteral",
-                suggestions: [{
-                    messageId: "useLiteral",
-                    output: props.code.replace(/(new )?Array\((?<args>.*?)\)/su, "[$<args>]")
-                }]
-            }]
-        }))
-    ]
+            errors: [
+                {
+                    messageId: "preferLiteral",
+                    suggestions: [
+                        {
+                            messageId: "useLiteral",
+                            output: props.code.replace(
+                                /(new )?Array\((?<args>.*?)\)/su,
+                                "[$<args>]",
+                            ),
+                        },
+                    ],
+                },
+            ],
+        })),
+    ],
 });

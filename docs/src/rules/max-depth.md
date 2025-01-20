@@ -2,15 +2,14 @@
 title: max-depth
 rule_type: suggestion
 related_rules:
-- complexity
-- max-len
-- max-lines
-- max-lines-per-function
-- max-nested-callbacks
-- max-params
-- max-statements
+    - complexity
+    - max-len
+    - max-lines
+    - max-lines-per-function
+    - max-nested-callbacks
+    - max-params
+    - max-statements
 ---
-
 
 Many developers consider code difficult to read if blocks are nested beyond a certain depth.
 
@@ -22,7 +21,7 @@ This rule enforces a maximum depth that blocks can be nested to reduce code comp
 
 This rule has a number or object option:
 
-* `"max"` (default `4`) enforces a maximum depth that blocks can be nested
+- `"max"` (default `4`) enforces a maximum depth that blocks can be nested
 
 **Deprecated:** The object property `maximum` is deprecated; please use the object property `max` instead.
 
@@ -36,11 +35,16 @@ Examples of **incorrect** code for this rule with the default `{ "max": 4 }` opt
 /*eslint max-depth: ["error", 4]*/
 
 function foo() {
-    for (;;) { // Nested 1 deep
-        while (true) { // Nested 2 deep
-            if (true) { // Nested 3 deep
-                if (true) { // Nested 4 deep
-                    if (true) { // Nested 5 deep
+    for (;;) {
+        // Nested 1 deep
+        while (true) {
+            // Nested 2 deep
+            if (true) {
+                // Nested 3 deep
+                if (true) {
+                    // Nested 4 deep
+                    if (true) {
+                        // Nested 5 deep
                     }
                 }
             }
@@ -59,10 +63,14 @@ Examples of **correct** code for this rule with the default `{ "max": 4 }` optio
 /*eslint max-depth: ["error", 4]*/
 
 function foo() {
-    for (;;) { // Nested 1 deep
-        while (true) { // Nested 2 deep
-            if (true) { // Nested 3 deep
-                if (true) { // Nested 4 deep
+    for (;;) {
+        // Nested 1 deep
+        while (true) {
+            // Nested 2 deep
+            if (true) {
+                // Nested 3 deep
+                if (true) {
+                    // Nested 4 deep
                 }
             }
         }
@@ -82,12 +90,16 @@ Examples of **incorrect** code for this rule with `{ "max": 2 }` option:
 /*eslint max-depth: ["error", 2]*/
 
 function foo() {
-    if (true) { // Nested 1 deep
+    if (true) {
+        // Nested 1 deep
         class C {
             static {
-                if (true) { // Nested 1 deep
-                    if (true) { // Nested 2 deep
-                        if (true) { // Nested 3 deep
+                if (true) {
+                    // Nested 1 deep
+                    if (true) {
+                        // Nested 2 deep
+                        if (true) {
+                            // Nested 3 deep
                         }
                     }
                 }
@@ -107,11 +119,14 @@ Examples of **correct** code for this rule with `{ "max": 2 }` option:
 /*eslint max-depth: ["error", 2]*/
 
 function foo() {
-    if (true) { // Nested 1 deep
+    if (true) {
+        // Nested 1 deep
         class C {
             static {
-                if (true) { // Nested 1 deep
-                    if (true) { // Nested 2 deep
+                if (true) {
+                    // Nested 1 deep
+                    if (true) {
+                        // Nested 2 deep
                     }
                 }
             }

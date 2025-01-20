@@ -3,7 +3,6 @@ title: id-denylist
 rule_type: suggestion
 ---
 
-
 > "There are only two hard things in Computer Science: cache invalidation and naming things." — Phil Karlton
 
 Generic names can lead to hard-to-decipher code. This rule allows you to specify a deny list of disallowed identifier names to avoid this practice.
@@ -14,16 +13,16 @@ This rule disallows specified identifiers in assignments and `function` definiti
 
 This rule will catch disallowed identifiers that are:
 
-* variable declarations
-* function declarations
-* object properties assigned to during object creation
-* class fields
-* class methods
+- variable declarations
+- function declarations
+- object properties assigned to during object creation
+- class fields
+- class methods
 
 It will not catch disallowed identifiers that are:
 
-* function calls (so you can still use functions you do not have control over)
-* object properties (so you can still use objects you do not have control over)
+- function calls (so you can still use functions you do not have control over)
+- object properties (so you can still use objects you do not have control over)
 
 ## Options
 
@@ -52,12 +51,12 @@ function callback() {
     // ...
 }
 
-element.callback = function() {
+element.callback = function () {
     // ...
 };
 
 const itemSet = {
-    data: [...values]
+    data: [...values],
 };
 
 class Foo {
@@ -86,18 +85,18 @@ Examples of **correct** code for this rule with sample `"data", "callback"` rest
 ```js
 /*eslint id-denylist: ["error", "data", "callback"] */
 
-const encodingOptions = {...values};
+const encodingOptions = { ...values };
 
 function processFileResult() {
     // ...
 }
 
-element.successHandler = function() {
+element.successHandler = function () {
     // ...
 };
 
 const itemSet = {
-    entities: [...values]
+    entities: [...values],
 };
 
 callback(); // all function calls are ignored

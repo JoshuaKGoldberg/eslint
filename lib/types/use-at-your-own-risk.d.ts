@@ -25,7 +25,6 @@
  * SOFTWARE
  */
 
-
 import { ESLint, Rule } from "./index.js";
 
 /** @deprecated */
@@ -33,16 +32,14 @@ export const builtinRules: Map<string, Rule.RuleModule>;
 
 /** @deprecated */
 export class FileEnumerator {
-    constructor(
-        params?: {
-            cwd?: string;
-            configArrayFactory?: any;
-            extensions?: any;
-            globInputPaths?: boolean;
-            errorOnUnmatchedPattern?: boolean;
-            ignore?: boolean;
-        },
-    );
+    constructor(params?: {
+        cwd?: string;
+        configArrayFactory?: any;
+        extensions?: any;
+        globInputPaths?: boolean;
+        errorOnUnmatchedPattern?: boolean;
+        ignore?: boolean;
+    });
     isTargetPath(filePath: string, providedConfig?: any): boolean;
     iterateFiles(
         patternOrPatterns: string | string[],
@@ -67,10 +64,15 @@ export class LegacyESLint {
 
     lintText(
         code: string,
-        options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined },
+        options?: {
+            filePath?: string | undefined;
+            warnIgnored?: boolean | undefined;
+        },
     ): Promise<ESLint.LintResult[]>;
 
-    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData["rulesMeta"];
+    getRulesMetaForResults(
+        results: ESLint.LintResult[],
+    ): ESLint.LintResultData["rulesMeta"];
 
     hasFlag(flag: string): false;
 

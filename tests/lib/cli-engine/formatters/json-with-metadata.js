@@ -25,14 +25,14 @@ describe("formatter:json", () => {
                 description: "This is rule 'foo'",
                 category: "error",
                 recommended: true,
-                url: "https://eslint.org/docs/rules/foo"
+                url: "https://eslint.org/docs/rules/foo",
             },
 
             fixable: "code",
 
             messages: {
-                message1: "This is a message for rule 'foo'."
-            }
+                message1: "This is a message for rule 'foo'.",
+            },
         },
         bar: {
             type: "suggestion",
@@ -40,37 +40,44 @@ describe("formatter:json", () => {
             docs: {
                 description: "This is rule 'bar'",
                 category: "error",
-                recommended: false
+                recommended: false,
             },
 
             messages: {
-                message1: "This is a message for rule 'bar'."
-            }
-        }
+                message1: "This is a message for rule 'bar'.",
+            },
+        },
     };
     const code = {
-        results: [{
-            filePath: "foo.js",
-            messages: [{
-                message: "Unexpected foo.",
-                severity: 2,
-                line: 5,
-                column: 10,
-                ruleId: "foo"
-            }]
-        }, {
-            filePath: "bar.js",
-            messages: [{
-                message: "Unexpected bar.",
-                severity: 1,
-                line: 6,
-                column: 11,
-                ruleId: "bar"
-            }]
-        }],
+        results: [
+            {
+                filePath: "foo.js",
+                messages: [
+                    {
+                        message: "Unexpected foo.",
+                        severity: 2,
+                        line: 5,
+                        column: 10,
+                        ruleId: "foo",
+                    },
+                ],
+            },
+            {
+                filePath: "bar.js",
+                messages: [
+                    {
+                        message: "Unexpected bar.",
+                        severity: 1,
+                        line: 6,
+                        column: 11,
+                        ruleId: "bar",
+                    },
+                ],
+            },
+        ],
         metadata: {
-            rulesMeta
-        }
+            rulesMeta,
+        },
     };
 
     it("should return passed results and data as a JSON string without any modification", () => {

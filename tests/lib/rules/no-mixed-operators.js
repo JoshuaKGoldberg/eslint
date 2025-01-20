@@ -32,41 +32,41 @@ ruleTester.run("no-mixed-operators", rule, {
         "a == 0 || b == 1",
         {
             code: "(a == 0) && (b == 1)",
-            options: [{ groups: [["&&", "=="]] }]
+            options: [{ groups: [["&&", "=="]] }],
         },
         {
             code: "a + b - c * d / e",
-            options: [{ groups: [["&&", "||"]] }]
+            options: [{ groups: [["&&", "||"]] }],
         },
         "a + b - c",
         "a * b / c",
         {
             code: "a + b - c",
-            options: [{ allowSamePrecedence: true }]
+            options: [{ allowSamePrecedence: true }],
         },
         {
             code: "a * b / c",
-            options: [{ allowSamePrecedence: true }]
+            options: [{ allowSamePrecedence: true }],
         },
         {
             code: "(a || b) ? c : d",
-            options: [{ groups: [["&&", "||", "?:"]] }]
+            options: [{ groups: [["&&", "||", "?:"]] }],
         },
         {
             code: "a ? (b || c) : d",
-            options: [{ groups: [["&&", "||", "?:"]] }]
+            options: [{ groups: [["&&", "||", "?:"]] }],
         },
         {
             code: "a ? b : (c || d)",
-            options: [{ groups: [["&&", "||", "?:"]] }]
+            options: [{ groups: [["&&", "||", "?:"]] }],
         },
         {
             code: "a || (b ? c : d)",
-            options: [{ groups: [["&&", "||", "?:"]] }]
+            options: [{ groups: [["&&", "||", "?:"]] }],
         },
         {
             code: "(a ? b : c) || d",
-            options: [{ groups: [["&&", "||", "?:"]] }]
+            options: [{ groups: [["&&", "||", "?:"]] }],
         },
         "a || (b ? c : d)",
         "(a || b) ? c : d",
@@ -74,7 +74,7 @@ ruleTester.run("no-mixed-operators", rule, {
         "a ? (b || c) : d",
         "a ? b || c : d",
         "a ? b : (c || d)",
-        "a ? b : c || d"
+        "a ? b : c || d",
     ],
     invalid: [
         {
@@ -86,8 +86,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
+                        rightOperator: "||",
+                    },
                 },
                 {
                     column: 8,
@@ -95,10 +95,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
-                }
-            ]
+                        rightOperator: "||",
+                    },
+                },
+            ],
         },
         {
             code: "a && b > 0 || c",
@@ -109,34 +109,34 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
+                        rightOperator: "||",
+                    },
                 },
                 {
                     column: 3,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: ">"
-                    }
+                        rightOperator: ">",
+                    },
                 },
                 {
                     column: 8,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: ">"
-                    }
+                        rightOperator: ">",
+                    },
                 },
                 {
                     column: 12,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
-                }
-            ]
+                        rightOperator: "||",
+                    },
+                },
+            ],
         },
         {
             code: "a && b > 0 || c",
@@ -147,94 +147,109 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
+                        rightOperator: "||",
+                    },
                 },
                 {
                     column: 12,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
-                }
-            ]
+                        rightOperator: "||",
+                    },
+                },
+            ],
         },
         {
             code: "a && b + c - d / e || f",
-            options: [{ groups: [["&&", "||"], ["+", "-", "*", "/"]] }],
+            options: [
+                {
+                    groups: [
+                        ["&&", "||"],
+                        ["+", "-", "*", "/"],
+                    ],
+                },
+            ],
             errors: [
                 {
                     column: 3,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
+                        rightOperator: "||",
+                    },
                 },
                 {
                     column: 12,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "-",
-                        rightOperator: "/"
-                    }
+                        rightOperator: "/",
+                    },
                 },
                 {
                     column: 16,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "-",
-                        rightOperator: "/"
-                    }
+                        rightOperator: "/",
+                    },
                 },
                 {
                     column: 20,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
-                }
-            ]
+                        rightOperator: "||",
+                    },
+                },
+            ],
         },
         {
             code: "a && b + c - d / e || f",
-            options: [{ groups: [["&&", "||"], ["+", "-", "*", "/"]], allowSamePrecedence: true }],
+            options: [
+                {
+                    groups: [
+                        ["&&", "||"],
+                        ["+", "-", "*", "/"],
+                    ],
+                    allowSamePrecedence: true,
+                },
+            ],
             errors: [
                 {
                     column: 3,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
+                        rightOperator: "||",
+                    },
                 },
                 {
                     column: 12,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "-",
-                        rightOperator: "/"
-                    }
+                        rightOperator: "/",
+                    },
                 },
                 {
                     column: 16,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "-",
-                        rightOperator: "/"
-                    }
+                        rightOperator: "/",
+                    },
                 },
                 {
                     column: 20,
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "||"
-                    }
-                }
-            ]
+                        rightOperator: "||",
+                    },
+                },
+            ],
         },
         {
             code: "a + b - c",
@@ -246,8 +261,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "+",
-                        rightOperator: "-"
-                    }
+                        rightOperator: "-",
+                    },
                 },
                 {
                     column: 7,
@@ -255,10 +270,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "+",
-                        rightOperator: "-"
-                    }
-                }
-            ]
+                        rightOperator: "-",
+                    },
+                },
+            ],
         },
         {
             code: "a * b / c",
@@ -270,8 +285,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "*",
-                        rightOperator: "/"
-                    }
+                        rightOperator: "/",
+                    },
                 },
                 {
                     column: 7,
@@ -279,10 +294,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "*",
-                        rightOperator: "/"
-                    }
-                }
-            ]
+                        rightOperator: "/",
+                    },
+                },
+            ],
         },
         {
             code: "a || b ? c : d",
@@ -294,8 +309,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "||",
-                        rightOperator: "?:"
-                    }
+                        rightOperator: "?:",
+                    },
                 },
                 {
                     column: 8,
@@ -303,10 +318,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "||",
-                        rightOperator: "?:"
-                    }
-                }
-            ]
+                        rightOperator: "?:",
+                    },
+                },
+            ],
         },
         {
             code: "a && b ? 1 : 2",
@@ -318,8 +333,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "?:"
-                    }
+                        rightOperator: "?:",
+                    },
                 },
                 {
                     column: 8,
@@ -327,10 +342,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "&&",
-                        rightOperator: "?:"
-                    }
-                }
-            ]
+                        rightOperator: "?:",
+                    },
+                },
+            ],
         },
         {
             code: "x ? a && b : 0",
@@ -342,8 +357,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "?:",
-                        rightOperator: "&&"
-                    }
+                        rightOperator: "&&",
+                    },
                 },
                 {
                     column: 7,
@@ -351,10 +366,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "?:",
-                        rightOperator: "&&"
-                    }
-                }
-            ]
+                        rightOperator: "&&",
+                    },
+                },
+            ],
         },
         {
             code: "x ? 0 : a && b",
@@ -366,8 +381,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "?:",
-                        rightOperator: "&&"
-                    }
+                        rightOperator: "&&",
+                    },
                 },
                 {
                     column: 11,
@@ -375,10 +390,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "?:",
-                        rightOperator: "&&"
-                    }
-                }
-            ]
+                        rightOperator: "&&",
+                    },
+                },
+            ],
         },
         {
             code: "a + b ?? c",
@@ -391,8 +406,8 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "+",
-                        rightOperator: "??"
-                    }
+                        rightOperator: "??",
+                    },
                 },
                 {
                     column: 7,
@@ -400,10 +415,10 @@ ruleTester.run("no-mixed-operators", rule, {
                     messageId: "unexpectedMixedOperator",
                     data: {
                         leftOperator: "+",
-                        rightOperator: "??"
-                    }
-                }
-            ]
-        }
-    ]
+                        rightOperator: "??",
+                    },
+                },
+            ],
+        },
+    ],
 });

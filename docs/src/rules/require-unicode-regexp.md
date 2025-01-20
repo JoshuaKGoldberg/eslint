@@ -2,10 +2,9 @@
 title: require-unicode-regexp
 rule_type: suggestion
 further_reading:
-- https://github.com/tc39/proposal-regexp-v-flag
-- https://v8.dev/features/regexp-v-flag
+    - https://github.com/tc39/proposal-regexp-v-flag
+    - https://v8.dev/features/regexp-v-flag
 ---
-
 
 RegExp `u` flag has two effects:
 
@@ -34,11 +33,11 @@ The RegExp `v` flag, introduced in ECMAScript 2024, is a superset of the `u` fla
     const re = /^\p{RGI_Emoji}$/v;
 
     // Match an emoji that consists of just 1 code point:
-    re.test('⚽'); // '\u26BD'
+    re.test("⚽"); // '\u26BD'
     // → true ✅
 
     // Match an emoji that consists of multiple code points:
-    re.test('👨🏾‍⚕️'); // '\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F'
+    re.test("👨🏾‍⚕️"); // '\u{1F468}\u{1F3FE}\u200D\u2695\uFE0F'
     // → true ✅
     ```
 
@@ -48,8 +47,8 @@ The RegExp `v` flag, introduced in ECMAScript 2024, is a superset of the `u` fla
 
     ```js
     const re = /[\p{White_Space}&&\p{ASCII}]/v;
-    re.test('\n'); // → true
-    re.test('\u2028'); // → false
+    re.test("\n"); // → true
+    re.test("\u2028"); // → false
     ```
 
 Therefore, the `u` and `v` flags let us work better with regular expressions.
@@ -65,10 +64,10 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint require-unicode-regexp: error */
 
-const a = /aaa/
-const b = /bbb/gi
-const c = new RegExp("ccc")
-const d = new RegExp("ddd", "gi")
+const a = /aaa/;
+const b = /bbb/gi;
+const c = new RegExp("ccc");
+const d = new RegExp("ddd", "gi");
 ```
 
 :::
@@ -80,19 +79,19 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint require-unicode-regexp: error */
 
-const a = /aaa/u
-const b = /bbb/giu
-const c = new RegExp("ccc", "u")
-const d = new RegExp("ddd", "giu")
+const a = /aaa/u;
+const b = /bbb/giu;
+const c = new RegExp("ccc", "u");
+const d = new RegExp("ddd", "giu");
 
-const e = /aaa/v
-const f = /bbb/giv
-const g = new RegExp("ccc", "v")
-const h = new RegExp("ddd", "giv")
+const e = /aaa/v;
+const f = /bbb/giv;
+const g = new RegExp("ccc", "v");
+const h = new RegExp("ddd", "giv");
 
 // This rule ignores RegExp calls if the flags could not be evaluated to a static value.
 function i(flags) {
-    return new RegExp("eee", flags)
+    return new RegExp("eee", flags);
 }
 ```
 
@@ -102,7 +101,7 @@ function i(flags) {
 
 This rule has one object option:
 
-* `"requireFlag": "u"|"v"` requires a particular Unicode regex flag
+- `"requireFlag": "u"|"v"` requires a particular Unicode regex flag
 
 ### requireFlag: "u"
 
@@ -117,11 +116,11 @@ Examples of **incorrect** code for this rule with the `{ "requireFlag": "u" }` o
 
 const fooEmpty = /foo/;
 
-const fooEmptyRegexp = new RegExp('foo');
+const fooEmptyRegexp = new RegExp("foo");
 
 const foo = /foo/v;
 
-const fooRegexp = new RegExp('foo', 'v');
+const fooRegexp = new RegExp("foo", "v");
 ```
 
 :::
@@ -135,7 +134,7 @@ Examples of **correct** code for this rule with the `{ "requireFlag": "u" }` opt
 
 const foo = /foo/u;
 
-const fooRegexp = new RegExp('foo', 'u');
+const fooRegexp = new RegExp("foo", "u");
 ```
 
 :::
@@ -156,11 +155,11 @@ Examples of **incorrect** code for this rule with the `{ "requireFlag": "v" }` o
 
 const fooEmpty = /foo/;
 
-const fooEmptyRegexp = new RegExp('foo');
+const fooEmptyRegexp = new RegExp("foo");
 
 const foo = /foo/u;
 
-const fooRegexp = new RegExp('foo', 'u');
+const fooRegexp = new RegExp("foo", "u");
 ```
 
 :::
@@ -174,7 +173,7 @@ Examples of **correct** code for this rule with the `{ "requireFlag": "v" }` opt
 
 const foo = /foo/v;
 
-const fooRegexp = new RegExp('foo', 'v');
+const fooRegexp = new RegExp("foo", "v");
 ```
 
 :::

@@ -2,11 +2,9 @@
 title: prefer-template
 rule_type: suggestion
 related_rules:
-- no-useless-concat
-- quotes
+    - no-useless-concat
+    - quotes
 ---
-
-
 
 In ES2015 (ES6), we can use template literals instead of string concatenation.
 
@@ -32,7 +30,7 @@ Examples of **incorrect** code for this rule:
 /*eslint prefer-template: "error"*/
 
 var str = "Hello, " + name + "!";
-var str = "Time: " + (12 * 60 * 60 * 1000);
+var str = "Time: " + 12 * 60 * 60 * 1000;
 ```
 
 :::

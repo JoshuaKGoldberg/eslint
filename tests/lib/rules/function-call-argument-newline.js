@@ -15,7 +15,6 @@ const ruleTester = new RuleTester();
 
 ruleTester.run("function-call-argument-newline", rule, {
     valid: [
-
         /* early return */
         "fn()",
         "fn(a)",
@@ -31,23 +30,27 @@ ruleTester.run("function-call-argument-newline", rule, {
         { code: "fn(\n\ta,\n\tb,\n\tc\n)", options: ["always"] },
         {
             code: "fn(\n\ta,\n\tb,\n\t[\n\t\t1,\n\t\t2\n\t]\n)",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: "fn(\n\ta,\n\tb,\n\t{\n\t\ta: 1,\n\t\tb: 2\n\t}\n)",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: "fn(\n\ta,\n\tb,\n\tfunction (x) {\n\t\tx()\n\t}\n)",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: "fn(\n\ta,\n\tb,\n\tx => {\n\t\tx()\n\t}\n)",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         { code: "fn({\n\ta: 1\n},\n\tb,\n\tc)", options: ["always"] },
-        { code: "fn(`\n`,\n\ta)", options: ["always"], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "fn(`\n`,\n\ta)",
+            options: ["always"],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         /* "never" */
         { code: "fn(a, b)", options: ["never"] },
@@ -59,21 +62,32 @@ ruleTester.run("function-call-argument-newline", rule, {
         {
             code: "fn(a, b, x => {\n\tx()\n})",
             options: ["never"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         { code: "fn({\n\ta: 1\n}, b)", options: ["never"] },
-        { code: "fn(`\n`, a)", options: ["never"], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "fn(`\n`, a)",
+            options: ["never"],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         /* "consistent" */
         { code: "fn(a, b, c)", options: ["consistent"] },
         { code: "fn(a,\n\tb,\n\tc)", options: ["consistent"] },
         { code: "fn({\n\ta: 1\n}, b, c)", options: ["consistent"] },
         { code: "fn({\n\ta: 1\n},\n\tb,\n\tc)", options: ["consistent"] },
-        { code: "fn(`\n`, b, c)", options: ["consistent"], languageOptions: { ecmaVersion: 6 } },
-        { code: "fn(`\n`,\n\tb,\n\tc)", options: ["consistent"], languageOptions: { ecmaVersion: 6 } }
+        {
+            code: "fn(`\n`, b, c)",
+            options: ["consistent"],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "fn(`\n`,\n\tb,\n\tc)",
+            options: ["consistent"],
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
     invalid: [
-
         /* default ("always") */
         {
             code: "fn(a, b)",
@@ -84,9 +98,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
 
         /* "always" */
@@ -100,9 +114,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: "fn(a, b, c)",
@@ -114,16 +128,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
+                    endColumn: 7,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 9,
                     endLine: 1,
-                    endColumn: 10
-                }
-            ]
+                    endColumn: 10,
+                },
+            ],
         },
         {
             code: "fn(a, b, [\n\t1,\n\t2\n])",
@@ -135,16 +149,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
+                    endColumn: 7,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 9,
                     endLine: 1,
-                    endColumn: 10
-                }
-            ]
+                    endColumn: 10,
+                },
+            ],
         },
         {
             code: "fn(a, b, {\n\ta: 1,\n\tb: 2\n})",
@@ -156,16 +170,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
+                    endColumn: 7,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 9,
                     endLine: 1,
-                    endColumn: 10
-                }
-            ]
+                    endColumn: 10,
+                },
+            ],
         },
         {
             code: "fn(a, b, function (x) {\n\tx()\n})",
@@ -177,16 +191,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
+                    endColumn: 7,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 9,
                     endLine: 1,
-                    endColumn: 10
-                }
-            ]
+                    endColumn: 10,
+                },
+            ],
         },
         {
             code: "fn(a, b, x => {\n\tx()\n})",
@@ -199,16 +213,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 1,
-                    endColumn: 7
+                    endColumn: 7,
                 },
                 {
                     messageId: "missingLineBreak",
                     line: 1,
                     column: 9,
                     endLine: 1,
-                    endColumn: 10
-                }
-            ]
+                    endColumn: 10,
+                },
+            ],
         },
         {
             code: "fn({\n\ta: 1\n}, b)",
@@ -220,9 +234,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 3,
                     column: 3,
                     endLine: 3,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "fn(`\n`, b)",
@@ -235,9 +249,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 3,
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
 
         /* "never" */
@@ -251,9 +265,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb,\n\tc)",
@@ -265,16 +279,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
+                    endColumn: 2,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
                     column: 4,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb,\n\t[\n\t\t1,\n\t\t2\n])",
@@ -286,16 +300,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
+                    endColumn: 2,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
                     column: 4,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb,\n\t{\n\t\ta: 1,\n\t\tb: 2\n})",
@@ -307,16 +321,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
+                    endColumn: 2,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
                     column: 4,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb,\n\tfunction (x) {\n\t\tx()\n})",
@@ -328,16 +342,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
+                    endColumn: 2,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
                     column: 4,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb,\n\tx => {\n\t\tx()\n})",
@@ -350,16 +364,16 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 6,
                     endLine: 2,
-                    endColumn: 2
+                    endColumn: 2,
                 },
                 {
                     messageId: "unexpectedLineBreak",
                     line: 2,
                     column: 4,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn({\n\ta: 1\n},\nb)",
@@ -371,9 +385,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 3,
                     column: 3,
                     endLine: 4,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(`\n`,\nb)",
@@ -386,9 +400,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 3,
                     endLine: 3,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(a,/* comment */\nb)",
@@ -401,9 +415,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 19,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
 
         /* "consistent" */
@@ -417,9 +431,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 9,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb, c)",
@@ -431,9 +445,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 4,
                     endLine: 2,
-                    endColumn: 5
-                }
-            ]
+                    endColumn: 5,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb /* comment */, c)",
@@ -445,9 +459,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 18,
                     endLine: 2,
-                    endColumn: 19
-                }
-            ]
+                    endColumn: 19,
+                },
+            ],
         },
         {
             code: "fn(a,\n\tb, /* comment */ c)",
@@ -459,9 +473,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 18,
                     endLine: 2,
-                    endColumn: 19
-                }
-            ]
+                    endColumn: 19,
+                },
+            ],
         },
         {
             code: "fn({\n\ta: 1\n},\nb, c)",
@@ -473,9 +487,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 4,
                     column: 3,
                     endLine: 4,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "fn({\n\ta: 1\n}, b,\nc)",
@@ -487,9 +501,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 3,
                     column: 6,
                     endLine: 4,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(`\n`,\nb, c)",
@@ -502,9 +516,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 3,
                     column: 3,
                     endLine: 3,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
         {
             code: "fn(`\n`, b,\nc)",
@@ -517,9 +531,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 6,
                     endLine: 3,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(a,// comment\n{b, c})",
@@ -532,9 +546,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 16,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(a, // comment\nb)",
@@ -546,9 +560,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 1,
                     column: 17,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "fn(`\n`, b, // comment\nc)",
@@ -561,9 +575,9 @@ ruleTester.run("function-call-argument-newline", rule, {
                     line: 2,
                     column: 17,
                     endLine: 3,
-                    endColumn: 1
-                }
-            ]
-        }
-    ]
+                    endColumn: 1,
+                },
+            ],
+        },
+    ],
 });

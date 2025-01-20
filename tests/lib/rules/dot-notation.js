@@ -19,8 +19,8 @@ const rule = require("../../../lib/rules/dot-notation"),
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 5,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 /**
@@ -57,10 +57,20 @@ ruleTester.run("dot-notation", rule, {
         { code: "a[null];", options: [{ allowKeywords: false }] },
         { code: "a.true;", options: [{ allowKeywords: true }] },
         { code: "a.null;", options: [{ allowKeywords: true }] },
-        { code: "a['snake_case'];", options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }] },
-        { code: "a['lots_of_snake_case'];", options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }] },
+        {
+            code: "a['snake_case'];",
+            options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }],
+        },
+        {
+            code: "a['lots_of_snake_case'];",
+            options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }],
+        },
         { code: "a[`time${range}`];", languageOptions: { ecmaVersion: 6 } },
-        { code: "a[`while`];", options: [{ allowKeywords: false }], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "a[`while`];",
+            options: [{ allowKeywords: false }],
+            languageOptions: { ecmaVersion: 6 },
+        },
         { code: "a[`time range`];", languageOptions: { ecmaVersion: 6 } },
         "a.true;",
         "a.null;",
@@ -68,230 +78,227 @@ ruleTester.run("dot-notation", rule, {
         "a[void 0];",
         "a[b()];",
         { code: "a[/(?<zero>0)/];", languageOptions: { ecmaVersion: 2018 } },
-        { code: "class C { foo() { this['#a'] } }", languageOptions: { ecmaVersion: 2022 } },
+        {
+            code: "class C { foo() { this['#a'] } }",
+            languageOptions: { ecmaVersion: 2022 },
+        },
         {
             code: "class C { #in; foo() { this.#in; } }",
             options: [{ allowKeywords: false }],
-            languageOptions: { ecmaVersion: 2022 }
-        }
+            languageOptions: { ecmaVersion: 2022 },
+        },
     ],
     invalid: [
         {
             code: "a.true;",
-            output: "a[\"true\"];",
+            output: 'a["true"];',
             options: [{ allowKeywords: false }],
-            errors: [{ messageId: "useBrackets", data: { key: "true" } }]
+            errors: [{ messageId: "useBrackets", data: { key: "true" } }],
         },
         {
             code: "a['true'];",
             output: "a.true;",
-            errors: [{ messageId: "useDot", data: { key: q("true") } }]
+            errors: [{ messageId: "useDot", data: { key: q("true") } }],
         },
         {
             code: "a[`time`];",
             output: "a.time;",
             languageOptions: { ecmaVersion: 6 },
-            errors: [{ messageId: "useDot", data: { key: "`time`" } }]
+            errors: [{ messageId: "useDot", data: { key: "`time`" } }],
         },
         {
             code: "a[null];",
             output: "a.null;",
-            errors: [{ messageId: "useDot", data: { key: "null" } }]
+            errors: [{ messageId: "useDot", data: { key: "null" } }],
         },
         {
             code: "a[true];",
             output: "a.true;",
-            errors: [{ messageId: "useDot", data: { key: "true" } }]
+            errors: [{ messageId: "useDot", data: { key: "true" } }],
         },
         {
             code: "a[false];",
             output: "a.false;",
-            errors: [{ messageId: "useDot", data: { key: "false" } }]
+            errors: [{ messageId: "useDot", data: { key: "false" } }],
         },
         {
             code: "a['b'];",
             output: "a.b;",
-            errors: [{ messageId: "useDot", data: { key: q("b") } }]
+            errors: [{ messageId: "useDot", data: { key: q("b") } }],
         },
         {
             code: "a.b['c'];",
             output: "a.b.c;",
-            errors: [{ messageId: "useDot", data: { key: q("c") } }]
+            errors: [{ messageId: "useDot", data: { key: q("c") } }],
         },
         {
             code: "a['_dangle'];",
             output: "a._dangle;",
             options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }],
-            errors: [{ messageId: "useDot", data: { key: q("_dangle") } }]
+            errors: [{ messageId: "useDot", data: { key: q("_dangle") } }],
         },
         {
             code: "a['SHOUT_CASE'];",
             output: "a.SHOUT_CASE;",
             options: [{ allowPattern: "^[a-z]+(_[a-z]+)+$" }],
-            errors: [{ messageId: "useDot", data: { key: q("SHOUT_CASE") } }]
+            errors: [{ messageId: "useDot", data: { key: q("SHOUT_CASE") } }],
+        },
+        {
+            code: "a\n" + "  ['SHOUT_CASE'];",
+            output: "a\n" + "  .SHOUT_CASE;",
+            errors: [
+                {
+                    messageId: "useDot",
+                    data: { key: q("SHOUT_CASE") },
+                    line: 2,
+                    column: 4,
+                },
+            ],
         },
         {
             code:
-                "a\n" +
-                "  ['SHOUT_CASE'];",
+                "getResource()\n" +
+                "    .then(function(){})\n" +
+                '    ["catch"](function(){})\n' +
+                "    .then(function(){})\n" +
+                '    ["catch"](function(){});',
             output:
-                "a\n" +
-                "  .SHOUT_CASE;",
-            errors: [{
-                messageId: "useDot",
-                data: { key: q("SHOUT_CASE") },
-                line: 2,
-                column: 4
-            }]
-        },
-        {
-            code:
-            "getResource()\n" +
-            "    .then(function(){})\n" +
-            "    [\"catch\"](function(){})\n" +
-            "    .then(function(){})\n" +
-            "    [\"catch\"](function(){});",
-            output:
-            "getResource()\n" +
-            "    .then(function(){})\n" +
-            "    .catch(function(){})\n" +
-            "    .then(function(){})\n" +
-            "    .catch(function(){});",
+                "getResource()\n" +
+                "    .then(function(){})\n" +
+                "    .catch(function(){})\n" +
+                "    .then(function(){})\n" +
+                "    .catch(function(){});",
             errors: [
                 {
                     messageId: "useDot",
                     data: { key: q("catch") },
                     line: 3,
-                    column: 6
+                    column: 6,
                 },
                 {
                     messageId: "useDot",
                     data: { key: q("catch") },
                     line: 5,
-                    column: 6
-                }
-            ]
+                    column: 6,
+                },
+            ],
         },
         {
-            code:
-            "foo\n" +
-            "  .while;",
-            output:
-            "foo\n" +
-            "  [\"while\"];",
+            code: "foo\n" + "  .while;",
+            output: "foo\n" + '  ["while"];',
             options: [{ allowKeywords: false }],
-            errors: [{ messageId: "useBrackets", data: { key: "while" } }]
+            errors: [{ messageId: "useBrackets", data: { key: "while" } }],
         },
         {
             code: "foo[ /* comment */ 'bar' ]",
             output: null, // Not fixed due to comment
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "foo[ 'bar' /* comment */ ]",
             output: null, // Not fixed due to comment
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "foo[    'bar'    ];",
             output: "foo.bar;",
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "foo. /* comment */ while",
             output: null, // Not fixed due to comment
             options: [{ allowKeywords: false }],
-            errors: [{ messageId: "useBrackets", data: { key: "while" } }]
+            errors: [{ messageId: "useBrackets", data: { key: "while" } }],
         },
         {
             code: "foo[('bar')]",
             output: "foo.bar",
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "foo[(null)]",
             output: "foo.null",
-            errors: [{ messageId: "useDot", data: { key: "null" } }]
+            errors: [{ messageId: "useDot", data: { key: "null" } }],
         },
         {
             code: "(foo)['bar']",
             output: "(foo).bar",
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "1['toString']",
             output: "1 .toString",
-            errors: [{ messageId: "useDot", data: { key: q("toString") } }]
+            errors: [{ messageId: "useDot", data: { key: q("toString") } }],
         },
         {
             code: "foo['bar']instanceof baz",
             output: "foo.bar instanceof baz",
-            errors: [{ messageId: "useDot", data: { key: q("bar") } }]
+            errors: [{ messageId: "useDot", data: { key: q("bar") } }],
         },
         {
             code: "let.if()",
             output: null, // `let["if"]()` is a syntax error because `let[` indicates a destructuring variable declaration
             options: [{ allowKeywords: false }],
-            errors: [{ messageId: "useBrackets", data: { key: "if" } }]
+            errors: [{ messageId: "useBrackets", data: { key: "if" } }],
         },
         {
             code: "5['prop']",
             output: "5 .prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "-5['prop']",
             output: "-5 .prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "01['prop']",
             output: "01.prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "01234567['prop']",
             output: "01234567.prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "08['prop']",
             output: "08 .prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "090['prop']",
             output: "090 .prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "018['prop']",
             output: "018 .prop",
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "5_000['prop']",
             output: "5_000 .prop",
             languageOptions: { ecmaVersion: 2021 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "5_000_00['prop']",
             output: "5_000_00 .prop",
             languageOptions: { ecmaVersion: 2021 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "5.000_000['prop']",
             output: "5.000_000.prop",
             languageOptions: { ecmaVersion: 2021 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "0b1010_1010['prop']",
             output: "0b1010_1010.prop",
             languageOptions: { ecmaVersion: 2021 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
 
         // Optional chaining
@@ -299,27 +306,27 @@ ruleTester.run("dot-notation", rule, {
             code: "obj?.['prop']",
             output: "obj?.prop",
             languageOptions: { ecmaVersion: 2020 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "0?.['prop']",
             output: "0?.prop",
             languageOptions: { ecmaVersion: 2020 },
-            errors: [{ messageId: "useDot", data: { key: q("prop") } }]
+            errors: [{ messageId: "useDot", data: { key: q("prop") } }],
         },
         {
             code: "obj?.true",
-            output: "obj?.[\"true\"]",
+            output: 'obj?.["true"]',
             options: [{ allowKeywords: false }],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [{ messageId: "useBrackets", data: { key: "true" } }]
+            errors: [{ messageId: "useBrackets", data: { key: "true" } }],
         },
         {
             code: "let?.true",
-            output: "let?.[\"true\"]",
+            output: 'let?.["true"]',
             options: [{ allowKeywords: false }],
             languageOptions: { ecmaVersion: 2020 },
-            errors: [{ messageId: "useBrackets", data: { key: "true" } }]
-        }
-    ]
+            errors: [{ messageId: "useBrackets", data: { key: "true" } }],
+        },
+    ],
 });

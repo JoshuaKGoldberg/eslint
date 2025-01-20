@@ -69,13 +69,13 @@ const lineNumberPlugin = (md) => {
         const rawCode = fence(...args);
         const code = rawCode.slice(
             rawCode.indexOf("<code>"),
-            rawCode.indexOf("</code>")
+            rawCode.indexOf("</code>"),
         );
         const lines = code.split("\n");
         const lineNumbersCode = [...Array(lines.length - 1)]
             .map(
                 (line, index) =>
-                    `<span class="line-number">${index + 1}</span><br>`
+                    `<span class="line-number">${index + 1}</span><br>`,
             )
             .join("");
 
@@ -84,7 +84,7 @@ const lineNumberPlugin = (md) => {
         const finalCode = rawCode
             .replace(/<\/pre>\n/, `${lineNumbersWrapperCode}</pre>`)
             .replace(/"(language-\S*?)"/, '"$1 line-numbers-mode"')
-            .replace(/<code>/, `<code class="language-${lang}">`)
+            .replace(/<code>/, `<code class="language-${lang}">`);
 
         return finalCode;
     };

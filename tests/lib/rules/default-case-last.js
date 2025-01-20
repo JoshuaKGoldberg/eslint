@@ -24,7 +24,7 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 function error(column) {
     const errorObject = {
         messageId: "notLast",
-        type: "SwitchCase"
+        type: "SwitchCase",
     };
 
     if (column) {
@@ -64,65 +64,65 @@ ruleTester.run("default-case-last", rule, {
         "switch (foo) { case 1: case 2: break; default: break; }",
         "switch (foo) { case 1: break; case 2: default: break; }",
         "switch (foo) { case 1: break; case 2: default: }",
-        "switch (foo) { case 1: case 2: default: }"
+        "switch (foo) { case 1: case 2: default: }",
     ],
 
     invalid: [
         {
             code: "switch (foo) { default: bar(); break; case 1: baz(); break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: break; case 1: break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: break; case 1: }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: case 1: break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: case 1: }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: break; case 1: break; case 2: break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: case 1: break; case 2: break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: case 1: case 2: break; }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { default: case 1: case 2: }",
-            errors: [error(16)]
+            errors: [error(16)],
         },
         {
             code: "switch (foo) { case 1: break; default: break; case 2: break; }",
-            errors: [error(31)]
+            errors: [error(31)],
         },
         {
             code: "switch (foo) { case 1: default: break; case 2: break; }",
-            errors: [error(24)]
+            errors: [error(24)],
         },
         {
             code: "switch (foo) { case 1: break; default: case 2: break; }",
-            errors: [error(31)]
+            errors: [error(31)],
         },
         {
             code: "switch (foo) { case 1: default: case 2: break; }",
-            errors: [error(24)]
+            errors: [error(24)],
         },
         {
             code: "switch (foo) { case 1: default: case 2: }",
-            errors: [error(24)]
-        }
-    ]
+            errors: [error(24)],
+        },
+    ],
 });

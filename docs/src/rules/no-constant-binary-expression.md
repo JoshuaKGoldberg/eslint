@@ -2,11 +2,10 @@
 title: no-constant-binary-expression
 rule_type: problem
 related_rules:
-- no-constant-condition
+    - no-constant-condition
 further_reading:
-- https://eslint.org/blog/2022/07/interesting-bugs-caught-by-no-constant-binary-expression/
+    - https://eslint.org/blog/2022/07/interesting-bugs-caught-by-no-constant-binary-expression/
 ---
-
 
 Comparisons which will always evaluate to true or false and logical expressions (`||`, `&&`, `??`) which either always short-circuit or never short-circuit are both likely indications of programmer error.
 

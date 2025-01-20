@@ -20,12 +20,23 @@ const ruleTester = new RuleTester();
 
 ruleTester.run("sort-keys", rule, {
     valid: [
-
         // default (asc)
-        { code: "var obj = {'':1, [``]:2}", options: [], languageOptions: { ecmaVersion: 6 } },
-        { code: "var obj = {[``]:1, '':2}", options: [], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var obj = {'':1, [``]:2}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var obj = {[``]:1, '':2}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
         { code: "var obj = {'':1, a:2}", options: [] },
-        { code: "var obj = {[``]:1, a:2}", options: [], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var obj = {[``]:1, a:2}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
         { code: "var obj = {_:2, a:1, b:3} // default", options: [] },
         { code: "var obj = {a:1, b:3, c:2}", options: [] },
         { code: "var obj = {a:2, b:3, b_:1}", options: [] },
@@ -33,34 +44,106 @@ ruleTester.run("sort-keys", rule, {
         { code: "var obj = {$:1, A:3, _:2, a:4}", options: [] },
         { code: "var obj = {1:1, '11':2, 2:4, A:3}", options: [] },
         { code: "var obj = {'#':1, 'Z':2, À:3, è:4}", options: [] },
-        { code: "var obj = { [/(?<zero>0)/]: 1, '/(?<zero>0)/': 2 }", options: [], languageOptions: { ecmaVersion: 2018 } },
+        {
+            code: "var obj = { [/(?<zero>0)/]: 1, '/(?<zero>0)/': 2 }",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
 
         // ignore non-simple computed properties.
-        { code: "var obj = {a:1, b:3, [a + b]: -1, c:2}", options: [], languageOptions: { ecmaVersion: 6 } },
-        { code: "var obj = {'':1, [f()]:2, a:3}", options: [], languageOptions: { ecmaVersion: 6 } },
-        { code: "var obj = {a:1, [b++]:2, '':3}", options: ["desc"], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "var obj = {a:1, b:3, [a + b]: -1, c:2}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var obj = {'':1, [f()]:2, a:3}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
+        {
+            code: "var obj = {a:1, [b++]:2, '':3}",
+            options: ["desc"],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         // ignore properties separated by spread properties
-        { code: "var obj = {a:1, ...z, b:1}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {b:1, ...z, a:1}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {...a, b:1, ...c, d:1}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {...a, b:1, ...d, ...c, e:2, z:5}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {b:1, ...c, ...d, e:2}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {a:1, ...z, '':2}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {'':1, ...z, 'a':2}", options: ["desc"], languageOptions: { ecmaVersion: 2018 } },
+        {
+            code: "var obj = {a:1, ...z, b:1}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {b:1, ...z, a:1}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {...a, b:1, ...c, d:1}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {...a, b:1, ...d, ...c, e:2, z:5}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {b:1, ...c, ...d, e:2}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {a:1, ...z, '':2}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {'':1, ...z, 'a':2}",
+            options: ["desc"],
+            languageOptions: { ecmaVersion: 2018 },
+        },
 
         // not ignore properties not separated by spread properties
-        { code: "var obj = {...z, a:1, b:1}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {...z, ...c, a:1, b:1}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {a:1, b:1, ...z}", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "var obj = {...z, ...x, a:1, ...c, ...d, f:5, e:4}", options: ["desc"], languageOptions: { ecmaVersion: 2018 } },
+        {
+            code: "var obj = {...z, a:1, b:1}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {...z, ...c, a:1, b:1}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {a:1, b:1, ...z}",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "var obj = {...z, ...x, a:1, ...c, ...d, f:5, e:4}",
+            options: ["desc"],
+            languageOptions: { ecmaVersion: 2018 },
+        },
 
         // works when spread occurs somewhere other than an object literal
-        { code: "function fn(...args) { return [...args].length; }", options: [], languageOptions: { ecmaVersion: 2018 } },
-        { code: "function g() {}; function f(...args) { return g(...args); }", options: [], languageOptions: { ecmaVersion: 2018 } },
+        {
+            code: "function fn(...args) { return [...args].length; }",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
+        {
+            code: "function g() {}; function f(...args) { return g(...args); }",
+            options: [],
+            languageOptions: { ecmaVersion: 2018 },
+        },
 
         // ignore destructuring patterns.
-        { code: "let {a, b} = {}", options: [], languageOptions: { ecmaVersion: 6 } },
+        {
+            code: "let {a, b} = {}",
+            options: [],
+            languageOptions: { ecmaVersion: 6 },
+        },
 
         // nested
         { code: "var obj = {a:1, b:{x:1, y:1}, c:1}", options: [] },
@@ -78,42 +161,123 @@ ruleTester.run("sort-keys", rule, {
         { code: "var obj = {a:1, c:2, b:3}", options: ["asc", { minKeys: 4 }] },
 
         // asc, insensitive
-        { code: "var obj = {_:2, a:1, b:3} // asc, insensitive", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {a:1, b:3, c:2}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {a:2, b:3, b_:1}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {b_:1, C:3, c:2}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {b_:1, c:3, C:2}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {$:1, _:2, A:3, a:4}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {1:1, '11':2, 2:4, A:3}", options: ["asc", { caseSensitive: false }] },
-        { code: "var obj = {'#':1, 'Z':2, À:3, è:4}", options: ["asc", { caseSensitive: false }] },
+        {
+            code: "var obj = {_:2, a:1, b:3} // asc, insensitive",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:1, b:3, c:2}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:2, b:3, b_:1}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, C:3, c:2}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, c:3, C:2}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {$:1, _:2, A:3, a:4}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {1:1, '11':2, 2:4, A:3}",
+            options: ["asc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {'#':1, 'Z':2, À:3, è:4}",
+            options: ["asc", { caseSensitive: false }],
+        },
 
         // asc, insensitive, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {$:1, A:3, _:2, a:4}", options: ["asc", { caseSensitive: false, minKeys: 5 }] },
+        {
+            code: "var obj = {$:1, A:3, _:2, a:4}",
+            options: ["asc", { caseSensitive: false, minKeys: 5 }],
+        },
 
         // asc, natural
-        { code: "var obj = {_:2, a:1, b:3} // asc, natural", options: ["asc", { natural: true }] },
-        { code: "var obj = {a:1, b:3, c:2}", options: ["asc", { natural: true }] },
-        { code: "var obj = {a:2, b:3, b_:1}", options: ["asc", { natural: true }] },
-        { code: "var obj = {C:3, b_:1, c:2}", options: ["asc", { natural: true }] },
-        { code: "var obj = {$:1, _:2, A:3, a:4}", options: ["asc", { natural: true }] },
-        { code: "var obj = {1:1, 2:4, '11':2, A:3}", options: ["asc", { natural: true }] },
-        { code: "var obj = {'#':1, 'Z':2, À:3, è:4}", options: ["asc", { natural: true }] },
+        {
+            code: "var obj = {_:2, a:1, b:3} // asc, natural",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {a:1, b:3, c:2}",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {a:2, b:3, b_:1}",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {C:3, b_:1, c:2}",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {$:1, _:2, A:3, a:4}",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {1:1, 2:4, '11':2, A:3}",
+            options: ["asc", { natural: true }],
+        },
+        {
+            code: "var obj = {'#':1, 'Z':2, À:3, è:4}",
+            options: ["asc", { natural: true }],
+        },
 
         // asc, natural, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {b_:1, a:2, b:3}", options: ["asc", { natural: true, minKeys: 4 }] },
+        {
+            code: "var obj = {b_:1, a:2, b:3}",
+            options: ["asc", { natural: true, minKeys: 4 }],
+        },
 
         // asc, natural, insensitive
-        { code: "var obj = {_:2, a:1, b:3} // asc, natural, insensitive", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {a:1, b:3, c:2}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {a:2, b:3, b_:1}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {b_:1, C:3, c:2}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {b_:1, c:3, C:2}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {$:1, _:2, A:3, a:4}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {1:1, 2:4, '11':2, A:3}", options: ["asc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {'#':1, 'Z':2, À:3, è:4}", options: ["asc", { natural: true, caseSensitive: false }] },
+        {
+            code: "var obj = {_:2, a:1, b:3} // asc, natural, insensitive",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:1, b:3, c:2}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:2, b:3, b_:1}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, C:3, c:2}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, c:3, C:2}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {$:1, _:2, A:3, a:4}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {1:1, 2:4, '11':2, A:3}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {'#':1, 'Z':2, À:3, è:4}",
+            options: ["asc", { natural: true, caseSensitive: false }],
+        },
 
         // asc, natural, insensitive, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {a:1, _:2, b:3}", options: ["asc", { natural: true, caseSensitive: false, minKeys: 4 }] },
+        {
+            code: "var obj = {a:1, _:2, b:3}",
+            options: [
+                "asc",
+                { natural: true, caseSensitive: false, minKeys: 4 },
+            ],
+        },
 
         // desc
         { code: "var obj = {b:3, a:1, _:2} // desc", options: ["desc"] },
@@ -125,45 +289,129 @@ ruleTester.run("sort-keys", rule, {
         { code: "var obj = {è:4, À:3, 'Z':2, '#':1}", options: ["desc"] },
 
         // desc, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {a:1, c:2, b:3}", options: ["desc", { minKeys: 4 }] },
+        {
+            code: "var obj = {a:1, c:2, b:3}",
+            options: ["desc", { minKeys: 4 }],
+        },
 
         // desc, insensitive
-        { code: "var obj = {b:3, a:1, _:2} // desc, insensitive", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {c:2, b:3, a:1}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {b_:1, b:3, a:2}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {c:2, C:3, b_:1}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {C:2, c:3, b_:1}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {a:4, A:3, _:2, $:1}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {A:3, 2:4, '11':2, 1:1}", options: ["desc", { caseSensitive: false }] },
-        { code: "var obj = {è:4, À:3, 'Z':2, '#':1}", options: ["desc", { caseSensitive: false }] },
+        {
+            code: "var obj = {b:3, a:1, _:2} // desc, insensitive",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {c:2, b:3, a:1}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, b:3, a:2}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {c:2, C:3, b_:1}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {C:2, c:3, b_:1}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:4, A:3, _:2, $:1}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {A:3, 2:4, '11':2, 1:1}",
+            options: ["desc", { caseSensitive: false }],
+        },
+        {
+            code: "var obj = {è:4, À:3, 'Z':2, '#':1}",
+            options: ["desc", { caseSensitive: false }],
+        },
 
         // desc, insensitive, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {$:1, _:2, A:3, a:4}", options: ["desc", { caseSensitive: false, minKeys: 5 }] },
+        {
+            code: "var obj = {$:1, _:2, A:3, a:4}",
+            options: ["desc", { caseSensitive: false, minKeys: 5 }],
+        },
 
         // desc, natural
-        { code: "var obj = {b:3, a:1, _:2} // desc, natural", options: ["desc", { natural: true }] },
-        { code: "var obj = {c:2, b:3, a:1}", options: ["desc", { natural: true }] },
-        { code: "var obj = {b_:1, b:3, a:2}", options: ["desc", { natural: true }] },
-        { code: "var obj = {c:2, b_:1, C:3}", options: ["desc", { natural: true }] },
-        { code: "var obj = {a:4, A:3, _:2, $:1}", options: ["desc", { natural: true }] },
-        { code: "var obj = {A:3, '11':2, 2:4, 1:1}", options: ["desc", { natural: true }] },
-        { code: "var obj = {è:4, À:3, 'Z':2, '#':1}", options: ["desc", { natural: true }] },
+        {
+            code: "var obj = {b:3, a:1, _:2} // desc, natural",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {c:2, b:3, a:1}",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {b_:1, b:3, a:2}",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {c:2, b_:1, C:3}",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {a:4, A:3, _:2, $:1}",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {A:3, '11':2, 2:4, 1:1}",
+            options: ["desc", { natural: true }],
+        },
+        {
+            code: "var obj = {è:4, À:3, 'Z':2, '#':1}",
+            options: ["desc", { natural: true }],
+        },
 
         // desc, natural, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {b_:1, a:2, b:3}", options: ["desc", { natural: true, minKeys: 4 }] },
+        {
+            code: "var obj = {b_:1, a:2, b:3}",
+            options: ["desc", { natural: true, minKeys: 4 }],
+        },
 
         // desc, natural, insensitive
-        { code: "var obj = {b:3, a:1, _:2} // desc, natural, insensitive", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {c:2, b:3, a:1}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {b_:1, b:3, a:2}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {c:2, C:3, b_:1}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {C:2, c:3, b_:1}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {a:4, A:3, _:2, $:1}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {A:3, '11':2, 2:4, 1:1}", options: ["desc", { natural: true, caseSensitive: false }] },
-        { code: "var obj = {è:4, À:3, 'Z':2, '#':1}", options: ["desc", { natural: true, caseSensitive: false }] },
+        {
+            code: "var obj = {b:3, a:1, _:2} // desc, natural, insensitive",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {c:2, b:3, a:1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {b_:1, b:3, a:2}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {c:2, C:3, b_:1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {C:2, c:3, b_:1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {a:4, A:3, _:2, $:1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {A:3, '11':2, 2:4, 1:1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
+        {
+            code: "var obj = {è:4, À:3, 'Z':2, '#':1}",
+            options: ["desc", { natural: true, caseSensitive: false }],
+        },
 
         // desc, natural, insensitive, minKeys should ignore unsorted keys when number of keys is less than minKeys
-        { code: "var obj = {a:1, _:2, b:3}", options: ["desc", { natural: true, caseSensitive: false, minKeys: 4 }] },
+        {
+            code: "var obj = {a:1, _:2, b:3}",
+            options: [
+                "desc",
+                { natural: true, caseSensitive: false, minKeys: 4 },
+            ],
+        },
 
         // allowLineSeparatedGroups option
         {
@@ -178,7 +426,7 @@ ruleTester.run("sort-keys", rule, {
                     c: 6
                 }
             `,
-            options: ["asc", { allowLineSeparatedGroups: true }]
+            options: ["asc", { allowLineSeparatedGroups: true }],
         },
         {
             code: `
@@ -190,7 +438,7 @@ ruleTester.run("sort-keys", rule, {
                     c: 3
                 }
             `,
-            options: ["asc", { allowLineSeparatedGroups: true }]
+            options: ["asc", { allowLineSeparatedGroups: true }],
         },
         {
             code: `
@@ -204,7 +452,7 @@ ruleTester.run("sort-keys", rule, {
                     c: 3
                 }
             `,
-            options: ["asc", { allowLineSeparatedGroups: true }]
+            options: ["asc", { allowLineSeparatedGroups: true }],
         },
         {
             code: `
@@ -218,7 +466,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -234,7 +482,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -246,7 +494,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -270,7 +518,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -280,7 +528,7 @@ ruleTester.run("sort-keys", rule, {
                     a: "*/",
                 }
             `,
-            options: ["asc", { allowLineSeparatedGroups: true }]
+            options: ["asc", { allowLineSeparatedGroups: true }],
         },
         {
             code: `
@@ -293,7 +541,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -306,7 +554,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -317,7 +565,7 @@ ruleTester.run("sort-keys", rule, {
                 };
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -330,7 +578,7 @@ ruleTester.run("sort-keys", rule, {
                 };
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: `
@@ -343,7 +591,7 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
         {
             code: `
@@ -357,25 +605,24 @@ ruleTester.run("sort-keys", rule, {
                 }
             `,
             options: ["asc", { allowLineSeparatedGroups: true }],
-            languageOptions: { ecmaVersion: 2018 }
+            languageOptions: { ecmaVersion: 2018 },
         },
 
         // ignoreComputedKeys
         {
             code: "var obj = { ['b']: 1, a: 2 }",
-            options: ["asc", { ignoreComputedKeys: true }]
+            options: ["asc", { ignoreComputedKeys: true }],
         },
         {
             code: "var obj = { a: 1, [c]: 2, b: 3 }",
-            options: ["asc", { ignoreComputedKeys: true }]
+            options: ["asc", { ignoreComputedKeys: true }],
         },
         {
             code: "var obj = { c: 1, ['b']: 2, a: 3 }",
-            options: ["asc", { ignoreComputedKeys: true }]
-        }
+            options: ["asc", { ignoreComputedKeys: true }],
+        },
     ],
     invalid: [
-
         // default (asc)
         {
             code: "var obj = {a:1, '':2} // default",
@@ -387,10 +634,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, [``]:2} // default",
@@ -403,10 +650,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, _:2, b:3} // default",
@@ -418,10 +665,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -433,10 +680,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -448,10 +695,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -463,10 +710,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "C",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -478,10 +725,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "A",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -493,10 +740,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "11",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -508,10 +755,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "Z",
-                        prevName: "À"
-                    }
-                }
-            ]
+                        prevName: "À",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = { null: 1, [/(?<zero>0)/]: 2 }",
@@ -524,10 +771,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "/(?<zero>0)/",
-                        prevName: "null"
-                    }
-                }
-            ]
+                        prevName: "null",
+                    },
+                },
+            ],
         },
 
         // not ignore properties not separated by spread properties
@@ -543,10 +790,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, ...c, d:4, b:1, ...y, ...f, e:2, a:1}",
@@ -560,8 +807,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "d"
-                    }
+                        prevName: "d",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -570,10 +817,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "e"
-                    }
-                }
-            ]
+                        prevName: "e",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {c:1, b:1, ...a}",
@@ -587,10 +834,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, ...a, c:1, b:1}",
@@ -604,10 +851,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, b:1, a:1, ...d, ...c}",
@@ -621,10 +868,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, a:2, b:0, ...x, ...c}",
@@ -638,10 +885,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, a:2, b:0, ...x}",
@@ -655,10 +902,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {...z, '':1, a:2}",
@@ -672,10 +919,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: ""
-                    }
-                }
-            ]
+                        prevName: "",
+                    },
+                },
+            ],
         },
 
         // ignore non-simple computed properties, but their position shouldn't affect other comparisons.
@@ -690,10 +937,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'':1, [b+c]:2, a:3}",
@@ -707,10 +954,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: ""
-                    }
-                }
-            ]
+                        prevName: "",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b:1, [f()]:2, '':3, a:4}",
@@ -724,10 +971,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: ""
-                    }
-                }
-            ]
+                        prevName: "",
+                    },
+                },
+            ],
         },
 
         // not ignore simple computed properties.
@@ -742,10 +989,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
 
         // nested
@@ -759,8 +1006,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "x",
-                        prevName: "y"
-                    }
+                        prevName: "y",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -769,10 +1016,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
 
         // asc
@@ -787,10 +1034,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -803,10 +1050,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -819,10 +1066,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -835,10 +1082,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "C",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -851,10 +1098,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "A",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -867,10 +1114,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "11",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -883,10 +1130,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "Z",
-                        prevName: "À"
-                    }
-                }
-            ]
+                        prevName: "À",
+                    },
+                },
+            ],
         },
 
         // asc, minKeys should error when number of keys is greater than or equal to minKeys
@@ -901,10 +1148,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
 
         // asc, insensitive
@@ -919,10 +1166,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -935,10 +1182,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -951,10 +1198,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, A:3, _:2, a:4}",
@@ -967,10 +1214,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -983,10 +1230,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "11",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -999,10 +1246,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "Z",
-                        prevName: "À"
-                    }
-                }
-            ]
+                        prevName: "À",
+                    },
+                },
+            ],
         },
 
         // asc, insensitive, minKeys should error when number of keys is greater than or equal to minKeys
@@ -1017,10 +1264,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
 
         // asc, natural
@@ -1035,10 +1282,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1051,10 +1298,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1067,10 +1314,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -1083,10 +1330,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "C",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, A:3, _:2, a:4}",
@@ -1099,10 +1346,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -1115,10 +1362,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "11",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1131,10 +1378,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "Z",
-                        prevName: "À"
-                    }
-                }
-            ]
+                        prevName: "À",
+                    },
+                },
+            ],
         },
 
         // asc, natural, minKeys should error when number of keys is greater than or equal to minKeys
@@ -1149,10 +1396,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
 
         // asc, natural, insensitive
@@ -1167,10 +1414,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1183,10 +1430,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "b",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1199,10 +1446,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, A:3, _:2, a:4}",
@@ -1215,10 +1462,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, '11':2, 2:4, A:3}",
@@ -1231,10 +1478,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "2",
-                        prevName: "11"
-                    }
-                }
-            ]
+                        prevName: "11",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1247,16 +1494,19 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "Z",
-                        prevName: "À"
-                    }
-                }
-            ]
+                        prevName: "À",
+                    },
+                },
+            ],
         },
 
         // asc, natural, insensitive, minKeys should error when number of keys is greater than or equal to minKeys
         {
             code: "var obj = {a:1, _:2, b:3}",
-            options: ["asc", { natural: true, caseSensitive: false, minKeys: 3 }],
+            options: [
+                "asc",
+                { natural: true, caseSensitive: false, minKeys: 3 },
+            ],
             errors: [
                 {
                     messageId: "sortKeys",
@@ -1265,10 +1515,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "asc",
                         thisName: "_",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
 
         // desc
@@ -1283,10 +1533,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: ""
-                    }
-                }
-            ]
+                        prevName: "",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {[``]:1, a:'2'} // desc",
@@ -1300,10 +1550,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: ""
-                    }
-                }
-            ]
+                        prevName: "",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, _:2, b:3} // desc",
@@ -1316,10 +1566,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1332,10 +1582,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "c",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1348,10 +1598,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -1364,10 +1614,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "c",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -1380,8 +1630,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "_",
-                        prevName: "$"
-                    }
+                        prevName: "$",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1390,10 +1640,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -1406,8 +1656,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "2",
-                        prevName: "1"
-                    }
+                        prevName: "1",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1416,10 +1666,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "A",
-                        prevName: "2"
-                    }
-                }
-            ]
+                        prevName: "2",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1432,8 +1682,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "À",
-                        prevName: "#"
-                    }
+                        prevName: "#",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1442,10 +1692,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "è",
-                        prevName: "Z"
-                    }
-                }
-            ]
+                        prevName: "Z",
+                    },
+                },
+            ],
         },
 
         // desc, minKeys should error when number of keys is greater than or equal to minKeys
@@ -1460,10 +1710,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
 
         // desc, insensitive
@@ -1478,10 +1728,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1494,10 +1744,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "c",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1510,10 +1760,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -1526,10 +1776,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "c",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -1542,8 +1792,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "_",
-                        prevName: "$"
-                    }
+                        prevName: "$",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1552,10 +1802,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "A",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -1568,8 +1818,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "2",
-                        prevName: "1"
-                    }
+                        prevName: "1",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1578,10 +1828,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "A",
-                        prevName: "2"
-                    }
-                }
-            ]
+                        prevName: "2",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1594,8 +1844,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "À",
-                        prevName: "#"
-                    }
+                        prevName: "#",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1604,10 +1854,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "è",
-                        prevName: "Z"
-                    }
-                }
-            ]
+                        prevName: "Z",
+                    },
+                },
+            ],
         },
 
         // desc, insensitive should error when number of keys is greater than or equal to minKeys
@@ -1622,10 +1872,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
 
         // desc, natural
@@ -1640,10 +1890,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1656,10 +1906,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "c",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1672,10 +1922,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -1688,10 +1938,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "c",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -1704,8 +1954,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "_",
-                        prevName: "$"
-                    }
+                        prevName: "$",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1714,8 +1964,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "A",
-                        prevName: "_"
-                    }
+                        prevName: "_",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1724,10 +1974,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "a",
-                        prevName: "A"
-                    }
-                }
-            ]
+                        prevName: "A",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, A:3, '11':2}",
@@ -1740,8 +1990,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "2",
-                        prevName: "1"
-                    }
+                        prevName: "1",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1750,10 +2000,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "A",
-                        prevName: "2"
-                    }
-                }
-            ]
+                        prevName: "2",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1766,8 +2016,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "À",
-                        prevName: "#"
-                    }
+                        prevName: "#",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1776,10 +2026,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "è",
-                        prevName: "Z"
-                    }
-                }
-            ]
+                        prevName: "Z",
+                    },
+                },
+            ],
         },
 
         // desc, natural should error when number of keys is greater than or equal to minKeys
@@ -1794,10 +2044,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
 
         // desc, natural, insensitive
@@ -1812,10 +2062,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {a:1, c:2, b:3}",
@@ -1828,10 +2078,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "c",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, a:2, b:3}",
@@ -1844,10 +2094,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "a"
-                    }
-                }
-            ]
+                        prevName: "a",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {b_:1, c:2, C:3}",
@@ -1860,10 +2110,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "c",
-                        prevName: "b_"
-                    }
-                }
-            ]
+                        prevName: "b_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {$:1, _:2, A:3, a:4}",
@@ -1876,8 +2126,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "_",
-                        prevName: "$"
-                    }
+                        prevName: "$",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1886,10 +2136,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "A",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {1:1, 2:4, '11':2, A:3}",
@@ -1902,8 +2152,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "2",
-                        prevName: "1"
-                    }
+                        prevName: "1",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1912,8 +2162,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "11",
-                        prevName: "2"
-                    }
+                        prevName: "2",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1922,10 +2172,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "A",
-                        prevName: "11"
-                    }
-                }
-            ]
+                        prevName: "11",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = {'#':1, À:3, 'Z':2, è:4}",
@@ -1938,8 +2188,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "À",
-                        prevName: "#"
-                    }
+                        prevName: "#",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -1948,16 +2198,19 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "è",
-                        prevName: "Z"
-                    }
-                }
-            ]
+                        prevName: "Z",
+                    },
+                },
+            ],
         },
 
         // desc, natural, insensitive should error when number of keys is greater than or equal to minKeys
         {
             code: "var obj = {a:1, _:2, b:3}",
-            options: ["desc", { natural: true, caseSensitive: false, minKeys: 2 }],
+            options: [
+                "desc",
+                { natural: true, caseSensitive: false, minKeys: 2 },
+            ],
             errors: [
                 {
                     messageId: "sortKeys",
@@ -1966,10 +2219,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "insensitive ",
                         order: "desc",
                         thisName: "b",
-                        prevName: "_"
-                    }
-                }
-            ]
+                        prevName: "_",
+                    },
+                },
+            ],
         },
 
         // When allowLineSeparatedGroups option is false
@@ -1990,10 +2243,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2013,10 +2266,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2035,10 +2288,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
 
         // When allowLineSeparatedGroups option is true
@@ -2062,10 +2315,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2089,10 +2342,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "y",
-                        prevName: "z"
-                    }
-                }
-            ]
+                        prevName: "z",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2114,10 +2367,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "c"
-                    }
-                }
-            ]
+                        prevName: "c",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2137,10 +2390,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2164,10 +2417,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "d"
-                    }
-                }
-            ]
+                        prevName: "d",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2198,8 +2451,8 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "f",
-                        prevName: "z"
-                    }
+                        prevName: "z",
+                    },
                 },
                 {
                     messageId: "sortKeys",
@@ -2208,10 +2461,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "b",
-                        prevName: "f"
-                    }
-                }
-            ]
+                        prevName: "f",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2229,10 +2482,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2252,10 +2505,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: `
@@ -2278,10 +2531,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
+                        prevName: "b",
+                    },
+                },
+            ],
         },
         {
             code: "var obj = { d: 1, ['c']: 2, b: 3, a: 4 }",
@@ -2294,10 +2547,10 @@ ruleTester.run("sort-keys", rule, {
                         insensitive: "",
                         order: "asc",
                         thisName: "a",
-                        prevName: "b"
-                    }
-                }
-            ]
-        }
-    ]
+                        prevName: "b",
+                    },
+                },
+            ],
+        },
+    ],
 });

@@ -21,9 +21,7 @@ const UNEXPECTED_LINEBREAK = { messageId: "expectNoLinebreak" };
 const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 6 } });
 
 ruleTester.run("nonblock-statement-body-position", rule, {
-
     valid: [
-
         // 'beside' option
         "if (foo) bar;",
         "while (foo) bar;",
@@ -39,19 +37,19 @@ ruleTester.run("nonblock-statement-body-position", rule, {
         `,
         {
             code: "if (foo) bar();",
-            options: ["beside"]
+            options: ["beside"],
         },
         {
             code: "while (foo) bar();",
-            options: ["beside"]
+            options: ["beside"],
         },
         {
             code: "do bar(); while (foo)",
-            options: ["beside"]
+            options: ["beside"],
         },
         {
             code: "for (;foo;) bar();",
-            options: ["beside"]
+            options: ["beside"],
         },
 
         // 'below' option
@@ -60,14 +58,14 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 if (foo)
                     bar();
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
                 while (foo)
                     bar();
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
@@ -75,28 +73,28 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                     bar();
                 while (foo)
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
                 for (;foo;)
                     bar();
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
                 for (foo in bar)
                     bar();
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
                 for (foo of bar)
                     bar();
             `,
-            options: ["below"]
+            options: ["below"],
         },
         {
             code: `
@@ -105,52 +103,63 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 else
                     baz();
             `,
-            options: ["below"]
+            options: ["below"],
         },
 
         // 'any' option
         {
             code: "if (foo) bar();",
-            options: ["any"]
+            options: ["any"],
         },
         {
             code: `
                 if (foo)
                     bar();
             `,
-            options: ["any"]
+            options: ["any"],
         },
 
         // 'overrides' option
         {
             code: "if (foo) bar();",
-            options: ["beside", { overrides: { while: "below" } }]
+            options: ["beside", { overrides: { while: "below" } }],
         },
         {
             code: `
                 while (foo)
                     bar();
             `,
-            options: ["beside", { overrides: { while: "below" } }]
+            options: ["beside", { overrides: { while: "below" } }],
         },
         {
             code: `
                 while (foo)
                     bar();
             `,
-            options: ["beside", { overrides: { while: "any" } }]
+            options: ["beside", { overrides: { while: "any" } }],
         },
         {
             code: "while (foo) bar();",
-            options: ["beside", { overrides: { while: "any" } }]
+            options: ["beside", { overrides: { while: "any" } }],
         },
         {
             code: "while (foo) bar();",
-            options: ["any", { overrides: { while: "beside" } }]
+            options: ["any", { overrides: { while: "beside" } }],
         },
         {
             code: " ",
-            options: ["any", { overrides: { if: "any", else: "any", for: "any", while: "any", do: "any" } }]
+            options: [
+                "any",
+                {
+                    overrides: {
+                        if: "any",
+                        else: "any",
+                        for: "any",
+                        while: "any",
+                        do: "any",
+                    },
+                },
+            ],
         },
 
         // ignore 'else if'
@@ -165,7 +174,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 } else if (bar) {
                 }
             `,
-            options: ["below"]
+            options: ["below"],
         },
         `
             if (foo) {
@@ -180,12 +189,11 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                   if (bar) {
                   }
             `,
-            options: ["beside"]
-        }
+            options: ["beside"],
+        },
     ],
 
     invalid: [
-
         // 'beside' option
         {
             code: `
@@ -195,7 +203,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             output: `
                 if (foo) bar();
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -205,7 +213,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             output: `
                 while (foo) bar();
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -217,7 +225,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 do bar();
                 while (foo)
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -227,7 +235,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             output: `
                 for (;foo;) bar();
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -237,7 +245,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             output: `
                 for (foo in bar) baz();
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -247,7 +255,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             output: `
                 for (foo of bar) baz();
             `,
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -260,7 +268,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 if (foo) bar();
                 else baz();
             `,
-            errors: [UNEXPECTED_LINEBREAK, UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK, UNEXPECTED_LINEBREAK],
         },
 
         // 'below' option
@@ -268,37 +276,37 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             code: "if (foo) bar();",
             output: "if (foo) \nbar();",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: "while (foo) bar();",
             output: "while (foo) \nbar();",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: "do bar(); while (foo)",
             output: "do \nbar(); while (foo)",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: "for (;foo;) bar();",
             output: "for (;foo;) \nbar();",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: "for (foo in bar) baz();",
             output: "for (foo in bar) \nbaz();",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: "for (foo of bar) baz();",
             output: "for (foo of bar) \nbaz();",
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -310,7 +318,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 else \nbaz();
             `,
             options: ["below"],
-            errors: [EXPECTED_LINEBREAK, EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK, EXPECTED_LINEBREAK],
         },
 
         // overrides
@@ -318,7 +326,7 @@ ruleTester.run("nonblock-statement-body-position", rule, {
             code: "if (foo) bar();",
             output: "if (foo) \nbar();",
             options: ["below", { overrides: { while: "beside" } }],
-            errors: [EXPECTED_LINEBREAK]
+            errors: [EXPECTED_LINEBREAK],
         },
         {
             code: `
@@ -329,13 +337,13 @@ ruleTester.run("nonblock-statement-body-position", rule, {
                 while (foo) bar();
             `,
             options: ["below", { overrides: { while: "beside" } }],
-            errors: [UNEXPECTED_LINEBREAK]
+            errors: [UNEXPECTED_LINEBREAK],
         },
         {
             code: "do bar(); while (foo)",
             output: "do \nbar(); while (foo)",
             options: ["any", { overrides: { do: "below" } }],
-            errors: [EXPECTED_LINEBREAK]
-        }
-    ]
+            errors: [EXPECTED_LINEBREAK],
+        },
+    ],
 });

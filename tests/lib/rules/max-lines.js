@@ -29,7 +29,10 @@ ruleTester.run("max-lines", rule, {
         { code: "var xy;\nvar xy;\n", options: [2] },
         { code: "var xy;\nvar xy;", options: [{ max: 2 }] },
         { code: "// comment\n", options: [{ max: 0, skipComments: true }] },
-        { code: "foo;\n /* comment */\n", options: [{ max: 1, skipComments: true }] },
+        {
+            code: "foo;\n /* comment */\n",
+            options: [{ max: 1, skipComments: true }],
+        },
         {
             code: [
                 "//a single line comment",
@@ -37,34 +40,28 @@ ruleTester.run("max-lines", rule, {
                 "var xy;",
                 " /* a multiline",
                 " really really",
-                " long comment*/ "
+                " long comment*/ ",
             ].join("\n"),
-            options: [{ max: 2, skipComments: true }]
+            options: [{ max: 2, skipComments: true }],
         },
         {
             code: [
                 "var x; /* inline comment",
-                " spanning multiple lines */ var z;"
+                " spanning multiple lines */ var z;",
             ].join("\n"),
-            options: [{ max: 2, skipComments: true }]
+            options: [{ max: 2, skipComments: true }],
         },
         {
             code: [
                 "var x; /* inline comment",
                 " spanning multiple lines */",
-                "var z;"
+                "var z;",
             ].join("\n"),
-            options: [{ max: 2, skipComments: true }]
+            options: [{ max: 2, skipComments: true }],
         },
         {
-            code: [
-                "var x;",
-                "",
-                "\t",
-                "\t  ",
-                "var y;"
-            ].join("\n"),
-            options: [{ max: 2, skipBlankLines: true }]
+            code: ["var x;", "", "\t", "\t  ", "var y;"].join("\n"),
+            options: [{ max: 2, skipBlankLines: true }],
         },
         {
             code: [
@@ -75,10 +72,10 @@ ruleTester.run("max-lines", rule, {
                 " ",
                 " /* a multiline",
                 " really really",
-                " long comment*/"
+                " long comment*/",
             ].join("\n"),
-            options: [{ max: 2, skipComments: true, skipBlankLines: true }]
-        }
+            options: [{ max: 2, skipComments: true, skipBlankLines: true }],
+        },
     ],
     invalid: [
         {
@@ -91,9 +88,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 9
-                }
-            ]
+                    endColumn: 9,
+                },
+            ],
         },
         {
             code: "/* a multiline comment\n that goes to many lines*/\nvar xy;\nvar xy;",
@@ -105,9 +102,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 4,
-                    endColumn: 8
-                }
-            ]
+                    endColumn: 8,
+                },
+            ],
         },
         {
             code: "//a single line comment\nvar xy;\nvar xy;",
@@ -119,18 +116,12 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 8
-                }
-            ]
+                    endColumn: 8,
+                },
+            ],
         },
         {
-            code: [
-                "var x;",
-                "",
-                "",
-                "",
-                "var y;"
-            ].join("\n"),
+            code: ["var x;", "", "", "", "var y;"].join("\n"),
             options: [{ max: 2 }],
             errors: [
                 {
@@ -139,9 +130,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 5,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: [
@@ -152,7 +143,7 @@ ruleTester.run("max-lines", rule, {
                 " ",
                 " /* a multiline",
                 " really really",
-                " long comment*/"
+                " long comment*/",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -162,16 +153,12 @@ ruleTester.run("max-lines", rule, {
                     line: 4,
                     column: 1,
                     endLine: 8,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
-            code: [
-                "var x; // inline comment",
-                "var y;",
-                "var z;"
-            ].join("\n"),
+            code: ["var x; // inline comment", "var y;", "var z;"].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
                 {
@@ -180,16 +167,16 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: [
                 "var x; /* inline comment",
                 " spanning multiple lines */",
                 "var y;",
-                "var z;"
+                "var z;",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -199,9 +186,9 @@ ruleTester.run("max-lines", rule, {
                     line: 4,
                     column: 1,
                     endLine: 4,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: [
@@ -212,7 +199,7 @@ ruleTester.run("max-lines", rule, {
                 " ",
                 " /* a multiline",
                 " really really",
-                " long comment*/"
+                " long comment*/",
             ].join("\n"),
             options: [{ max: 2, skipBlankLines: true }],
             errors: [
@@ -222,9 +209,9 @@ ruleTester.run("max-lines", rule, {
                     line: 4,
                     column: 1,
                     endLine: 8,
-                    endColumn: 16
-                }
-            ]
+                    endColumn: 16,
+                },
+            ],
         },
         {
             code: "AAAAAAAA\n".repeat(301).trim(),
@@ -236,12 +223,11 @@ ruleTester.run("max-lines", rule, {
                     line: 301,
                     column: 1,
                     endLine: 301,
-                    endColumn: 9
-                }
-            ]
+                    endColumn: 9,
+                },
+            ],
         },
         {
-
             // Questionable. Makes sense to report this, and makes sense to not report this.
             code: "",
             options: [{ max: 0 }],
@@ -252,9 +238,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: " ",
@@ -266,9 +252,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "\n",
@@ -280,9 +266,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "A",
@@ -294,9 +280,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 1,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "A\n",
@@ -308,9 +294,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 2,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "A\n ",
@@ -322,9 +308,9 @@ ruleTester.run("max-lines", rule, {
                     line: 1,
                     column: 1,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "A\n ",
@@ -336,9 +322,9 @@ ruleTester.run("max-lines", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "A\n\n",
@@ -350,13 +336,13 @@ ruleTester.run("max-lines", rule, {
                     line: 2,
                     column: 1,
                     endLine: 3,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: ["var a = 'a'; ", "var x", "var c;", "console.log"].join(
-                "\n"
+                "\n",
             ),
             options: [{ max: 2 }],
             errors: [
@@ -366,9 +352,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 4,
-                    endColumn: 12
-                }
-            ]
+                    endColumn: 12,
+                },
+            ],
         },
         {
             code: "var a = 'a',\nc,\nx;\r",
@@ -380,9 +366,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 4,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "var a = 'a',\nc,\nx;\n",
@@ -394,9 +380,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 4,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: "\n\nvar a = 'a',\nc,\nx;\n",
@@ -408,9 +394,9 @@ ruleTester.run("max-lines", rule, {
                     line: 5,
                     column: 1,
                     endLine: 6,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: [
@@ -419,7 +405,7 @@ ruleTester.run("max-lines", rule, {
                 "var c;",
                 "console.log",
                 "// some block ",
-                "// comments"
+                "// comments",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -429,9 +415,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 6,
-                    endColumn: 12
-                }
-            ]
+                    endColumn: 12,
+                },
+            ],
         },
         {
             code: [
@@ -439,7 +425,7 @@ ruleTester.run("max-lines", rule, {
                 "var x",
                 "var c;",
                 "console.log",
-                "/* block comments */"
+                "/* block comments */",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -449,9 +435,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 5,
-                    endColumn: 21
-                }
-            ]
+                    endColumn: 21,
+                },
+            ],
         },
         {
             code: [
@@ -459,7 +445,7 @@ ruleTester.run("max-lines", rule, {
                 "var x",
                 "var c;",
                 "console.log",
-                "/* block comments */\n"
+                "/* block comments */\n",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -469,9 +455,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 6,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: [
@@ -479,7 +465,7 @@ ruleTester.run("max-lines", rule, {
                 "var x",
                 "var c;",
                 "console.log",
-                "/** block \n\n comments */"
+                "/** block \n\n comments */",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -489,17 +475,12 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 7,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
-            code: [
-                "var a = 'a'; ",
-                "",
-                "",
-                "// comment"
-            ].join("\n"),
+            code: ["var a = 'a'; ", "", "", "// comment"].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
                 {
@@ -508,9 +489,9 @@ ruleTester.run("max-lines", rule, {
                     line: 3,
                     column: 1,
                     endLine: 4,
-                    endColumn: 11
-                }
-            ]
+                    endColumn: 11,
+                },
+            ],
         },
         {
             code: [
@@ -519,7 +500,7 @@ ruleTester.run("max-lines", rule, {
                 "\n",
                 "var c;",
                 "console.log",
-                "\n"
+                "\n",
             ].join("\n"),
             options: [{ max: 2, skipBlankLines: true }],
             errors: [
@@ -529,9 +510,9 @@ ruleTester.run("max-lines", rule, {
                     line: 5,
                     column: 1,
                     endLine: 8,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: [
@@ -540,7 +521,7 @@ ruleTester.run("max-lines", rule, {
                 "var x",
                 "var c;",
                 "console.log",
-                "\n"
+                "\n",
             ].join("\n"),
             options: [{ max: 2, skipBlankLines: true }],
             errors: [
@@ -550,9 +531,9 @@ ruleTester.run("max-lines", rule, {
                     line: 5,
                     column: 1,
                     endLine: 8,
-                    endColumn: 1
-                }
-            ]
+                    endColumn: 1,
+                },
+            ],
         },
         {
             code: [
@@ -561,7 +542,7 @@ ruleTester.run("max-lines", rule, {
                 "var x",
                 "var c;",
                 "console.log",
-                "//"
+                "//",
             ].join("\n"),
             options: [{ max: 2, skipComments: true }],
             errors: [
@@ -571,35 +552,59 @@ ruleTester.run("max-lines", rule, {
                     line: 4,
                     column: 1,
                     endLine: 6,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
-            code: ["// hello world", "/*hello", " world 2 */", "var a,", "b", "// hh", "c,", "e,", "f;"].join("\n"),
+            code: [
+                "// hello world",
+                "/*hello",
+                " world 2 */",
+                "var a,",
+                "b",
+                "// hh",
+                "c,",
+                "e,",
+                "f;",
+            ].join("\n"),
             options: [{ max: 2, skipComments: true }],
-            errors: [{
-                data: { max: 2, actual: 5 },
-                messageId: "exceed",
-                line: 7,
-                column: 1,
-                endLine: 9,
-                endColumn: 3
-
-            }]
+            errors: [
+                {
+                    data: { max: 2, actual: 5 },
+                    messageId: "exceed",
+                    line: 7,
+                    column: 1,
+                    endLine: 9,
+                    endColumn: 3,
+                },
+            ],
         },
         {
-            code: ["", "var x = '';", "", "// comment", "", "var b = '',", "c,", "d,", "e", "", "// comment"].join("\n"),
+            code: [
+                "",
+                "var x = '';",
+                "",
+                "// comment",
+                "",
+                "var b = '',",
+                "c,",
+                "d,",
+                "e",
+                "",
+                "// comment",
+            ].join("\n"),
             options: [{ max: 2, skipComments: true, skipBlankLines: true }],
-            errors: [{
-                data: { max: 2, actual: 5 },
-                messageId: "exceed",
-                line: 7,
-                column: 1,
-                endLine: 11,
-                endColumn: 11
-            }]
-        }
-
-    ]
+            errors: [
+                {
+                    data: { max: 2, actual: 5 },
+                    messageId: "exceed",
+                    line: 7,
+                    column: 1,
+                    endLine: 11,
+                    endColumn: 11,
+                },
+            ],
+        },
+    ],
 });

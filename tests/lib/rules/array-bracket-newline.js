@@ -12,7 +12,6 @@
 const rule = require("../../../lib/rules/array-bracket-newline");
 const RuleTester = require("../../../lib/rule-tester/rule-tester");
 
-
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
@@ -20,9 +19,7 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 const ruleTester = new RuleTester();
 
 ruleTester.run("array-bracket-newline", rule, {
-
     valid: [
-
         /*
          * ArrayExpression
          * "default" { multiline: true }
@@ -50,12 +47,12 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [\n1, 2 // any comment\n];", options: ["always"] },
         {
             code: "var foo = [\n1, 2 /* any comment */\n];",
-            options: ["always"]
+            options: ["always"],
         },
         { code: "var foo = [\n1,\n2\n];", options: ["always"] },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -65,7 +62,7 @@ ruleTester.run("array-bracket-newline", rule, {
                 ]
             ]
             `,
-            options: ["always"]
+            options: ["always"],
         },
         {
             code: `
@@ -77,7 +74,7 @@ ruleTester.run("array-bracket-newline", rule, {
                 3
             ]
             `,
-            options: ["always"]
+            options: ["always"],
         },
 
         // "never"
@@ -89,11 +86,11 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [1,\n/* any comment */\n2];", options: ["never"] },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
-            options: ["never"]
+            options: ["never"],
         },
         {
             code: "var foo = [[1,2],3];",
-            options: ["never"]
+            options: ["never"],
         },
 
         // "consistent"
@@ -109,13 +106,13 @@ ruleTester.run("array-bracket-newline", rule, {
             code: `var a = [
                 [1,2]
             ]`,
-            options: ["consistent"]
+            options: ["consistent"],
         },
         {
             code: `var a = [
                 [[1,2]]
             ]`,
-            options: ["consistent"]
+            options: ["consistent"],
         },
 
         // { multiline: true }
@@ -123,41 +120,41 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [1];", options: [{ multiline: true }] },
         {
             code: "var foo = /* any comment */[1];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = /* any comment */\n[1];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         { code: "var foo = [1, 2];", options: [{ multiline: true }] },
         {
             code: "var foo = [ // any comment\n1, 2\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = [\n// any comment\n1, 2\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = [\n1, 2\n// any comment\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         { code: "var foo = [\n1,\n2\n];", options: [{ multiline: true }] },
         {
             code: "var foo = [\nfunction foo() {\nreturn dosomething();\n}\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = [/* \nany comment\n */];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = [\n1,\n2,\n[3,4],\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
         {
             code: "var foo = [\n1,\n2,\n[\n3,\n4\n],\n];",
-            options: [{ multiline: true }]
+            options: [{ multiline: true }],
         },
 
         // { multiline: false }
@@ -165,17 +162,17 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [1];", options: [{ multiline: false }] },
         {
             code: "var foo = [1]/* any comment*/;",
-            options: [{ multiline: false }]
+            options: [{ multiline: false }],
         },
         {
             code: "var foo = [1]\n/* any comment*/\n;",
-            options: [{ multiline: false }]
+            options: [{ multiline: false }],
         },
         { code: "var foo = [1, 2];", options: [{ multiline: false }] },
         { code: "var foo = [1,\n2];", options: [{ multiline: false }] },
         {
             code: "var foo = [function foo() {\nreturn dosomething();\n}];",
-            options: [{ multiline: false }]
+            options: [{ multiline: false }],
         },
         { code: "var foo = [1,\n2,[3,\n4]];", options: [{ multiline: false }] },
 
@@ -186,7 +183,7 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [\n1,\n2\n];", options: [{ minItems: 2 }] },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
-            options: [{ minItems: 2 }]
+            options: [{ minItems: 2 }],
         },
         {
             code: `var foo = [
@@ -194,13 +191,13 @@ ruleTester.run("array-bracket-newline", rule, {
                     2,3
                 ]
             ];`,
-            options: [{ minItems: 2 }]
+            options: [{ minItems: 2 }],
         },
         {
             code: `var foo = [[
                 1,2
             ]]`,
-            options: [{ minItems: 2 }]
+            options: [{ minItems: 2 }],
         },
 
         // { minItems: 0 }
@@ -210,7 +207,7 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [\n1,\n2\n];", options: [{ minItems: 0 }] },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
-            options: [{ minItems: 0 }]
+            options: [{ minItems: 0 }],
         },
 
         // { minItems: null }
@@ -220,29 +217,29 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var foo = [1,\n2];", options: [{ minItems: null }] },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
-            options: [{ minItems: null }]
+            options: [{ minItems: null }],
         },
 
         // { multiline: true, minItems: null }
         {
             code: "var foo = [];",
-            options: [{ multiline: true, minItems: null }]
+            options: [{ multiline: true, minItems: null }],
         },
         {
             code: "var foo = [1];",
-            options: [{ multiline: true, minItems: null }]
+            options: [{ multiline: true, minItems: null }],
         },
         {
             code: "var foo = [1, 2];",
-            options: [{ multiline: true, minItems: null }]
+            options: [{ multiline: true, minItems: null }],
         },
         {
             code: "var foo = [\n1,\n2\n];",
-            options: [{ multiline: true, minItems: null }]
+            options: [{ multiline: true, minItems: null }],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
-            options: [{ multiline: true, minItems: null }]
+            options: [{ multiline: true, minItems: null }],
         },
 
         // { multiline: true, minItems: 2 }
@@ -250,31 +247,31 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var b = [1];", options: [{ multiline: true, minItems: 2 }] },
         {
             code: "var b = [ // any comment\n1\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var b = [ /* any comment */ 1];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var c = [\n1, 2\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var c = [\n/* any comment */1, 2\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var c = [\n1, /* any comment */ 2\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var d = [\n1,\n2\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
         {
             code: "var e = [\nfunction foo() {\ndosomething();\n}\n];",
-            options: [{ multiline: true, minItems: 2 }]
+            options: [{ multiline: true, minItems: 2 }],
         },
 
         /*
@@ -285,24 +282,24 @@ ruleTester.run("array-bracket-newline", rule, {
         { code: "var [a] = foo;", languageOptions: { ecmaVersion: 6 } },
         {
             code: "var /* any comment */[a] = foo;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var /* any comment */\n[a] = foo;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         { code: "var [a, b] = foo;", languageOptions: { ecmaVersion: 6 } },
         {
             code: "var [ // any comment\na, b\n] = foo;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\n// any comment\na, b\n] = foo;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na, b\n// any comment\n] = foo;",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         { code: "var [\na,\nb\n] = foo;", languageOptions: { ecmaVersion: 6 } },
 
@@ -310,136 +307,135 @@ ruleTester.run("array-bracket-newline", rule, {
         {
             code: "var [\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\n// any\na\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\n/* any */\na\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na, b\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na, b // any comment\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na, b /* any comment */\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na,\nb\n] = foo;",
             options: ["always"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
 
         // "consistent"
         {
             code: "var [] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [a] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [//\na\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [/**/\na\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [/*\n*/a\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [//\n] = foo",
             options: ["consistent"],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
 
         // { multiline: true }
         {
             code: "var [] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [a] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var /* any comment */[a] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var /* any comment */\n[a] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [a, b] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [ // any comment\na, b\n] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\n// any comment\na, b\n] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na, b\n// any comment\n] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "var [\na,\nb\n] = foo;",
             options: [{ multiline: true }],
-            languageOptions: { ecmaVersion: 6 }
-        }
+            languageOptions: { ecmaVersion: 6 },
+        },
     ],
 
     invalid: [
-
         // default : { multiline : true}
         {
             code: `var foo = [
@@ -453,7 +449,7 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 11,
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
@@ -461,9 +457,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 3,
                     column: 13,
                     endLine: 3,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "var foo = [[2,\n3]]",
@@ -474,30 +470,30 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 11,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     line: 1,
                     column: 12,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 13
+                    endColumn: 13,
                 },
                 {
                     line: 2,
                     column: 2,
                     messageId: "missingClosingLinebreak",
                     endLine: 2,
-                    endColumn: 3
+                    endColumn: 3,
                 },
                 {
                     line: 2,
                     column: 3,
                     messageId: "missingClosingLinebreak",
                     endLine: 2,
-                    endColumn: 4
-                }
-            ]
+                    endColumn: 4,
+                },
+            ],
         },
 
         /*
@@ -514,30 +510,30 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 11,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     line: 1,
                     column: 12,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 13
+                    endColumn: 13,
                 },
                 {
                     line: 1,
                     column: 16,
                     messageId: "missingClosingLinebreak",
                     endLine: 1,
-                    endColumn: 17
+                    endColumn: 17,
                 },
                 {
                     line: 1,
                     column: 17,
                     messageId: "missingClosingLinebreak",
                     endLine: 1,
-                    endColumn: 18
-                }
-            ]
+                    endColumn: 18,
+                },
+            ],
         },
         {
             code: "var foo = [];",
@@ -550,7 +546,7 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 11,
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     messageId: "missingClosingLinebreak",
@@ -558,9 +554,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 12,
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var foo = [1];",
@@ -571,15 +567,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "var foo = [ // any comment\n1];",
@@ -592,9 +588,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "var foo = [ /* any comment */\n1];",
@@ -605,9 +601,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2];",
@@ -620,7 +616,7 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 11,
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     messageId: "missingClosingLinebreak",
@@ -628,9 +624,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 16,
                     endLine: 1,
-                    endColumn: 17
-                }
-            ]
+                    endColumn: 17,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2 // any comment\n];",
@@ -641,9 +637,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
-                }
-            ]
+                    column: 11,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2 /* any comment */];",
@@ -654,15 +650,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 34
-                }
-            ]
+                    column: 34,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -673,15 +669,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
@@ -692,15 +688,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         // "never"
@@ -715,9 +711,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 12,
                     messageId: "unexpectedOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var foo = [\n];",
@@ -728,15 +724,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -749,7 +745,7 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 1,
                     column: 11,
                     endLine: 1,
-                    endColumn: 12
+                    endColumn: 12,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
@@ -757,9 +753,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 3,
                     column: 1,
                     endLine: 3,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "var foo = [ /* any comment */\n1, 2\n];",
@@ -770,15 +766,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, 2\n/* any comment */];",
@@ -789,15 +785,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 18
-                }
-            ]
+                    column: 18,
+                },
+            ],
         },
         {
             code: "var foo = [ // any comment\n1, 2\n];",
@@ -808,15 +804,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,\n2\n];",
@@ -827,15 +823,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 4,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
@@ -846,15 +842,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 5,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // "consistent"
@@ -869,9 +865,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 13,
                     messageId: "unexpectedClosingLinebreak",
                     endLine: 2,
-                    endColumn: 14
-                }
-            ]
+                    endColumn: 14,
+                },
+            ],
         },
         {
             code: "var a = [\n[\n[1,2]]\n]",
@@ -883,9 +879,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 6,
                     messageId: "missingClosingLinebreak",
                     endLine: 3,
-                    endColumn: 7
-                }
-            ]
+                    endColumn: 7,
+                },
+            ],
         },
         {
             code: "var foo = [\n1]",
@@ -898,9 +894,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "var foo = [1\n]",
@@ -913,9 +909,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "var foo = [//\n1]",
@@ -928,9 +924,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
 
         // { multiline: true }
@@ -943,15 +939,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n// any comment\n];",
@@ -962,15 +958,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -981,15 +977,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, 2\n];",
@@ -1000,15 +996,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -1019,15 +1015,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
@@ -1038,15 +1034,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         // { minItems: 2 }
@@ -1060,9 +1056,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 11,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 12
-                }
-            ]
+                    endColumn: 12,
+                },
+            ],
         },
         {
             code: "var foo = [[1,2\n]]",
@@ -1074,9 +1070,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     column: 12,
                     messageId: "missingOpeningLinebreak",
                     endLine: 1,
-                    endColumn: 13
-                }
-            ]
+                    endColumn: 13,
+                },
+            ],
         },
         {
             code: "var foo = [\n];",
@@ -1087,15 +1083,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -1106,15 +1102,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2];",
@@ -1125,15 +1121,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -1144,15 +1140,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
@@ -1163,15 +1159,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 5,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // { minItems: 0 }
@@ -1184,15 +1180,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 12
-                }
-            ]
+                    column: 12,
+                },
+            ],
         },
         {
             code: "var foo = [1];",
@@ -1203,15 +1199,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2];",
@@ -1222,15 +1218,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -1241,15 +1237,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
@@ -1260,15 +1256,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         // { minItems: null }
@@ -1281,15 +1277,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -1300,15 +1296,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, 2\n];",
@@ -1319,15 +1315,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,\n2\n];",
@@ -1338,15 +1334,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 4,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
@@ -1357,15 +1353,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 5,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // { multiline: true, minItems: null }
@@ -1378,15 +1374,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -1397,15 +1393,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, 2\n];",
@@ -1416,15 +1412,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -1435,15 +1431,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
@@ -1454,15 +1450,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         // { multiline: true, minItems: 2 }
@@ -1475,15 +1471,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -1494,15 +1490,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [1, 2];",
@@ -1513,15 +1509,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 16
-                }
-            ]
+                    column: 16,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2];",
@@ -1532,15 +1528,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var foo = [function foo() {\ndosomething();\n}];",
@@ -1551,15 +1547,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         /*
@@ -1575,9 +1571,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
             code: "var foo = [\t1, 2];",
@@ -1588,15 +1584,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: "var foo = [1,\n2\n];",
@@ -1607,9 +1603,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
-                }
-            ]
+                    column: 11,
+                },
+            ],
         },
 
         //  { multiline: false }
@@ -1622,15 +1618,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1\n];",
@@ -1641,15 +1637,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1, 2\n];",
@@ -1660,15 +1656,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\n1,\n2\n];",
@@ -1679,15 +1675,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 4,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var foo = [\nfunction foo() {\ndosomething();\n}\n];",
@@ -1698,15 +1694,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayExpression",
                     line: 1,
-                    column: 11
+                    column: 11,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayExpression",
                     line: 5,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         /*
@@ -1723,15 +1719,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 6
-                }
-            ]
+                    column: 6,
+                },
+            ],
         },
         {
             code: "var [a] = foo;",
@@ -1743,15 +1739,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 7
-                }
-            ]
+                    column: 7,
+                },
+            ],
         },
         {
             code: "var [ // any comment\na] = foo;",
@@ -1763,9 +1759,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var [ /* any comment */\na] = foo;",
@@ -1777,9 +1773,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
         {
             code: "var [a, b] = foo;",
@@ -1791,15 +1787,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 10
-                }
-            ]
+                    column: 10,
+                },
+            ],
         },
         {
             code: "var [a, b // any comment\n] = foo;",
@@ -1811,9 +1807,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
             code: "var [a, b /* any comment */] = foo;",
@@ -1825,15 +1821,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 28
-                }
-            ]
+                    column: 28,
+                },
+            ],
         },
         {
             code: "var [a,\nb] = foo;",
@@ -1845,15 +1841,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 2,
-                    column: 2
-                }
-            ]
+                    column: 2,
+                },
+            ],
         },
 
         // "consistent"
@@ -1869,9 +1865,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
         {
             code: "var [a\n] = foo",
@@ -1885,9 +1881,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 1,
                     endLine: 2,
-                    endColumn: 2
-                }
-            ]
+                    endColumn: 2,
+                },
+            ],
         },
         {
             code: "var [//\na] = foo",
@@ -1901,9 +1897,9 @@ ruleTester.run("array-bracket-newline", rule, {
                     line: 2,
                     column: 2,
                     endLine: 2,
-                    endColumn: 3
-                }
-            ]
+                    endColumn: 3,
+                },
+            ],
         },
 
         // { minItems: 2 }
@@ -1917,15 +1913,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayPattern",
                     line: 2,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var [\na\n] = foo;",
@@ -1937,15 +1933,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "unexpectedOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "unexpectedClosingLinebreak",
                     type: "ArrayPattern",
                     line: 3,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "var [a, b] = foo;",
@@ -1957,15 +1953,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 10
-                }
-            ]
+                    column: 10,
+                },
+            ],
         },
         {
             code: "var [a,\nb] = foo;",
@@ -1977,15 +1973,15 @@ ruleTester.run("array-bracket-newline", rule, {
                     messageId: "missingOpeningLinebreak",
                     type: "ArrayPattern",
                     line: 1,
-                    column: 5
+                    column: 5,
                 },
                 {
                     messageId: "missingClosingLinebreak",
                     type: "ArrayPattern",
                     line: 2,
-                    column: 2
-                }
-            ]
-        }
-    ]
+                    column: 2,
+                },
+            ],
+        },
+    ],
 });

@@ -13,24 +13,24 @@
  */
 
 module.exports = Object.freeze({
-    rules: {
+    "rules": {
         "accessor-pairs": "error",
         "array-callback-return": "error",
         "arrow-body-style": "error",
         "block-scoped-var": "error",
-        camelcase: "error",
+        "camelcase": "error",
         "capitalized-comments": "error",
         "class-methods-use-this": "error",
-        complexity: "error",
+        "complexity": "error",
         "consistent-return": "error",
         "consistent-this": "error",
         "constructor-super": "error",
-        curly: "error",
+        "curly": "error",
         "default-case": "error",
         "default-case-last": "error",
         "default-param-last": "error",
         "dot-notation": "error",
-        eqeqeq: "error",
+        "eqeqeq": "error",
         "for-direction": "error",
         "func-name-matching": "error",
         "func-names": "error",
@@ -196,7 +196,7 @@ module.exports = Object.freeze({
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "error",
-        radix: "error",
+        "radix": "error",
         "require-atomic-updates": "error",
         "require-await": "error",
         "require-unicode-regexp": "error",
@@ -204,12 +204,12 @@ module.exports = Object.freeze({
         "sort-imports": "error",
         "sort-keys": "error",
         "sort-vars": "error",
-        strict: "error",
+        "strict": "error",
         "symbol-description": "error",
         "unicode-bom": "error",
         "use-isnan": "error",
         "valid-typeof": "error",
         "vars-on-top": "error",
-        yoda: "error",
-    },
+        "yoda": "error"
+    }
 });

@@ -3,10 +3,10 @@ title: no-empty-static-block
 layout: doc
 rule_type: suggestion
 related_rules:
-- no-empty
-- no-empty-function
+    - no-empty
+    - no-empty-function
 further_reading:
-- https://github.com/tc39/proposal-class-static-block
+    - https://github.com/tc39/proposal-class-static-block
 ---
 
 Empty static blocks, while not technically errors, usually occur due to refactoring that wasn't completed. They can cause confusion when reading code.

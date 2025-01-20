@@ -5,7 +5,6 @@ eleventyNavigation:
     parent: configure
     title: Configure Plugins
     order: 4
-
 ---
 
 ::: tip
@@ -14,9 +13,9 @@ This page explains how to configure plugins using the flat config format. For th
 
 You can extend ESLint with plugins in a variety of different ways. Plugins can include:
 
-* Custom rules to validate if your code meets a certain expectation, and what to do if it does not meet that expectation.
-* Custom configurations. Please refer to the plugin's documentation for details on how to use these configurations.
-* Custom processors to extract JavaScript code from other kinds of files or preprocess code before linting.
+- Custom rules to validate if your code meets a certain expectation, and what to do if it does not meet that expectation.
+- Custom configurations. Please refer to the plugin's documentation for details on how to use these configurations.
+- Custom processors to extract JavaScript code from other kinds of files or preprocess code before linting.
 
 ## Configure Plugins
 
@@ -31,12 +30,12 @@ import example from "eslint-plugin-example";
 export default [
     {
         plugins: {
-            example
+            example,
         },
         rules: {
-            "example/rule1": "warn"
-        }
-    }
+            "example/rule1": "warn",
+        },
+    },
 ];
 ```
 
@@ -55,12 +54,12 @@ import local from "./my-local-plugin.js";
 export default [
     {
         plugins: {
-            local
+            local,
         },
         rules: {
-            "local/rule1": "warn"
-        }
-    }
+            "local/rule1": "warn",
+        },
+    },
 ];
 ```
 
@@ -79,14 +78,14 @@ export default [
         plugins: {
             local: {
                 rules: {
-                    "my-rule": myRule
-                }
-            }
+                    "my-rule": myRule,
+                },
+            },
         },
         rules: {
-            "local/my-rule": "warn"
-        }
-    }
+            "local/my-rule": "warn",
+        },
+    },
 ];
 ```
 
@@ -106,13 +105,13 @@ export default [
     {
         files: ["**/*.js"],
         plugins: {
-            jsdoc: jsdoc
+            jsdoc: jsdoc,
         },
         rules: {
             "jsdoc/require-description": "error",
-            "jsdoc/check-values": "error"
-        }
-    }
+            "jsdoc/check-values": "error",
+        },
+    },
 ];
 ```
 
@@ -127,13 +126,13 @@ export default [
     {
         files: ["**/*.js"],
         plugins: {
-            jsdoc
+            jsdoc,
         },
         rules: {
             "jsdoc/require-description": "error",
-            "jsdoc/check-values": "error"
-        }
-    }
+            "jsdoc/check-values": "error",
+        },
+    },
 ];
 ```
 
@@ -146,13 +145,13 @@ export default [
     {
         files: ["**/*.js"],
         plugins: {
-            jsd: jsdoc
+            jsd: jsdoc,
         },
         rules: {
             "jsd/require-description": "error",
-            "jsd/check-values": "error"
-        }
-    }
+            "jsd/check-values": "error",
+        },
+    },
 ];
 ```
 
@@ -172,10 +171,10 @@ export default [
     {
         files: ["**/*.md"],
         plugins: {
-            markdown
+            markdown,
         },
-        processor: "markdown/markdown"
-    }
+        processor: "markdown/markdown",
+    },
 ];
 ```
 
@@ -186,30 +185,29 @@ Processors may make named code blocks such as `0.js` and `1.js`. ESLint handles 
 import markdown from "@eslint/markdown";
 
 export default [
-
     // applies to all JavaScript files
     {
         rules: {
-            strict: "error"
-        }
+            strict: "error",
+        },
     },
 
     // applies to Markdown files
     {
         files: ["**/*.md"],
         plugins: {
-            markdown
+            markdown,
         },
-        processor: "markdown/markdown"
+        processor: "markdown/markdown",
     },
 
     // applies only to JavaScript blocks inside of Markdown files
     {
         files: ["**/*.md/*.js"],
         rules: {
-            strict: "off"
-        }
-    }
+            strict: "off",
+        },
+    },
 ];
 ```
 
@@ -220,14 +218,13 @@ ESLint only lints named code blocks when they are JavaScript files or if they ma
 import markdown from "@eslint/markdown";
 
 export default [
-
     // applies to Markdown files
     {
         files: ["**/*.md"],
         plugins: {
-            markdown
+            markdown,
         },
-        processor: "markdown/markdown"
+        processor: "markdown/markdown",
     },
 
     // applies to all .jsx files, including jsx blocks inside of Markdown files
@@ -236,16 +233,16 @@ export default [
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
-                    jsx: true
-                }
-            }
-        }
+                    jsx: true,
+                },
+            },
+        },
     },
 
     // ignore jsx blocks inside of test.md files
     {
-        ignores: ["**/test.md/*.jsx"]
-    }
+        ignores: ["**/test.md/*.jsx"],
+    },
 ];
 ```
 
@@ -261,10 +258,10 @@ export default [
     {
         files: ["**/*.json"],
         plugins: {
-            json
+            json,
         },
-        language: "json/jsonc"
-    }
+        language: "json/jsonc",
+    },
 ];
 ```
 
@@ -274,5 +271,5 @@ When you specify a `language` in a config object, `languageOptions` becomes spec
 
 ## Common Problems
 
-* [Plugin rules using the ESLint < v9.0.0 API](../troubleshooting/v9-rule-api-changes)
-* [Plugin configurations have not been upgraded to flat config](migration-guide#using-eslintrc-configs-in-flat-config)
+- [Plugin rules using the ESLint < v9.0.0 API](../troubleshooting/v9-rule-api-changes)
+- [Plugin configurations have not been upgraded to flat config](migration-guide#using-eslintrc-configs-in-flat-config)

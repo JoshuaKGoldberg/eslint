@@ -21,9 +21,9 @@ export default [
     js.configs.recommended,
     {
         rules: {
-            "no-unused-vars": "warn"
-        }
-    }
+            "no-unused-vars": "warn",
+        },
+    },
 ];
 ```
 
@@ -40,8 +40,8 @@ import js from "@eslint/js";
 export default [
     {
         ...js.configs.recommended,
-        files: ["**/src/safe/*.js"]
-    }
+        files: ["**/src/safe/*.js"],
+    },
 ];
 ```
 
@@ -61,9 +61,9 @@ export default [
     // your modifications
     {
         rules: {
-            "no-unused-vars": "warn"
-        }
-    }
+            "no-unused-vars": "warn",
+        },
+    },
 ];
 ```
 
@@ -78,17 +78,17 @@ You can apply a config array to just a subset of files by using the `map()` meth
 import exampleConfigs from "eslint-config-example";
 
 export default [
-    ...exampleConfigs.map(config => ({
+    ...exampleConfigs.map((config) => ({
         ...config,
-        files: ["**/src/safe/*.js"]
+        files: ["**/src/safe/*.js"],
     })),
 
     // your modifications
     {
         rules: {
-            "no-unused-vars": "warn"
-        }
-    }
+            "no-unused-vars": "warn",
+        },
+    },
 ];
 ```
 

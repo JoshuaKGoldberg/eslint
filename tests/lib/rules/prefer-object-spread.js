@@ -18,7 +18,7 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 
 const languageOptions = {
     ecmaVersion: 2018,
-    sourceType: "module"
+    sourceType: "module",
 };
 
 const ruleTester = new RuleTester({ languageOptions });
@@ -69,22 +69,22 @@ ruleTester.run("prefer-object-spread", rule, {
         "globalThis.Object.assign({}, foo)",
         {
             code: "globalThis.Object.assign({}, { foo: 'bar' })",
-            languageOptions: { ecmaVersion: 6 }
+            languageOptions: { ecmaVersion: 6 },
         },
         {
             code: "globalThis.Object.assign({}, baz, { foo: 'bar' })",
-            languageOptions: { ecmaVersion: 2017 }
+            languageOptions: { ecmaVersion: 2017 },
         },
         {
             code: `
                 var globalThis = foo;
                 globalThis.Object.assign({}, foo)
                 `,
-            languageOptions: { ecmaVersion: 2020 }
+            languageOptions: { ecmaVersion: 2020 },
         },
         {
             code: "class C { #assign; foo() { Object.#assign({}, foo); } }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
 
         // ignore Object.assign() with > 1 arguments if any of the arguments is an object expression with a getter/setter
@@ -97,7 +97,7 @@ ruleTester.run("prefer-object-spread", rule, {
         "Object.assign({}, { get a() {} })",
         "Object.assign({}, { set a(val) {} })",
         "Object.assign({}, { foo: 'bar', get a() {} }, {})",
-        "Object.assign({ foo }, bar, {}, { baz: 'quux', set a(val) {}, quuux }, {})"
+        "Object.assign({ foo }, bar, {}, { baz: 'quux', set a(val) {}, quuux }, {})",
     ],
 
     invalid: [
@@ -109,9 +109,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign  ({}, foo)",
@@ -121,9 +121,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({}, { foo: 'bar' })",
@@ -133,9 +133,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({}, baz, { foo: 'bar' })",
@@ -145,9 +145,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({}, { foo: 'bar', baz: 'foo' })",
@@ -157,9 +157,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({ foo: 'bar' }, baz)",
@@ -169,9 +169,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // Many args
@@ -183,54 +183,52 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         {
-            code:
-                "Object.assign({ foo: 'bar' }, Object.assign({ bar: 'foo' }, baz))",
+            code: "Object.assign({ foo: 'bar' }, Object.assign({ bar: 'foo' }, baz))",
             output: "({foo: 'bar', ...Object.assign({ bar: 'foo' }, baz)})",
             errors: [
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
+                    column: 1,
                 },
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 31
-                }
-            ]
+                    column: 31,
+                },
+            ],
         },
         {
-            code:
-                "Object.assign({ foo: 'bar' }, Object.assign({ bar: 'foo' }, Object.assign({}, { superNested: 'butwhy' })))",
+            code: "Object.assign({ foo: 'bar' }, Object.assign({ bar: 'foo' }, Object.assign({}, { superNested: 'butwhy' })))",
             output: "({foo: 'bar', ...Object.assign({ bar: 'foo' }, Object.assign({}, { superNested: 'butwhy' }))})",
             errors: [
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
+                    column: 1,
                 },
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 31
+                    column: 31,
                 },
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 61
-                }
-            ]
+                    column: 61,
+                },
+            ],
         },
 
         // Mix spread in argument
@@ -242,9 +240,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // Object shorthand
@@ -256,9 +254,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // Objects with computed properties
@@ -270,9 +268,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // Objects with spread properties
@@ -284,9 +282,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // Multiline objects
@@ -304,9 +302,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         {
@@ -329,9 +327,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // HTML comment
@@ -348,16 +346,16 @@ ruleTester.run("prefer-object-spread", rule, {
                 --> weird
             }`,
             languageOptions: {
-                sourceType: "script"
+                sourceType: "script",
             },
             errors: [
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
 
         {
@@ -372,11 +370,10 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
-
 
         {
             code: `const test = Object.assign({ ...bar }, {
@@ -396,11 +393,10 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 14
-                }
-            ]
+                    column: 14,
+                },
+            ],
         },
-
 
         /*
          * This is a special case where Object.assign is called with a single argument
@@ -415,9 +411,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({ foo: bar })",
@@ -427,9 +423,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         {
@@ -446,9 +442,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         {
@@ -465,9 +461,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         {
@@ -478,9 +474,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 9
-                }
-            ]
+                    column: 9,
+                },
+            ],
         },
         {
             code: "let a = Object.assign({}, a)",
@@ -490,9 +486,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 9
-                }
-            ]
+                    column: 9,
+                },
+            ],
         },
         {
             code: "let a = Object.assign   ({}, a)",
@@ -502,9 +498,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 9
-                }
-            ]
+                    column: 9,
+                },
+            ],
         },
         {
             code: "let a = Object.assign({ a: 1 }, b)",
@@ -514,9 +510,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 9
-                }
-            ]
+                    column: 9,
+                },
+            ],
         },
         {
             code: "Object.assign(  {},  a,      b,   )",
@@ -526,9 +522,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({}, a ? b : {}, b => c, a = 2)",
@@ -538,9 +534,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: `
@@ -556,9 +552,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -574,9 +570,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         // Cases where you don't need parens around an object literal
@@ -588,9 +584,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 8
-                }
-            ]
+                    column: 8,
+                },
+            ],
         },
         {
             code: "const foo = Object.assign({}, a)",
@@ -600,9 +596,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "function foo() { return Object.assign({}, a) }",
@@ -612,9 +608,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 25
-                }
-            ]
+                    column: 25,
+                },
+            ],
         },
         {
             code: "foo(Object.assign({}, a));",
@@ -624,9 +620,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 5
-                }
-            ]
+                    column: 5,
+                },
+            ],
         },
         {
             code: "const x = { foo: 'bar', baz: Object.assign({}, a) }",
@@ -636,9 +632,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 30
-                }
-            ]
+                    column: 30,
+                },
+            ],
         },
         {
             code: `
@@ -654,9 +650,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -672,9 +668,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -690,9 +686,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -708,9 +704,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -726,9 +722,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -744,9 +740,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -768,9 +764,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 2,
-                    column: 33
-                }
-            ]
+                    column: 33,
+                },
+            ],
         },
         {
             code: `
@@ -793,9 +789,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 2,
-                    column: 33
-                }
-            ]
+                    column: 33,
+                },
+            ],
         },
         {
             code: `
@@ -818,9 +814,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 2,
-                    column: 33
-                }
-            ]
+                    column: 33,
+                },
+            ],
         },
         {
             code: `
@@ -850,9 +846,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 2,
-                    column: 33
-                }
-            ]
+                    column: 33,
+                },
+            ],
         },
         {
             code: `
@@ -866,9 +862,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 2,
-                    column: 29
-                }
-            ]
+                    column: 29,
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/issues/10646
@@ -880,9 +876,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "Object.assign({\n});",
@@ -892,9 +888,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "globalThis.Object.assign({ });",
@@ -905,9 +901,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: "globalThis.Object.assign({\n});",
@@ -918,9 +914,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
         {
             code: `
@@ -937,9 +933,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
         {
             code: `
@@ -956,9 +952,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 3,
-                    column: 17
-                }
-            ]
+                    column: 17,
+                },
+            ],
         },
 
         // report Object.assign() with getters/setters if the function call has only 1 argument
@@ -970,9 +966,9 @@ ruleTester.run("prefer-object-spread", rule, {
                     messageId: "useLiteralMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
+                    column: 1,
+                },
+            ],
         },
 
         // https://github.com/eslint/eslint/issues/13058
@@ -980,31 +976,31 @@ ruleTester.run("prefer-object-spread", rule, {
             code: "const obj = Object.assign<{}, Record<string, string[]>>({}, getObject());",
             output: "const obj = { ...getObject()};",
             languageOptions: {
-                parser: require("../../fixtures/parsers/typescript-parsers/object-assign-with-generic/object-assign-with-generic-1")
+                parser: require("../../fixtures/parsers/typescript-parsers/object-assign-with-generic/object-assign-with-generic-1"),
             },
             errors: [
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 13
-                }
-            ]
+                    column: 13,
+                },
+            ],
         },
         {
             code: "Object.assign<{}, A>({}, foo);",
             output: "({ ...foo});",
             languageOptions: {
-                parser: require("../../fixtures/parsers/typescript-parsers/object-assign-with-generic/object-assign-with-generic-2")
+                parser: require("../../fixtures/parsers/typescript-parsers/object-assign-with-generic/object-assign-with-generic-2"),
             },
             errors: [
                 {
                     messageId: "useSpreadMessage",
                     type: "CallExpression",
                     line: 1,
-                    column: 1
-                }
-            ]
-        }
-    ]
+                    column: 1,
+                },
+            ],
+        },
+    ],
 });

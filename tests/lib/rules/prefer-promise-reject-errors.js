@@ -15,10 +15,11 @@ const RuleTester = require("../../../lib/rule-tester/rule-tester");
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2022, sourceType: "script" } });
+const ruleTester = new RuleTester({
+    languageOptions: { ecmaVersion: 2022, sourceType: "script" },
+});
 
 ruleTester.run("prefer-promise-reject-errors", rule, {
-
     valid: [
         "Promise.resolve(5)",
         "Foo.reject(5)",
@@ -38,11 +39,11 @@ ruleTester.run("prefer-promise-reject-errors", rule, {
         "async function foo() { Promise.reject(await foo); }",
         {
             code: "Promise.reject()",
-            options: [{ allowEmptyReject: true }]
+            options: [{ allowEmptyReject: true }],
         },
         {
             code: "new Promise(function(resolve, reject) { reject() })",
-            options: [{ allowEmptyReject: true }]
+            options: [{ allowEmptyReject: true }],
         },
 
         // Optional chaining
@@ -57,7 +58,7 @@ ruleTester.run("prefer-promise-reject-errors", rule, {
 
         // Private fields
         "class C { #reject; foo() { Promise.#reject(5); } }",
-        "class C { #error; foo() { Promise.reject(this.#error); } }"
+        "class C { #error; foo() { Promise.reject(this.#error); } }",
     ],
 
     invalid: [
@@ -72,15 +73,15 @@ ruleTester.run("prefer-promise-reject-errors", rule, {
         "Promise.reject([1, 2, 3])",
         {
             code: "Promise.reject()",
-            options: [{ allowEmptyReject: false }]
+            options: [{ allowEmptyReject: false }],
         },
         {
             code: "new Promise(function(resolve, reject) { reject() })",
-            options: [{ allowEmptyReject: false }]
+            options: [{ allowEmptyReject: false }],
         },
         {
             code: "Promise.reject(undefined)",
-            options: [{ allowEmptyReject: true }]
+            options: [{ allowEmptyReject: true }],
         },
         "Promise.reject('foo', somethingElse)",
         "new Promise(function(resolve, reject) { reject(5) })",
@@ -121,11 +122,18 @@ ruleTester.run("prefer-promise-reject-errors", rule, {
 
         // evaluates either to a falsy value of `foo` (which, then, cannot be an Error object), or to `5`
         "Promise.reject(foo && 5)",
-        "Promise.reject(foo &&= 5)"
+        "Promise.reject(foo &&= 5)",
+    ].map((invalidCase) => {
+        const errors = {
+            errors: [{ messageId: "rejectAnError", type: "CallExpression" }],
+        };
 
-    ].map(invalidCase => {
-        const errors = { errors: [{ messageId: "rejectAnError", type: "CallExpression" }] };
-
-        return Object.assign({}, errors, typeof invalidCase === "string" ? { code: invalidCase } : invalidCase);
-    })
+        return Object.assign(
+            {},
+            errors,
+            typeof invalidCase === "string"
+                ? { code: invalidCase }
+                : invalidCase,
+        );
+    }),
 });

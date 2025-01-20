@@ -19,8 +19,8 @@ const rule = require("../../../lib/rules/no-unreachable"),
 const ruleTester = new RuleTester({
     languageOptions: {
         ecmaVersion: 5,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 });
 
 ruleTester.run("no-unreachable", rule, {
@@ -41,8 +41,8 @@ ruleTester.run("no-unreachable", rule, {
         {
             code: "const arrow_direction = arrow => {  switch (arrow) { default: throw new Error();  };}",
             languageOptions: {
-                ecmaVersion: 6
-            }
+                ecmaVersion: 6,
+            },
         },
         "var x = 1; y = 2; throw 'uh oh'; var y;",
         "function foo() { var x = 1; if (x) { return; } x = 2; }",
@@ -56,63 +56,163 @@ ruleTester.run("no-unreachable", rule, {
         {
             code: "function* foo() { try { yield 1; return; } catch (err) { return err; } }",
             languageOptions: {
-                ecmaVersion: 6
-            }
+                ecmaVersion: 6,
+            },
         },
         {
             code: "function foo() { try { bar(); return; } catch (err) { return err; } }",
             languageOptions: {
-                ecmaVersion: 6
-            }
+                ecmaVersion: 6,
+            },
         },
         {
             code: "function foo() { try { a.b.c = 1; return; } catch (err) { return err; } }",
             languageOptions: {
-                ecmaVersion: 6
-            }
+                ecmaVersion: 6,
+            },
         },
         {
             code: "class C { foo = reachable; }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C { foo = reachable; constructor() {} }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C extends B { foo = reachable; }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C extends B { foo = reachable; constructor() { super(); } }",
-            languageOptions: { ecmaVersion: 2022 }
+            languageOptions: { ecmaVersion: 2022 },
         },
         {
             code: "class C extends B { static foo = reachable; constructor() {} }",
-            languageOptions: { ecmaVersion: 2022 }
-        }
+            languageOptions: { ecmaVersion: 2022 },
+        },
     ],
     invalid: [
-        { code: "function foo() { return x; var x = 1; }", errors: [{ messageId: "unreachableCode", type: "VariableDeclaration" }] },
-        { code: "function foo() { return x; var x, y = 1; }", errors: [{ messageId: "unreachableCode", type: "VariableDeclaration" }] },
-        { code: "while (true) { continue; var x = 1; }", errors: [{ messageId: "unreachableCode", type: "VariableDeclaration" }] },
-        { code: "function foo() { return; x = 1; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { throw error; x = 1; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "while (true) { break; x = 1; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "while (true) { continue; x = 1; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { switch (foo) { case 1: return; x = 1; } }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { switch (foo) { case 1: throw e; x = 1; } }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "while (true) { switch (foo) { case 1: break; x = 1; } }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "while (true) { switch (foo) { case 1: continue; x = 1; } }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "var x = 1; throw 'uh oh'; var y = 2;", errors: [{ messageId: "unreachableCode", type: "VariableDeclaration" }] },
-        { code: "function foo() { var x = 1; if (x) { return; } else { throw e; } x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; if (x) return; else throw -1; x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; try { return; } finally {} x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; try { } finally { return; } x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; do { return; } while (x); x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; while (x) { if (x) break; else continue; x = 2; } }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; for (;;) { if (x) continue; } x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
-        { code: "function foo() { var x = 1; while (true) { } x = 2; }", errors: [{ messageId: "unreachableCode", type: "ExpressionStatement" }] },
+        {
+            code: "function foo() { return x; var x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "VariableDeclaration" },
+            ],
+        },
+        {
+            code: "function foo() { return x; var x, y = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "VariableDeclaration" },
+            ],
+        },
+        {
+            code: "while (true) { continue; var x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "VariableDeclaration" },
+            ],
+        },
+        {
+            code: "function foo() { return; x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { throw error; x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "while (true) { break; x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "while (true) { continue; x = 1; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { switch (foo) { case 1: return; x = 1; } }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { switch (foo) { case 1: throw e; x = 1; } }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "while (true) { switch (foo) { case 1: break; x = 1; } }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "while (true) { switch (foo) { case 1: continue; x = 1; } }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "var x = 1; throw 'uh oh'; var y = 2;",
+            errors: [
+                { messageId: "unreachableCode", type: "VariableDeclaration" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; if (x) { return; } else { throw e; } x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; if (x) return; else throw -1; x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; try { return; } finally {} x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; try { } finally { return; } x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; do { return; } while (x); x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; while (x) { if (x) break; else continue; x = 2; } }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; for (;;) { if (x) continue; } x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
+        {
+            code: "function foo() { var x = 1; while (true) { } x = 2; }",
+            errors: [
+                { messageId: "unreachableCode", type: "ExpressionStatement" },
+            ],
+        },
         {
             code: "const arrow_direction = arrow => {  switch (arrow) { default: throw new Error();  }; g() }",
             languageOptions: { ecmaVersion: 6 },
@@ -123,9 +223,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 1,
                     column: 86,
                     endLine: 1,
-                    endColumn: 89
-                }
-            ]
+                    endColumn: 89,
+                },
+            ],
         },
 
         // Merge the warnings of continuous unreachable nodes.
@@ -148,9 +248,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 21,
                     endLine: 9,
-                    endColumn: 25
-                }
-            ]
+                    endColumn: 25,
+                },
+            ],
         },
         {
             code: `
@@ -173,9 +273,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 21,
                     endLine: 11,
-                    endColumn: 22
-                }
-            ]
+                    endColumn: 22,
+                },
+            ],
         },
         {
             code: `
@@ -197,7 +297,7 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 25,
                     endLine: 6,
-                    endColumn: 29
+                    endColumn: 29,
                 },
                 {
                     messageId: "unreachableCode",
@@ -205,9 +305,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 9,
                     column: 25,
                     endLine: 9,
-                    endColumn: 29
-                }
-            ]
+                    endColumn: 29,
+                },
+            ],
         },
         {
             code: `
@@ -230,7 +330,7 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 25,
                     endLine: 6,
-                    endColumn: 29
+                    endColumn: 29,
                 },
                 {
                     messageId: "unreachableCode",
@@ -238,7 +338,7 @@ ruleTester.run("no-unreachable", rule, {
                     line: 9,
                     column: 25,
                     endLine: 9,
-                    endColumn: 29
+                    endColumn: 29,
                 },
                 {
                     messageId: "unreachableCode",
@@ -246,9 +346,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 11,
                     column: 21,
                     endLine: 11,
-                    endColumn: 25
-                }
-            ]
+                    endColumn: 25,
+                },
+            ],
         },
         {
             code: `
@@ -260,7 +360,7 @@ ruleTester.run("no-unreachable", rule, {
                     }
                 }`,
             languageOptions: {
-                ecmaVersion: 6
+                ecmaVersion: 6,
             },
             errors: [
                 {
@@ -269,9 +369,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 35,
                     endLine: 7,
-                    endColumn: 22
-                }
-            ]
+                    endColumn: 22,
+                },
+            ],
         },
         {
             code: `
@@ -283,7 +383,7 @@ ruleTester.run("no-unreachable", rule, {
                     }
                 }`,
             languageOptions: {
-                ecmaVersion: 6
+                ecmaVersion: 6,
             },
             errors: [
                 {
@@ -292,9 +392,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 35,
                     endLine: 7,
-                    endColumn: 22
-                }
-            ]
+                    endColumn: 22,
+                },
+            ],
         },
         {
             code: `
@@ -307,7 +407,7 @@ ruleTester.run("no-unreachable", rule, {
                     }
                 }`,
             languageOptions: {
-                ecmaVersion: 6
+                ecmaVersion: 6,
             },
             errors: [
                 {
@@ -316,7 +416,7 @@ ruleTester.run("no-unreachable", rule, {
                     line: 5,
                     column: 25,
                     endLine: 5,
-                    endColumn: 35
+                    endColumn: 35,
                 },
                 {
                     messageId: "unreachableCode",
@@ -324,9 +424,9 @@ ruleTester.run("no-unreachable", rule, {
                     line: 6,
                     column: 35,
                     endLine: 8,
-                    endColumn: 22
-                }
-            ]
+                    endColumn: 22,
+                },
+            ],
         },
 
         /*
@@ -339,55 +439,61 @@ ruleTester.run("no-unreachable", rule, {
         {
             code: "class C extends B { foo; constructor() {} }",
             languageOptions: { ecmaVersion: 2022 },
-            errors: [{ messageId: "unreachableCode", column: 21, endColumn: 25 }]
+            errors: [
+                { messageId: "unreachableCode", column: 21, endColumn: 25 },
+            ],
         },
         {
             code: "class C extends B { foo = unreachable + code; constructor() {} }",
             languageOptions: { ecmaVersion: 2022 },
-            errors: [{ messageId: "unreachableCode", column: 21, endColumn: 46 }]
+            errors: [
+                { messageId: "unreachableCode", column: 21, endColumn: 46 },
+            ],
         },
         {
             code: "class C extends B { foo; bar; constructor() {} }",
             languageOptions: { ecmaVersion: 2022 },
-            errors: [{ messageId: "unreachableCode", column: 21, endColumn: 30 }]
+            errors: [
+                { messageId: "unreachableCode", column: 21, endColumn: 30 },
+            ],
         },
         {
             code: "class C extends B { foo; constructor() {} bar; }",
             languageOptions: { ecmaVersion: 2022 },
             errors: [
                 { messageId: "unreachableCode", column: 21, endColumn: 25 },
-                { messageId: "unreachableCode", column: 43, endColumn: 47 }
-            ]
+                { messageId: "unreachableCode", column: 43, endColumn: 47 },
+            ],
         },
         {
             code: "(class extends B { foo; constructor() {} bar; })",
             languageOptions: { ecmaVersion: 2022 },
             errors: [
                 { messageId: "unreachableCode", column: 20, endColumn: 24 },
-                { messageId: "unreachableCode", column: 42, endColumn: 46 }
-            ]
+                { messageId: "unreachableCode", column: 42, endColumn: 46 },
+            ],
         },
         {
             code: "class B extends A { x; constructor() { class C extends D { [super().x]; constructor() {} } } }",
             languageOptions: { ecmaVersion: 2022 },
             errors: [
-                { messageId: "unreachableCode", column: 60, endColumn: 72 }
-            ]
+                { messageId: "unreachableCode", column: 60, endColumn: 72 },
+            ],
         },
         {
             code: "class B extends A { x; constructor() { class C extends super().x { y; constructor() {} } } }",
             languageOptions: { ecmaVersion: 2022 },
             errors: [
-                { messageId: "unreachableCode", column: 68, endColumn: 70 }
-            ]
+                { messageId: "unreachableCode", column: 68, endColumn: 70 },
+            ],
         },
         {
             code: "class B extends A { x; static y; z; static q; constructor() {} }",
             languageOptions: { ecmaVersion: 2022 },
             errors: [
                 { messageId: "unreachableCode", column: 21, endColumn: 23 },
-                { messageId: "unreachableCode", column: 34, endColumn: 36 }
-            ]
-        }
-    ]
+                { messageId: "unreachableCode", column: 34, endColumn: 36 },
+            ],
+        },
+    ],
 });

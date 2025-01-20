@@ -3,8 +3,6 @@ title: no-unsafe-finally
 rule_type: problem
 ---
 
-
-
 JavaScript suspends the control flow statements of `try` and `catch` blocks until the execution of `finally` block finishes. So, when `return`, `throw`, `break`, or `continue` is used in `finally`, control flow statements inside `try` and `catch` are overwritten, which is considered as unexpected behavior. Such as:
 
 ```js
@@ -12,7 +10,7 @@ JavaScript suspends the control flow statements of `try` and `catch` blocks unti
 (() => {
     try {
         return 1; // 1 is returned but suspended until finally block ends
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
         return 3; // 3 is returned before 1, which we did not expect
@@ -39,8 +37,8 @@ JavaScript suspends the control flow statements of `try` and `catch` blocks unti
 // We expect this function to throw Try(...) error from the catch block
 (() => {
     try {
-        throw new Error("Try")
-    } catch(err) {
+        throw new Error("Try");
+    } catch (err) {
         throw err; // The error thrown from try block is caught and rethrown
     } finally {
         throw new Error("Finally"); // Finally(...) is thrown, which we did not expect
@@ -53,12 +51,12 @@ JavaScript suspends the control flow statements of `try` and `catch` blocks unti
 ```js
 // We expect this function to return 0 from try block.
 (() => {
-  label: try {
-    return 0; // 0 is returned but suspended until finally block ends
-  } finally {
-    break label; // It breaks out the try-finally block, before 0 is returned.
-  }
-  return 1;
+    label: try {
+        return 0; // 0 is returned but suspended until finally block ends
+    } finally {
+        break label; // It breaks out the try-finally block, before 0 is returned.
+    }
+    return 1;
 })();
 
 // > 1
@@ -74,10 +72,10 @@ Examples of **incorrect** code for this rule:
 
 ```js
 /*eslint no-unsafe-finally: "error"*/
-let foo = function() {
+let foo = function () {
     try {
         return 1;
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
         return 3;
@@ -91,13 +89,13 @@ let foo = function() {
 
 ```js
 /*eslint no-unsafe-finally: "error"*/
-let foo = function() {
+let foo = function () {
     try {
         return 1;
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
-        throw new Error;
+        throw new Error();
     }
 };
 ```
@@ -110,10 +108,10 @@ Examples of **correct** code for this rule:
 
 ```js
 /*eslint no-unsafe-finally: "error"*/
-let foo = function() {
+let foo = function () {
     try {
         return 1;
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
         console.log("hola!");
@@ -127,15 +125,15 @@ let foo = function() {
 
 ```js
 /*eslint no-unsafe-finally: "error"*/
-let foo = function() {
+let foo = function () {
     try {
         return 1;
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
-        let a = function() {
+        let a = function () {
             return "hola!";
-        }
+        };
     }
 };
 ```
@@ -146,15 +144,15 @@ let foo = function() {
 
 ```js
 /*eslint no-unsafe-finally: "error"*/
-let foo = function(a) {
+let foo = function (a) {
     try {
         return 1;
-    } catch(err) {
+    } catch (err) {
         return 2;
     } finally {
-        switch(a) {
+        switch (a) {
             case 1: {
-                console.log("hola!")
+                console.log("hola!");
                 break;
             }
         }

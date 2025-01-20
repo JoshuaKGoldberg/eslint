@@ -2,7 +2,7 @@
 title: jsx-quotes
 rule_type: layout
 related_rules:
-- quotes
+    - quotes
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/jsx-quotes) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -10,7 +10,7 @@ This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding ru
 JSX attribute values can contain string literals, which are delimited with single or double quotes.
 
 ```jsx
-<a b='c' />;
+<a b="c" />;
 <a b="c" />;
 ```
 
@@ -30,8 +30,8 @@ This rule enforces the consistent use of either double or single quotes in JSX a
 
 This rule has a string option:
 
-* `"prefer-double"` (default) enforces the use of double quotes for all JSX attribute values that don't contain a double quote.
-* `"prefer-single"` enforces the use of single quotes for all JSX attribute values that don’t contain a single quote.
+- `"prefer-double"` (default) enforces the use of double quotes for all JSX attribute values that don't contain a double quote.
+- `"prefer-single"` enforces the use of single quotes for all JSX attribute values that don’t contain a single quote.
 
 ### prefer-double
 
@@ -42,7 +42,7 @@ Examples of **incorrect** code for this rule with the default `"prefer-double"` 
 ```jsx
 /*eslint jsx-quotes: ["error", "prefer-double"]*/
 
-<a b='c' />;
+<a b="c" />
 ```
 
 :::
@@ -69,7 +69,7 @@ Examples of **incorrect** code for this rule with the `"prefer-single"` option:
 ```jsx
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 
-<a b="c" />;
+<a b="c" />
 ```
 
 :::
@@ -81,7 +81,7 @@ Examples of **correct** code for this rule with the `"prefer-single"` option:
 ```jsx
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 
-<a b='c' />;
+<a b="c" />;
 <a b="'" />;
 ```
 
