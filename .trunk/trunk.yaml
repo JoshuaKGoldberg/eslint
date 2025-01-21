@@ -57,10 +57,6 @@ lint:
         - linters: [markdownlint]
           paths:
               - CHANGELOG.md
-        - linters: [prettier]
-          paths:
-              - "**" # Ignore all files
-              - "!conf/**/*.json" # Except for json files in conf/
 actions:
     disabled:
         - trunk-announce
