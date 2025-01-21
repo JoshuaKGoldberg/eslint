@@ -39,6 +39,9 @@ jobs:
           # Run on everything except the docs folder.
           arguments: --ignore=docs/** --filter=-eslint
 
+      - name: Check Formatting
+        run: npm run format -- --list-different
+
       - name: Check Rule Files
         run: node Makefile checkRuleFiles
 

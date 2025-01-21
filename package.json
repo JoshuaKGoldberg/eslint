@@ -46,6 +46,7 @@
     "build:webpack": "node Makefile.js webpack",
     "build:readme": "node tools/update-readme.js",
     "build:rules-index": "node Makefile.js generateRuleIndexPage",
+    "format": "prettier .",
     "lint": "trunk check --no-fix --ignore=docs/**/*.js -a --filter=eslint && trunk check --no-fix --ignore=docs/**/*.js",
     "lint:docs:js": "trunk check --no-fix --ignore=** --ignore=!docs/**/*.js -a --filter=eslint && trunk check --no-fix --ignore=** --ignore=!docs/**/*.js",
     "lint:docs:rule-examples": "node Makefile.js checkRuleExamples",
@@ -72,6 +73,7 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
+    "*": "prettier --ignore-unknown --write",
     "*.js": "trunk check --fix --filter=eslint",
     "*.md": "trunk check --fix --filter=markdownlint",
     "lib/rules/*.js": [
@@ -185,6 +187,7 @@
     "node-polyfill-webpack-plugin": "^1.0.3",
     "npm-license": "^0.3.3",
     "pirates": "^4.0.5",
+    "prettier": "^3.4.2",
     "progress": "^2.0.3",
     "proxyquire": "^2.0.1",
     "recast": "^0.23.0",
