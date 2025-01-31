@@ -83,16 +83,16 @@ let obj11 = { b: 1, ...c, a: 2 };
 
 The 1st option is `"asc"` or `"desc"`.
 
-- `"asc"` (default) - enforce properties to be in ascending order.
-- `"desc"` - enforce properties to be in descending order.
+-   `"asc"` (default) - enforce properties to be in ascending order.
+-   `"desc"` - enforce properties to be in descending order.
 
 The 2nd option is an object which has the following properties.
 
-- `caseSensitive` - if `true`, enforce properties to be in case-sensitive order. Default is `true`.
-- `minKeys` - Specifies the minimum number of keys that an object should have in order for the object's unsorted keys to produce an error. Default is `2`, which means by default all objects with unsorted keys will result in lint errors.
-- `natural` - if `true`, enforce properties to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.
-- `allowLineSeparatedGroups` - if `true`, the rule allows to group object keys through line breaks. In other words, a blank line after a property will reset the sorting of keys. Default is `false`.
-- `ignoreComputedKeys` - if `true`, the rule ignores all computed keys and doesn't report unsorted properties separated by them. A computed key will reset the sorting of the following non-computed keys. Default is `false`.
+-   `caseSensitive` - if `true`, enforce properties to be in case-sensitive order. Default is `true`.
+-   `minKeys` - Specifies the minimum number of keys that an object should have in order for the object's unsorted keys to produce an error. Default is `2`, which means by default all objects with unsorted keys will result in lint errors.
+-   `natural` - if `true`, enforce properties to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.
+-   `allowLineSeparatedGroups` - if `true`, the rule allows to group object keys through line breaks. In other words, a blank line after a property will reset the sorting of keys. Default is `false`.
+-   `ignoreComputedKeys` - if `true`, the rule ignores all computed keys and doesn't report unsorted properties separated by them. A computed key will reset the sorting of the following non-computed keys. Default is `false`.
 
 Example for a list:
 
@@ -400,4 +400,4 @@ If you don't want to notify about properties' order, then it's safe to disable t
 
 ## Compatibility
 
-- **JSCS:** [validateOrderInObjectKeys](https://jscs-dev.github.io/rule/validateOrderInObjectKeys)
+-   **JSCS:** [validateOrderInObjectKeys](https://jscs-dev.github.io/rule/validateOrderInObjectKeys)

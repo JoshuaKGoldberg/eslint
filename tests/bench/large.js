@@ -6868,8 +6868,8 @@ if (typeof window === "undefined") window = {};
                         else if (isObject(this._events[type]))
                             // If we've already got an array, just append.
                             this._events[type].push(listener);
+                        // Adding the second element, need to change to array.
                         else
-                            // Adding the second element, need to change to array.
                             this._events[type] = [this._events[type], listener];
 
                         // Check for listener leak

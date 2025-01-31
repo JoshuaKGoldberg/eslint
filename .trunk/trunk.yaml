@@ -54,6 +54,23 @@ lint:
         - yamllint
         - trufflehog # Requires the network to run.
     ignore:
+        - linters: [prettier]
+          paths:
+              - docs/src/rules/*comma*.md
+              - docs/src/rules/*indent*.md
+              - docs/src/rules/*lines*.md
+              - docs/src/rules/*multiline*.md
+              - docs/src/rules/*newline*.md
+              - docs/src/rules/*parens*.md
+              - docs/src/rules/*quote*.md
+              - docs/src/rules/*semi*.md
+              - docs/src/rules/*space*.md
+              - docs/src/rules/*spacing*.md
+              - docs/src/rules/*style*.md
+              - docs/src/rules/dot-location.md
+              - docs/src/rules/unicode-bom.md
+              - docs/src/rules/yoda.md
+              - docs/src/rules/max-len.md
         - linters: [markdownlint]
           paths:
               - CHANGELOG.md

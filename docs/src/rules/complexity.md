@@ -154,9 +154,9 @@ function foo() {
 
 This rule has a number or object option:
 
-- `"max"` (default: `20`) enforces a maximum complexity
+-   `"max"` (default: `20`) enforces a maximum complexity
 
-- `"variant": "classic" | "modified"` (default: `"classic"`) cyclomatic complexity variant to use
+-   `"variant": "classic" | "modified"` (default: `"classic"`) cyclomatic complexity variant to use
 
 ### max
 
@@ -178,8 +178,8 @@ Or use the shorthand syntax:
 
 Cyclomatic complexity variant to use:
 
-- `"classic"` (default) - Classic McCabe cyclomatic complexity
-- `"modified"` - Modified cyclomatic complexity
+-   `"classic"` (default) - Classic McCabe cyclomatic complexity
+-   `"modified"` - Modified cyclomatic complexity
 
 _Modified cyclomatic complexity_ is the same as the classic cyclomatic complexity, but each `switch` statement only increases the complexity value by `1`, regardless of how many `case` statements it contains.
 

@@ -45,7 +45,7 @@ typeof bar === typeof qux;
 
 This rule has an object option:
 
-- `"requireStringLiterals": true` allows the comparison of `typeof` expressions with only string literals or other `typeof` expressions, and disallows comparisons to any other value. Default is `false`.
+-   `"requireStringLiterals": true` allows the comparison of `typeof` expressions with only string literals or other `typeof` expressions, and disallows comparisons to any other value. Default is `false`.
 
 ### requireStringLiterals
 

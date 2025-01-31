@@ -115,7 +115,7 @@ class Foo {
 
 This rule has an object option:
 
-- `enforceForClassMembers` set to `false` disables this rule for class members (Default `true`).
+-   `enforceForClassMembers` set to `false` disables this rule for class members (Default `true`).
 
 ### enforceForClassMembers
 

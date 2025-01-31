@@ -101,7 +101,7 @@ function i(flags) {
 
 This rule has one object option:
 
-- `"requireFlag": "u"|"v"` requires a particular Unicode regex flag
+-   `"requireFlag": "u"|"v"` requires a particular Unicode regex flag
 
 ### requireFlag: "u"
 

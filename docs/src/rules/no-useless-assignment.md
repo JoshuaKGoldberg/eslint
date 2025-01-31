@@ -20,8 +20,8 @@ further_reading:
 Also, if the author intended the variable to be used, there is likely a mistake around the dead store.
 For example,
 
-- you should have used a stored value but forgot to do so.
-- you made a mistake in the name of the variable to be stored.
+-   you should have used a stored value but forgot to do so.
+-   you made a mistake in the name of the variable to be stored.
 
 ```js
 let id = "x1234"; // this is a "dead store" - this value ("x1234") is never read

@@ -19,8 +19,8 @@ ESLint ships experimental and future breaking changes behind feature flags to le
 
 The prefix of a flag indicates its status:
 
-- `unstable_` indicates that the feature is experimental and the implementation may change before the feature is stabilized. This is a "use at your own risk" feature.
-- `v##_` indicates that the feature is stabilized and will be available in the next major release. For example, `v10_some_feature` indicates that this is a breaking change that will be formally released in ESLint v10.0.0. These flags are removed each major release.
+-   `unstable_` indicates that the feature is experimental and the implementation may change before the feature is stabilized. This is a "use at your own risk" feature.
+-   `v##_` indicates that the feature is stabilized and will be available in the next major release. For example, `v10_some_feature` indicates that this is a breaking change that will be formally released in ESLint v10.0.0. These flags are removed each major release.
 
 A feature may move from unstable to stable without a major release if it is a non-breaking change.
 

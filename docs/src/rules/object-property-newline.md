@@ -2,10 +2,10 @@
 title: object-property-newline
 rule_type: layout
 related_rules:
-    - brace-style
-    - comma-dangle
-    - key-spacing
-    - object-curly-spacing
+- brace-style
+- comma-dangle
+- key-spacing
+- object-curly-spacing
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/object-property-newline) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -19,19 +19,22 @@ This rule permits you to restrict the locations of property specifications in ob
 This rule makes it possible to ensure, as some style guides require, that property specifications appear on separate lines for better readability. For example, you can prohibit all of these:
 
 ```js
-const newObject = { a: 1, b: [2, { a: 3, b: 4 }] };
+const newObject = {a: 1, b: [2, {a: 3, b: 4}]};
 const newObject = {
-    a: 1,
-    b: [2, { a: 3, b: 4 }]
+    a: 1, b: [2, {a: 3, b: 4}]
 };
 const newObject = {
     a: 1,
-    b: [2, { a: 3, b: 4 }]
+    b: [2, {a: 3, b: 4}]
 };
 const newObject = {
     a: 1,
-    b: [2, { a: 3, b: 4 }]
+    b: [
+        2,
+        {a: 3, b: 4}
+    ]
 };
+
 ```
 
 Instead of those, you can comply with the rule by writing
@@ -39,13 +42,10 @@ Instead of those, you can comply with the rule by writing
 ```js
 const newObject = {
     a: 1,
-    b: [
-        2,
-        {
-            a: 3,
-            b: 4
-        }
-    ]
+    b: [2, {
+        a: 3,
+        b: 4
+    }]
 };
 ```
 
@@ -88,10 +88,10 @@ The rule offers one object option, `allowAllPropertiesOnSameLine` (a deprecated 
 
 ```js
 const newObject = {
-    a: "a.m.",
-    b: "p.m.",
-    c: "daylight saving time"
+    a: 'a.m.', b: 'p.m.',
+    c: 'daylight saving time'
 };
+
 ```
 
 will be prohibited, because two properties, but not all properties, appear on the same line.
@@ -100,20 +100,20 @@ will be prohibited, because two properties, but not all properties, appear on th
 
 This rule applies equally to all property specifications, regardless of notation, including:
 
-- `a: 1` (ES5)
-- `a` (ES2015 shorthand property)
-- ``[`prop${a}`]`` (ES2015 computed property name)
+* `a: 1` (ES5)
+* `a` (ES2015 shorthand property)
+* ``[`prop${a}`]`` (ES2015 computed property name)
 
 Thus, the rule (without the optional exception) prohibits both of these:
 
 ```js
 const newObject = {
-    a: 1,
-    [process.argv[4]]: "01"
+    a: 1, [
+        process.argv[4]
+    ]: '01'
 };
 const newObject = {
-    a: 1,
-    [process.argv[4]]: "01"
+    a: 1, [process.argv[4]]: '01'
 };
 ```
 
@@ -124,13 +124,10 @@ const newObject = {
 The rule prohibits the colocation on any line of at least 1 character of one property specification with at least 1 character of any other property specification. For example, the rule prohibits
 
 ```js
-const newObject = {
-    a: [
-        "Officiële website van de Europese Unie",
-        "Официален уебсайт на Европейския съюз"
-    ],
-    b: 2
-};
+const newObject = {a: [
+    'Officiële website van de Europese Unie',
+    'Официален уебсайт на Европейския съюз'
+], b: 2};
 ```
 
 because 1 character of the specification of `a` (i.e. the trailing `]` of its value) is on the same line as the specification of `b`.
@@ -142,15 +139,15 @@ The optional exception does not excuse this case, because the entire collection 
 The comma and any whitespace that delimit property specifications are not considered parts of them. Therefore, the rule permits both of these formats:
 
 ```js
-const newFunction = (multiplier) => ({
+const newFunction = multiplier => ({
     a: 2 * multiplier,
     b: 4 * multiplier,
     c: 8 * multiplier
 });
-const newFunction = (multiplier) => ({
-    a: 2 * multiplier,
-    b: 4 * multiplier,
-    c: 8 * multiplier
+const newFunction = multiplier => ({
+    a: 2 * multiplier
+    , b: 4 * multiplier
+    , c: 8 * multiplier
 });
 ```
 
@@ -162,9 +159,8 @@ If this rule is invoked with the command-line `--fix` option, object literals th
 
 ```js
 const newObject = {
-    a: "a.m.",
-    b: "p.m.",
-    c: "daylight saving time"
+    a: 'a.m.', b: 'p.m.',
+    c: 'daylight saving time'
 };
 ```
 
@@ -172,9 +168,9 @@ is converted to
 
 ```js
 const newObject = {
-    a: "a.m.",
-    b: "p.m.",
-    c: "daylight saving time"
+    a: 'a.m.',
+b: 'p.m.',
+    c: 'daylight saving time'
 };
 ```
 
@@ -196,31 +192,32 @@ Examples of **incorrect** code for this rule, with no object option or with `all
 const obj0 = { foo: "foo", bar: "bar", baz: "baz" };
 
 const obj1 = {
-    foo: "foo",
-    bar: "bar",
-    baz: "baz"
+    foo: "foo", bar: "bar", baz: "baz"
 };
 
 const obj2 = {
-    foo: "foo",
-    bar: "bar",
+    foo: "foo", bar: "bar",
     baz: "baz"
 };
 
 const obj3 = {
-    [process.argv[3] ? "foo" : "bar"]: 0,
-    baz: [1, 2, 4, 8]
+    [process.argv[3] ? "foo" : "bar"]: 0, baz: [
+        1,
+        2,
+        4,
+        8
+    ]
 };
 
 const a = "antidisestablishmentarianistically";
 const b = "yugoslavyalılaştırabildiklerimizdenmişsiniz";
-const obj4 = { a, b };
+const obj4 = {a, b};
 
 const domain = process.argv[4];
 const obj5 = {
-    foo: "foo",
-    [domain.includes(":") ? "complexdomain" : "simpledomain"]: true
-};
+    foo: "foo", [
+    domain.includes(":") ? "complexdomain" : "simpledomain"
+]: true};
 ```
 
 :::
@@ -239,16 +236,21 @@ const obj1 = {
 };
 
 const obj2 = {
-    foo: "foo",
-    bar: "bar",
-    baz: "baz"
+    foo: "foo"
+    , bar: "bar"
+    , baz: "baz"
 };
 
 const user = process.argv[2];
 const obj3 = {
     user,
     [process.argv[3] ? "foo" : "bar"]: 0,
-    baz: [1, 2, 4, 8]
+    baz: [
+        1,
+        2,
+        4,
+        8
+    ]
 };
 ```
 
@@ -264,15 +266,11 @@ Examples of additional **correct** code for this rule with the `{ "allowAllPrope
 const obj = { foo: "foo", bar: "bar", baz: "baz" };
 
 const obj2 = {
-    foo: "foo",
-    bar: "bar",
-    baz: "baz"
+    foo: "foo", bar: "bar", baz: "baz"
 };
 const user = process.argv[2];
 const obj3 = {
-    user,
-    [process.argv[3] ? "foo" : "bar"]: 0,
-    baz: [1, 2, 4, 8]
+    user, [process.argv[3] ? "foo" : "bar"]: 0, baz: [1, 2, 4, 8]
 };
 ```
 
@@ -284,4 +282,4 @@ You can turn this rule off if you want to decide, case-by-case, whether to place
 
 ## Compatibility
 
-- **JSCS**: This rule provides partial compatibility with [requireObjectKeysOnNewLine](https://jscs-dev.github.io/rule/requireObjectKeysOnNewLine).
+* **JSCS**: This rule provides partial compatibility with [requireObjectKeysOnNewLine](https://jscs-dev.github.io/rule/requireObjectKeysOnNewLine).

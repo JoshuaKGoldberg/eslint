@@ -64,4 +64,4 @@ If you want to allow use of `parseInt()` or `Number.parseInt()` for binary, octa
 
 ## Compatibility
 
-- **JSCS**: [requireNumericLiterals](https://jscs-dev.github.io/rule/requireNumericLiterals)
+-   **JSCS**: [requireNumericLiterals](https://jscs-dev.github.io/rule/requireNumericLiterals)

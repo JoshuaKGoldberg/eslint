@@ -2,8 +2,10 @@
 title: newline-before-return
 rule_type: layout
 related_rules:
-    - newline-after-var
+- newline-after-var
 ---
+
+
 
 This rule was **deprecated** in ESLint v4.0.0 and replaced by the [padding-line-between-statements](padding-line-between-statements) rule.
 
@@ -11,12 +13,12 @@ There is no hard and fast rule about whether empty lines should precede `return`
 
 ```js
 function foo(bar) {
-    var baz = "baz";
-    if (!bar) {
-        bar = baz;
-        return bar;
-    }
+  var baz = 'baz';
+  if (!bar) {
+    bar = baz;
     return bar;
+  }
+  return bar;
 }
 ```
 
@@ -24,15 +26,15 @@ Adding newlines visibly separates the return statements from the previous lines,
 
 ```js
 function foo(bar) {
-    var baz = "baz";
+  var baz = 'baz';
 
-    if (!bar) {
-        bar = baz;
-
-        return bar;
-    }
+  if (!bar) {
+    bar = baz;
 
     return bar;
+  }
+
+  return bar;
 }
 ```
 
@@ -78,6 +80,7 @@ function foo1() {
 }
 
 function foo2() {
+
     return;
 }
 
@@ -86,9 +89,7 @@ function foo3(bar) {
 }
 
 function foo4(bar) {
-    if (!bar) {
-        return;
-    }
+    if (!bar) { return };
 }
 
 function foo5(bar) {
@@ -107,11 +108,13 @@ function foo6(bar) {
 
 function foo7(bar) {
     if (!bar) {
+
         return;
     }
 }
 
 function foo8() {
+
     // comment
     return;
 }

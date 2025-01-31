@@ -17,8 +17,8 @@ if (false) {
 
 This rule disallows constant expressions in the test condition of:
 
-- `if`, `for`, `while`, or `do...while` statement
-- `?:` ternary expression
+-   `if`, `for`, `while`, or `do...while` statement
+-   `?:` ternary expression
 
 Examples of **incorrect** code for this rule:
 
@@ -118,9 +118,9 @@ if (input === "hello" || input === "bye") {
 
 This is a string option having following values:
 
-- `"all"` - Disallow constant expressions in all loops.
-- `"allExceptWhileTrue"` (default) - Disallow constant expressions in all loops except `while` loops with expression `true`.
-- `"none"` - Allow constant expressions in loops.
+-   `"all"` - Disallow constant expressions in all loops.
+-   `"allExceptWhileTrue"` (default) - Disallow constant expressions in all loops except `while` loops with expression `true`.
+-   `"none"` - Allow constant expressions in loops.
 
 Or instead you can set the `checkLoops` value to booleans where `true` is same as `"all"` and `false` is same as `"none"`.
 

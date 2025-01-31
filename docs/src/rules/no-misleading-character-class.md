@@ -87,7 +87,7 @@ new RegExp(`[Á-${z}]`, "u"); // variable pattern
 
 This rule has an object option:
 
-- `"allowEscape"`: When set to `true`, the rule allows any grouping of code points inside a character class as long as they are written using escape sequences. This option only has effect on regular expression literals and on regular expressions created with the `RegExp` constructor with a literal argument as a pattern.
+-   `"allowEscape"`: When set to `true`, the rule allows any grouping of code points inside a character class as long as they are written using escape sequences. This option only has effect on regular expression literals and on regular expressions created with the `RegExp` constructor with a literal argument as a pattern.
 
 ### allowEscape
 

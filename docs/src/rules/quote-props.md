@@ -2,8 +2,8 @@
 title: quote-props
 rule_type: suggestion
 further_reading:
-    - https://kangax.github.io/compat-table/es5/#Reserved_words_as_property_names
-    - https://mathiasbynens.be/notes/javascript-properties
+- https://kangax.github.io/compat-table/es5/#Reserved_words_as_property_names
+- https://mathiasbynens.be/notes/javascript-properties
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/quote-props) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -16,7 +16,7 @@ var object1 = {
 };
 
 var object2 = {
-    property: true
+    "property": true
 };
 ```
 
@@ -48,17 +48,17 @@ This rule has two options, a string option and an object option.
 
 String option:
 
-- `"always"` (default) requires quotes around all object literal property names
-- `"as-needed"` disallows quotes around object literal property names that are not strictly required
-- `"consistent"` enforces a consistent quote style; in a given object, either all of the properties should be quoted, or none of the properties should be quoted
-- `"consistent-as-needed"` requires quotes around all object literal property names if any name strictly requires quotes, otherwise disallows quotes around object property names
+* `"always"` (default) requires quotes around all object literal property names
+* `"as-needed"` disallows quotes around object literal property names that are not strictly required
+* `"consistent"` enforces a consistent quote style; in a given object, either all of the properties should be quoted, or none of the properties should be quoted
+* `"consistent-as-needed"` requires quotes around all object literal property names if any name strictly requires quotes, otherwise disallows quotes around object property names
 
 Object option:
 
-- `"keywords": true` requires quotes around language keywords used as object property names (only applies when using `as-needed` or `consistent-as-needed`)
-- `"unnecessary": true` (default) disallows quotes around object literal property names that are not strictly required (only applies when using `as-needed`)
-- `"unnecessary": false` allows quotes around object literal property names that are not strictly required (only applies when using `as-needed`)
-- `"numbers": true` requires quotes around numbers used as object property names (only applies when using `as-needed`)
+* `"keywords": true` requires quotes around language keywords used as object property names (only applies when using `as-needed` or `consistent-as-needed`)
+* `"unnecessary": true` (default) disallows quotes around object literal property names that are not strictly required (only applies when using `as-needed`)
+* `"unnecessary": false` allows quotes around object literal property names that are not strictly required (only applies when using `as-needed`)
+* `"numbers": true` requires quotes around numbers used as object property names (only applies when using `as-needed`)
 
 ### always
 
@@ -85,15 +85,15 @@ Examples of **correct** code for this rule with the default `"always"` option:
 /*eslint quote-props: ["error", "always"]*/
 
 var object1 = {
-    foo: "bar",
-    baz: 42,
+    "foo": "bar",
+    "baz": 42,
     "qux-lorem": true
 };
 
 var object2 = {
-    foo: "bar",
-    baz: 42,
-    "qux-lorem": true
+    'foo': 'bar',
+    'baz': 42,
+    'qux-lorem': true
 };
 
 var object3 = {
@@ -115,10 +115,10 @@ Examples of **incorrect** code for this rule with the `"as-needed"` option:
 /*eslint quote-props: ["error", "as-needed"]*/
 
 var object = {
-    a: 0,
-    0: 0,
-    true: 0,
-    null: 0
+    "a": 0,
+    "0": 0,
+    "true": 0,
+    "null": 0
 };
 ```
 
@@ -138,11 +138,11 @@ var object1 = {
 };
 
 var object2 = {
-    foo: "bar",
+    foo: 'bar',
     baz: 42,
     true: 0,
     0: 0,
-    "qux-lorem": true
+    'qux-lorem': true
 };
 
 var object3 = {
@@ -165,12 +165,12 @@ Examples of **incorrect** code for this rule with the `"consistent"` option:
 
 var object1 = {
     foo: "bar",
-    baz: 42,
+    "baz": 42,
     "qux-lorem": true
 };
 
 var object2 = {
-    foo: "bar",
+    'foo': 'bar',
     baz: 42
 };
 ```
@@ -185,18 +185,18 @@ Examples of **correct** code for this rule with the `"consistent"` option:
 /*eslint quote-props: ["error", "consistent"]*/
 
 var object1 = {
-    foo: "bar",
-    baz: 42,
+    "foo": "bar",
+    "baz": 42,
     "qux-lorem": true
 };
 
 var object2 = {
-    foo: "bar",
-    baz: 42
+    'foo': 'bar',
+    'baz': 42
 };
 
 var object3 = {
-    foo: "bar",
+    foo: 'bar',
     baz: 42
 };
 ```
@@ -214,13 +214,13 @@ Examples of **incorrect** code for this rule with the `"consistent-as-needed"` o
 
 var object1 = {
     foo: "bar",
-    baz: 42,
+    "baz": 42,
     "qux-lorem": true
 };
 
 var object2 = {
-    foo: "bar",
-    baz: 42
+    'foo': 'bar',
+    'baz': 42
 };
 ```
 
@@ -234,13 +234,13 @@ Examples of **correct** code for this rule with the `"consistent-as-needed"` opt
 /*eslint quote-props: ["error", "consistent-as-needed"]*/
 
 var object1 = {
-    foo: "bar",
-    baz: 42,
+    "foo": "bar",
+    "baz": 42,
     "qux-lorem": true
 };
 
 var object2 = {
-    foo: "bar",
+    foo: 'bar',
     baz: 42
 };
 ```
@@ -272,8 +272,8 @@ Examples of additional **incorrect** code for this rule with the `"consistent-as
 /*eslint quote-props: ["error", "consistent-as-needed", { "keywords": true }]*/
 
 var x = {
-    prop: 1,
-    bar: "foo"
+    "prop": 1,
+    "bar": "foo"
 };
 ```
 
@@ -289,8 +289,8 @@ Examples of additional **correct** code for this rule with the `"as-needed", { "
 /*eslint quote-props: ["error", "as-needed", { "keywords": true, "unnecessary": false }]*/
 
 var x = {
-    while: 1,
-    foo: "bar" // Would normally have caused a warning
+    "while": 1,
+    "foo": "bar"  // Would normally have caused a warning
 };
 ```
 
@@ -307,7 +307,7 @@ Examples of additional **incorrect** code for this rule with the `"as-needed", {
 
 var x = {
     100: 1
-};
+}
 ```
 
 :::

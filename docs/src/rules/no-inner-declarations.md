@@ -76,9 +76,9 @@ This rule requires that function declarations and, optionally, variable declarat
 
 This rule has a string and an object option:
 
-- `"functions"` (default) disallows `function` declarations in nested blocks
-- `"both"` disallows `function` and `var` declarations in nested blocks
-- `{ blockScopedFunctions: "allow" }` (default) this option allows `function` declarations in nested blocks when code is in strict mode (code with `"use strict"` tag or ESM modules) and `languageOptions.ecmaVersion` is set to `2015` or above. This option can be disabled by setting it to `"disallow"`.
+-   `"functions"` (default) disallows `function` declarations in nested blocks
+-   `"both"` disallows `function` and `var` declarations in nested blocks
+-   `{ blockScopedFunctions: "allow" }` (default) this option allows `function` declarations in nested blocks when code is in strict mode (code with `"use strict"` tag or ESM modules) and `languageOptions.ecmaVersion` is set to `2015` or above. This option can be disabled by setting it to `"disallow"`.
 
 ### functions
 

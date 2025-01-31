@@ -119,7 +119,7 @@ async function foo(things) {
 In many cases the iterations of a loop are not actually independent of each other, and awaiting in
 the loop is correct. As a few examples:
 
-- The output of one iteration might be used as the input to another.
+-   The output of one iteration might be used as the input to another.
 
     ```js
     async function loopIterationsDependOnEachOther() {
@@ -135,7 +135,7 @@ the loop is correct. As a few examples:
     }
     ```
 
-- Loops may be used to retry asynchronous operations that were unsuccessful.
+-   Loops may be used to retry asynchronous operations that were unsuccessful.
 
     ```js
     async function retryUpTo10Times() {
@@ -149,7 +149,7 @@ the loop is correct. As a few examples:
     }
     ```
 
-- Loops may be used to prevent your code from sending an excessive amount of requests in parallel.
+-   Loops may be used to prevent your code from sending an excessive amount of requests in parallel.
 
     ```js
     async function makeUpdatesToRateLimitedApi(thingsToUpdate) {

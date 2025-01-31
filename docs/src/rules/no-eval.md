@@ -166,8 +166,8 @@ global.eval("var a = 0");
 
 ## Known Limitations
 
-- This rule is warning every `eval()` even if the `eval` is not global's.
-  This behavior is in order to detect calls of direct `eval`. Such as:
+-   This rule is warning every `eval()` even if the `eval` is not global's.
+    This behavior is in order to detect calls of direct `eval`. Such as:
 
     ```js
     module.exports = function (eval) {
@@ -177,7 +177,7 @@ global.eval("var a = 0");
     };
     ```
 
-- This rule cannot catch renaming the global object. Such as:
+-   This rule cannot catch renaming the global object. Such as:
 
     ```js
     var foo = window;

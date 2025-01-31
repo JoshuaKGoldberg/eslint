@@ -15,9 +15,9 @@ This rule aims to enforce a particular style for multiline comments.
 
 This rule has a string option, which can have one of the following values:
 
-- `"starred-block"` (default): Disallows consecutive line comments in favor of block comments. Additionally, requires block comments to have an aligned `*` character before each line.
-- `"bare-block"`: Disallows consecutive line comments in favor of block comments, and disallows block comments from having a `"*"` character before each line. This option ignores JSDoc comments.
-- `"separate-lines"`: Disallows block comments in favor of consecutive line comments. By default, this option ignores JSDoc comments. To also apply this rule to JSDoc comments, set the `checkJSDoc` option to `true`.
+* `"starred-block"` (default): Disallows consecutive line comments in favor of block comments. Additionally, requires block comments to have an aligned `*` character before each line.
+* `"bare-block"`: Disallows consecutive line comments in favor of block comments, and disallows block comments from having a `"*"` character before each line. This option ignores JSDoc comments.
+* `"separate-lines"`: Disallows block comments in favor of consecutive line comments. By default, this option ignores JSDoc comments. To also apply this rule to JSDoc comments, set the `checkJSDoc` option to `true`.
 
 The rule always ignores directive comments such as `/* eslint-disable */`.
 
@@ -26,6 +26,7 @@ Examples of **incorrect** code for this rule with the default `"starred-block"` 
 ::: incorrect
 
 ```js
+
 /* eslint multiline-comment-style: ["error", "starred-block"] */
 
 // this line
@@ -45,12 +46,13 @@ foo();
  * is missing a newline at the end */
 
 /*
- * the star in this line should have a space before it
+* the star in this line should have a space before it
  */
 
 /*
  * the star on the following line should have a space before it
- */
+*/
+
 ```
 
 :::
@@ -112,6 +114,7 @@ Examples of **incorrect** code for this rule with the `"separate-lines"` option:
 ::: incorrect
 
 ```js
+
 /* eslint multiline-comment-style: ["error", "separate-lines"] */
 
 /* This line
@@ -123,6 +126,7 @@ foo();
  * calls foo()
  */
 foo();
+
 ```
 
 :::
@@ -137,6 +141,7 @@ Examples of **correct** code for this rule with the `"separate-lines"` option:
 // This line
 // calls foo()
 foo();
+
 ```
 
 :::
@@ -146,6 +151,7 @@ Examples of **incorrect** code for this rule with the `"separate-lines"` option 
 ::: incorrect
 
 ```js
+
 /* eslint multiline-comment-style: ["error", "separate-lines", { "checkJSDoc": true }] */
 
 /**
@@ -153,6 +159,7 @@ Examples of **incorrect** code for this rule with the `"separate-lines"` option 
  * and I'm not allowed
  */
 foo();
+
 ```
 
 :::
@@ -167,6 +174,7 @@ Examples of **correct** code for this rule with the `"separate-lines"` option an
 // I am a JSDoc comment
 // and I'm not allowed
 foo();
+
 ```
 
 :::

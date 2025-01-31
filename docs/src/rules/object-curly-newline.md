@@ -2,10 +2,10 @@
 title: object-curly-newline
 rule_type: layout
 related_rules:
-    - comma-spacing
-    - key-spacing
-    - object-curly-spacing
-    - object-property-newline
+- comma-spacing
+- key-spacing
+- object-curly-spacing
+- object-property-newline
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/object-curly-newline) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -20,35 +20,32 @@ This rule requires or disallows a line break between `{` and its following token
 
 This rule has either a string option:
 
-- `"always"` requires line breaks after opening and before closing braces
-- `"never"` disallows line breaks after opening and before closing braces
+* `"always"` requires line breaks after opening and before closing braces
+* `"never"` disallows line breaks after opening and before closing braces
 
 Or an object option:
 
-- `"multiline": true` requires line breaks if there are line breaks inside properties or between properties. Otherwise, it disallows line breaks.
-- `"minProperties"` requires line breaks if the number of properties is at least the given integer. By default, an error will also be reported if an object contains linebreaks and has fewer properties than the given integer. However, the second behavior is disabled if the `consistent` option is set to `true`
-- `"consistent": true` (default) requires that either both curly braces, or neither, directly enclose newlines. Note that enabling this option will also change the behavior of the `minProperties` option. (See `minProperties` above for more information)
+* `"multiline": true` requires line breaks if there are line breaks inside properties or between properties. Otherwise, it disallows line breaks.
+* `"minProperties"` requires line breaks if the number of properties is at least the given integer. By default, an error will also be reported if an object contains linebreaks and has fewer properties than the given integer. However, the second behavior is disabled if the `consistent` option is set to `true`
+* `"consistent": true` (default) requires that either both curly braces, or neither, directly enclose newlines. Note that enabling this option will also change the behavior of the `minProperties` option. (See `minProperties` above for more information)
 
 You can specify different options for object literals, destructuring assignments, and named imports and exports:
 
 ```json
 {
-    "object-curly-newline": [
-        "error",
-        {
-            "ObjectExpression": "always",
-            "ObjectPattern": { "multiline": true },
-            "ImportDeclaration": "never",
-            "ExportDeclaration": { "multiline": true, "minProperties": 3 }
-        }
-    ]
+    "object-curly-newline": ["error", {
+        "ObjectExpression": "always",
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+    }]
 }
 ```
 
-- `"ObjectExpression"` configuration for object literals
-- `"ObjectPattern"` configuration for object patterns of destructuring assignments
-- `"ImportDeclaration"` configuration for named imports
-- `"ExportDeclaration"` configuration for named exports
+* `"ObjectExpression"` configuration for object literals
+* `"ObjectPattern"` configuration for object patterns of destructuring assignments
+* `"ImportDeclaration"` configuration for named imports
+* `"ExportDeclaration"` configuration for named exports
 
 ### always
 
@@ -60,24 +57,22 @@ Examples of **incorrect** code for this rule with the `"always"` option:
 /*eslint object-curly-newline: ["error", "always"]*/
 
 let a = {};
-let b = { foo: 1 };
-let c = { foo: 1, bar: 2 };
-let d = { foo: 1, bar: 2 };
-let e = {
-    foo() {
-        dosomething();
-    }
-};
+let b = {foo: 1};
+let c = {foo: 1, bar: 2};
+let d = {foo: 1,
+    bar: 2};
+let e = {foo() {
+    dosomething();
+}};
 
 let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
-let {
-    k = function () {
-        dosomething();
-    }
-} = obj;
+let {f} = obj;
+let {g, h} = obj;
+let {i,
+    j} = obj;
+let {k = function() {
+    dosomething();
+}} = obj;
 ```
 
 :::
@@ -89,30 +84,38 @@ Examples of **correct** code for this rule with the `"always"` option:
 ```js
 /*eslint object-curly-newline: ["error", "always"]*/
 
-let a = {};
+let a = {
+};
 let b = {
     foo: 1
 };
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
 let d = {
     foo: 1,
     bar: 2
 };
 let e = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
-let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
 let {
-    k = function () {
+} = obj;
+let {
+    f
+} = obj;
+let {
+    g, h
+} = obj;
+let {
+    i,
+    j
+} = obj;
+let {
+    k = function() {
         dosomething();
     }
 } = obj;
@@ -129,30 +132,38 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 ```js
 /*eslint object-curly-newline: ["error", "never"]*/
 
-let a = {};
+let a = {
+};
 let b = {
     foo: 1
 };
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
 let d = {
     foo: 1,
     bar: 2
 };
 let e = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
-let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
 let {
-    k = function () {
+} = obj;
+let {
+    f
+} = obj;
+let {
+    g, h
+} = obj;
+let {
+    i,
+    j
+} = obj;
+let {
+    k = function() {
         dosomething();
     }
 } = obj;
@@ -168,24 +179,22 @@ Examples of **correct** code for this rule with the `"never"` option:
 /*eslint object-curly-newline: ["error", "never"]*/
 
 let a = {};
-let b = { foo: 1 };
-let c = { foo: 1, bar: 2 };
-let d = { foo: 1, bar: 2 };
-let e = {
-    foo: function () {
-        dosomething();
-    }
-};
+let b = {foo: 1};
+let c = {foo: 1, bar: 2};
+let d = {foo: 1,
+    bar: 2};
+let e = {foo: function() {
+    dosomething();
+}};
 
 let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
-let {
-    k = function () {
-        dosomething();
-    }
-} = obj;
+let {f} = obj;
+let {g, h} = obj;
+let {i,
+    j} = obj;
+let {k = function() {
+    dosomething();
+}} = obj;
 ```
 
 :::
@@ -199,30 +208,33 @@ Examples of **incorrect** code for this rule with the `{ "multiline": true }` op
 ```js
 /*eslint object-curly-newline: ["error", { "multiline": true }]*/
 
-let a = {};
+let a = {
+};
 let b = {
     foo: 1
 };
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
-let d = { foo: 1, bar: 2 };
-let e = {
-    foo: function () {
-        dosomething();
-    }
-};
+let d = {foo: 1,
+    bar: 2};
+let e = {foo: function() {
+    dosomething();
+}};
 
-let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
 let {
-    k = function () {
-        dosomething();
-    }
 } = obj;
+let {
+    f
+} = obj;
+let {
+    g, h
+} = obj;
+let {i,
+    j} = obj;
+let {k = function() {
+    dosomething();
+}} = obj;
 ```
 
 :::
@@ -235,24 +247,27 @@ Examples of **correct** code for this rule with the `{ "multiline": true }` opti
 /*eslint object-curly-newline: ["error", { "multiline": true }]*/
 
 let a = {};
-let b = { foo: 1 };
-let c = { foo: 1, bar: 2 };
+let b = {foo: 1};
+let c = {foo: 1, bar: 2};
 let d = {
     foo: 1,
     bar: 2
 };
 let e = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
 let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
+let {f} = obj;
+let {g, h} = obj;
 let {
-    k = function () {
+    i,
+    j
+} = obj;
+let {
+    k = function() {
         dosomething();
     }
 } = obj;
@@ -269,24 +284,30 @@ Examples of **incorrect** code for this rule with the `{ "minProperties": 2 }` o
 ```js
 /*eslint object-curly-newline: ["error", { "minProperties": 2 }]*/
 
-let a = {};
+let a = {
+};
 let b = {
     foo: 1
 };
-let c = { foo: 1, bar: 2 };
-let d = { foo: 1, bar: 2 };
+let c = {foo: 1, bar: 2};
+let d = {foo: 1,
+    bar: 2};
 let e = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
-let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
 let {
-    k = function () {
+} = obj;
+let {
+    f
+} = obj;
+let {g, h} = obj;
+let {i,
+    j} = obj;
+let {
+    k = function() {
         dosomething();
     }
 } = obj;
@@ -302,30 +323,30 @@ Examples of **correct** code for this rule with the `{ "minProperties": 2 }` opt
 /*eslint object-curly-newline: ["error", { "minProperties": 2 }]*/
 
 let a = {};
-let b = { foo: 1 };
+let b = {foo: 1};
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
 let d = {
     foo: 1,
     bar: 2
 };
-let e = {
-    foo: function () {
-        dosomething();
-    }
-};
+let e = {foo: function() {
+    dosomething();
+}};
 
 let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
+let {f} = obj;
 let {
-    k = function () {
-        dosomething();
-    }
+    g, h
 } = obj;
+let {
+    i,
+    j
+} = obj;
+let {k = function() {
+    dosomething();
+}} = obj;
 ```
 
 :::
@@ -339,42 +360,42 @@ Examples of **incorrect** code for this rule with the default `{ "consistent": t
 ```js
 /*eslint object-curly-newline: ["error", { "consistent": true }]*/
 
-let a = { foo: 1 };
+let a = {foo: 1
+};
 let b = {
-    foo: 1
+    foo: 1};
+let c = {foo: 1, bar: 2
 };
-let c = { foo: 1, bar: 2 };
 let d = {
-    foo: 1,
-    bar: 2
-};
-let e = {
-    foo: function () {
-        dosomething();
+    foo: 1, bar: 2};
+let e = {foo: function() {
+    dosomething();
     }
 };
 let f = {
-    foo: function () {
-        dosomething();
-    }
-};
+    foo: function() {
+    dosomething();}};
 
-let { g } = obj;
-let { h } = obj;
-let { i, j } = obj;
-let { k, l } = obj;
-let { m, n } = obj;
-let { o, p } = obj;
+let {g
+} = obj;
 let {
-    q = function () {
-        dosomething();
+    h} = obj;
+let {i, j
+} = obj;
+let {k, l
+} = obj;
+let {
+    m, n} = obj;
+let {
+    o, p} = obj;
+let {q = function() {
+    dosomething();
     }
 } = obj;
 let {
-    r = function () {
+    r = function() {
         dosomething();
-    }
-} = obj;
+    }} = obj;
 ```
 
 :::
@@ -387,45 +408,46 @@ Examples of **correct** code for this rule with the default `{ "consistent": tru
 /*eslint object-curly-newline: ["error", { "consistent": true }]*/
 
 let empty1 = {};
-let empty2 = {};
-let a = { foo: 1 };
+let empty2 = {
+};
+let a = {foo: 1};
 let b = {
     foo: 1
 };
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
 let d = {
     foo: 1,
     bar: 2
 };
-let e = {
-    foo: function () {
-        dosomething();
-    }
-};
+let e = {foo: function() {dosomething();}};
 let f = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
 let {} = obj;
-let {} = obj;
-let { g } = obj;
-let { h } = obj;
-let { i, j } = obj;
-let { k, l } = obj;
-let { m, n } = obj;
-let { o, p } = obj;
 let {
-    q = function () {
-        dosomething();
-    }
 } = obj;
+let {g} = obj;
 let {
-    r = function () {
+    h
+} = obj;
+let {i, j} = obj;
+let {
+    k, l
+} = obj;
+let {m,
+    n} = obj;
+let {
+    o,
+    p
+} = obj;
+let {q = function() {dosomething();}} = obj;
+let {
+    r = function() {
         dosomething();
     }
 } = obj;
@@ -443,21 +465,28 @@ Examples of **incorrect** code for this rule with the `{ "ObjectExpression": "al
 /*eslint object-curly-newline: ["error", { "ObjectExpression": "always", "ObjectPattern": "never" }]*/
 
 let a = {};
-let b = { foo: 1 };
-let c = { foo: 1, bar: 2 };
-let d = { foo: 1, bar: 2 };
-let e = {
-    foo: function () {
-        dosomething();
-    }
-};
+let b = {foo: 1};
+let c = {foo: 1, bar: 2};
+let d = {foo: 1,
+    bar: 2};
+let e = {foo: function() {
+    dosomething();
+}};
 
-let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
 let {
-    k = function () {
+} = obj;
+let {
+    f
+} = obj;
+let {
+    g, h
+} = obj;
+let {
+    i,
+    j
+} = obj;
+let {
+    k = function() {
         dosomething();
     }
 } = obj;
@@ -472,33 +501,32 @@ Examples of **correct** code for this rule with the `{ "ObjectExpression": "alwa
 ```js
 /*eslint object-curly-newline: ["error", { "ObjectExpression": "always", "ObjectPattern": "never" }]*/
 
-let a = {};
+let a = {
+};
 let b = {
     foo: 1
 };
 let c = {
-    foo: 1,
-    bar: 2
+    foo: 1, bar: 2
 };
 let d = {
     foo: 1,
     bar: 2
 };
 let e = {
-    foo: function () {
+    foo: function() {
         dosomething();
     }
 };
 
 let {} = obj;
-let { f } = obj;
-let { g, h } = obj;
-let { i, j } = obj;
-let {
-    k = function () {
-        dosomething();
-    }
-} = obj;
+let {f} = obj;
+let {g, h} = obj;
+let {i,
+    j} = obj;
+let {k = function() {
+    dosomething();
+}} = obj;
 ```
 
 :::
@@ -512,12 +540,19 @@ Examples of **incorrect** code for this rule with the `{ "ImportDeclaration": "a
 ```js
 /*eslint object-curly-newline: ["error", { "ImportDeclaration": "always", "ExportDeclaration": "never" }]*/
 
-import { foo, bar } from "foo-bar";
-import { foo as f, baz } from "foo-bar";
-import { qux, foobar } from "foo-bar";
+import {foo, bar} from 'foo-bar';
+import {foo as f, baz} from 'foo-bar';
+import {qux,
+    foobar} from 'foo-bar';
 
-export { foo, bar };
-export { foo as f, baz } from "foo-bar";
+export {
+   foo,
+   bar
+};
+export {
+   foo as f,
+   baz
+} from 'foo-bar';
 ```
 
 :::
@@ -529,12 +564,20 @@ Examples of **correct** code for this rule with the `{ "ImportDeclaration": "alw
 ```js
 /*eslint object-curly-newline: ["error", { "ImportDeclaration": "always", "ExportDeclaration": "never" }]*/
 
-import { foo, bar } from "foo-bar";
-import { baz, qux } from "foo-bar";
-import { foo as f, foobar } from "foo-bar";
+import {
+    foo,
+    bar
+} from 'foo-bar';
+import {
+    baz, qux
+} from 'foo-bar';
+import {
+    foo as f,
+    foobar
+} from 'foo-bar';
 
-export { foo, bar } from "foo-bar";
-export { foo as f, baz } from "foo-bar";
+export { foo, bar } from 'foo-bar';
+export { foo as f, baz } from 'foo-bar';
 ```
 
 :::
@@ -545,5 +588,5 @@ If you don't want to enforce consistent line breaks after opening and before clo
 
 ## Compatibility
 
-- **JSCS**: [requirePaddingNewLinesInObjects](https://jscs-dev.github.io/rule/requirePaddingNewLinesInObjects)
-- **JSCS**: [disallowPaddingNewLinesInObjects](https://jscs-dev.github.io/rule/disallowPaddingNewLinesInObjects)
+* **JSCS**: [requirePaddingNewLinesInObjects](https://jscs-dev.github.io/rule/requirePaddingNewLinesInObjects)
+* **JSCS**: [disallowPaddingNewLinesInObjects](https://jscs-dev.github.io/rule/disallowPaddingNewLinesInObjects)

@@ -2,9 +2,11 @@
 title: yoda
 rule_type: suggestion
 further_reading:
-    - https://en.wikipedia.org/wiki/Yoda_conditions
-    - http://thomas.tuerke.net/on/design/?with=1249091668#msg1146181680
+- https://en.wikipedia.org/wiki/Yoda_conditions
+- http://thomas.tuerke.net/on/design/?with=1249091668#msg1146181680
 ---
+
+
 
 Yoda conditions are so named because the literal value of the condition comes first while the variable comes second. For example, the following is a Yoda condition:
 
@@ -36,13 +38,13 @@ This rule aims to enforce consistent style of conditions which compare a variabl
 
 This rule can take a string option:
 
-- If it is the default `"never"`, then comparisons must never be Yoda conditions.
-- If it is `"always"`, then the literal value must always come first.
+* If it is the default `"never"`, then comparisons must never be Yoda conditions.
+* If it is `"always"`, then the literal value must always come first.
 
 The default `"never"` option can have exception options in an object literal:
 
-- If the `"exceptRange"` property is `true`, the rule _allows_ Yoda conditions in range comparisons which are wrapped directly in parentheses, including the parentheses of an `if` or `while` condition. The default value is `false`. A _range_ comparison tests whether a variable is inside or outside the range between two literal values.
-- If the `"onlyEquality"` property is `true`, the rule reports Yoda conditions _only_ for the equality operators `==` and `===`. The default value is `false`.
+* If the `"exceptRange"` property is `true`, the rule *allows* Yoda conditions in range comparisons which are wrapped directly in parentheses, including the parentheses of an `if` or `while` condition. The default value is `false`. A *range* comparison tests whether a variable is inside or outside the range between two literal values.
+* If the `"onlyEquality"` property is `true`, the rule reports Yoda conditions *only* for the equality operators `==` and `===`. The default value is `false`.
 
 The `onlyEquality` option allows a superset of the exceptions which `exceptRange` allows, thus both options are not useful together.
 
@@ -106,6 +108,7 @@ if (value === `red`) {
 }
 
 if (`${value}` === `red`) {
+
 }
 ```
 
@@ -121,14 +124,14 @@ Examples of **correct** code for the `"never", { "exceptRange": true }` options:
 /*eslint yoda: ["error", "never", { "exceptRange": true }]*/
 
 function isReddish(color) {
-    return color.hue < 60 || 300 < color.hue;
+    return (color.hue < 60 || 300 < color.hue);
 }
 
 if (x < -1 || 1 < x) {
     // ...
 }
 
-if (count < 10 && 0 <= rand && rand < 1) {
+if (count < 10 && (0 <= rand && rand < 1)) {
     // ...
 }
 
@@ -137,7 +140,7 @@ if (`blue` < x && x < `green`) {
 }
 
 function howLong(arr) {
-    return 0 <= arr.length && arr.length < 10 ? "short" : "long";
+    return (0 <= arr.length && arr.length < 10) ? "short" : "long";
 }
 ```
 
@@ -155,7 +158,7 @@ Examples of **correct** code for the `"never", { "onlyEquality": true }` options
 if (x < -1 || 9 < x) {
 }
 
-if (x !== "foo" && "bar" != x) {
+if (x !== 'foo' && 'bar' != x) {
 }
 
 if (x !== `foo` && `bar` != x) {

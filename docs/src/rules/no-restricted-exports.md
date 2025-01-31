@@ -15,14 +15,14 @@ By default, this rule doesn't disallow any names. Only the names you specify in 
 
 This rule has an object option:
 
-- `"restrictedNamedExports"` is an array of strings, where each string is a name to be restricted.
-- `"restrictedNamedExportsPattern"` is a string representing a regular expression pattern. Named exports matching this pattern will be restricted. This option does not apply to `default` named exports.
-- `"restrictDefaultExports"` is an object option with boolean properties to restrict certain default export declarations. The option works only if the `restrictedNamedExports` option does not contain the `"default"` value. The following properties are allowed:
-    - `direct`: restricts `export default` declarations.
-    - `named`: restricts `export { foo as default };` declarations.
-    - `defaultFrom`: restricts `export { default } from 'foo';` declarations.
-    - `namedFrom`: restricts `export { foo as default } from 'foo';` declarations.
-    - `namespaceFrom`: restricts `export * as default from 'foo';` declarations.
+-   `"restrictedNamedExports"` is an array of strings, where each string is a name to be restricted.
+-   `"restrictedNamedExportsPattern"` is a string representing a regular expression pattern. Named exports matching this pattern will be restricted. This option does not apply to `default` named exports.
+-   `"restrictDefaultExports"` is an object option with boolean properties to restrict certain default export declarations. The option works only if the `restrictedNamedExports` option does not contain the `"default"` value. The following properties are allowed:
+    -   `direct`: restricts `export default` declarations.
+    -   `named`: restricts `export { foo as default };` declarations.
+    -   `defaultFrom`: restricts `export { default } from 'foo';` declarations.
+    -   `namedFrom`: restricts `export { foo as default } from 'foo';` declarations.
+    -   `namespaceFrom`: restricts `export * as default from 'foo';` declarations.
 
 ### restrictedNamedExports
 

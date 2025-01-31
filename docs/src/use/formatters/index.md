@@ -14,10 +14,10 @@ You can specify a formatter using the `--format` or `-f` flag in the CLI. For ex
 
 The built-in formatter options are:
 
-- [html](#html)
-- [json-with-metadata](#json-with-metadata)
-- [json](#json)
-- [stylish](#stylish)
+-   [html](#html)
+-   [json-with-metadata](#json-with-metadata)
+-   [json](#json)
+-   [stylish](#stylish)
 
 ## Example Source
 

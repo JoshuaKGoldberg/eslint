@@ -10,8 +10,8 @@ further_reading:
 Although not being specified in the language until ECMAScript 2021, `\8` and `\9` escape sequences in string literals were allowed in most JavaScript engines, and treated as "useless" escapes:
 
 ```js
-"\8" === "8"; // true
-"\9" === "9"; // true
+"8" === "8"; // true
+"9" === "9"; // true
 ```
 
 Since ECMAScript 2021, these escape sequences are specified as [non-octal decimal escape sequences](https://tc39.es/ecma262/#prod-annexB-NonOctalDecimalEscapeSequence), retaining the same behavior.
@@ -35,13 +35,13 @@ Examples of **incorrect** code for this rule:
 
 "\9";
 
-var foo = "w\8less";
+var foo = "w8less";
 
-var bar = "December 1\9";
+var bar = "December 19";
 
-var baz = "Don't use \8 and \9 escapes.";
+var baz = "Don't use 8 and 9 escapes.";
 
-var quux = "\0\8";
+var quux = "\08";
 ```
 
 :::

@@ -8,8 +8,8 @@ further_reading:
 
 There are two ways to create a regular expression:
 
-- Regular expression literals, e.g., `/abc/u`.
-- The `RegExp` constructor function, e.g., `new RegExp("abc", "u")` or `RegExp("abc", "u")`.
+-   Regular expression literals, e.g., `/abc/u`.
+-   The `RegExp` constructor function, e.g., `new RegExp("abc", "u")` or `RegExp("abc", "u")`.
 
 The constructor function is particularly useful when you want to dynamically generate the pattern,
 because it takes string arguments.
@@ -30,7 +30,7 @@ In the above example, the regular expression literal is easier to read and reaso
 Also, it's a common mistake to omit the extra `\` in the string literal, which would produce a completely different regular expression:
 
 ```js
-new RegExp("^\d\.$");
+new RegExp("^d.$");
 
 // equivalent to /^d.$/, matches "d1", "d2", "da", "db" ...
 ```
@@ -106,7 +106,7 @@ new RegExp(String.raw`^\d\. ${suffix}`);
 
 This rule has an object option:
 
-- `disallowRedundantWrapping` set to `true` additionally checks for unnecessarily wrapped regex literals (Default `false`).
+-   `disallowRedundantWrapping` set to `true` additionally checks for unnecessarily wrapped regex literals (Default `false`).
 
 ### disallowRedundantWrapping
 
