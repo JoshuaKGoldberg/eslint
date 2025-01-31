@@ -3787,13 +3787,11 @@ describe("LegacyESLint", () => {
                 );
 
                 // Simulate a read-only file system.
-                sinon
-                    .stub(fs, "unlinkSync")
-                    .throws(
-                        Object.assign(new Error("read-only file system"), {
-                            code: "EROFS"
-                        })
-                    );
+                sinon.stub(fs, "unlinkSync").throws(
+                    Object.assign(new Error("read-only file system"), {
+                        code: "EROFS"
+                    })
+                );
 
                 const eslintOptions = {
                     useEslintrc: false,
