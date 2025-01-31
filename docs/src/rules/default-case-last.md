@@ -2,11 +2,10 @@
 title: default-case-last
 rule_type: suggestion
 related_rules:
-- default-case
+    - default-case
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
 ---
-
 
 A `switch` statement can optionally have a `default` clause.
 
@@ -71,10 +70,10 @@ switch (foo) {
 }
 
 switch (foo) {
-  default:
-    doSomethingIfNotZero();
-  case 0:
-    doSomethingAnyway();
+    default:
+        doSomethingIfNotZero();
+    case 0:
+        doSomethingAnyway();
 }
 ```
 

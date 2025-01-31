@@ -3,13 +3,12 @@ title: no-magic-numbers
 rule_type: suggestion
 ---
 
-
 'Magic numbers' are numbers that occur multiple times in code without an explicit meaning.
 They should preferably be replaced by named constants.
 
 ```js
 var now = Date.now(),
-    inOneHour = now + (60 * 60 * 1000);
+    inOneHour = now + 60 * 60 * 1000;
 ```
 
 ## Rule Details
@@ -25,7 +24,7 @@ Examples of **incorrect** code for this rule:
 /*eslint no-magic-numbers: "error"*/
 
 var dutyFreePrice = 100,
-    finalPrice = dutyFreePrice + (dutyFreePrice * 0.25);
+    finalPrice = dutyFreePrice + dutyFreePrice * 0.25;
 ```
 
 :::
@@ -35,7 +34,7 @@ var dutyFreePrice = 100,
 ```js
 /*eslint no-magic-numbers: "error"*/
 
-var data = ['foo', 'bar', 'baz'];
+var data = ["foo", "bar", "baz"];
 
 var dataLast = data[2];
 ```
@@ -64,7 +63,7 @@ Examples of **correct** code for this rule:
 var TAX = 0.25;
 
 var dutyFreePrice = 100,
-    finalPrice = dutyFreePrice + (dutyFreePrice * TAX);
+    finalPrice = dutyFreePrice + dutyFreePrice * TAX;
 ```
 
 :::
@@ -86,7 +85,7 @@ Examples of **correct** code for the sample `{ "ignore": [1] }` option:
 ```js
 /*eslint no-magic-numbers: ["error", { "ignore": [1] }]*/
 
-var data = ['foo', 'bar', 'baz'];
+var data = ["foo", "bar", "baz"];
 var dataLast = data.length && data[data.length - 1];
 ```
 
@@ -129,7 +128,7 @@ f(data[0]);
 
 a = data[-0]; // same as data[0], -0 will be coerced to "0"
 
-a = data[0xAB];
+a = data[0xab];
 
 a = data[5.6e1];
 
@@ -177,7 +176,9 @@ Examples of **correct** code for the `{ "ignoreDefaultValues": true }` option:
 
 const { tax = 0.25 } = accountancy;
 
-function mapParallel(concurrency = 3) { /***/ }
+function mapParallel(concurrency = 3) {
+    /***/
+}
 ```
 
 :::
@@ -188,7 +189,7 @@ function mapParallel(concurrency = 3) { /***/ }
 /*eslint no-magic-numbers: ["error", { "ignoreDefaultValues": true }]*/
 
 let head;
-[head = 100] = []
+[head = 100] = [];
 ```
 
 :::
@@ -246,7 +247,7 @@ Examples of **incorrect** code for the `{ "enforceConst": true }` option:
 var TAX = 0.25;
 
 var dutyFreePrice = 100,
-    finalPrice = dutyFreePrice + (dutyFreePrice * TAX);
+    finalPrice = dutyFreePrice + dutyFreePrice * TAX;
 ```
 
 :::
@@ -263,11 +264,11 @@ Examples of **incorrect** code for the `{ "detectObjects": true }` option:
 /*eslint no-magic-numbers: ["error", { "detectObjects": true }]*/
 
 var magic = {
-  tax: 0.25
+    tax: 0.25
 };
 
 var dutyFreePrice = 100,
-    finalPrice = dutyFreePrice + (dutyFreePrice * magic.tax);
+    finalPrice = dutyFreePrice + dutyFreePrice * magic.tax;
 ```
 
 :::
@@ -282,11 +283,11 @@ Examples of **correct** code for the `{ "detectObjects": true }` option:
 var TAX = 0.25;
 
 var magic = {
-  tax: TAX
+    tax: TAX
 };
 
 var dutyFreePrice = 100,
-    finalPrice = dutyFreePrice + (dutyFreePrice * magic.tax);
+    finalPrice = dutyFreePrice + dutyFreePrice * magic.tax;
 ```
 
 :::

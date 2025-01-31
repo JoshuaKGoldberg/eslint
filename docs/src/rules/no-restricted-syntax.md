@@ -2,12 +2,11 @@
 title: no-restricted-syntax
 rule_type: suggestion
 related_rules:
-- no-alert
-- no-console
-- no-debugger
-- no-restricted-properties
+    - no-alert
+    - no-console
+    - no-debugger
+    - no-restricted-properties
 ---
-
 
 JavaScript has a lot of language features, and not everyone likes all of them. As a result, some projects choose to disallow the use of certain language features altogether. For instance, you might decide to disallow the use of `try-catch` or `class`, or you might decide to disallow the use of the `in` operator.
 
@@ -17,8 +16,8 @@ You can also specify [AST selectors](../extend/selectors) to restrict, allowing 
 
 Note: This rule can be used with any language you lint using ESLint. To see what type of nodes your code in another language consists of, you can use:
 
-* [typescript-eslint Playground](https://typescript-eslint.io/play) if you're using ESLint with `typescript-eslint`.
-* [ESLint Code Explorer](https://explorer.eslint.org/) if you're using ESLint to lint JavaScript, JSON, Markdown, or CSS.
+- [typescript-eslint Playground](https://typescript-eslint.io/play) if you're using ESLint with `typescript-eslint`.
+- [ESLint Code Explorer](https://explorer.eslint.org/) if you're using ESLint to lint JavaScript, JSON, Markdown, or CSS.
 
 ## Rule Details
 
@@ -31,7 +30,12 @@ This rule takes a list of strings, where each string is an AST selector:
 ```json
 {
     "rules": {
-        "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"]
+        "no-restricted-syntax": [
+            "error",
+            "FunctionExpression",
+            "WithStatement",
+            "BinaryExpression[operator='in']"
+        ]
     }
 }
 ```
@@ -87,7 +91,7 @@ Examples of **correct** code for this rule with the `"FunctionExpression", "With
 
 me.dontMess();
 
-function doSomething() {};
+function doSomething() {}
 
 foo instanceof bar;
 ```

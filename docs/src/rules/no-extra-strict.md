@@ -2,7 +2,7 @@
 title: no-extra-strict
 
 further_reading:
-- https://es5.github.io/#C
+    - https://es5.github.io/#C
 ---
 
 Disallows strict mode directives when already in strict mode.
@@ -19,7 +19,7 @@ The `"use strict";` directive applies to the scope in which it appears and all i
 (function () {
     "use strict";
     var foo = true;
-}());
+})();
 ```
 
 ## Rule Details
@@ -36,7 +36,7 @@ Example of **incorrect** code for this rule:
 (function () {
     "use strict";
     var foo = true;
-}());
+})();
 ```
 
 :::
@@ -50,7 +50,7 @@ Examples of **correct** code for this rule:
 
 (function () {
     var foo = true;
-}());
+})();
 ```
 
 :::
@@ -61,7 +61,7 @@ Examples of **correct** code for this rule:
 (function () {
     "use strict";
     var foo = true;
-}());
+})();
 ```
 
 :::

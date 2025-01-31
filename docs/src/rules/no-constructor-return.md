@@ -3,7 +3,6 @@ title: no-constructor-return
 rule_type: problem
 ---
 
-
 In JavaScript, returning a value in the constructor of a class may be a mistake. Forbidding this pattern prevents mistakes resulting from unfamiliarity with the language or a copy-paste error.
 
 ## Rule Details
@@ -27,7 +26,7 @@ class A {
 class B {
     constructor(f) {
         if (!f) {
-            return 'falsy';
+            return "falsy";
         }
     }
 }
@@ -51,7 +50,7 @@ class C {
 class D {
     constructor(f) {
         if (!f) {
-            return;  // Flow control.
+            return; // Flow control.
         }
 
         f();
@@ -63,7 +62,6 @@ class E {
         return;
     }
 }
-
 ```
 
 :::

@@ -2,17 +2,16 @@
 title: no-promise-executor-return
 rule_type: problem
 related_rules:
-- no-async-promise-executor
+    - no-async-promise-executor
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 ---
 
-
-The `new Promise` constructor accepts a single argument, called an *executor*.
+The `new Promise` constructor accepts a single argument, called an _executor_.
 
 ```js
 const myPromise = new Promise(function executor(resolve, reject) {
-    readFile('foo.txt', function(err, result) {
+    readFile("foo.txt", function (err, result) {
         if (err) {
             reject(err);
         } else {
@@ -52,19 +51,21 @@ new Promise((resolve, reject) => {
     });
 });
 
-new Promise((resolve, reject) => getSomething((err, data) => {
-    if (err) {
-        reject(err);
-    } else {
-        resolve(data);
-    }
-}));
+new Promise((resolve, reject) =>
+    getSomething((err, data) => {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(data);
+        }
+    })
+);
 
 new Promise(() => {
     return 1;
 });
 
-new Promise(r => r(1));
+new Promise((r) => r(1));
 ```
 
 :::
@@ -102,7 +103,9 @@ new Promise((resolve, reject) => {
     });
 });
 
-new Promise(r => { r(1) });
+new Promise((r) => {
+    r(1);
+});
 // or just use Promise.resolve
 Promise.resolve(1);
 ```
@@ -113,7 +116,7 @@ Promise.resolve(1);
 
 This rule takes one option, an object, with the following properties:
 
-* `allowVoid`: If set to `true` (`false` by default), this rule will allow returning void values.
+- `allowVoid`: If set to `true` (`false` by default), this rule will allow returning void values.
 
 ### allowVoid
 
@@ -137,15 +140,18 @@ new Promise((resolve, reject) => {
     });
 });
 
-new Promise((resolve, reject) => void getSomething((err, data) => {
-    if (err) {
-        reject(err);
-    } else {
-        resolve(data);
-    }
-}));
+new Promise(
+    (resolve, reject) =>
+        void getSomething((err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        })
+);
 
-new Promise(r => void r(1));
+new Promise((r) => void r(1));
 ```
 
 :::

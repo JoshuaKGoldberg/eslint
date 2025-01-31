@@ -2,16 +2,14 @@
 title: no-cond-assign
 rule_type: problem
 related_rules:
-- no-extra-parens
+    - no-extra-parens
 ---
-
-
 
 In conditional statements, it is very easy to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`). For example:
 
 ```js
 // Check the user's job title
-if (user.jobTitle = "manager") {
+if ((user.jobTitle = "manager")) {
     // user.jobTitle is now incorrect
 }
 ```
@@ -26,8 +24,8 @@ This rule disallows ambiguous assignment operators in test conditions of `if`, `
 
 This rule has a string option:
 
-* `"except-parens"` (default) allows assignments in test conditions *only if* they are enclosed in parentheses (for example, to allow reassigning a variable in the test of a `while` or `do...while` loop).
-* `"always"` disallows all assignments in test conditions.
+- `"except-parens"` (default) allows assignments in test conditions _only if_ they are enclosed in parentheses (for example, to allow reassigning a variable in the test of a `while` or `do...while` loop).
+- `"always"` disallows all assignments in test conditions.
 
 ### except-parens
 
@@ -40,7 +38,7 @@ Examples of **incorrect** code for this rule with the default `"except-parens"` 
 
 // Unintentional assignment
 let x;
-if (x = 0) {
+if ((x = 0)) {
     const b = 1;
 }
 
@@ -48,8 +46,8 @@ if (x = 0) {
 const setHeight = function (someNode) {
     do {
         someNode.height = "100px";
-    } while (someNode = someNode.parentNode);
-}
+    } while ((someNode = someNode.parentNode));
+};
 ```
 
 :::
@@ -72,14 +70,14 @@ const setHeight = function (someNode) {
     do {
         someNode.height = "100px";
     } while ((someNode = someNode.parentNode));
-}
+};
 
 // Practical example that wraps the assignment and tests for 'null'
 const set_height = function (someNode) {
     do {
         someNode.height = "100px";
     } while ((someNode = someNode.parentNode) !== null);
-}
+};
 ```
 
 :::
@@ -95,7 +93,7 @@ Examples of **incorrect** code for this rule with the `"always"` option:
 
 // Unintentional assignment
 let x;
-if (x = 0) {
+if ((x = 0)) {
     const b = 1;
 }
 
@@ -103,22 +101,22 @@ if (x = 0) {
 const setHeight = function (someNode) {
     do {
         someNode.height = "100px";
-    } while (someNode = someNode.parentNode);
-}
+    } while ((someNode = someNode.parentNode));
+};
 
 // Practical example that wraps the assignment in parentheses
 const set_height = function (someNode) {
     do {
         someNode.height = "100px";
     } while ((someNode = someNode.parentNode));
-}
+};
 
 // Practical example that wraps the assignment and tests for 'null'
 const heightSetter = function (someNode) {
     do {
         someNode.height = "100px";
     } while ((someNode = someNode.parentNode) !== null);
-}
+};
 ```
 
 :::

@@ -2,7 +2,7 @@
 title: implicit-arrow-linebreak
 rule_type: layout
 related_rules:
-- brace-style
+    - brace-style
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/implicit-arrow-linebreak) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -17,8 +17,8 @@ This rule aims to enforce a consistent location for an arrow function containing
 
 This rule accepts a string option:
 
-* `"beside"` (default) disallows a newline before an arrow function body.
-* `"below"` requires a newline before an arrow function body.
+- `"beside"` (default) disallows a newline before an arrow function body.
+- `"below"` requires a newline before an arrow function body.
 
 Examples of **incorrect** code for this rule with the default `"beside"` option:
 
@@ -27,20 +27,13 @@ Examples of **incorrect** code for this rule with the default `"beside"` option:
 ```js
 /* eslint implicit-arrow-linebreak: ["error", "beside"] */
 
-(foo) =>
-  bar;
+(foo) => bar;
 
-(foo) =>
-  (bar);
+(foo) => bar;
 
-(foo) =>
-  bar =>
-    baz;
+(foo) => (bar) => baz;
 
-(foo) =>
-(
-  bar()
-);
+(foo) => bar();
 ```
 
 :::
@@ -54,24 +47,21 @@ Examples of **correct** code for this rule with the default `"beside"` option:
 
 (foo) => bar;
 
-(foo) => (bar);
+(foo) => bar;
 
-(foo) => bar => baz;
+(foo) => (bar) => baz;
 
-(foo) => (
-  bar()
-);
+(foo) => bar();
 
 // functions with block bodies allowed with this rule using any style
 // to enforce a consistent location for this case, see the rule: `brace-style`
 (foo) => {
-  return bar();
-}
+    return bar();
+};
 
-(foo) =>
-{
-  return bar();
-}
+(foo) => {
+    return bar();
+};
 ```
 
 :::
@@ -85,9 +75,9 @@ Examples of **incorrect** code for this rule with the `"below"` option:
 
 (foo) => bar;
 
-(foo) => (bar);
+(foo) => bar;
 
-(foo) => bar => baz;
+(foo) => (bar) => baz;
 ```
 
 :::
@@ -99,15 +89,11 @@ Examples of **correct** code for this rule with the `"below"` option:
 ```js
 /* eslint implicit-arrow-linebreak: ["error", "below"] */
 
-(foo) =>
-  bar;
+(foo) => bar;
 
-(foo) =>
-  (bar);
+(foo) => bar;
 
-(foo) =>
-  bar =>
-    baz;
+(foo) => (bar) => baz;
 ```
 
 :::

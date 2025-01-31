@@ -3,8 +3,6 @@ title: no-self-assign
 rule_type: problem
 ---
 
-
-
 Self assignments have no effect, so probably those are an error due to incomplete refactoring.
 Those indicate that what you should do is still remaining.
 
@@ -30,7 +28,7 @@ foo = foo;
 
 [a, ...b] = [x, ...b];
 
-({a, b} = {a, x});
+({ a, b } = { a, x });
 
 foo &&= foo;
 foo ||= foo;
@@ -82,11 +80,11 @@ This rule has the option to check properties as well.
 
 ```json
 {
-    "no-self-assign": ["error", {"props": true}]
+    "no-self-assign": ["error", { "props": true }]
 }
 ```
 
-* `props` - if this is `true`, `no-self-assign` rule warns self-assignments of properties. Default is `true`.
+- `props` - if this is `true`, `no-self-assign` rule warns self-assignments of properties. Default is `true`.
 
 ### props
 

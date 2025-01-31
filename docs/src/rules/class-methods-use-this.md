@@ -2,12 +2,11 @@
 title: class-methods-use-this
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static
 ---
 
-
-If a class method does not use `this`, it can *sometimes* be made into a static function. If you do convert the method into a static function, instances of the class that call that particular method have to be converted to a static call as well (`MyClass.callStaticMethod()`)
+If a class method does not use `this`, it can _sometimes_ be made into a static function. If you do convert the method into a static function, instances of the class that call that particular method have to be converted to a static call as well (`MyClass.callStaticMethod()`)
 
 It's possible to have a class method which doesn't use `this`, such as:
 
@@ -50,7 +49,7 @@ class A {
 A.sayHi(); // => "hi"
 ```
 
-Also note in the above examples that if you switch a method to a static method, *instances* of the class that call the static method (`let a = new A(); a.sayHi();`) have to be updated to being a static call (`A.sayHi();`) instead of having the instance of the *class* call the method.
+Also note in the above examples that if you switch a method to a static method, _instances_ of the class that call the static method (`let a = new A(); a.sayHi();`) have to be updated to being a static call (`A.sayHi();`) instead of having the instance of the _class_ call the method.
 
 ## Rule Details
 
@@ -65,7 +64,9 @@ Examples of **incorrect** code for this rule:
 
 class A {
     foo() {
-        console.log("Hello World");     /*error Expected 'this' to be used by class method 'foo'.*/
+        console.log(
+            "Hello World"
+        ); /*error Expected 'this' to be used by class method 'foo'.*/
     }
 }
 ```
@@ -108,8 +109,8 @@ class C {
 
 This rule has two options:
 
-* `"exceptMethods"` allows specified method names to be ignored with this rule.
-* `"enforceForClassFields"` enforces that functions used as instance field initializers utilize `this`. (default: `true`)
+- `"exceptMethods"` allows specified method names to be ignored with this rule.
+- `"enforceForClassFields"` enforces that functions used as instance field initializers utilize `this`. (default: `true`)
 
 ### exceptMethods
 
@@ -127,8 +128,7 @@ Examples of **incorrect** code for this rule when used without `"exceptMethods"`
 /*eslint class-methods-use-this: "error"*/
 
 class A {
-    foo() {
-    }
+    foo() {}
 }
 ```
 
@@ -142,10 +142,8 @@ Examples of **correct** code for this rule when used with exceptMethods:
 /*eslint class-methods-use-this: ["error", { "exceptMethods": ["foo", "#bar"] }] */
 
 class A {
-    foo() {
-    }
-    #bar() {
-    }
+    foo() {}
+    #bar() {}
 }
 ```
 
@@ -167,7 +165,7 @@ Examples of **incorrect** code for this rule with the `{ "enforceForClassFields"
 /*eslint class-methods-use-this: ["error", { "enforceForClassFields": true }] */
 
 class A {
-    foo = () => {}
+    foo = () => {};
 }
 ```
 
@@ -181,7 +179,9 @@ Examples of **correct** code for this rule with the `{ "enforceForClassFields": 
 /*eslint class-methods-use-this: ["error", { "enforceForClassFields": true }] */
 
 class A {
-    foo = () => {this;}
+    foo = () => {
+        this;
+    };
 }
 ```
 
@@ -195,7 +195,7 @@ Examples of **correct** code for this rule with the `{ "enforceForClassFields": 
 /*eslint class-methods-use-this: ["error", { "enforceForClassFields": false }] */
 
 class A {
-    foo = () => {}
+    foo = () => {};
 }
 ```
 

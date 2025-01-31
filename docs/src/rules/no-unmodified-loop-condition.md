@@ -3,7 +3,6 @@ title: no-unmodified-loop-condition
 rule_type: problem
 ---
 
-
 Variables in a loop condition often are modified in the loop.
 If not, it's possibly a mistake.
 
@@ -44,7 +43,7 @@ while (node) {
 }
 node = other;
 
-for (let j = 0; j < 5;) {
+for (let j = 0; j < 5; ) {
     doSomething(j);
 }
 

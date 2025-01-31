@@ -2,13 +2,13 @@
 title: prefer-destructuring
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-- https://2ality.com/2015/01/es6-destructuring.html
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    - https://2ality.com/2015/01/es6-destructuring.html
 ---
 
-
 <!-- markdownlint-disable-next-line MD051 -->
-With JavaScript ES6, a new syntax was added for creating variables from an array index or object property, called [destructuring](#further-reading).  This rule enforces usage of destructuring instead of accessing a property through a member expression.
+
+With JavaScript ES6, a new syntax was added for creating variables from an array index or object property, called [destructuring](#further-reading). This rule enforces usage of destructuring instead of accessing a property through a member expression.
 
 ## Rule Details
 
@@ -20,12 +20,15 @@ In the first object, there are two properties, `array` and `object`, that can be
 
 ```json
 {
-  "rules": {
-    "prefer-destructuring": ["error", {
-      "array": true,
-      "object": true
-    }]
-  }
+    "rules": {
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": true,
+                "object": true
+            }
+        ]
+    }
 }
 ```
 
@@ -33,9 +36,9 @@ For example, the following configuration enforces only object destructuring, but
 
 ```json
 {
-  "rules": {
-    "prefer-destructuring": ["error", {"object": true, "array": false}]
-  }
+    "rules": {
+        "prefer-destructuring": ["error", { "object": true, "array": false }]
+    }
 }
 ```
 
@@ -52,7 +55,7 @@ bar.baz = array[0];
 
 // With `object` enabled
 var foo = object.foo;
-var foo = object['foo'];
+var foo = object["foo"];
 ```
 
 :::
@@ -65,10 +68,9 @@ Examples of **correct** code for this rule:
 /* eslint prefer-destructuring: "error" */
 
 // With `array` enabled
-var [ foo ] = array;
+var [foo] = array;
 var foo = array[someIndex];
 [bar.baz] = array;
-
 
 // With `object` enabled
 var { foo } = object;
@@ -83,22 +85,25 @@ let bar;
 
 Alternatively, you can use separate configurations for different assignment types. The first argument accepts two other keys instead of `array` and `object`.
 
-One key is `VariableDeclarator` and the other is `AssignmentExpression`, which can be used to control the destructuring requirement for each of those types independently. Each property is an object containing two properties, `array` and `object`, which can be used to control the destructuring requirement for each of `array` and `object` independently for variable declarations and assignment expressions.  By default, `array` and `object` are set to `true` for both `VariableDeclarator` and `AssignmentExpression`.
+One key is `VariableDeclarator` and the other is `AssignmentExpression`, which can be used to control the destructuring requirement for each of those types independently. Each property is an object containing two properties, `array` and `object`, which can be used to control the destructuring requirement for each of `array` and `object` independently for variable declarations and assignment expressions. By default, `array` and `object` are set to `true` for both `VariableDeclarator` and `AssignmentExpression`.
 
 ```json
 {
-  "rules": {
-    "prefer-destructuring": ["error", {
-      "VariableDeclarator": {
-        "array": true,
-        "object": true
-      },
-      "AssignmentExpression": {
-        "array": true,
-        "object": true
-      }
-    }]
-  }
+    "rules": {
+        "prefer-destructuring": [
+            "error",
+            {
+                "VariableDeclarator": {
+                    "array": true,
+                    "object": true
+                },
+                "AssignmentExpression": {
+                    "array": true,
+                    "object": true
+                }
+            }
+        ]
+    }
 }
 ```
 
@@ -108,7 +113,7 @@ Examples of **correct** code when object destructuring in `VariableDeclarator` i
 
 ```javascript
 /* eslint prefer-destructuring: ["error", {VariableDeclarator: {object: true}}] */
-var {bar: foo} = object;
+var { bar: foo } = object;
 ```
 
 :::
@@ -130,15 +135,17 @@ The rule has a second object argument with a single key, `enforceForRenamedPrope
 
 ```json
 {
-  "rules": {
-    "prefer-destructuring": ["error",
-    {
-      "object": true
-    },
-    {
-      "enforceForRenamedProperties": true
-    }]
-  }
+    "rules": {
+        "prefer-destructuring": [
+            "error",
+            {
+                "object": true
+            },
+            {
+                "enforceForRenamedProperties": true
+            }
+        ]
+    }
 }
 ```
 
@@ -182,8 +189,8 @@ class C {
 
 **Note**: It is not possible to determine if a variable will be referring to an object or an array at runtime. This rule therefore guesses the assignment type by checking whether the key being accessed is an integer. This can lead to the following possibly confusing situations:
 
-* Accessing an object property whose key is an integer will fall under the category `array` destructuring.
-* Accessing an array element through a computed index will fall under the category `object` destructuring.
+- Accessing an object property whose key is an integer will fall under the category `array` destructuring.
+- Accessing an array element through a computed index will fall under the category `object` destructuring.
 
 The `--fix` option on the command line fixes only problems reported in variable declarations, and among them only those that fall under the category `object` destructuring. Furthermore, the name of the declared variable has to be the same as the name used for non-computed member access in the initializer. For example, `var foo = object.foo` can be automatically fixed by this rule. Problems that involve computed member access (e.g., `var foo = object[foo]`) or renamed properties (e.g., `var foo = object.bar`) are not automatically fixed.
 
@@ -202,7 +209,7 @@ Then the `array` part of this rule is not recommended, as destructuring does not
 Or for non-iterable 'array-like' objects:
 
 ```javascript
-var $ = require('jquery');
-var foo = $('body')[0];
-var [bar] = $('body'); // fails with a TypeError
+var $ = require("jquery");
+var foo = $("body")[0];
+var [bar] = $("body"); // fails with a TypeError
 ```

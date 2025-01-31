@@ -2,8 +2,8 @@
 title: padded-blocks
 rule_type: layout
 related_rules:
-- lines-between-class-members
-- padding-line-between-statements
+    - lines-between-class-members
+    - padding-line-between-statements
 ---
 
 This rule was **deprecated** in ESLint v8.53.0. Please use the [corresponding rule](https://eslint.style/rules/js/padded-blocks) in [`@stylistic/eslint-plugin-js`](https://eslint.style/packages/js).
@@ -13,9 +13,7 @@ to improve readability by visually separating the block content and the surround
 
 ```js
 if (a) {
-
     b();
-
 }
 ```
 
@@ -35,18 +33,18 @@ The second one is an object option, it can allow exceptions.
 
 String option:
 
-* `"always"` (default) requires empty lines at the beginning and ending of block statements, function bodies, class static blocks, classes, and `switch` statements.
-* `"never"` disallows empty lines at the beginning and ending of block statements, function bodies, class static blocks, classes, and `switch` statements.
+- `"always"` (default) requires empty lines at the beginning and ending of block statements, function bodies, class static blocks, classes, and `switch` statements.
+- `"never"` disallows empty lines at the beginning and ending of block statements, function bodies, class static blocks, classes, and `switch` statements.
 
 Object option:
 
-* `"blocks"` require or disallow padding within block statements, function bodies, and class static blocks
-* `"classes"` require or disallow padding within classes
-* `"switches"` require or disallow padding within `switch` statements
+- `"blocks"` require or disallow padding within block statements, function bodies, and class static blocks
+- `"classes"` require or disallow padding within classes
+- `"switches"` require or disallow padding within `switch` statements
 
 ### Second option
 
-* `"allowSingleLineBlocks": true` allows single-line blocks
+- `"allowSingleLineBlocks": true` allows single-line blocks
 
 ### always
 
@@ -61,22 +59,21 @@ if (a) {
     b();
 }
 
-if (a) { b(); }
-
-if (a)
-{
+if (a) {
     b();
 }
 
 if (a) {
     b();
+}
 
+if (a) {
+    b();
 }
 
 if (a) {
     // comment
     b();
-
 }
 
 class C {
@@ -96,33 +93,22 @@ Examples of **correct** code for this rule with the default `"always"` option:
 /*eslint padded-blocks: ["error", "always"]*/
 
 if (a) {
-
     b();
-
-}
-
-if (a)
-{
-
-    b();
-
 }
 
 if (a) {
+    b();
+}
 
+if (a) {
     // comment
     b();
-
 }
 
 class C {
-
     static {
-
         a();
-
     }
-
 }
 ```
 
@@ -138,36 +124,25 @@ Examples of **incorrect** code for this rule with the `"never"` option:
 /*eslint padded-blocks: ["error", "never"]*/
 
 if (a) {
-
-    b();
-
-}
-
-if (a)
-{
-
-    b();
-
-}
-
-if (a) {
-
     b();
 }
 
 if (a) {
     b();
+}
 
+if (a) {
+    b();
+}
+
+if (a) {
+    b();
 }
 
 class C {
-
     static {
-
         a();
-
     }
-
 }
 ```
 
@@ -184,8 +159,7 @@ if (a) {
     b();
 }
 
-if (a)
-{
+if (a) {
     b();
 }
 
@@ -211,35 +185,31 @@ if (a) {
     b();
 }
 
-if (a) { b(); }
-
-if (a)
-{
-    b();
-}
-
 if (a) {
-
     b();
 }
 
 if (a) {
     b();
+}
 
+if (a) {
+    b();
+}
+
+if (a) {
+    b();
 }
 
 if (a) {
     // comment
     b();
-
 }
 
 class C {
-
     static {
         a();
     }
-
 }
 ```
 
@@ -253,42 +223,28 @@ Examples of **correct** code for this rule with the `{ "blocks": "always" }` opt
 /*eslint padded-blocks: ["error", { "blocks": "always" }]*/
 
 if (a) {
-
     b();
-
-}
-
-if (a)
-{
-
-    b();
-
 }
 
 if (a) {
+    b();
+}
 
+if (a) {
     // comment
     b();
-
 }
 
 class C {
-
     static {
-
         a();
-
     }
-
 }
 
 class D {
     static {
-
         a();
-
     }
-
 }
 ```
 
@@ -302,33 +258,24 @@ Examples of **incorrect** code for this rule with the `{ "blocks": "never" }` op
 /*eslint padded-blocks: ["error", { "blocks": "never" }]*/
 
 if (a) {
-
-    b();
-
-}
-
-if (a)
-{
-
-    b();
-
-}
-
-if (a) {
-
     b();
 }
 
 if (a) {
     b();
+}
 
+if (a) {
+    b();
+}
+
+if (a) {
+    b();
 }
 
 class C {
     static {
-
         a();
-
     }
 }
 ```
@@ -346,8 +293,7 @@ if (a) {
     b();
 }
 
-if (a)
-{
+if (a) {
     b();
 }
 
@@ -358,11 +304,9 @@ class C {
 }
 
 class D {
-
     static {
         a();
     }
-
 }
 ```
 
@@ -377,9 +321,8 @@ Examples of **incorrect** code for this rule with the `{ "classes": "always" }` 
 ```js
 /*eslint padded-blocks: ["error", { "classes": "always" }]*/
 
-class  A {
-    constructor(){
-    }
+class A {
+    constructor() {}
 }
 ```
 
@@ -392,11 +335,8 @@ Examples of **correct** code for this rule with the `{ "classes": "always" }` op
 ```js
 /*eslint padded-blocks: ["error", { "classes": "always" }]*/
 
-class  A {
-
-    constructor(){
-    }
-
+class A {
+    constructor() {}
 }
 ```
 
@@ -409,11 +349,8 @@ Examples of **incorrect** code for this rule with the `{ "classes": "never" }` o
 ```js
 /*eslint padded-blocks: ["error", { "classes": "never" }]*/
 
-class  A {
-
-    constructor(){
-    }
-
+class A {
+    constructor() {}
 }
 ```
 
@@ -426,9 +363,8 @@ Examples of **correct** code for this rule with the `{ "classes": "never" }` opt
 ```js
 /*eslint padded-blocks: ["error", { "classes": "never" }]*/
 
-class  A {
-    constructor(){
-    }
+class A {
+    constructor() {}
 }
 ```
 
@@ -444,7 +380,8 @@ Examples of **incorrect** code for this rule with the `{ "switches": "always" }`
 /*eslint padded-blocks: ["error", { "switches": "always" }]*/
 
 switch (a) {
-    case 0: foo();
+    case 0:
+        foo();
 }
 ```
 
@@ -458,9 +395,8 @@ Examples of **correct** code for this rule with the `{ "switches": "always" }` o
 /*eslint padded-blocks: ["error", { "switches": "always" }]*/
 
 switch (a) {
-
-    case 0: foo();
-
+    case 0:
+        foo();
 }
 
 if (a) {
@@ -478,9 +414,8 @@ Examples of **incorrect** code for this rule with the `{ "switches": "never" }` 
 /*eslint padded-blocks: ["error", { "switches": "never" }]*/
 
 switch (a) {
-
-    case 0: foo();
-
+    case 0:
+        foo();
 }
 ```
 
@@ -494,13 +429,12 @@ Examples of **correct** code for this rule with the `{ "switches": "never" }` op
 /*eslint padded-blocks: ["error", { "switches": "never" }]*/
 
 switch (a) {
-    case 0: foo();
+    case 0:
+        foo();
 }
 
 if (a) {
-
     b();
-
 }
 ```
 
@@ -520,13 +454,11 @@ if (a) {
 }
 
 if (a) {
-
     b();
 }
 
 if (a) {
     b();
-
 }
 ```
 
@@ -539,12 +471,12 @@ Examples of **correct** code for this rule with the `"always", {"allowSingleLine
 ```js
 /*eslint padded-blocks: ["error", "always", { allowSingleLineBlocks: true }]*/
 
-if (a) { b(); }
+if (a) {
+    b();
+}
 
 if (a) {
-
     b();
-
 }
 ```
 

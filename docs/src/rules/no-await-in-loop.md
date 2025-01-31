@@ -3,7 +3,6 @@ title: no-await-in-loop
 rule_type: problem
 ---
 
-
 Performing an operation on each element of an iterable is a common task. However, performing an
 `await` as part of each operation may indicate that the program is not taking full advantage of
 the parallelization benefits of `async`/`await`.
@@ -16,25 +15,25 @@ Concretely, the following function could be refactored as shown:
 
 ```js
 async function foo(things) {
-  const results = [];
-  for (const thing of things) {
-    // Bad: each loop iteration is delayed until the entire asynchronous operation completes
-    results.push(await doAsyncWork(thing));
-  }
-  return results;
+    const results = [];
+    for (const thing of things) {
+        // Bad: each loop iteration is delayed until the entire asynchronous operation completes
+        results.push(await doAsyncWork(thing));
+    }
+    return results;
 }
 ```
 
 ```js
 async function foo(things) {
-  const promises = [];
-  for (const thing of things) {
-    // Good: all asynchronous operations are immediately started.
-    promises.push(doAsyncWork(thing));
-  }
-  // Now that all the asynchronous operations are running, here we wait until they all complete.
-  const results = await Promise.all(promises);
-  return results;
+    const promises = [];
+    for (const thing of things) {
+        // Good: all asynchronous operations are immediately started.
+        promises.push(doAsyncWork(thing));
+    }
+    // Now that all the asynchronous operations are running, here we wait until they all complete.
+    const results = await Promise.all(promises);
+    return results;
 }
 ```
 
@@ -83,14 +82,14 @@ Examples of **correct** code for this rule:
 /*eslint no-await-in-loop: "error"*/
 
 async function foo(things) {
-  const promises = [];
-  for (const thing of things) {
-    // Good: all asynchronous operations are immediately started.
-    promises.push(doAsyncWork(thing));
-  }
-  // Now that all the asynchronous operations are running, here we wait until they all complete.
-  const results = await Promise.all(promises);
-  return results;
+    const promises = [];
+    for (const thing of things) {
+        // Good: all asynchronous operations are immediately started.
+        promises.push(doAsyncWork(thing));
+    }
+    // Now that all the asynchronous operations are running, here we wait until they all complete.
+    const results = await Promise.all(promises);
+    return results;
 }
 ```
 
@@ -104,12 +103,12 @@ Examples of **incorrect** code for this rule:
 /*eslint no-await-in-loop: "error"*/
 
 async function foo(things) {
-  const results = [];
-  for (const thing of things) {
-    // Bad: each loop iteration is delayed until the entire asynchronous operation completes
-    results.push(await doAsyncWork(thing));
-  }
-  return results;
+    const results = [];
+    for (const thing of things) {
+        // Bad: each loop iteration is delayed until the entire asynchronous operation completes
+        results.push(await doAsyncWork(thing));
+    }
+    return results;
 }
 ```
 
@@ -120,7 +119,7 @@ async function foo(things) {
 In many cases the iterations of a loop are not actually independent of each other, and awaiting in
 the loop is correct. As a few examples:
 
-* The output of one iteration might be used as the input to another.
+- The output of one iteration might be used as the input to another.
 
     ```js
     async function loopIterationsDependOnEachOther() {
@@ -136,22 +135,21 @@ the loop is correct. As a few examples:
     }
     ```
 
-* Loops may be used to retry asynchronous operations that were unsuccessful.
+- Loops may be used to retry asynchronous operations that were unsuccessful.
 
     ```js
     async function retryUpTo10Times() {
         for (let i = 0; i < 10; i++) {
             const wasSuccessful = await tryToDoSomething();
-            if (wasSuccessful)
-                return 'succeeded!';
+            if (wasSuccessful) return "succeeded!";
             // wait to try again.
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
         }
-        return 'failed!';
+        return "failed!";
     }
     ```
 
-* Loops may be used to prevent your code from sending an excessive amount of requests in parallel.
+- Loops may be used to prevent your code from sending an excessive amount of requests in parallel.
 
     ```js
     async function makeUpdatesToRateLimitedApi(thingsToUpdate) {

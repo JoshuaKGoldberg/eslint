@@ -2,15 +2,14 @@
 title: grouped-accessor-pairs
 rule_type: suggestion
 related_rules:
-- accessor-pairs
-- no-dupe-keys
-- no-dupe-class-members
+    - accessor-pairs
+    - no-dupe-keys
+    - no-dupe-class-members
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 ---
-
 
 A getter and setter for the same property don't necessarily have to be defined adjacent to each other.
 
@@ -75,13 +74,13 @@ var bar = {
     get b() {
         return this.val;
     }
-}
+};
 
 class Foo {
     set a(value) {
         this.val = value;
     }
-    b(){}
+    b() {}
     get a() {
         return this.val;
     }
@@ -91,11 +90,11 @@ const Bar = class {
     static get a() {
         return this.val;
     }
-    b(){}
+    b() {}
     static set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -125,7 +124,7 @@ var bar = {
         return this.val;
     },
     a: 1
-}
+};
 
 class Foo {
     set a(value) {
@@ -134,7 +133,7 @@ class Foo {
     get a() {
         return this.val;
     }
-    b(){}
+    b() {}
 }
 
 const Bar = class {
@@ -144,8 +143,8 @@ const Bar = class {
     static set a(value) {
         this.val = value;
     }
-    b(){}
-}
+    b() {}
+};
 ```
 
 :::
@@ -154,9 +153,9 @@ const Bar = class {
 
 This rule has a string option:
 
-* `"anyOrder"` (default) does not enforce order.
-* `"getBeforeSet"` if a property has both getter and setter, requires the getter to be defined before the setter.
-* `"setBeforeGet"` if a property has both getter and setter, requires the setter to be defined before the getter.
+- `"anyOrder"` (default) does not enforce order.
+- `"getBeforeSet"` if a property has both getter and setter, requires the getter to be defined before the setter.
+- `"setBeforeGet"` if a property has both getter and setter, requires the setter to be defined before the getter.
 
 ### getBeforeSet
 
@@ -192,7 +191,7 @@ const Bar = class {
     static get a() {
         return this.val;
     }
-}
+};
 ```
 
 :::
@@ -229,7 +228,7 @@ const Bar = class {
     static set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -268,7 +267,7 @@ const Bar = class {
     static set a(value) {
         this.val = value;
     }
-}
+};
 ```
 
 :::
@@ -305,7 +304,7 @@ const Bar = class {
     static get a() {
         return this.val;
     }
-}
+};
 ```
 
 :::

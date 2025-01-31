@@ -2,11 +2,10 @@
 title: prefer-promise-reject-errors
 rule_type: suggestion
 related_rules:
-- no-throw-literal
+    - no-throw-literal
 further_reading:
-- http://bluebirdjs.com/docs/warning-explanations.html#warning-a-promise-was-rejected-with-a-non-error
+    - http://bluebirdjs.com/docs/warning-explanations.html#warning-a-promise-was-rejected-with-a-non-error
 ---
-
 
 It is considered good practice to only pass instances of the built-in `Error` object to the `reject()` function for user-defined errors in Promises. `Error` objects automatically store a stack trace, which can be used to debug an error by determining where it came from. If a Promise is rejected with a non-`Error` value, it can be difficult to determine where the rejection occurred.
 
@@ -18,7 +17,7 @@ This rule aims to ensure that Promises are only rejected with `Error` objects.
 
 This rule takes one optional object argument:
 
-* `allowEmptyReject: true` (`false` by default) allows calls to `Promise.reject()` with no arguments.
+- `allowEmptyReject: true` (`false` by default) allows calls to `Promise.reject()` with no arguments.
 
 Examples of **incorrect** code for this rule:
 
@@ -33,14 +32,13 @@ Promise.reject(5);
 
 Promise.reject();
 
-new Promise(function(resolve, reject) {
-  reject("something bad happened");
+new Promise(function (resolve, reject) {
+    reject("something bad happened");
 });
 
-new Promise(function(resolve, reject) {
-  reject();
+new Promise(function (resolve, reject) {
+    reject();
 });
-
 ```
 
 :::
@@ -56,8 +54,8 @@ Promise.reject(new Error("something bad happened"));
 
 Promise.reject(new TypeError("something bad happened"));
 
-new Promise(function(resolve, reject) {
-  reject(new Error("something bad happened"));
+new Promise(function (resolve, reject) {
+    reject(new Error("something bad happened"));
 });
 
 const foo = getUnknownValue();
@@ -75,8 +73,8 @@ Examples of **correct** code for this rule with the `allowEmptyReject: true` opt
 
 Promise.reject();
 
-new Promise(function(resolve, reject) {
-  reject();
+new Promise(function (resolve, reject) {
+    reject();
 });
 ```
 

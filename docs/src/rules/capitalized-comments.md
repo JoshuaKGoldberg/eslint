@@ -3,8 +3,6 @@ title: capitalized-comments
 rule_type: suggestion
 ---
 
-
-
 Comments are useful for leaving information for future developers. In order for that information to be useful and not distracting, it is sometimes desirable for comments to follow a particular style. One element of comment formatting styles is whether the first word of a comment should be capitalized or lowercase.
 
 In general, no comment style is any more or less valid than any others, but many developers would agree that a consistent style can improve a project's maintainability.
@@ -23,7 +21,6 @@ Examples of **incorrect** code for this rule:
 /* eslint capitalized-comments: ["error"] */
 
 // lowercase comment
-
 ```
 
 :::
@@ -51,12 +48,11 @@ Examples of **correct** code for this rule:
 
 /* eslint semi:2 */
 /* eslint-disable */
-foo
+foo;
 /* eslint-enable */
 // eslint-disable-next-line
-baz
-bar // eslint-disable-line
-
+baz;
+bar; // eslint-disable-line
 ```
 
 :::
@@ -67,10 +63,10 @@ This rule has two options: a string value `"always"` or `"never"` which determin
 
 Here are the supported object options:
 
-* `ignorePattern`: A string representing a regular expression pattern of words that should be ignored by this rule. If the first word of a comment matches the pattern, this rule will not report that comment.
-    * Note that the following words are always ignored by this rule: `["jscs", "jshint", "eslint", "istanbul", "global", "globals", "exported"]`.
-* `ignoreInlineComments`: If this is `true`, the rule will not report on comments in the middle of code. By default, this is `false`.
-* `ignoreConsecutiveComments`: If this is `true`, the rule will not report on a comment which violates the rule, as long as the comment immediately follows another comment. By default, this is `false`.
+- `ignorePattern`: A string representing a regular expression pattern of words that should be ignored by this rule. If the first word of a comment matches the pattern, this rule will not report that comment.
+    - Note that the following words are always ignored by this rule: `["jscs", "jshint", "eslint", "istanbul", "global", "globals", "exported"]`.
+- `ignoreInlineComments`: If this is `true`, the rule will not report on comments in the middle of code. By default, this is `false`.
+- `ignoreConsecutiveComments`: If this is `true`, the rule will not report on a comment which violates the rule, as long as the comment immediately follows another comment. By default, this is `false`.
 
 Here is an example configuration:
 
@@ -101,7 +97,6 @@ Examples of **incorrect** code for this rule:
 /* eslint capitalized-comments: ["error", "always"] */
 
 // lowercase comment
-
 ```
 
 :::
@@ -129,12 +124,11 @@ Examples of **correct** code for this rule:
 
 /* eslint semi:2 */
 /* eslint-disable */
-foo
+foo;
 /* eslint-enable */
 // eslint-disable-next-line
-baz
-bar // eslint-disable-line
-
+baz;
+bar; // eslint-disable-line
 ```
 
 :::
@@ -151,7 +145,6 @@ Examples of **incorrect** code with the `"never"` option:
 /* eslint capitalized-comments: ["error", "never"] */
 
 // Capitalized comment
-
 ```
 
 :::
@@ -168,7 +161,6 @@ Examples of **correct** code with the `"never"` option:
 // 1. Non-letter at beginning of comment
 
 // 丈 Non-Latin character at beginning of comment
-
 ```
 
 :::
@@ -187,7 +179,6 @@ Examples of **correct** code with the `"ignorePattern"` option set to `"pragma"`
 function foo() {
     /* pragma wrap(true) */
 }
-
 ```
 
 :::
@@ -203,9 +194,7 @@ Examples of **correct** code with the `"ignoreInlineComments"` option set to `tr
 ```js
 /* eslint capitalized-comments: ["error", "always", { "ignoreInlineComments": true }] */
 
-function foo(/* ignored */ a) {
-}
-
+function foo(/* ignored */ a) {}
 ```
 
 :::
@@ -261,7 +250,7 @@ If you wish to have a different configuration for line comments and block commen
         "always",
         {
             "line": {
-                "ignorePattern": "pragma|ignored",
+                "ignorePattern": "pragma|ignored"
             },
             "block": {
                 "ignoreInlineComments": true,
@@ -281,7 +270,6 @@ Examples of **incorrect** code with different line and block comment configurati
 
 // capitalized line comment, this is incorrect, blockignore does not help here
 /* lowercased block comment, this is incorrect too */
-
 ```
 
 :::
@@ -295,7 +283,6 @@ Examples of **correct** code with different line and block comment configuration
 
 // Uppercase line comment, this is correct
 /* blockignore lowercase block comment, this is correct due to ignorePattern */
-
 ```
 
 :::
@@ -306,5 +293,5 @@ This rule can be disabled if you do not care about the grammatical style of comm
 
 ## Compatibility
 
-* **JSCS**: [requireCapitalizedComments](https://jscs-dev.github.io/rule/requireCapitalizedComments)
-* **JSCS**: [disallowCapitalizedComments](https://jscs-dev.github.io/rule/disallowCapitalizedComments)
+- **JSCS**: [requireCapitalizedComments](https://jscs-dev.github.io/rule/requireCapitalizedComments)
+- **JSCS**: [disallowCapitalizedComments](https://jscs-dev.github.io/rule/disallowCapitalizedComments)

@@ -2,20 +2,18 @@
 title: no-extra-bind
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
-- https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+    - https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/
 ---
-
-
 
 The `bind()` method is used to create functions with specific `this` values and, optionally, binds arguments to specific values. When used to specify the value of `this`, it's important that the function actually uses `this` in its function body. For example:
 
 ```js
-var boundGetName = (function getName() {
+var boundGetName = function getName() {
     return this.name;
-}).bind({ name: "ESLint" });
+}.bind({ name: "ESLint" });
 
-console.log(boundGetName());      // "ESLint"
+console.log(boundGetName()); // "ESLint"
 ```
 
 This code is an example of a good use of `bind()` for setting the value of `this`.
@@ -24,11 +22,11 @@ Sometimes during the course of code maintenance, the `this` value is removed fro
 
 ```js
 // useless bind
-var boundGetName = (function getName() {
+var boundGetName = function getName() {
     return "ESLint";
-}).bind({ name: "ESLint" });
+}.bind({ name: "ESLint" });
 
-console.log(boundGetName());      // "ESLint"
+console.log(boundGetName()); // "ESLint"
 ```
 
 In this code, the reference to `this` has been removed but `bind()` is still used. In this case, the `bind()` is unnecessary overhead (and a performance hit) and can be safely removed.
@@ -60,13 +58,13 @@ var x = (() => {
 
 var x = function () {
     (function () {
-      this.foo();
-    }());
+        this.foo();
+    })();
 }.bind(bar);
 
 var x = function () {
     function foo() {
-      this.bar();
+        this.bar();
     }
 }.bind(baz);
 ```

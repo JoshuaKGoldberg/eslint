@@ -2,9 +2,9 @@
 title: no-return-await
 rule_type: suggestion
 further_reading:
-- https://v8.dev/blog/fast-async
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-- https://jakearchibald.com/2017/await-vs-return-vs-return-await/
+    - https://v8.dev/blog/fast-async
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+    - https://jakearchibald.com/2017/await-vs-return-vs-return-await/
 ---
 
 This rule was **deprecated** in ESLint v8.46.0 with no replacement. The original intent of this rule was to discourage the use of `return await`, to avoid an extra microtask. However, due to the fact that JavaScript now handles native `Promise`s differently, there is no longer an extra microtask. More technical information can be found in [this V8 blog entry](https://v8.dev/blog/fast-async).
@@ -67,6 +67,6 @@ async function foo4() {
 
 There are a few reasons you might want to turn this rule off:
 
-* If you want to use `await` to denote a value that is a thenable
-* If you do not want the performance benefit of avoiding `return await`
-* If you want the functions to show up in stack traces (useful for debugging purposes)
+- If you want to use `await` to denote a value that is a thenable
+- If you do not want the performance benefit of avoiding `return await`
+- If you want the functions to show up in stack traces (useful for debugging purposes)

@@ -3,8 +3,6 @@ title: no-var
 rule_type: suggestion
 ---
 
-
-
 ECMAScript 6 allows programmers to create variables with block scope instead of function scope using the `let`
 and `const` keywords. Block scope is common in many other programming languages and helps programmers avoid mistakes
 such as:
@@ -15,11 +13,15 @@ var enoughFood = count > sandwiches.length;
 
 if (enoughFood) {
     var count = sandwiches.length; // accidentally overriding the count variable
-    console.log("We have " + count + " sandwiches for everyone. Plenty for all!");
+    console.log(
+        "We have " + count + " sandwiches for everyone. Plenty for all!"
+    );
 }
 
 // our count variable is no longer accurate
-console.log("We have " + count + " people and " + sandwiches.length + " sandwiches!");
+console.log(
+    "We have " + count + " people and " + sandwiches.length + " sandwiches!"
+);
 ```
 
 ## Rule Details

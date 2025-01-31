@@ -2,22 +2,19 @@
 title: no-labels
 rule_type: suggestion
 related_rules:
-- no-extra-label
-- no-label-var
-- no-unused-labels
+    - no-extra-label
+    - no-label-var
+    - no-unused-labels
 ---
-
 
 Labeled statements in JavaScript are used in conjunction with `break` and `continue` to control flow around multiple loops. For example:
 
 ```js
-outer:
+outer: while (true) {
     while (true) {
-
-        while (true) {
-            break outer;
-        }
+        break outer;
     }
+}
 ```
 
 The `break outer` statement ensures that this code will not result in an infinite loop because control is returned to the next statement after the `outer` label was applied. If this statement was changed to be just `break`, control would flow back to the outer `while` statement and an infinite loop would result.
@@ -35,36 +32,30 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-labels: "error"*/
 
-label:
-    while(true) {
-        // ...
-    }
+label: while (true) {
+    // ...
+}
 
-label:
-    while(true) {
-        break label;
-    }
+label: while (true) {
+    break label;
+}
 
-label:
-    while(true) {
-        continue label;
-    }
+label: while (true) {
+    continue label;
+}
 
-label:
-    switch (a) {
+label: switch (a) {
     case 0:
         break label;
-    }
+}
 
-label:
-    {
-        break label;
-    }
+label: {
+    break label;
+}
 
-label:
-    if (a) {
-        break label;
-    }
+label: if (a) {
+    break label;
+}
 ```
 
 :::
@@ -95,8 +86,8 @@ while (true) {
 
 The options allow labels with loop or switch statements:
 
-* `"allowLoop"` (`boolean`, default is `false`) - If this option was set `true`, this rule ignores labels which are sticking to loop statements.
-* `"allowSwitch"` (`boolean`, default is `false`) - If this option was set `true`, this rule ignores labels which are sticking to switch statements.
+- `"allowLoop"` (`boolean`, default is `false`) - If this option was set `true`, this rule ignores labels which are sticking to loop statements.
+- `"allowSwitch"` (`boolean`, default is `false`) - If this option was set `true`, this rule ignores labels which are sticking to switch statements.
 
 Actually labeled statements in JavaScript can be used with other than loop and switch statements.
 However, this way is ultra rare, not well-known, so this would be confusing developers.
@@ -110,10 +101,9 @@ Examples of **correct** code for the `{ "allowLoop": true }` option:
 ```js
 /*eslint no-labels: ["error", { "allowLoop": true }]*/
 
-label:
-    while (true) {
-        break label;
-    }
+label: while (true) {
+    break label;
+}
 ```
 
 :::
@@ -127,11 +117,10 @@ Examples of **correct** code for the `{ "allowSwitch": true }` option:
 ```js
 /*eslint no-labels: ["error", { "allowSwitch": true }]*/
 
-label:
-    switch (a) {
-        case 0:
-            break label;
-    }
+label: switch (a) {
+    case 0:
+        break label;
+}
 ```
 
 :::

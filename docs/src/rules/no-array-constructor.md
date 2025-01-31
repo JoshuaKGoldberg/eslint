@@ -2,10 +2,9 @@
 title: no-array-constructor
 rule_type: suggestion
 related_rules:
-- no-new-wrappers
-- no-object-constructor
+    - no-new-wrappers
+    - no-object-constructor
 ---
-
 
 Use of the `Array` constructor to construct a new array is generally
 discouraged in favor of array literal notation because of the single-argument
@@ -48,7 +47,7 @@ new Array(someOtherArray.length);
 
 [0, 1, 2];
 
-const createArray = Array => new Array();
+const createArray = (Array) => new Array();
 ```
 
 :::

@@ -3,7 +3,6 @@ title: no-bitwise
 rule_type: suggestion
 ---
 
-
 The use of bitwise operators in JavaScript is very rare and often `&` or `|` is simply a mistyped `&&` or `||`, which will lead to unexpected behavior.
 
 ```js
@@ -27,7 +26,7 @@ var x = y & z;
 
 var x = y ^ z;
 
-var x = ~ z;
+var x = ~z;
 
 var x = y << z;
 
@@ -74,8 +73,8 @@ x += y;
 
 This rule has an object option:
 
-* `"allow"`: Allows a list of bitwise operators to be used as exceptions.
-* `"int32Hint"`: Allows the use of bitwise OR in `|0` pattern for type casting.
+- `"allow"`: Allows a list of bitwise operators to be used as exceptions.
+- `"int32Hint"`: Allows the use of bitwise OR in `|0` pattern for type casting.
 
 ### allow
 
@@ -86,7 +85,7 @@ Examples of **correct** code for this rule with the `{ "allow": ["~"] }` option:
 ```js
 /*eslint no-bitwise: ["error", { "allow": ["~"] }] */
 
-~[1,2,3].indexOf(1) === -1;
+~[1, 2, 3].indexOf(1) === -1;
 ```
 
 :::
@@ -100,7 +99,7 @@ Examples of **correct** code for this rule with the `{ "int32Hint": true }` opti
 ```js
 /*eslint no-bitwise: ["error", { "int32Hint": true }] */
 
-var b = a|0;
+var b = a | 0;
 ```
 
 :::

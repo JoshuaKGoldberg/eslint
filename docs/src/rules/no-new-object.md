@@ -2,8 +2,8 @@
 title: no-new-object
 rule_type: suggestion
 related_rules:
-- no-array-constructor
-- no-new-wrappers
+    - no-array-constructor
+    - no-new-wrappers
 ---
 
 This rule was **deprecated** in ESLint v8.50.0 and replaced by the [no-object-constructor](no-object-constructor) rule. The new rule flags more situations where object literal syntax can be used, and it does not report a problem when the `Object` constructor is invoked with an argument.

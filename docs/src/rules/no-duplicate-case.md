@@ -3,8 +3,6 @@ title: no-duplicate-case
 rule_type: problem
 ---
 
-
-
 If a `switch` statement has duplicate test expressions in `case` clauses, it is likely that a programmer copied a `case` clause but forgot to change the test expression.
 
 ## Rule Details
@@ -26,7 +24,7 @@ switch (a) {
         break;
     case 2:
         break;
-    case 1:         // duplicate test expression
+    case 1: // duplicate test expression
         break;
     default:
         break;
@@ -37,7 +35,7 @@ switch (a) {
         break;
     case 2:
         break;
-    case one:         // duplicate test expression
+    case one: // duplicate test expression
         break;
     default:
         break;
@@ -48,7 +46,7 @@ switch (a) {
         break;
     case "2":
         break;
-    case "1":         // duplicate test expression
+    case "1": // duplicate test expression
         break;
     default:
         break;

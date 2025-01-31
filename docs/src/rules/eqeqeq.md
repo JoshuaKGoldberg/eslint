@@ -3,16 +3,14 @@ title: eqeqeq
 rule_type: suggestion
 ---
 
-
-
 It is considered good practice to use the type-safe equality operators `===` and `!==` instead of their regular counterparts `==` and `!=`.
 
 The reason for this is that `==` and `!=` do type coercion which follows the rather obscure [Abstract Equality Comparison Algorithm](https://www.ecma-international.org/ecma-262/5.1/#sec-11.9.3).
 For instance, the following statements are all considered `true`:
 
-* `[] == false`
-* `[] == ![]`
-* `3 == "03"`
+- `[] == false`
+- `[] == ![]`
+- `3 == "03"`
 
 If one of those occurs in an innocent-looking statement such as `a == b` the actual problem is very difficult to spot.
 
@@ -27,11 +25,14 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint eqeqeq: "error"*/
 
-if (x == 42) { }
+if (x == 42) {
+}
 
-if ("" == text) { }
+if ("" == text) {
+}
 
-if (obj.getStuff() != undefined) { }
+if (obj.getStuff() != undefined) {
+}
 ```
 
 :::
@@ -51,16 +52,15 @@ Examples of **incorrect** code for the `"always"` option:
 ```js
 /*eslint eqeqeq: ["error", "always"]*/
 
-a == b
-foo == true
-bananas != 1
-value == undefined
-typeof foo == 'undefined'
-'hello' != 'world'
-0 == 0
-true == true
-foo == null
-
+a == b;
+foo == true;
+bananas != 1;
+value == undefined;
+typeof foo == "undefined";
+"hello" != "world";
+0 == 0;
+true == true;
+foo == null;
 ```
 
 :::
@@ -72,34 +72,33 @@ Examples of **correct** code for the `"always"` option:
 ```js
 /*eslint eqeqeq: ["error", "always"]*/
 
-a === b
-foo === true
-bananas !== 1
-value === undefined
-typeof foo === 'undefined'
-'hello' !== 'world'
-0 === 0
-true === true
-foo === null
-
+a === b;
+foo === true;
+bananas !== 1;
+value === undefined;
+typeof foo === "undefined";
+"hello" !== "world";
+0 === 0;
+true === true;
+foo === null;
 ```
 
 :::
 
 This rule optionally takes a second argument, which should be an object with the following supported properties:
 
-* `"null"`: Customize how this rule treats `null` literals. Possible values:
-    * `always` (default) - Always use `===` or `!==`.
-    * `never` - Never use `===` or `!==` with `null`.
-    * `ignore` - Do not apply this rule to `null`.
+- `"null"`: Customize how this rule treats `null` literals. Possible values:
+    - `always` (default) - Always use `===` or `!==`.
+    - `never` - Never use `===` or `!==` with `null`.
+    - `ignore` - Do not apply this rule to `null`.
 
 ### smart
 
 The `"smart"` option enforces the use of `===` and `!==` except for these cases:
 
-* Comparing two literal values.
-* Evaluating the value of `typeof`.
-* Comparing against `null`.
+- Comparing two literal values.
+- Evaluating the value of `typeof`.
+- Comparing against `null`.
 
 Examples of **incorrect** code for the `"smart"` option:
 
@@ -109,14 +108,14 @@ Examples of **incorrect** code for the `"smart"` option:
 /*eslint eqeqeq: ["error", "smart"]*/
 
 // comparing two variables requires ===
-a == b
+a == b;
 
 // only one side is a literal
-foo == true
-bananas != 1
+foo == true;
+bananas != 1;
 
 // comparing to undefined requires ===
-value == undefined
+value == undefined;
 ```
 
 :::
@@ -128,11 +127,11 @@ Examples of **correct** code for the `"smart"` option:
 ```js
 /*eslint eqeqeq: ["error", "smart"]*/
 
-typeof foo == 'undefined'
-'hello' != 'world'
-0 == 0
-true == true
-foo == null
+typeof foo == "undefined";
+"hello" != "world";
+0 == 0;
+true == true;
+foo == null;
 ```
 
 :::
@@ -142,7 +141,7 @@ foo == null
 **Deprecated:** Instead of using this option use `"always"` and pass a `"null"` option property with value `"ignore"`. This will tell ESLint to always enforce strict equality except when comparing with the `null` literal.
 
 ```js
-["error", "always", {"null": "ignore"}]
+["error", "always", { null: "ignore" }];
 ```
 
 ## When Not To Use It

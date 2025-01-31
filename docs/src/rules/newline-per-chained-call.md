@@ -10,23 +10,22 @@ Chained method calls on a single line without line breaks are harder to read, so
 Let's look at the following perfectly valid (but single line) code.
 
 ```js
-d3.select("body").selectAll("p").data([4, 8, 15, 16, 23, 42 ]).enter().append("p").text(function(d) { return "I'm number " + d + "!"; });
+d3.select("body")
+    .selectAll("p")
+    .data([4, 8, 15, 16, 23, 42])
+    .enter()
+    .append("p")
+    .text(function (d) {
+        return "I'm number " + d + "!";
+    });
 ```
 
 However, with appropriate new lines, it becomes easy to read and understand. Look at the same code written below with line breaks after each call.
 
 ```js
-d3
-    .select("body")
+d3.select("body")
     .selectAll("p")
-    .data([
-        4,
-        8,
-        15,
-        16,
-        23,
-        42
-    ])
+    .data([4, 8, 15, 16, 23, 42])
     .enter()
     .append("p")
     .text(function (d) {
@@ -61,7 +60,7 @@ This rule requires a newline after each call in a method chain or deep member ac
 
 This rule has an object option:
 
-* `"ignoreChainWithDepth"` (default: `2`) allows chains up to a specified depth.
+- `"ignoreChainWithDepth"` (default: `2`) allows chains up to a specified depth.
 
 ### ignoreChainWithDepth
 
@@ -78,9 +77,7 @@ _.chain({}).map(foo).filter(bar).value();
 _.chain({}).map(foo).filter(bar);
 
 // Or
-_
-  .chain({}).map(foo)
-  .filter(bar);
+_.chain({}).map(foo).filter(bar);
 
 // Or
 obj.method().method2().method3();
@@ -95,33 +92,19 @@ Examples of **correct** code for this rule with the default `{ "ignoreChainWithD
 ```js
 /*eslint newline-per-chained-call: ["error", { "ignoreChainWithDepth": 2 }]*/
 
-_
-  .chain({})
-  .map(foo)
-  .filter(bar)
-  .value();
+_.chain({}).map(foo).filter(bar).value();
 
 // Or
-_
-  .chain({})
-  .map(foo)
-  .filter(bar);
+_.chain({}).map(foo).filter(bar);
 
 // Or
-_.chain({})
-  .map(foo)
-  .filter(bar);
+_.chain({}).map(foo).filter(bar);
 
 // Or
-obj
-  .prop
-  .method().prop;
+obj.prop.method().prop;
 
 // Or
-obj
-  .prop.method()
-  .method2()
-  .method3().prop;
+obj.prop.method().method2().method3().prop;
 ```
 
 :::

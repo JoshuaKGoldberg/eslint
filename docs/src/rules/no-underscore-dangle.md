@@ -40,11 +40,11 @@ Examples of **correct** code for this rule:
 ```js
 /*eslint no-underscore-dangle: "error"*/
 
-var _ = require('underscore');
+var _ = require("underscore");
 var obj = _.contains(items, item);
 obj.__proto__ = {};
 var file = __filename;
-function foo(_bar) {};
+function foo(_bar) {}
 const bar = { onClick(_bar) {} };
 const baz = (_bar) => {};
 ```
@@ -55,15 +55,15 @@ const baz = (_bar) => {};
 
 This rule has an object option:
 
-* `"allow"` allows specified identifiers to have dangling underscores
-* `"allowAfterThis": false` (default) disallows dangling underscores in members of the `this` object
-* `"allowAfterSuper": false` (default) disallows dangling underscores in members of the `super` object
-* `"allowAfterThisConstructor": false` (default) disallows dangling underscores in members of the `this.constructor` object
-* `"enforceInMethodNames": false` (default) allows dangling underscores in method names
-* `"enforceInClassFields": false` (default) allows dangling underscores in es2022 class fields names
-* `"allowInArrayDestructuring": true` (default) allows dangling underscores in variable names assigned by array destructuring
-* `"allowInObjectDestructuring": true` (default) allows dangling underscores in variable names assigned by object destructuring
-* `"allowFunctionParams": true` (default) allows dangling underscores in function parameter names
+- `"allow"` allows specified identifiers to have dangling underscores
+- `"allowAfterThis": false` (default) disallows dangling underscores in members of the `this` object
+- `"allowAfterSuper": false` (default) disallows dangling underscores in members of the `super` object
+- `"allowAfterThisConstructor": false` (default) disallows dangling underscores in members of the `this.constructor` object
+- `"enforceInMethodNames": false` (default) allows dangling underscores in method names
+- `"enforceInClassFields": false` (default) allows dangling underscores in es2022 class fields names
+- `"allowInArrayDestructuring": true` (default) allows dangling underscores in variable names assigned by array destructuring
+- `"allowInObjectDestructuring": true` (default) allows dangling underscores in variable names assigned by object destructuring
+- `"allowFunctionParams": true` (default) allows dangling underscores in function parameter names
 
 ### allow
 
@@ -105,10 +105,10 @@ Examples of **correct** code for this rule with the `{ "allowAfterSuper": true }
 /*eslint no-underscore-dangle: ["error", { "allowAfterSuper": true }]*/
 
 class Foo extends Bar {
-  doSomething() {
-    var a = super.foo_;
-    super._bar();
-  }
+    doSomething() {
+        var a = super.foo_;
+        super._bar();
+    }
 }
 ```
 
@@ -139,19 +139,19 @@ Examples of **incorrect** code for this rule with the `{ "enforceInMethodNames":
 /*eslint no-underscore-dangle: ["error", { "enforceInMethodNames": true }]*/
 
 class Foo {
-  _bar() {}
+    _bar() {}
 }
 
 class Bar {
-  bar_() {}
+    bar_() {}
 }
 
 const o1 = {
-  _bar() {}
+    _bar() {}
 };
 
 const o2 = {
-  bar_() {}
+    bar_() {}
 };
 ```
 
@@ -227,7 +227,11 @@ Examples of **correct** code for this rule with the `{ "allowInObjectDestructuri
 ```js
 /*eslint no-underscore-dangle: ["error", { "allowInObjectDestructuring": false }]*/
 
-const { foo, bar, _baz: { a, b } } = collection;
+const {
+    foo,
+    bar,
+    _baz: { a, b }
+} = collection;
 const { qux, xyz, _baz: baz } = collection;
 ```
 
@@ -242,13 +246,13 @@ Examples of **incorrect** code for this rule with the `{ "allowFunctionParams": 
 ```js
 /*eslint no-underscore-dangle: ["error", { "allowFunctionParams": false }]*/
 
-function foo1 (_bar) {}
-function foo2 (_bar = 0) {}
-function foo3 (..._bar) {}
+function foo1(_bar) {}
+function foo2(_bar = 0) {}
+function foo3(..._bar) {}
 
-const foo4 = function onClick (_bar) {}
-const foo5 = function onClick (_bar = 0) {}
-const foo6 = function onClick (..._bar) {}
+const foo4 = function onClick(_bar) {};
+const foo5 = function onClick(_bar = 0) {};
+const foo6 = function onClick(..._bar) {};
 
 const foo7 = (_bar) => {};
 const foo8 = (_bar = 0) => {};

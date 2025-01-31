@@ -2,9 +2,8 @@
 title: prefer-spread
 rule_type: suggestion
 related_rules:
-- no-useless-call
+    - no-useless-call
 ---
-
 
 Before ES2015, one must use `Function.prototype.apply()` to call variadic functions.
 

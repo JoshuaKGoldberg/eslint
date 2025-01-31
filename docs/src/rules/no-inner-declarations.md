@@ -3,29 +3,26 @@ title: no-inner-declarations
 rule_type: problem
 ---
 
-
-
 In JavaScript, prior to ES6, a function declaration is only allowed in the first level of a program or the body of another function, though parsers sometimes [erroneously accept them elsewhere](https://code.google.com/p/esprima/issues/detail?id=422). This only applies to function declarations; named or anonymous function expressions can occur anywhere an expression is permitted.
 
 ```js
 // Good
-function doSomething() { }
+function doSomething() {}
 
 // Bad
 if (test) {
-    function doSomethingElse () { }
+    function doSomethingElse() {}
 }
 
 function anotherThing() {
     var fn;
 
     if (test) {
-
         // Good
-        fn = function expression() { };
+        fn = function expression() {};
 
         // Bad
-        function declaration() { }
+        function declaration() {}
     }
 }
 ```
@@ -36,7 +33,7 @@ In ES6, [block-level functions](https://leanpub.com/understandinges6/read#leanpu
 "use strict";
 
 if (test) {
-    function doSomething () { }
+    function doSomething() {}
 
     doSomething(); // no error
 }
@@ -79,9 +76,9 @@ This rule requires that function declarations and, optionally, variable declarat
 
 This rule has a string and an object option:
 
-* `"functions"` (default) disallows `function` declarations in nested blocks
-* `"both"` disallows `function` and `var` declarations in nested blocks
-* `{ blockScopedFunctions: "allow" }` (default) this option allows `function` declarations in nested blocks when code is in strict mode (code with `"use strict"` tag or ESM modules) and `languageOptions.ecmaVersion` is set to `2015` or above. This option can be disabled by setting it to `"disallow"`.
+- `"functions"` (default) disallows `function` declarations in nested blocks
+- `"both"` disallows `function` and `var` declarations in nested blocks
+- `{ blockScopedFunctions: "allow" }` (default) this option allows `function` declarations in nested blocks when code is in strict mode (code with `"use strict"` tag or ESM modules) and `languageOptions.ecmaVersion` is set to `2015` or above. This option can be disabled by setting it to `"disallow"`.
 
 ### functions
 
@@ -95,16 +92,16 @@ Examples of **incorrect** code for this rule with the default `"functions"` opti
 // script, non-strict code
 
 if (test) {
-    function doSomething() { }
+    function doSomething() {}
 }
 
 function doSomethingElse() {
     if (test) {
-        function doAnotherThing() { }
+        function doAnotherThing() {}
     }
 }
 
-if (foo) function f(){}
+if (foo) function f() {}
 ```
 
 :::
@@ -116,33 +113,33 @@ Examples of **correct** code for this rule with the default `"functions"` option
 ```js
 /*eslint no-inner-declarations: "error"*/
 
-function doSomething() { }
+function doSomething() {}
 
 function doSomethingElse() {
-    function doAnotherThing() { }
+    function doAnotherThing() {}
 }
 
 function doSomethingElse() {
     "use strict";
 
     if (test) {
-        function doAnotherThing() { }
+        function doAnotherThing() {}
     }
 }
 
 class C {
     static {
-        function doSomething() { }
+        function doSomething() {}
     }
 }
 
 if (test) {
-    asyncCall(id, function (err, data) { });
+    asyncCall(id, function (err, data) {});
 }
 
 var fn;
 if (test) {
-    fn = function fnExpression() { };
+    fn = function fnExpression() {};
 }
 
 if (foo) var a;
@@ -171,7 +168,7 @@ function doAnotherThing() {
 
 if (foo) var a;
 
-if (foo) function f(){}
+if (foo) function f() {}
 
 class C {
     static {
@@ -222,12 +219,12 @@ Example of **incorrect** code for this rule with `{ blockScopedFunctions: "disal
 // non-strict code
 
 if (test) {
-    function doSomething() { }
+    function doSomething() {}
 }
 
 function doSomething() {
     if (test) {
-        function doSomethingElse() { }
+        function doSomethingElse() {}
     }
 }
 
@@ -237,7 +234,7 @@ function foo() {
     "use strict";
 
     if (test) {
-        function bar() { }
+        function bar() {}
     }
 }
 ```
@@ -251,10 +248,10 @@ Example of **correct** code for this rule with `{ blockScopedFunctions: "disallo
 ```js
 /*eslint no-inner-declarations: ["error", "functions", { blockScopedFunctions: "disallow" }]*/
 
-function doSomething() { }
+function doSomething() {}
 
 function doSomething() {
-    function doSomethingElse() { }
+    function doSomethingElse() {}
 }
 ```
 
@@ -270,12 +267,12 @@ Example of **correct** code for this rule with `{ blockScopedFunctions: "allow" 
 "use strict";
 
 if (test) {
-    function doSomething() { }
+    function doSomething() {}
 }
 
 function doSomething() {
     if (test) {
-        function doSomethingElse() { }
+        function doSomethingElse() {}
     }
 }
 
@@ -285,7 +282,7 @@ function foo() {
     "use strict";
 
     if (test) {
-        function bar() { }
+        function bar() {}
     }
 }
 ```
@@ -300,19 +297,19 @@ function foo() {
 /*eslint no-inner-declarations: ["error", "functions", { blockScopedFunctions: "allow" }]*/
 
 if (test) {
-    function doSomething() { }
+    function doSomething() {}
 }
 
 function doSomethingElse() {
     if (test) {
-        function doAnotherThing() { }
+        function doAnotherThing() {}
     }
 }
 
 class Some {
     static {
         if (test) {
-            function doSomething() { }
+            function doSomething() {}
         }
     }
 }
@@ -320,10 +317,10 @@ class Some {
 const C = class {
     static {
         if (test) {
-            function doSomething() { }
+            function doSomething() {}
         }
     }
-}
+};
 ```
 
 :::

@@ -2,9 +2,8 @@
 title: no-proto
 rule_type: suggestion
 further_reading:
-- https://johnresig.com/blog/objectgetprototypeof/
+    - https://johnresig.com/blog/objectgetprototypeof/
 ---
-
 
 `__proto__` property has been deprecated as of ECMAScript 3.1 and shouldn't be used in the code. Use `Object.getPrototypeOf` and `Object.setPrototypeOf` instead.
 

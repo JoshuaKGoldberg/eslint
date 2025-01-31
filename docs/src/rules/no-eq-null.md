@@ -2,15 +2,14 @@
 title: no-eq-null
 rule_type: suggestion
 related_rules:
-- eqeqeq
+    - eqeqeq
 ---
-
 
 Comparing to `null` without a type-checking operator (`==` or `!=`), can have unintended results as the comparison will evaluate to true when comparing to not just a `null`, but also an `undefined` value.
 
 ```js
 if (foo == null) {
-  bar();
+    bar();
 }
 ```
 
@@ -26,11 +25,11 @@ Examples of **incorrect** code for this rule:
 /*eslint no-eq-null: "error"*/
 
 if (foo == null) {
-  bar();
+    bar();
 }
 
 while (qux != null) {
-  baz();
+    baz();
 }
 ```
 
@@ -44,11 +43,11 @@ Examples of **correct** code for this rule:
 /*eslint no-eq-null: "error"*/
 
 if (foo === null) {
-  bar();
+    bar();
 }
 
 while (qux !== null) {
-  baz();
+    baz();
 }
 ```
 
@@ -60,4 +59,4 @@ If you want to enforce type-checking operations in general, use the more powerfu
 
 ## Compatibility
 
-* **JSHint**: This rule corresponds to `eqnull` rule of JSHint.
+- **JSHint**: This rule corresponds to `eqnull` rule of JSHint.

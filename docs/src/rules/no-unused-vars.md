@@ -2,10 +2,8 @@
 title: no-unused-vars
 rule_type: problem
 related_rules:
-- no-useless-assignment
+    - no-useless-assignment
 ---
-
-
 
 Variables that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring. Such variables take up space in the code and can lead to confusion by readers.
 
@@ -15,12 +13,12 @@ This rule is aimed at eliminating unused variables, functions, and function para
 
 A variable `foo` is considered to be used if any of the following are true:
 
-* It is called (`foo()`) or constructed (`new foo()`)
-* It is read (`var bar = foo`)
-* It is passed into a function as an argument (`doSomething(foo)`)
-* It is read inside of a function that is passed to another function (`doSomething(function() { foo(); })`)
+- It is called (`foo()`) or constructed (`new foo()`)
+- It is read (`var bar = foo`)
+- It is passed into a function as an argument (`doSomething(foo)`)
+- It is read inside of a function that is passed to another function (`doSomething(function() { foo(); })`)
 
-A variable is *not* considered to be used if it is only ever declared (`var foo = 5`) or assigned to (`foo = 7`).
+A variable is _not_ considered to be used if it is only ever declared (`var foo = 5`) or assigned to (`foo = 7`).
 
 Examples of **incorrect** code for this rule:
 
@@ -44,7 +42,7 @@ var z = 0;
 z = z + 1;
 
 // By default, unused arguments cause warnings.
-(function(foo) {
+(function (foo) {
     return 5;
 })();
 
@@ -74,16 +72,18 @@ var x = 10;
 alert(x);
 
 // foo is considered used here
-myFunc(function foo() {
-    // ...
-}.bind(this));
+myFunc(
+    function foo() {
+        // ...
+    }.bind(this)
+);
 
-(function(foo) {
+(function (foo) {
     return foo;
 })();
 
 var myFunc;
-myFunc = setTimeout(function() {
+myFunc = setTimeout(function () {
     // myFunc is considered used
     myFunc();
 }, 50);
@@ -103,8 +103,8 @@ In environments outside of CommonJS or ECMAScript modules, you may use `var` to 
 
 Note that `/* exported */` has no effect for any of the following:
 
-* when `languageOptions.sourceType` is `module` (default) or `commonjs`
-* when `languageOptions.parserOptions.ecmaFeatures.globalReturn` is `true`
+- when `languageOptions.sourceType` is `module` (default) or `commonjs`
+- when `languageOptions.parserOptions.ecmaFeatures.globalReturn` is `true`
 
 The line comment `// exported variableName` will not work as `exported` is not line-specific.
 
@@ -136,13 +136,16 @@ By default this rule is enabled with `all` option for caught errors and variable
 ```json
 {
     "rules": {
-        "no-unused-vars": ["error", {
-            "vars": "all",
-            "args": "after-used",
-            "caughtErrors": "all",
-            "ignoreRestSiblings": false,
-            "reportUsedIgnorePattern": false
-        }]
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "caughtErrors": "all",
+                "ignoreRestSiblings": false,
+                "reportUsedIgnorePattern": false
+            }
+        ]
     }
 }
 ```
@@ -151,8 +154,8 @@ By default this rule is enabled with `all` option for caught errors and variable
 
 The `vars` option has two settings:
 
-* `all` checks all variables for usage, including those in the global scope. However, it excludes variables targeted by other options like `args` and `caughtErrors`. This is the default setting.
-* `local` checks only that locally-declared variables are used but will allow global variables to be unused.
+- `all` checks all variables for usage, including those in the global scope. However, it excludes variables targeted by other options like `args` and `caughtErrors`. This is the default setting.
+- `local` checks only that locally-declared variables are used but will allow global variables to be unused.
 
 #### vars: local
 
@@ -191,9 +194,9 @@ console.log(secondVar);
 
 The `args` option has three settings:
 
-* `after-used` - unused positional arguments that occur before the last used argument will not be checked, but all named arguments and all positional arguments after the last used argument will be checked.
-* `all` - all named arguments must be used.
-* `none` - do not check arguments.
+- `after-used` - unused positional arguments that occur before the last used argument will not be checked, but all named arguments and all positional arguments after the last used argument will be checked.
+- `all` - all named arguments must be used.
+- `none` - do not check arguments.
 
 #### args: after-used
 
@@ -207,7 +210,7 @@ Examples of **incorrect** code for the default `{ "args": "after-used" }` option
 // 2 errors, for the parameters after the last used parameter (bar)
 // "baz" is defined but never used
 // "qux" is defined but never used
-(function(foo, bar, baz, qux) {
+(function (foo, bar, baz, qux) {
     return bar;
 })();
 ```
@@ -221,7 +224,7 @@ Examples of **correct** code for the default `{ "args": "after-used" }` option:
 ```js
 /*eslint no-unused-vars: ["error", {"args": "after-used"}]*/
 
-(function(foo, bar, baz, qux) {
+(function (foo, bar, baz, qux) {
     return qux;
 })();
 ```
@@ -240,7 +243,7 @@ Examples of **incorrect** code for the `{ "args": "all" }` option:
 // 2 errors
 // "foo" is defined but never used
 // "baz" is defined but never used
-(function(foo, bar, baz) {
+(function (foo, bar, baz) {
     return bar;
 })();
 ```
@@ -256,7 +259,7 @@ Examples of **correct** code for the `{ "args": "none" }` option:
 ```js
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
-(function(foo, bar, baz) {
+(function (foo, bar, baz) {
     return bar;
 })();
 ```
@@ -288,8 +291,8 @@ The `caughtErrors` option is used for `catch` block arguments validation.
 
 It has two settings:
 
-* `all` - all named arguments must be used. This is the default setting.
-* `none` - do not check error objects.
+- `all` - all named arguments must be used. This is the default setting.
+- `none` - do not check error objects.
 
 #### caughtErrors: all
 
@@ -363,9 +366,11 @@ Examples of **correct** code for the `{ "destructuredArrayIgnorePattern": "^_" }
 /*eslint no-unused-vars: ["error", { "destructuredArrayIgnorePattern": "^_" }]*/
 
 const [a, _b, c] = ["a", "b", "c"];
-console.log(a+c);
+console.log(a + c);
 
-const { x: [_a, foo] } = bar;
+const {
+    x: [_a, foo]
+} = bar;
 console.log(foo);
 
 function baz([_c, x]) {
@@ -373,13 +378,13 @@ function baz([_c, x]) {
 }
 baz();
 
-function test({p: [_q, r]}) {
+function test({ p: [_q, r] }) {
     r;
 }
 test();
 
 let _m, n;
-foo.forEach(item => {
+foo.forEach((item) => {
     [_m, n] = item;
     console.log(n);
 });

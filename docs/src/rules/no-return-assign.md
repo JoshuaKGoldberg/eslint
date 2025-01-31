@@ -3,12 +3,11 @@ title: no-return-assign
 rule_type: suggestion
 ---
 
-
 One of the interesting, and sometimes confusing, aspects of JavaScript is that assignment can happen at almost any point. Because of this, an errant equals sign can end up causing assignment when the true intent was to do a comparison. This is especially true when using a `return` statement. For example:
 
 ```js
 function doSomething() {
-    return foo = bar + 2;
+    return (foo = bar + 2);
 }
 ```
 
@@ -24,8 +23,8 @@ This rule aims to eliminate assignments from `return` statements. As such, it wi
 
 The rule takes one option, a string, which must contain one of the following values:
 
-* `except-parens` (default): Disallow assignments unless they are enclosed in parentheses.
-* `always`: Disallow all assignments.
+- `except-parens` (default): Disallow assignments unless they are enclosed in parentheses.
+- `always`: Disallow all assignments.
 
 ### except-parens
 
@@ -40,19 +39,19 @@ Examples of **incorrect** code for the default `"except-parens"` option:
 /*eslint no-return-assign: "error"*/
 
 function doSomething() {
-    return foo = bar + 2;
+    return (foo = bar + 2);
 }
 
 function doSomethingElse() {
-    return foo += 2;
+    return (foo += 2);
 }
 
-const foo = (a, b) => a = b
+const foo = (a, b) => (a = b);
 
-const bar = (a, b, c) => (a = b, c == b)
+const bar = (a, b, c) => ((a = b), c == b);
 
 function doSomethingMore() {
-    return foo = bar && foo > 0;
+    return (foo = bar && foo > 0);
 }
 ```
 
@@ -77,9 +76,9 @@ function doSomethingMore() {
     return (foo = bar + 2);
 }
 
-const foo = (a, b) => (a = b)
+const foo = (a, b) => (a = b);
 
-const bar = (a, b, c) => ((a = b), c == b)
+const bar = (a, b, c) => ((a = b), c == b);
 
 function doAnotherThing() {
     return (foo = bar) && foo > 0;
@@ -101,11 +100,11 @@ Examples of **incorrect** code for the `"always"` option:
 /*eslint no-return-assign: ["error", "always"]*/
 
 function doSomething() {
-    return foo = bar + 2;
+    return (foo = bar + 2);
 }
 
 function doSomethingElse() {
-    return foo += 2;
+    return (foo += 2);
 }
 
 function doSomethingMore() {

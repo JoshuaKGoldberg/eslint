@@ -2,9 +2,9 @@
 title: no-empty-label
 
 related_rules:
-- no-labels
-- no-label-var
-- no-unused-labels
+    - no-labels
+    - no-label-var
+    - no-unused-labels
 ---
 
 Disallows labels for anything other than loops and switches.
@@ -26,8 +26,7 @@ Example of **incorrect** code for this rule:
 ```js
 /*eslint no-empty-label: "error"*/
 
-labeled:
-var x = 10;
+labeled: var x = 10;
 ```
 
 :::
@@ -39,8 +38,7 @@ Example of **correct** code for this rule:
 ```js
 /*eslint no-empty-label: "error"*/
 
-labeled:
-for (var i=10; i; i--) {
+labeled: for (var i = 10; i; i--) {
     // ...
 }
 ```

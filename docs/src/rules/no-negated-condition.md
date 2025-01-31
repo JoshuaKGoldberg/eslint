@@ -3,15 +3,14 @@ title: no-negated-condition
 rule_type: suggestion
 ---
 
-
 Negated conditions are more difficult to understand. Code can be made more readable by inverting the condition instead.
 
 ## Rule Details
 
 This rule disallows negated conditions in either of the following:
 
-* `if` statements which have an `else` branch
-* ternary expressions
+- `if` statements which have an `else` branch
+- ternary expressions
 
 Examples of **incorrect** code for this rule:
 
@@ -38,7 +37,7 @@ if (a !== b) {
     doSomethingElse();
 }
 
-!a ? c : b
+!a ? c : b;
 ```
 
 :::
@@ -64,7 +63,7 @@ if (a != b) {
     doSomething();
 }
 
-a ? b : c
+a ? b : c;
 ```
 
 :::

@@ -2,10 +2,9 @@
 title: no-process-env
 rule_type: suggestion
 further_reading:
-- https://stackoverflow.com/questions/5869216/how-to-store-node-js-deployment-settings-configuration-files
-- https://blog.benhall.me.uk/2012/02/storing-application-config-data-in/
+    - https://stackoverflow.com/questions/5869216/how-to-store-node-js-deployment-settings-configuration-files
+    - https://blog.benhall.me.uk/2012/02/storing-application-config-data-in/
 ---
-
 
 This rule was **deprecated** in ESLint v7.0.0. Please use the corresponding rule in [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n).
 
@@ -22,7 +21,7 @@ Examples of **incorrect** code for this rule:
 ```js
 /*eslint no-process-env: "error"*/
 
-if(process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
     //...
 }
 ```
@@ -38,7 +37,7 @@ Examples of **correct** code for this rule:
 
 var config = require("./config");
 
-if(config.env === "development") {
+if (config.env === "development") {
     //...
 }
 ```

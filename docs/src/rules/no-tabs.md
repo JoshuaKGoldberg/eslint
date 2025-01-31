@@ -15,22 +15,24 @@ Examples of **incorrect** code for this rule:
 
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD010 -->
+
 ::: incorrect
 
 ```js
 /* eslint no-tabs: "error" */
 
-var a 	= 2;
+var a = 2;
 
 /**
-* 		 it's a test function
-*/
-function test(){}
+ * 		 it's a test function
+ */
+function test() {}
 
 var x = 1; // 	 test
 ```
 
 :::
+
 <!-- markdownlint-restore -->
 
 Examples of **correct** code for this rule:
@@ -43,9 +45,9 @@ Examples of **correct** code for this rule:
 var a = 2;
 
 /**
-* it's a test function
-*/
-function test(){}
+ * it's a test function
+ */
+function test() {}
 
 var x = 1; // test
 ```
@@ -56,7 +58,7 @@ var x = 1; // test
 
 This rule has an optional object option with the following properties:
 
-* `allowIndentationTabs` (default: false): If this is set to true, then the rule will not report tabs used for indentation.
+- `allowIndentationTabs` (default: false): If this is set to true, then the rule will not report tabs used for indentation.
 
 #### allowIndentationTabs
 
@@ -64,19 +66,21 @@ Examples of **correct** code for this rule with the `allowIndentationTabs: true`
 
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD010 -->
+
 ::: correct
 
 ```js
 /* eslint no-tabs: ["error", { allowIndentationTabs: true }] */
 
 function test() {
-	doSomething();
+    doSomething();
 }
 
-	// comment with leading indentation tab
+// comment with leading indentation tab
 ```
 
 :::
+
 <!-- markdownlint-restore -->
 
 ## When Not To Use It
@@ -85,4 +89,4 @@ If you have established a standard where having tabs is fine, then you can disab
 
 ## Compatibility
 
-* **JSCS**: [disallowTabs](https://jscs-dev.github.io/rule/disallowTabs)
+- **JSCS**: [disallowTabs](https://jscs-dev.github.io/rule/disallowTabs)

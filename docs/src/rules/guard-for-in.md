@@ -2,13 +2,12 @@
 title: guard-for-in
 rule_type: suggestion
 related_rules:
-- prefer-object-has-own
-- no-prototype-builtins
+    - prefer-object-has-own
+    - no-prototype-builtins
 further_reading:
-- https://javascriptweblog.wordpress.com/2011/01/04/exploring-javascript-for-in-loops/
-- https://2ality.com/2012/01/objects-as-maps.html
+    - https://javascriptweblog.wordpress.com/2011/01/04/exploring-javascript-for-in-loops/
+    - https://2ality.com/2012/01/objects-as-maps.html
 ---
-
 
 Looping over objects with a `for in` loop will include properties that are inherited through the prototype chain. This behavior can lead to unexpected items in your for loop.
 

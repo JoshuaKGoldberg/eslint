@@ -3,7 +3,6 @@ title: no-sync
 rule_type: suggestion
 ---
 
-
 This rule was **deprecated** in ESLint v7.0.0. Please use the corresponding rule in [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n).
 
 In Node.js, most I/O is done through asynchronous methods. However, there are often synchronous versions of the asynchronous methods. For example, `fs.exists()` and `fs.existsSync()`. In some contexts, using synchronous operations is okay (if, as with ESLint, you are writing a command line utility). However, in other contexts the use of synchronous operations is considered a bad practice that should be avoided. For example, if you are running a high-travel web server on Node.js, you should consider carefully if you want to allow any synchronous operations that could lock up the server.
@@ -26,7 +25,7 @@ Examples of **incorrect** code for this rule with the default `{ allowAtRootLeve
 fs.existsSync(somePath);
 
 function foo() {
-  var contents = fs.readFileSync(somePath).toString();
+    var contents = fs.readFileSync(somePath).toString();
 }
 ```
 
@@ -41,7 +40,7 @@ Examples of **correct** code for this rule with the default `{ allowAtRootLevel:
 
 obj.sync();
 
-async(function() {
+async(function () {
     // ...
 });
 ```
@@ -56,10 +55,10 @@ Examples of **incorrect** code for this rule with the `{ allowAtRootLevel: true 
 /*eslint no-sync: ["error", { allowAtRootLevel: true }]*/
 
 function foo() {
-  var contents = fs.readFileSync(somePath).toString();
+    var contents = fs.readFileSync(somePath).toString();
 }
 
-var bar = baz => fs.readFileSync(qux);
+var bar = (baz) => fs.readFileSync(qux);
 ```
 
 :::

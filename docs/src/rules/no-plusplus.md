@@ -3,15 +3,14 @@ title: no-plusplus
 rule_type: suggestion
 ---
 
-
 Because the unary `++` and `--` operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.
 
 ```js
 var i = 10;
 var j = 20;
 
-i ++
-j
+i++;
+j;
 // i = 11, j = 20
 ```
 
@@ -19,9 +18,8 @@ j
 var i = 10;
 var j = 20;
 
-i
-++
-j
+i;
+++j;
 // i = 10, j = 21
 ```
 
@@ -73,7 +71,7 @@ for (i = 0; i < l; i += 1) {
 
 This rule has an object option.
 
-* `"allowForLoopAfterthoughts": true` allows unary operators `++` and `--` in the afterthought (final expression) of a `for` loop.
+- `"allowForLoopAfterthoughts": true` allows unary operators `++` and `--` in the afterthought (final expression) of a `for` loop.
 
 ### allowForLoopAfterthoughts
 
@@ -110,11 +108,11 @@ for (i = 0; i < l; j = i++) {
     doSomething(i, j);
 }
 
-for (i = l; i--;) {
+for (i = l; i--; ) {
     doSomething(i);
 }
 
-for (i = 0; i < l;) i++;
+for (i = 0; i < l; ) i++;
 ```
 
 :::

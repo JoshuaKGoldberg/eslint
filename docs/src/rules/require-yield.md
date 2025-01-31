@@ -2,10 +2,8 @@
 title: require-yield
 rule_type: suggestion
 related_rules:
-- require-await
+    - require-await
 ---
-
-
 
 ## Rule Details
 
@@ -21,7 +19,7 @@ Examples of **incorrect** code for this rule:
 /*eslint require-yield: "error"*/
 
 function* foo() {
-  return 10;
+    return 10;
 }
 ```
 
@@ -35,16 +33,16 @@ Examples of **correct** code for this rule:
 /*eslint require-yield: "error"*/
 
 function* foo() {
-  yield 5;
-  return 10;
+    yield 5;
+    return 10;
 }
 
 function bar() {
-  return 10;
+    return 10;
 }
 
 // This rule does not warn on empty generator functions.
-function* baz() { }
+function* baz() {}
 ```
 
 :::

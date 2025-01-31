@@ -2,9 +2,8 @@
 title: no-empty-function
 rule_type: suggestion
 related_rules:
-- no-empty
+    - no-empty
 ---
-
 
 Empty functions can reduce readability because readers need to guess whether it's intentional or not.
 So writing a clear comment for empty functions is a good practice.
@@ -19,7 +18,7 @@ Especially, the empty block of arrow functions might be confusing developers.
 It's very similar to an empty object literal.
 
 ```js
-list.map(() => {});   // This is a block, would return undefined.
+list.map(() => {}); // This is a block, would return undefined.
 list.map(() => ({})); // This is an empty object.
 ```
 
@@ -37,18 +36,18 @@ Examples of **incorrect** code for this rule:
 
 function foo() {}
 
-var bar = function() {};
+var bar = function () {};
 
 var bar = () => {};
 
 function* baz() {}
 
-var bar = function*() {};
+var bar = function* () {};
 
 var obj = {
-    foo: function() {},
+    foo: function () {},
 
-    foo: function*() {},
+    foo: function* () {},
 
     foo() {},
 
@@ -93,7 +92,7 @@ function foo() {
     // do nothing.
 }
 
-var baz = function() {
+var baz = function () {
     // any clear comments.
 };
 
@@ -105,16 +104,16 @@ function* foobar() {
     // do nothing.
 }
 
-var baz = function*() {
+var baz = function* () {
     // do nothing.
 };
 
 var obj = {
-    foo: function() {
+    foo: function () {
         // do nothing.
     },
 
-    foo: function*() {
+    foo: function* () {
         // do nothing.
     },
 
@@ -180,17 +179,17 @@ class A {
 
 This rule has an option to allow specific kinds of functions to be empty.
 
-* `allow` (`string[]`) - A list of kind to allow empty functions. List items are some of the following strings. An empty array (`[]`) by default.
-    * `"functions"` - Normal functions.
-    * `"arrowFunctions"` - Arrow functions.
-    * `"generatorFunctions"` - Generator functions.
-    * `"methods"` - Class methods and method shorthands of object literals.
-    * `"generatorMethods"` - Class methods and method shorthands of object literals with generator.
-    * `"getters"` - Getters.
-    * `"setters"` - Setters.
-    * `"constructors"` - Class constructors.
-    * `"asyncFunctions"` - Async functions.
-    * `"asyncMethods"` - Async class methods and method shorthands of object literals.
+- `allow` (`string[]`) - A list of kind to allow empty functions. List items are some of the following strings. An empty array (`[]`) by default.
+    - `"functions"` - Normal functions.
+    - `"arrowFunctions"` - Arrow functions.
+    - `"generatorFunctions"` - Generator functions.
+    - `"methods"` - Class methods and method shorthands of object literals.
+    - `"generatorMethods"` - Class methods and method shorthands of object literals with generator.
+    - `"getters"` - Getters.
+    - `"setters"` - Setters.
+    - `"constructors"` - Class constructors.
+    - `"asyncFunctions"` - Async functions.
+    - `"asyncMethods"` - Async class methods and method shorthands of object literals.
 
 ### allow: functions
 
@@ -203,10 +202,10 @@ Examples of **correct** code for the `{ "allow": ["functions"] }` option:
 
 function foo() {}
 
-var bar = function() {};
+var bar = function () {};
 
 var obj = {
-    foo: function() {}
+    foo: function () {}
 };
 ```
 
@@ -237,10 +236,10 @@ Examples of **correct** code for the `{ "allow": ["generatorFunctions"] }` optio
 
 function* foo() {}
 
-var bar = function*() {};
+var bar = function* () {};
 
 var obj = {
-    foo: function*() {}
+    foo: function* () {}
 };
 ```
 
@@ -355,7 +354,7 @@ Examples of **correct** code for the `{ "allow": ["asyncFunctions"] }` options:
 ```js
 /*eslint no-empty-function: ["error", { "allow": ["asyncFunctions"] }]*/
 
-async function a(){}
+async function a() {}
 ```
 
 :::

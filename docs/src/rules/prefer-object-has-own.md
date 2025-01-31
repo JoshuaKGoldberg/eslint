@@ -2,16 +2,14 @@
 title: prefer-object-has-own
 rule_type: suggestion
 further_reading:
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn
+    - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn
 ---
-
-
 
 It is very common to write code like:
 
 ```js
 if (Object.prototype.hasOwnProperty.call(object, "foo")) {
-  console.log("has property foo");
+    console.log("has property foo");
 }
 ```
 
@@ -21,7 +19,7 @@ Introduced in ES2022, `Object.hasOwn()` is a shorter alternative to `Object.prot
 
 ```js
 if (Object.hasOwn(object, "foo")) {
-  console.log("has property foo")
+    console.log("has property foo");
 }
 ```
 
