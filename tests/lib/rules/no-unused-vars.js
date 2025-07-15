@@ -6103,7 +6103,13 @@ export class Foo {
 			],
 		},
 		{
-			code: "import { Nullable } from 'nullable';\nconst a: string = 'hello';\nconsole.log(a);",
+			code: `
+import { Nullable } from 'nullable';
+
+const a: string = 'hello';
+
+console.log(a);
+`,
 			errors: [
 				{
 					column: 10,
@@ -6112,11 +6118,17 @@ export class Foo {
 						additional: "",
 						varName: "Nullable",
 					},
-					line: 1,
+					line: 2,
 					messageId: "unusedVar",
 					suggestions: [
 						{
-							output: "\nconst a: string = 'hello';\nconsole.log(a);",
+							output: `
+
+
+const a: string = 'hello';
+
+console.log(a);
+`,
 							messageId: "removeVar",
 							data: { varName: "Nullable" },
 						},
